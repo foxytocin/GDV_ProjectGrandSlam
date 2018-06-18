@@ -13,17 +13,20 @@ public class Welt_Generierung : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		GameObject lightGameObject = new GameObject("The Light");
-        Light lightComp = lightGameObject.AddComponent<Light>();
-        lightComp.color = Color.blue;
-        lightGameObject.transform.position = new Vector3(0, 5, 0);
-				
-		worldsize = 40;
+	worldsize = 10;
+
+		GameObject lightGameObject = new GameObject("The Light1");
+      Light lightComp = lightGameObject.AddComponent<Light>();
+      lightComp.color = Color.blue;
+			lightComp.range = 100;
+			lightComp.shadows = LightShadows.Soft;
+      lightGameObject.transform.position = new Vector3(worldsize/5f, 5f, worldsize/5f);
+
 		wand = (GameObject)Instantiate(Resources.Load("Wand"));
 		bogen = (GameObject)Instantiate(Resources.Load("Bogen"));
 		box = (GameObject)Instantiate(Resources.Load("Box"));
 		plane = GameObject.CreatePrimitive(PrimitiveType.Plane);
-		plane.transform.position = new Vector3(worldsize-0.5f, -0.5f, worldsize-0.5f);
+		plane.transform.position = new Vector3(worldsize-1f, -0.5f, worldsize-1f);
 		plane.transform.localScale = new Vector3(worldsize / 5f, 0, worldsize / 5f);
 
 		createWorld();
@@ -58,15 +61,15 @@ public class Welt_Generierung : MonoBehaviour {
 				wandWorld.transform.parent = transform;
 				wandWorld.name = "wandWorld";
 
-				if(((Mathf.Round(Random.value * 10)) == 0) && (i != 0) && (j != 0) && (i < (worldsize * 2 - 2)) && (i < (worldsize * 2 - 2)))
+				if(((Mathf.Round(Random.value * 10)) == 0) && (i != 0) && (j != 0) && (i < (worldsize * 2 - 2)) && (j < (worldsize * 2 - 2)))
 				{
 					createBogen(i, j);
 				}
 
 				float randomNumber = Mathf.Round(Random.value * 10);
-				if((randomNumber % 4 == 0) && (i < (worldsize * 2 - 2)) && (i < (worldsize * 2 - 2)))
+				if((randomNumber % 3 == 0) && (i < (worldsize * 2 - 2)) && (j < (worldsize * 2 - 2)))
 				{
-					if(randomNumber % 3 == 0)
+					if(randomNumber % 2 == 0)
 					{
 						createBox(i+1, j);
 					} else {
