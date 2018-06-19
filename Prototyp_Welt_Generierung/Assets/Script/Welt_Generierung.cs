@@ -10,7 +10,8 @@ public class Welt_Generierung : MonoBehaviour {
 	GameObject bogen;
 	GameObject box;
 	GameObject plane;
-
+	float rotat = 0f;
+	
 	// Use this for initialization
 	void Start () {
 	worldsize = 10;
@@ -58,8 +59,10 @@ public class Welt_Generierung : MonoBehaviour {
 				GameObject wandWorld = (GameObject)Instantiate(wand);
 				wandWorld.transform.position = new Vector3(i, 0, j);
 				wandWorld.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+				wandWorld.transform.eulerAngles += new Vector3(0, rotat, 0);
 				wandWorld.transform.parent = transform;
 				wandWorld.name = "wandWorld";
+				rotat += 90f;
 
 				if(((Mathf.Round(Random.value * 10)) == 0) && (i != 0) && (j != 0) && (i < (worldsize * 2 - 2)) && (j < (worldsize * 2 - 2)))
 				{
@@ -80,7 +83,6 @@ public class Welt_Generierung : MonoBehaviour {
 		}
 	}
 
-	float rotat = 0f;
 	void createBogen(float i, float j)
 	{
 		GameObject wandWorld = (GameObject)Instantiate(bogen);
