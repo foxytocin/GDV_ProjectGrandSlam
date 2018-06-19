@@ -27,7 +27,7 @@ public class Welt_Generierung : MonoBehaviour {
 		box = (GameObject)Instantiate(Resources.Load("Box"));
 		plane = GameObject.CreatePrimitive(PrimitiveType.Plane);
 		plane.transform.position = new Vector3(worldsize-1f, -0.5f, worldsize-1f);
-		plane.transform.localScale = new Vector3(worldsize / 5f, 0, worldsize / 5f);
+		plane.transform.localScale = new Vector3((worldsize / 5f), 0, (worldsize / 5f));
 
 		createWorld();
 		Destroy(GameObject.Find("cube_test"));
