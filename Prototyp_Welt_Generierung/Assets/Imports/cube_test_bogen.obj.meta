@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 24a2cbab6f0784fc5849474e95e7dfbf
+guid: 501cd7e28c0ec46e7814f0b0db8fc1e7
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
@@ -11,6 +11,7 @@ ModelImporter:
     2300000: default
     3300000: default
     4300000: default
+    2186277476908879412: ImportLogs
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -50,7 +51,7 @@ ModelImporter:
     importCameras: 1
     importLights: 1
     swapUVChannels: 0
-    generateSecondaryUV: 1
+    generateSecondaryUV: 0
     useFileUnits: 1
     optimizeMeshForGPU: 1
     keepQuads: 0

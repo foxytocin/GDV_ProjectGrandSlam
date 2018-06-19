@@ -84,7 +84,7 @@ public class Welt_Generierung : MonoBehaviour {
 	void createBogen(float i, float j)
 	{
 		GameObject wandWorld = (GameObject)Instantiate(bogen);
-		wandWorld.transform.position = new Vector3(i, 1f, j);
+		wandWorld.transform.position = new Vector3(i, 0.5f, j);
 		wandWorld.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
 		wandWorld.transform.eulerAngles += new Vector3(0, rotat, 0);
 		wandWorld.transform.parent = transform;
