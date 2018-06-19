@@ -13,6 +13,7 @@ public class StartWorld: MonoBehaviour {
         playerID++;
         PlayerScript playerOne = new PlayerScript(playerID);
         playerList.Add(playerOne);
+        Debug.Log("Player erstellt!");
         /*playerID++;
         Player playerTwo = new Player(playerID);
         playerList.Add(playerTwo);

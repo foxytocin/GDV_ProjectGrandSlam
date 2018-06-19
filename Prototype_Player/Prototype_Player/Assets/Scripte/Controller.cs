@@ -11,20 +11,23 @@ public class Controller : MonoBehaviour
     {
         this.playerID = playerID;
         this.body = body;
+        Debug.Log("Im Controller!");
 
     }
 
-    void move()
+    public void move()
     {
+        Debug.Log("move");
         body.transform.Translate(InputManager.MainJoystick());
     }
 
-	void Update ()
+    void Update()
     {
         move();
 
         if (InputManager.XButton())
-            Debug.Log(InputManager.MainJoystick());
+            Debug.Log("Bombe", gameObject);
+    }
 
-	}
 }
+        

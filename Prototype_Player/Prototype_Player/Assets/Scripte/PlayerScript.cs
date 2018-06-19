@@ -19,6 +19,7 @@ public class PlayerScript : MonoBehaviour {
         controller = new Controller(playerID, body);
         body = GameObject.CreatePrimitive(PrimitiveType.Cube);
         body.name = "Player_" + playerID.ToString();
+        Debug.Log(body.name);
         life = 3;
         avaibleBombs = 1;
         speed = 1;
@@ -28,6 +29,6 @@ public class PlayerScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-		
-	}
+
+    }
 }

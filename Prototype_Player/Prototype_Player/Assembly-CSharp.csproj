@@ -55,11 +55,11 @@
      <Compile Include="Assets\Scripte\InputManager.cs" />
      <Compile Include="Assets\Scripte\PlayerScript.cs" />
      <Compile Include="Assets\Scripte\StartWorld.cs" />
- <Reference Include="Unity.PackageManagerUI.Editor">
- <HintPath>D:/User/Sebastian/Desktop/GDV/GDV_ProjectGrandSlam/Prototype_Player/Prototype_Player/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
- </Reference>
  <Reference Include="UnityEditor.StandardEvents">
  <HintPath>D:/User/Sebastian/Desktop/GDV/GDV_ProjectGrandSlam/Prototype_Player/Prototype_Player/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.PackageManagerUI.Editor">
+ <HintPath>D:/User/Sebastian/Desktop/GDV/GDV_ProjectGrandSlam/Prototype_Player/Prototype_Player/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.AIModule">
  <HintPath>F:/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
