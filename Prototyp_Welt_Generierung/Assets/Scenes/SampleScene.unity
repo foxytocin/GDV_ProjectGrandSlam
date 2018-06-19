@@ -207,6 +207,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   worldsize: 0
+  wand: {fileID: 100000, guid: cbc71d178bbe94adfa5b3800e569a1d4, type: 3}
+  bogen: {fileID: 100000, guid: 501cd7e28c0ec46e7814f0b0db8fc1e7, type: 3}
+  box: {fileID: 100000, guid: 5213e1b6a377d47c7b0058f74b775baf, type: 3}
 --- !u!4 &1124136711
 Transform:
   m_ObjectHideFlags: 0

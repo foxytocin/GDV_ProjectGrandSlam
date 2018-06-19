@@ -6,34 +6,28 @@ using UnityEngine.SceneManagement;
 public class Welt_Generierung : MonoBehaviour {
 
 	public float worldsize;
-	GameObject wand;
-	GameObject bogen;
-	GameObject box;
+	public GameObject wand;
+	public GameObject bogen;
+	public GameObject box;
 	GameObject plane;
 	float rotat = 0f;
-	
+
 	// Use this for initialization
 	void Start () {
 	worldsize = 10;
 
 		GameObject lightGameObject = new GameObject("The Light1");
-      Light lightComp = lightGameObject.AddComponent<Light>();
-      lightComp.color = Color.blue;
-			lightComp.range = 100;
-			lightComp.shadows = LightShadows.Soft;
-      lightGameObject.transform.position = new Vector3(worldsize/5f, 5f, worldsize/5f);
+    Light lightComp = lightGameObject.AddComponent<Light>();
+    lightComp.color = Color.blue;
+		lightComp.range = 100;
+		lightComp.shadows = LightShadows.Soft;
+    lightGameObject.transform.position = new Vector3(worldsize/5f, 5f, worldsize/5f);
 
-		wand = (GameObject)Instantiate(Resources.Load("Wand"));
-		bogen = (GameObject)Instantiate(Resources.Load("Bogen"));
-		box = (GameObject)Instantiate(Resources.Load("Box"));
 		plane = GameObject.CreatePrimitive(PrimitiveType.Plane);
 		plane.transform.position = new Vector3(worldsize-1f, -0.5f, worldsize-1f);
 		plane.transform.localScale = new Vector3((worldsize / 5f), 0, (worldsize / 5f));
 
 		createWorld();
-		Destroy(GameObject.Find("cube_test"));
-		Destroy(GameObject.Find("cube_test_bogen"));
-		Destroy(GameObject.Find("cube_test_box"));
 	}
 
 	// Update is called once per frame
