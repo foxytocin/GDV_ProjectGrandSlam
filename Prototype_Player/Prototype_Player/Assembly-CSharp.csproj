@@ -51,7 +51,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripte\Controller.cs" />
      <Compile Include="Assets\Scripte\InputManager.cs" />
      <Compile Include="Assets\Scripte\PlayerScript.cs" />
      <Compile Include="Assets\Scripte\StartWorld.cs" />

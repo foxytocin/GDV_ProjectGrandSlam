@@ -38,7 +38,33 @@ public class PlayerScript : MonoBehaviour {
     // Update is called once per frame
     public void  move()
     {
-        Debug.Log("move");
-        body.transform.Translate(InputManager.MainJoystick());
+        switch(playerID)
+        {
+            case 0:
+                Debug.Log("move" + playerID.ToString());
+                body.transform.Translate(InputManager.OneMainJoystick());
+                break;
+
+            case 1:
+                Debug.Log("move" + playerID.ToString());
+                body.transform.Translate(InputManager.TwoMainJoystick());
+                break;
+
+            case 2:
+                Debug.Log("move" + playerID.ToString());
+                body.transform.Translate(InputManager.ThreeMainJoystick());
+                break;
+
+            case 3:
+                Debug.Log("move" + playerID.ToString());
+                body.transform.Translate(InputManager.FourMainJoystick());
+                break;
+
+            default:
+                Debug.Log("move_Exeption");
+                break;
+
+        }
+       
     }
 }
