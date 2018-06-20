@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour {
 
-    Controller controller;
     GameObject body;
     int playerID;
     int life;
@@ -16,7 +15,6 @@ public class PlayerScript : MonoBehaviour {
 	public PlayerScript(int playerID)
     {
         this.playerID = playerID;
-        controller = new Controller(playerID, body);
         body = GameObject.CreatePrimitive(PrimitiveType.Cube);
         body.name = "Player_" + playerID.ToString();
         Debug.Log(body.name);
@@ -25,10 +23,22 @@ public class PlayerScript : MonoBehaviour {
         speed = 1;
         range = 1;
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    void Start()
     {
 
+    }
+
+    public void setBomb()
+    {
+
+        Debug.Log("Bombe_Player_"+ playerID.ToString());
+    }
+
+    // Update is called once per frame
+    public void  move()
+    {
+        Debug.Log("move");
+        body.transform.Translate(InputManager.MainJoystick());
     }
 }

@@ -6,6 +6,7 @@ public class StartWorld: MonoBehaviour {
 
     List<PlayerScript> playerList;
     int playerID;
+
 	// Use this for initialization
 	void Start () {
         playerID = 0;
@@ -14,6 +15,8 @@ public class StartWorld: MonoBehaviour {
         PlayerScript playerOne = new PlayerScript(playerID);
         playerList.Add(playerOne);
         Debug.Log("Player erstellt!");
+        
+        
         /*playerID++;
         Player playerTwo = new Player(playerID);
         playerList.Add(playerTwo);
@@ -21,7 +24,10 @@ public class StartWorld: MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		
-	}
+	void Update ()
+    {
+        playerList[0].move();
+        if (InputManager.XButton())
+            Debug.Log("Bombe", gameObject);
+    }
 }
