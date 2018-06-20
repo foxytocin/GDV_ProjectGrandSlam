@@ -24,15 +24,11 @@ public class PlayerScript : MonoBehaviour {
         range = 1;
     }
 
-    void Start()
-    {
-
-    }
-
     public void setBomb()
-    {
-
+    { 
         Debug.Log("Bombe_Player_"+ playerID.ToString());
+        //placeBomb(body.trasform.position, playerID, range)
+        //avaible--;
     }
 
     // Update is called once per frame
@@ -67,4 +63,5 @@ public class PlayerScript : MonoBehaviour {
         }
        
     }
+
 }
