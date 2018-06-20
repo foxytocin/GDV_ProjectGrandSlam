@@ -11,6 +11,8 @@ public class PlayerScript : MonoBehaviour {
 	public GameObject Bombe;
 	float angle = 30f;
 
+	public int bombCount = 10;
+
 	// Use this for initialization
 	void Start () {
 		player = GameObject.CreatePrimitive(PrimitiveType.Sphere);
@@ -93,8 +95,13 @@ public class PlayerScript : MonoBehaviour {
 	{
 		if(World.WorldArray[(int)xPosition,(int)zPosition] == null)
 		{
-			World.WorldArray[(int)xPosition,(int)zPosition] = Instantiate(Bombe, new Vector3(xPosition, -0.1f, zPosition), Quaternion.Euler(0, angle, 0));
-			angle += angle;
+			if(bombCount > 0) {
+				bombCount--;
+				World.WorldArray[(int)xPosition,(int)zPosition] = Instantiate(Bombe, new Vector3(xPosition, -0.1f, zPosition), Quaternion.Euler(0, angle, 0));
+				angle += angle;
+
+				Destroy(World.WorldArray[(int)xPosition,(int)zPosition], 3f);
+			}
 		}
 	}
 
