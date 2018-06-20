@@ -15,10 +15,15 @@ public class World : MonoBehaviour {
 	float angle = 0f;
 	public float generationStepDelay;
 
-	void Start ()
+    private void Awake()
+    {
+        ColumnLength = 31;
+        RowHeight = 21;
+    }
+
+    void Start ()
 	{
-		ColumnLength = 31;
-		RowHeight = 21;
+		
 		WorldArray = new GameObject[ColumnLength,RowHeight];
 		Boden = (GameObject)Instantiate(Boden, new Vector3((ColumnLength / 2f) - 0.5f, -0.5f, (RowHeight / 2f) - 0.5f), Quaternion.identity);
 		//Boden.transform.position = new Vector3((ColumnLength / 2f) - 0.5f, -0.5f, (RowHeight / 2f) - 0.5f);
