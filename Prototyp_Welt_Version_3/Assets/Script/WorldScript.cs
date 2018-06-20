@@ -13,7 +13,7 @@ public class WorldScript : MonoBehaviour {
 	public GameObject levelBogen;
 	public GameObject levelBoden;
 	float elementRotation = 0f;
-	float generationStepDelay;
+	float generationStepDelay = 0.01f;
 
 	void Awake()
 	{
@@ -66,10 +66,25 @@ public class WorldScript : MonoBehaviour {
 				}
 
 				//Generiert einen Bogen: Nicht Teil des Arrays, da es keinen Einfluss auf das Spiel hat.
-					if(((Mathf.Round(Random.value * 10)) == 0) && ((i > 1) && (j > 1)) && ((i < levelBreite - 2) && (j < levelTiefe - 2)))
+				if(((Mathf.Round(Random.value * 10)) == 0) && ((i > 1) && (j > 1)) && ((i < levelBreite - 2) && (j < levelTiefe - 2)))
 				{
-					Instantiate(levelBogen, new Vector3(i, 0.5f, j), Quaternion.Euler(0, elementRotation, 0));
-					elementRotation += 90f;
+					// Instantiate(levelBogen, new Vector3(i, 0.5f, j), Quaternion.Euler(0, elementRotation, 0));
+					// elementRotation += 90f;
+					if(((Mathf.Round(Random.value * 10)) % 2 == 0))
+					{
+						Instantiate(levelWand, new Vector3(i, 1, j), Quaternion.Euler(0, elementRotation, 0));
+						Instantiate(levelWand, new Vector3(i, 2, j), Quaternion.Euler(0, elementRotation, 0));
+						Instantiate(levelWand, new Vector3(i+1, 2, j), Quaternion.Euler(0, elementRotation, 0));
+						Instantiate(levelWand, new Vector3(i+2, 1, j), Quaternion.Euler(0, elementRotation, 0));
+						Instantiate(levelWand, new Vector3(i+2, 2, j), Quaternion.Euler(0, elementRotation, 0));
+					} else {
+						Instantiate(levelWand, new Vector3(i, 1, j), Quaternion.Euler(0, elementRotation, 0));
+						Instantiate(levelWand, new Vector3(i, 2, j), Quaternion.Euler(0, elementRotation, 0));
+						Instantiate(levelWand, new Vector3(i, 2, j+1), Quaternion.Euler(0, elementRotation, 0));
+						Instantiate(levelWand, new Vector3(i, 1, j+2), Quaternion.Euler(0, elementRotation, 0));
+						Instantiate(levelWand, new Vector3(i, 2, j+2), Quaternion.Euler(0, elementRotation, 0));
+					}
+
 				}
 			}
 		}
@@ -90,7 +105,8 @@ public class WorldScript : MonoBehaviour {
 					if((Mathf.Round(Random.value * 10)) % 4 == 0)
 					{
 						yield return delay;
-						WorldArray[i,j] = Instantiate(levelKiste, new Vector3(i, 0, j), Quaternion.identity);
+						WorldArray[i,j] = Instantiate(levelKiste, new Vector3(i, 0, j), Quaternion.Euler(0, elementRotation, 0));
+						elementRotation += 90f;
 					}
 				}
 			}

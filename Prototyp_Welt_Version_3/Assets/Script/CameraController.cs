@@ -7,17 +7,17 @@ public class CameraController : MonoBehaviour {
     public WorldScript World;
     public GameObject player;
 
-    private float speed = 3f;
-    private Vector3 offset = new Vector3(0, 10, 0);
+    private float speed = 4f;
+    private Vector3 offset = new Vector3(0, 14, 0);
 
 
     // Use this for initialization
     void Start ()
     {
       player = GameObject.Find("Player 1");
-      int x = World.levelBreite * 2 - 1;
-      int z = World.levelTiefe * 2 - 1;
-      this.transform.position = new Vector3(x / 2, z * (x * 0.08f), z / 2);
+      float x = World.levelBreite;
+      float z = World.levelTiefe;
+      this.transform.position = new Vector3(x / 2, x * (z * 0.07f), z / 2);
     }
 
     private void LateUpdate()
