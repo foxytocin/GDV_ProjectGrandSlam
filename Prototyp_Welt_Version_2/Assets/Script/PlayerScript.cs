@@ -13,12 +13,17 @@ public class PlayerScript : MonoBehaviour {
 
 	public int bombCount = 10;
 
-	// Use this for initialization
-	void Start () {
-		player = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-		player.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
-		player.transform.position = new Vector3(1f, 0, 1f);
-		player.name = "Player 1";
+    // Use this for initialization
+    private void Awake()
+    {
+        player = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        player.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
+        player.transform.position = new Vector3(1f, 0, 1f);
+        player.name = "Player 1";
+    }
+
+    void Start () {
+		
 	}
 
 
