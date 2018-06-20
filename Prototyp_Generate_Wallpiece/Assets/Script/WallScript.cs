@@ -9,10 +9,9 @@ public class WallScript : MonoBehaviour {
 		private Mesh wallPiece;
 		List<Vector3> vtx = new List<Vector3>();
 		List<int> tris = new List<int>();
-		List<Vector3> faceNormals = new List<Vector3>();
-		List<Vector3> verticesNormals = new List<Vector3>();
+		Vector2[] uvs = new Vector2[4];
 
-		public float heightWall = 3f;
+		public float heightWall = 1f;
 
 	// Use this for initialization
 	void Start ()
@@ -22,6 +21,7 @@ public class WallScript : MonoBehaviour {
 		wallPiece.name = "WallPiece";
 		createWallPiece(heightWall);
 		makeFace();
+		makeUVS();
 		drawWallPiece();
 	}
 
@@ -29,67 +29,84 @@ public class WallScript : MonoBehaviour {
 	{
 		vtx.Add(transform.position);
 		vtx.Add(transform.position + new Vector3(1f, 0, 0));
-		vtx.Add(transform.position + new Vector3(1f, 0, 1f));
-		vtx.Add(transform.position + new Vector3(0, 0, 1f));
+		// vtx.Add(transform.position + new Vector3(1f, 0, 1f));
+		// vtx.Add(transform.position + new Vector3(0, 0, 1f));
 		transform.Translate(0 , height, 0);
 		vtx.Add(transform.position);
 		vtx.Add(transform.position + new Vector3(1f, 0, 0));
-		vtx.Add(transform.position + new Vector3(1f, 0, 1f));
-		vtx.Add(transform.position + new Vector3(0, 0, 1f));
+		// vtx.Add(transform.position + new Vector3(1f, 0, 1f));
+		// vtx.Add(transform.position + new Vector3(0, 0, 1f));
 	}
 
 	void drawWallPiece()
 	{
 		wallPiece.vertices = vtx.ToArray();
 		wallPiece.triangles = tris.ToArray();
+		wallPiece.uv = uvs;
 		//wallPiece.normals = verticesNormals.ToArray();
+		wallPiece.RecalculateNormals();
 
 		MeshRenderer rend = GetComponent<MeshRenderer>();
 		rend.material.SetColor("_Color", Color.grey);
 	}
 
-	int i = 0;
 	void makeFace()
 	{
 		tris.Add(0);
-		tris.Add(4);
-		tris.Add(5);
+		tris.Add(2);
+		tris.Add(3);
 
 		tris.Add(0);
-		tris.Add(5);
+		tris.Add(3);
 		tris.Add(1);
 
-		tris.Add(1);
-		tris.Add(5);
-		tris.Add(6);
+		// tris.Add(1);
+		// tris.Add(5);
+		// tris.Add(6);
+		//
+		// tris.Add(1);
+		// tris.Add(6);
+		// tris.Add(2);
+		//
+		// tris.Add(2);
+		// tris.Add(6);
+		// tris.Add(7);
+		//
+		// tris.Add(2);
+		// tris.Add(7);
+		// tris.Add(3);
+		//
+		// tris.Add(3);
+		// tris.Add(7);
+		// tris.Add(4);
+		//
+		// tris.Add(3);
+		// tris.Add(4);
+		// tris.Add(0);
+		//
+		// tris.Add(5);
+		// tris.Add(4);
+		// tris.Add(7);
+		//
+		// tris.Add(5);
+		// tris.Add(7);
+		// tris.Add(6);
+		//
+		// tris.Add(2);
+		// tris.Add(3);
+		// tris.Add(0);
+		//
+		// tris.Add(1);
+		// tris.Add(2);
+		// tris.Add(0);
+	}
 
-		tris.Add(1);
-		tris.Add(6);
-		tris.Add(2);
 
-		tris.Add(2);
-		tris.Add(6);
-		tris.Add(7);
-
-		tris.Add(2);
-		tris.Add(7);
-		tris.Add(3);
-
-		tris.Add(3);
-		tris.Add(7);
-		tris.Add(4);
-
-		tris.Add(3);
-		tris.Add(4);
-		tris.Add(0);
-
-		tris.Add(5);
-		tris.Add(4);
-		tris.Add(7);
-
-		tris.Add(5);
-		tris.Add(7);
-		tris.Add(6);
+	void makeUVS() {
+   uvs[0] = new Vector2(0,0); //top-left
+   uvs[1] = new Vector2(0,1); //top-right
+   uvs[2] = new Vector2(1,0); //bottom-left
+   uvs[3] = new Vector2(1,1); //bottom-right
 	}
 
 	// void makeFaceNormals()
