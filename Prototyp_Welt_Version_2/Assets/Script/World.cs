@@ -29,7 +29,7 @@ public class World : MonoBehaviour {
 
 	void Update ()
 	{
-		if(Input.GetKeyDown("space"))
+		if(Input.GetKeyDown("r"))
 		{
 			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 		}
@@ -45,19 +45,19 @@ public class World : MonoBehaviour {
 				if(i % 2 == 0 && j % 2 == 0)
 			 	{
 					//Generiert die Waende (jedes zweite Feld).
-					WorldArray[i,j] = (GameObject)Instantiate(Wall, new Vector3(i, 0, j), Quaternion.Euler(0, angle, 0));
+					WorldArray[i,j] = Instantiate(Wall, new Vector3(i, 0, j), Quaternion.Euler(0, angle, 0));
 
 					//Generiert eine Saeule
 					if(((Mathf.Round(Random.value * 10)) % 4 == 0))
 					{
-						GameObject Saeule = (GameObject)Instantiate(Wall, new Vector3(i, 1f, j), Quaternion.Euler(0, angle, 0));
+						Instantiate(Wall, new Vector3(i, 1f, j), Quaternion.Euler(0, angle, 0));
 						angle += 90f;
 					}
 
 					//Bogen erzeugen: Nicht Teil des Arrays, da es keinen Einfluss auf das Spiel hat.
  					if(((Mathf.Round(Random.value * 10)) == 0) && ((i > 1) && (j > 1)) && ((i < ColumnLength - 2) && (j < RowHeight -2)))
 					{
-						Bogen = (GameObject)Instantiate(Bogen, new Vector3(i, 0.5f, j), Quaternion.Euler(0, angle, 0));
+						Instantiate(Bogen, new Vector3(i, 0.5f, j), Quaternion.Euler(0, angle, 0));
 						angle += 90f;
 					}
 
@@ -65,7 +65,7 @@ public class World : MonoBehaviour {
 			 	} else {
 					if((Mathf.Round(Random.value * 10)) % 4 == 0)
 					{
-						WorldArray[i,j] = (GameObject)Instantiate(Box, new Vector3(i, 0, j), Quaternion.identity);
+						WorldArray[i,j] = Instantiate(Box, new Vector3(i, 0, j), Quaternion.identity);
 					}
 				}
     	}

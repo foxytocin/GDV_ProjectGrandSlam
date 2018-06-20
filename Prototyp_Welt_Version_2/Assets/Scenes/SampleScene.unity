@@ -333,6 +333,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dff053ec6efa548eb899bade09296d63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  World: {fileID: 958779247}
+  Bombe: {fileID: 1594194604120938, guid: 46887b7833d5746df82e75f1433b7d7a, type: 2}
 --- !u!4 &1847533653
 Transform:
   m_ObjectHideFlags: 0

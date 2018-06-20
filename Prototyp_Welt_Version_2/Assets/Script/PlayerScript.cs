@@ -7,6 +7,9 @@ public class PlayerScript : MonoBehaviour {
 	bool moveX = true;
 	bool moveZ = true;
 	GameObject player;
+	public World World;
+	public GameObject Bombe;
+	float angle = 30f;
 
 	// Use this for initialization
 	void Start () {
@@ -65,6 +68,11 @@ public class PlayerScript : MonoBehaviour {
 			//whatsNext(1);
 			Destroy(GameObject.Find("Box(Clone)"));
 		}
+
+		if(Input.GetKey("space")) {
+			//whatsNext(1);
+			createBomb(player);
+		}
 	}
 
 	float xPosition;
@@ -73,18 +81,21 @@ public class PlayerScript : MonoBehaviour {
 		xPosition = Mathf.Round(player.transform.position.x);
 		zPosition = Mathf.Round(player.transform.position.z);
 
-		if(FindObjectOfType<World>().WorldArray[(int)xPosition,(int)zPosition] != null)
+		if(World.WorldArray[(int)xPosition,(int)zPosition] != null)
 		{
-			Debug.Log("Object an aktueller Stelle: " +FindObjectOfType<World>().WorldArray[(int)xPosition,(int)zPosition]);
+			Debug.Log("Object an aktueller Stelle: " +World.WorldArray[(int)xPosition,(int)zPosition]);
 		}	else {
 			Debug.Log("Object an aktueller Stelle: Freier Weg");
 		}
+	}
 
-		// moveZ = xPosition % 2 != 0 ? true : false;
-		// moveX = zPosition % 2 != 0 ? true : false;
-
-		// Debug.Log("X-Position: " +moveX);
-		// Debug.Log("Z-Position: " +moveZ);
+	void createBomb(GameObject player)
+	{
+		if(World.WorldArray[(int)xPosition,(int)zPosition] == null)
+		{
+			World.WorldArray[(int)xPosition,(int)zPosition] = Instantiate(Bombe, new Vector3(xPosition, -0.1f, zPosition), Quaternion.Euler(0, angle, 0));
+			angle += angle;
+		}
 	}
 
 	// void whatsNext(int richtung)
