@@ -172,13 +172,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 430263688}
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
+  m_LocalRotation: {x: 0.69205433, y: -0.052127153, z: 0.37484115, w: 0.61468506}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: 62.857002, y: -274.612, z: -238.424}
 --- !u!1 &958779246
 GameObject:
   m_ObjectHideFlags: 0
@@ -206,13 +206,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98503f13ae04745cb9259cf20046e00b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ColumnLength: 0
-  RowHeight: 0
-  Wall: {fileID: 1078743792634130, guid: 275a8870c49ab4891839312073f5d42c, type: 2}
-  Box: {fileID: 1616431378244140, guid: 1898c63ead09f4ad193772dbc887f282, type: 2}
-  Bogen: {fileID: 1759410074061626, guid: a8b5d7aed78c848b1abfb2ffd155bbfc, type: 2}
-  Boden: {fileID: 1890527702519768, guid: fabeec65a6ae14912869fb9650bd9d14, type: 2}
-  generationStepDelay: 0
+  levelBreite: 0
+  levelTiefe: 0
+  levelWand: {fileID: 1014234322211284, guid: 003ae408beb774f1db89ee2398ed91e8, type: 2}
+  levelKiste: {fileID: 1085317029149138, guid: 80cfb0b10b17b45d28c5666f5160af1e, type: 2}
+  levelBogen: {fileID: 1759410074061626, guid: a8b5d7aed78c848b1abfb2ffd155bbfc, type: 2}
+  levelBoden: {fileID: 1382551801169860, guid: fabeec65a6ae14912869fb9650bd9d14, type: 2}
 --- !u!4 &958779248
 Transform:
   m_ObjectHideFlags: 0
@@ -237,6 +236,7 @@ GameObject:
   - component: {fileID: 1471981542}
   - component: {fileID: 1471981541}
   - component: {fileID: 1471981540}
+  - component: {fileID: 1471981544}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -276,7 +276,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 30
   orthographic: 0
   orthographic size: 8
   m_Depth: -1
@@ -307,6 +307,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!114 &1471981544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1471981539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f07c3bf3b7a948c59a07d6c56ad74d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  World: {fileID: 958779247}
+  player: {fileID: 1847533651}
 --- !u!1 &1847533651
 GameObject:
   m_ObjectHideFlags: 0
@@ -336,7 +349,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   World: {fileID: 958779247}
   Bombe: {fileID: 1594194604120938, guid: 46887b7833d5746df82e75f1433b7d7a, type: 2}
-  bombCount: 10
+  bombCount: 100
 --- !u!4 &1847533653
 Transform:
   m_ObjectHideFlags: 0

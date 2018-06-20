@@ -7,20 +7,19 @@ public class PlayerScript : MonoBehaviour {
 	bool moveX = true;
 	bool moveZ = true;
 	GameObject player;
-	public World World;
+	public WorldScript World;
 	public GameObject Bombe;
 	float angle = 30f;
 
-	public int bombCount = 10;
+	public int bombCount = 100;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		player = GameObject.CreatePrimitive(PrimitiveType.Sphere);
 		player.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
 		player.transform.position = new Vector3(1f, 0, 1f);
 		player.name = "Player 1";
 	}
-
 
 	float speedMultiply = 0.01f;
 	// Update is called once per frame
@@ -29,33 +28,33 @@ public class PlayerScript : MonoBehaviour {
 		if((Input.GetKey("a") || Input.GetKey("d") || Input.GetKey("w") || Input.GetKey("s")) && (moveX || moveZ)) {
 			speed();
 			wallTest(player);
-		} else if(speedMultiply > 0.05f) {
-			speedMultiply -= 0.05f;
+		} else if(speedMultiply > 0.1f) {
+			speedMultiply -= 0.1f;
 			//Debug.Log("Increase SM: " +speedMultiply);
 		} if(speedMultiply < 0.01f) {
 			speedMultiply = 0.01f;
 			//Debug.Log("Setting SM: " +speedMultiply);
 		}
 
-		if(Input.GetKey("a")) {
+		if(Input.GetKey("a") && player.transform.position.x > 0) {
 			//whatsNext(1);
 			if(moveX)
 				player.transform.Translate(speedMultiply*-1f*Time.deltaTime,0,0);
 		}
 
-		if(Input.GetKey("d")) {
+		if(Input.GetKey("d") && player.transform.position.x < World.levelBreite - 1) {
 			//whatsNext(2);
 			if(moveX)
 				player.transform.Translate(speedMultiply*1f*Time.deltaTime,0,0);
 		}
 
-		if(Input.GetKey("w")) {
+		if(Input.GetKey("w") && player.transform.position.z < World.levelTiefe - 1) {
 			//whatsNext(3);
 			if(moveZ)
 				player.transform.Translate(0,0,speedMultiply*1f*Time.deltaTime);
 		}
 
-		if(Input.GetKey("s")) {
+		if(Input.GetKey("s") && player.transform.position.z > 0) {
 			//whatsNext(4);
 			if(moveZ)
 				player.transform.Translate(0,0,speedMultiply*-1f*Time.deltaTime);
@@ -100,7 +99,7 @@ public class PlayerScript : MonoBehaviour {
 				World.WorldArray[(int)xPosition,(int)zPosition] = Instantiate(Bombe, new Vector3(xPosition, -0.1f, zPosition), Quaternion.Euler(0, angle, 0));
 				angle += angle;
 
-				Destroy(World.WorldArray[(int)xPosition,(int)zPosition], 3f);
+				//Destroy(World.WorldArray[(int)xPosition,(int)zPosition], 3f);
 			}
 		}
 	}
@@ -162,7 +161,7 @@ public class PlayerScript : MonoBehaviour {
 		// }
 
 	void speed() {
-		if(speedMultiply < 5.0f) {
+		if(speedMultiply < 7.0f) {
 				speedMultiply += (speedMultiply / (speedMultiply * 10.0f));
 				//Debug.Log("Degreace SM: " +speedMultiply);
 		}
