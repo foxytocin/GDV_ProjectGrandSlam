@@ -62,12 +62,12 @@ public class PlayerScript : MonoBehaviour {
 
 		if(Input.GetKey("m")) {
 			//whatsNext(1);
-			Destroy(GameObject.Find("Wand(Clone)"));
+			Destroy(GameObject.Find("Wand"));
 		}
 
 		if(Input.GetKey("b")) {
 			//whatsNext(1);
-			Destroy(GameObject.Find("Kiste(Clone)"));
+			Destroy(GameObject.Find("Kiste"));
 		}
 
 		if(Input.GetKey("space")) {

@@ -57,12 +57,20 @@ public class WorldScript : MonoBehaviour {
      	{
 				yield return delay;
 				//Generiert die Waende (jedes zweite Feld).
-				WorldArray[i,j] = Instantiate(levelWand, new Vector3(i, 0, j), Quaternion.Euler(0, elementRotation, 0));
+				GameObject wand;
+				wand = Instantiate(levelWand, new Vector3(i, 0, j), Quaternion.Euler(0, elementRotation, 0));
+				wand.name = "Wand";
+				wand.transform.parent = transform;
+				WorldArray[i,j] = wand;
 
 				//Generiert eine Saeule
 				if(((Mathf.Round(Random.value * 10)) % 4 == 0))
 				{
-					Instantiate(levelWand, new Vector3(i, 1f, j), Quaternion.Euler(0, elementRotation, 0));
+					GameObject wand_saule;
+					wand_saule = Instantiate(levelWand, new Vector3(i, 1f, j), Quaternion.Euler(0, elementRotation, 0));
+					wand_saule.name = "Wand_Saeule";
+					wand_saule.transform.parent = transform;
+					WorldArray[i,j] = wand_saule;
 					elementRotation += 90f;
 				}
 
@@ -107,7 +115,11 @@ public class WorldScript : MonoBehaviour {
 					{
 						yield return delay;
 						kistenCounter++;
-						WorldArray[i,j] = Instantiate(levelKiste, new Vector3(i, 0, j), Quaternion.Euler(0, elementRotation, 0));
+						GameObject kiste;
+						kiste = Instantiate(levelKiste, new Vector3(i, 0, j), Quaternion.Euler(0, elementRotation, 0));
+						kiste.transform.parent = transform;
+						kiste.name = "Kiste";
+						WorldArray[i,j] = kiste;
 						elementRotation += 90f;
 					}
 				}
