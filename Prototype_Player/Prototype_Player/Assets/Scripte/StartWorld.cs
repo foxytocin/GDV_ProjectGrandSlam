@@ -7,27 +7,35 @@ public class StartWorld: MonoBehaviour {
     List<PlayerScript> playerList;
     List<bool> playerIsActiv;
     int playerID;
+    public int players = 0;
+    Vector3 spawnPosition;
+    List<Color> playerColorList;
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+    {
         playerID = 0;
         playerList = new List<PlayerScript>();
         playerIsActiv = new List<bool>();
+        spawnPosition = new Vector3(-2, 0, 0);
+        playerColorList = new List<Color>();
+        playerColorList.Add(new Color(1, 0, 0));
+        playerColorList.Add(new Color(0, 1, 0));
+        playerColorList.Add(new Color(0, 0, 1));
+        playerColorList.Add(new Color(0, 0, 0));
 
-        //Player One
-        PlayerScript playerOne = new PlayerScript(playerID);
-        playerList.Add(playerOne);
-        Debug.Log("Player_1 erstellt!");
-        playerID++;
-        playerIsActiv.Add(true);
 
-        // Player Two
-        PlayerScript playerTwo = new PlayerScript(playerID);
-        playerList.Add(playerTwo);
-        Debug.Log("Player_2 erstellt!");
-        playerID++;
-        playerIsActiv.Add(true);
+        for (int j = 0; j<players;j++)
+        {
+            //Player Generator
+            PlayerScript player = new PlayerScript(playerID, spawnPosition, playerColorList[j]);
+            playerList.Add(player);
+            Debug.Log("Player_" + playerID.ToString() +" erstellt!");
+            playerID++;
+            spawnPosition.x += 2;
+            playerIsActiv.Add(true);
 
+        }
     }
 	
 	// Update is called once per frame

@@ -12,10 +12,12 @@ public class PlayerScript : MonoBehaviour {
     int range;
 
 	// Use this for initialization
-	public PlayerScript(int playerID)
+	public PlayerScript(int playerID, Vector3 spawnPosition, Color playerColor)
     {
         this.playerID = playerID;
         body = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        body.transform.position = spawnPosition;
+        body.GetComponent<Renderer>().material.color = playerColor;
         body.name = "Player_" + playerID.ToString();
         Debug.Log(body.name);
         life = 3;
