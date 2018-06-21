@@ -17,7 +17,7 @@ public class PlayerScript : MonoBehaviour {
 	void Awake () {
 		player = GameObject.CreatePrimitive(PrimitiveType.Sphere);
 		player.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
-		player.transform.position = new Vector3(1f, 0, 1f);
+		player.transform.position = new Vector3(1f, -0.1f, 1f);
 		player.name = "Player 1";
 	}
 
@@ -62,12 +62,12 @@ public class PlayerScript : MonoBehaviour {
 
 		if(Input.GetKey("m")) {
 			//whatsNext(1);
-			Destroy(GameObject.Find("Wall(Clone)"));
+			Destroy(GameObject.Find("Wand(Clone)"));
 		}
 
 		if(Input.GetKey("b")) {
 			//whatsNext(1);
-			Destroy(GameObject.Find("Box(Clone)"));
+			Destroy(GameObject.Find("Kiste(Clone)"));
 		}
 
 		if(Input.GetKey("space")) {

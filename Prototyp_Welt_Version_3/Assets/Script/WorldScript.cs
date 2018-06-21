@@ -12,6 +12,7 @@ public class WorldScript : MonoBehaviour {
 	public GameObject levelKiste;
 	public GameObject levelBogen;
 	public GameObject levelBoden;
+	public int kistenCounter;
 	float elementRotation = 0f;
 	float generationStepDelay = 0.01f;
 
@@ -100,11 +101,12 @@ public class WorldScript : MonoBehaviour {
 	  	for (int j = 0; j < levelTiefe; j++)
 	   	{
 				//if(WorldArray[i,j] == null)
-				if((i % 2 == 0 && j % 2 != 0) || (i % 2 != 0) || (j % 2 != 0))
+				if(((i % 2 == 0 && j % 2 != 0) || (i % 2 != 0) || (j % 2 != 0)) && ((i != 1) || (j != 1)))
 				{
-					if((Mathf.Round(Random.value * 10)) % 4 == 0)
+					if((Mathf.Round(Random.value * 10)) % 3 == 0)
 					{
 						yield return delay;
+						kistenCounter++;
 						WorldArray[i,j] = Instantiate(levelKiste, new Vector3(i, 0, j), Quaternion.Euler(0, elementRotation, 0));
 						elementRotation += 90f;
 					}
