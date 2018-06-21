@@ -212,6 +212,7 @@ MonoBehaviour:
   levelKiste: {fileID: 1085317029149138, guid: 80cfb0b10b17b45d28c5666f5160af1e, type: 2}
   levelBogen: {fileID: 1759410074061626, guid: a8b5d7aed78c848b1abfb2ffd155bbfc, type: 2}
   levelBoden: {fileID: 1382551801169860, guid: fabeec65a6ae14912869fb9650bd9d14, type: 2}
+  kistenCounter: 0
 --- !u!4 &958779248
 Transform:
   m_ObjectHideFlags: 0
