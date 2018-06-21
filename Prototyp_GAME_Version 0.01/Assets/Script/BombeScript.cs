@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class BombeScript : MonoBehaviour {
 
+	public float power;
+	public float ownerPlayerID;
+
 	// Use this for initialization
 	void Start () {
-
+		
 	}
 
 	// Update is called once per frame
