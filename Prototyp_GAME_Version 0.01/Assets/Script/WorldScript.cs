@@ -12,6 +12,8 @@ public class WorldScript : MonoBehaviour {
 	public GameObject levelKiste;
 	public GameObject levelBogen;
 	public GameObject levelBoden;
+	public GameObject Item_SpeedBoost_Prefab;
+    public GameObject Item_SpeedLow_Prefab;
 	public int kistenCounter;
 	float elementRotation = 0f;
 	float generationStepDelay = 0.01f;
@@ -124,6 +126,38 @@ public class WorldScript : MonoBehaviour {
 					}
 				}
 			}
-  	}
+  	    }
+		spawnItem();
+	}
+
+	void spawnItem() {
+		for (int i = 0; i < levelBreite; i++)
+	 	{
+	  	for (int j = 0; j < levelTiefe; j++)
+	   	{
+				//if(WorldArray[i,j] == null)
+				if(((i % 2 == 0 && j % 2 != 0) || (i % 2 != 0) || (j % 2 != 0)) && ((i != 1) || (j != 1)) && WorldArray[i,j] == null)
+				{
+					if((Mathf.Round(Random.value * 10)) == 0)
+					{
+                        if ((Mathf.Round(Random.value * 10)) % 2 == 0) {
+                            GameObject item;
+                            item = Instantiate(Item_SpeedLow_Prefab, new Vector3(i, 0, j), Quaternion.Euler(0, elementRotation, 0));
+                            item.transform.parent = transform;
+                            item.name = "Item_SpeedLow";
+                            WorldArray[i, j] = item;
+                            elementRotation += 90f;
+                        } else {
+                            GameObject item;
+                            item = Instantiate(Item_SpeedBoost_Prefab, new Vector3(i, 0, j), Quaternion.Euler(0, elementRotation, 0));
+                            item.transform.parent = transform;
+                            item.name = "Item_SpeedBoost";
+                            WorldArray[i, j] = item;
+                            elementRotation += 90f;
+                        }
+					}
+				}
+			}
+		}
 	}
 }

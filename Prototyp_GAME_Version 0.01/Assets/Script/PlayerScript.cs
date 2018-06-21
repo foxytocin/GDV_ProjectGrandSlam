@@ -76,10 +76,6 @@ public class PlayerScript : MonoBehaviour {
 			createBomb(player);
 		}
 
-		if(Input.GetKey("i")) {
-			//whatsNext(1);
-			createItem(player);
-		}
 	}
 
 	float xPosition;
@@ -91,6 +87,17 @@ public class PlayerScript : MonoBehaviour {
 		if(World.WorldArray[(int)xPosition,(int)zPosition] != null)
 		{
 			Debug.Log("Object an aktueller Stelle: " +World.WorldArray[(int)xPosition,(int)zPosition]);
+			if(World.WorldArray[(int)xPosition,(int)zPosition].name == "Item_SpeedBoost") {
+				Destroy(World.WorldArray[(int)xPosition,(int)zPosition]);
+				speedMultiply = 10f;
+			}
+            if (World.WorldArray[(int)xPosition, (int)zPosition].name == "Item_SpeedLow")
+            {
+                Destroy(World.WorldArray[(int)xPosition, (int)zPosition]);
+                speedMultiply = 0.5f;
+            }
+
+
 		}	else {
 			Debug.Log("Object an aktueller Stelle: Freier Weg");
 		}
@@ -113,79 +120,8 @@ public class PlayerScript : MonoBehaviour {
 		}
 	}
 
-	void createItem(GameObject player)
-	{
-		if(World.WorldArray[(int)xPosition,(int)zPosition] == null)
-		{
-			GameObject item;
-			item = Instantiate(Item_Prefab, new Vector3(xPosition, -0.1f, zPosition), Quaternion.Euler(0, angle, 0));
-			item.name = "Item from " +player;
-			World.WorldArray[(int)xPosition,(int)zPosition] = item;
-			angle += angle;
-
-				//Destroy(World.WorldArray[(int)xPosition,(int)zPosition], 3f);
-		}
-	}
-
-
-	// void whatsNext(int richtung)
-	// {
-	// 	if(richtung == 4 && (FindObjectOfType<World>().WorldArray[(int)xPosition,(int)zPosition+1] != null)) {
-	// 		moveZ = false;
-	// 	} else {
-	// 		moveZ = true;
-	// 	}
-	// 	if(richtung == 3 && (FindObjectOfType<World>().WorldArray[(int)xPosition,(int)zPosition-1] != null)) {
-	// 		moveZ = false;
-	// 	} else {
-	// 		moveZ = true;
-	// 	}
-	// 	if(richtung == 2 && (FindObjectOfType<World>().WorldArray[(int)xPosition+1,(int)zPosition] != null)) {
-	// 		moveX = false;
-	// 	} else {
-	// 		moveX = true;
-	// 	}
-	// 	if(richtung == 1 && (FindObjectOfType<World>().WorldArray[(int)xPosition-1,(int)zPosition] != null)) {
-	// 		moveX = false;
-	// 	} else {
-	// 		moveX = true;
-	// 	}
-	// }
-
-		// if(Input.GetKey("a")) {
-		// 	wallTest(player1);
-		// 	bombTest(player1, -1f, 0);
-		// 	if(moveX && noBomb)
-		// 		player1.transform.Translate(-1f,0,0);
-		// 	noBomb = true;
-		// }
-		//
-		// if(Input.GetKey("d")) {
-		// 	wallTest(player1);
-		// 	bombTest(player1, 1f, 0);
-		// 	if(moveX && noBomb)
-		// 		player1.transform.Translate(1f,0,0);
-		// 	noBomb = true;
-		// }
-		//
-		// if(Input.GetKey("w")) {
-		// 	wallTest(player1);
-		// 	bombTest(player1, 0, 1f);
-		// 	if(moveZ && noBomb)
-		// 		player1.transform.Translate(0,0,1f);
-		// 	noBomb = true;
-		// }
-		//
-		// if(Input.GetKey("s")) {
-		// 	wallTest(player1);
-		// 	bombTest(player1, 0, -1f);
-		// 	if(moveZ && noBomb)
-		// 		player1.transform.Translate(0,0,-1f);
-		// 	noBomb = true;
-		// }
-
 	void speed() {
-		if(speedMultiply < 7.0f) {
+		if(speedMultiply < 5.0f) {
 				speedMultiply += (speedMultiply / (speedMultiply * 10.0f));
 				//Debug.Log("Degreace SM: " +speedMultiply);
 		}
