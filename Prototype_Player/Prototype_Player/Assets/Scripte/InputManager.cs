@@ -27,8 +27,11 @@ public static class InputManager
         return new Vector3(OneMainHorizontal(), 0, OneMainVertikal());
     }
     public static bool OneXButton()
-    {
-        return Input.GetButtonDown("One_X_Button");
+    {   
+        if(Input.GetButtonDown("One_X_Button")||Input.GetButtonDown("Mac_One_X_Button"))
+            return true;
+
+        return false;
     }
 
     //player_Two
@@ -54,7 +57,10 @@ public static class InputManager
     }
     public static bool TwoXButton()
     {
-        return Input.GetButtonDown("Two_X_Button");
+        if (Input.GetButtonDown("Two_X_Button") || Input.GetButtonDown("Mac_Two_X_Button"))
+            return true;
+
+        return false;
     }
 
     //Player_Three
@@ -80,7 +86,10 @@ public static class InputManager
     }
     public static bool ThreeXButton()
     {
-        return Input.GetButtonDown("Three_X_Button");
+        if (Input.GetButtonDown("Three_X_Button") || Input.GetButtonDown("Mac_Three_X_Button"))
+            return true;
+
+        return false;
     }
 
     //Player_Four
@@ -106,6 +115,9 @@ public static class InputManager
     }
     public static bool FourXButton()
     {
-        return Input.GetButtonDown("Four_X_Button");
+        if (Input.GetButtonDown("Four_X_Button") || Input.GetButtonDown("Mac_Four_X_Button"))
+            return true;
+
+        return false;
     }
 }

@@ -33,8 +33,8 @@ public class StartWorld: MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        for(int i = 0; i <= playerID; i++)
-        playerList[i].move();
+        for(int i = 0; i < playerID; i++)
+            playerList[i].move();
 
         if (InputManager.OneXButton() && playerIsActiv[0])
             playerList[0].setBomb();
