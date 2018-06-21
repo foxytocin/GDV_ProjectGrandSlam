@@ -8,7 +8,8 @@ public class PlayerScript : MonoBehaviour {
 	bool moveZ = true;
 	GameObject player;
 	public WorldScript World;
-	public GameObject Bombe;
+	public GameObject Bombe_Prefab;
+	public GameObject Item_Prefab;
 	float angle = 30f;
 
 	public int bombCount = 100;
@@ -74,6 +75,11 @@ public class PlayerScript : MonoBehaviour {
 			//whatsNext(1);
 			createBomb(player);
 		}
+
+		if(Input.GetKey("i")) {
+			//whatsNext(1);
+			createItem(player);
+		}
 	}
 
 	float xPosition;
@@ -96,13 +102,31 @@ public class PlayerScript : MonoBehaviour {
 		{
 			if(bombCount > 0) {
 				bombCount--;
-				World.WorldArray[(int)xPosition,(int)zPosition] = Instantiate(Bombe, new Vector3(xPosition, -0.1f, zPosition), Quaternion.Euler(0, angle, 0));
+				GameObject bomb;
+				bomb = Instantiate(Bombe_Prefab, new Vector3(xPosition, -0.1f, zPosition), Quaternion.Euler(0, angle, 0));
+				bomb.name = "Bomb from " +player;
+				World.WorldArray[(int)xPosition,(int)zPosition] = bomb;
 				angle += angle;
 
 				//Destroy(World.WorldArray[(int)xPosition,(int)zPosition], 3f);
 			}
 		}
 	}
+
+	void createItem(GameObject player)
+	{
+		if(World.WorldArray[(int)xPosition,(int)zPosition] == null)
+		{
+			GameObject item;
+			item = Instantiate(Item_Prefab, new Vector3(xPosition, -0.1f, zPosition), Quaternion.Euler(0, angle, 0));
+			item.name = "Item from " +player;
+			World.WorldArray[(int)xPosition,(int)zPosition] = item;
+			angle += angle;
+
+				//Destroy(World.WorldArray[(int)xPosition,(int)zPosition], 3f);
+		}
+	}
+
 
 	// void whatsNext(int richtung)
 	// {
