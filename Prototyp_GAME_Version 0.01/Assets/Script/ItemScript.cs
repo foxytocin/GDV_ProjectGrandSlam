@@ -2,18 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(MeshFilter)), RequireComponent(typeof(Renderer))]
+
 public class ItemScript : MonoBehaviour {
 
-	public WorldScript World;
-	public float availableBombs;
-	public float playerSpeed;
-	public float itemColor;
+    public float availableBombs;
+    public float playerSpeed;
+    public float speedBonus;
 
-
-	// Use this for initialization
-	void Start () {
-
-	}
 
 	// Update is called once per frame
 	void Update () {
