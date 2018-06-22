@@ -67,10 +67,10 @@
     <Compile Include="Assets\Script\PlayerScript.cs" />
     <Compile Include="Assets\Script\WorldScript.cs" />
     <Reference Include="UnityEditor.StandardEvents">
-      <HintPath>C:/Users/J/Downloads/GDV_ProjectGrandSlam-2playercam/GDV_ProjectGrandSlam-c7ad7d75d6a4d9bdcb41b06e5544261573b50ceb/Prototyp_GAME_Version 0.01/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
+      <HintPath>C:/Users/J/Documents/Studium/GraphDat/Unity/Projekt/GDV_ProjectGrandSlam2/Prototyp_GAME_Version 0.01/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="Unity.PackageManagerUI.Editor">
-      <HintPath>C:/Users/J/Downloads/GDV_ProjectGrandSlam-2playercam/GDV_ProjectGrandSlam-c7ad7d75d6a4d9bdcb41b06e5544261573b50ceb/Prototyp_GAME_Version 0.01/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+      <HintPath>C:/Users/J/Documents/Studium/GraphDat/Unity/Projekt/GDV_ProjectGrandSlam2/Prototyp_GAME_Version 0.01/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>

@@ -13,7 +13,7 @@ public class CameraController : MonoBehaviour {
     private Camera cam;
 
     private float speed = 4f;
-    private Vector3 vel = new Vector3(0, 0, 0);
+    //private Vector3 vel = new Vector3(0, 0, 0);
     private Vector3 offset;
 
     private float levelWidth;
@@ -30,6 +30,9 @@ public class CameraController : MonoBehaviour {
         cam = GetComponent<Camera>();
         players.Add(GameObject.Find("Player 1").transform);
         players.Add(GameObject.Find("Player 2").transform);
+        //Liste von Spielern direkt bekommen und drauf zugreifen
+        //getScript...player[]
+        //....
         levelWidth = World.levelBreite;
         levelHeight = World.levelTiefe;
         this.transform.position = new Vector3(levelWidth / 2, levelWidth * (levelHeight * 0.07f), levelHeight / 2);
