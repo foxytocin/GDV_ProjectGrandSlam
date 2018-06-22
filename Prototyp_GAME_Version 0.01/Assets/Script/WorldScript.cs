@@ -21,7 +21,7 @@ public class WorldScript : MonoBehaviour {
 	void Awake()
 	{
 		levelBreite = 15;
-		levelTiefe = 10;
+		levelTiefe = 15;
 	}
 
 	void Start ()
