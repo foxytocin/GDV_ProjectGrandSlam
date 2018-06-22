@@ -39,7 +39,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4043619291811466}
   m_Layer: 0
-  m_Name: Item_SpeedBoost_Prefab
+  m_Name: Item_Prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -87,7 +87,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 107eb3fa78fd4487fa86da434ee1cd01, type: 2}
+  - {fileID: 2100000, guid: 8fdffa559506243ab9d9c964e2cb763e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -125,9 +125,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a289e8e984c8428795621415aeb1cb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  World: {fileID: 0}
   availableBombs: 0
   playerSpeed: 0
-  speedBonus: 0
+  itemColor: 0
 --- !u!135 &135335653050455306
 SphereCollider:
   m_ObjectHideFlags: 1
