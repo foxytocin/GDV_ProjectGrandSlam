@@ -11,6 +11,7 @@ public class CameraController : MonoBehaviour {
     public Transform player;
     public Transform player2;
     private Camera cam;
+    //private PlayerScript playerScript;
 
     private float speed = 4f;
     //private Vector3 vel = new Vector3(0, 0, 0);
@@ -31,7 +32,7 @@ public class CameraController : MonoBehaviour {
         players.Add(GameObject.Find("Player 1").transform);
         players.Add(GameObject.Find("Player 2").transform);
         //Liste von Spielern direkt bekommen und drauf zugreifen
-        //getScript...player[]
+        //playerScript = player.getComponent<PlayerScript>;
         //....
         levelWidth = World.levelBreite;
         levelHeight = World.levelTiefe;
