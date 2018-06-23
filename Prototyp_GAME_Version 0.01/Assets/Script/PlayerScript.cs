@@ -11,7 +11,6 @@ public class PlayerScript : MonoBehaviour
     GameObject player2;
     public WorldScript World;
     public GameObject Bombe_Prefab;
-    public GameObject Item_Prefab;
     float angle = 30f;
 
     public int bombCount = 100;

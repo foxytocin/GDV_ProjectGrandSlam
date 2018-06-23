@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BombeScript : MonoBehaviour
 {
+    public WorldScript World;
 
     public int bombOwnerPlayerID;
     public bool remoteBomb = false;
@@ -24,13 +25,12 @@ public class BombeScript : MonoBehaviour
 
         if ((bombTimer < (Time.time - startTime)) && !remoteBomb)
         {
-            explode();
+            //GEHT NICHT: Zerstörung wird an den MapDestroyer übergeben.
+            FindObjectOfType<MapDestroyer>().Explode((int)transform.position.x,(int)transform.position.z);
+
+            //FUNKTIONIER: Bombe zerstört sich selber
+            //Destroy(gameObject);
         }
     }
 
-    public void explode()
-    {
-        Destroy(gameObject);
-        Debug.Log("Bombe vom Player " + bombOwnerPlayerID + " explodiert");
-    }
 }

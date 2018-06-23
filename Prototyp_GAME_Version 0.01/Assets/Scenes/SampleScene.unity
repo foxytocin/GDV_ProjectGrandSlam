@@ -324,7 +324,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   World: {fileID: 958779247}
-  player: {fileID: 1847533651}
+  players: []
+  player: {fileID: 1847533653}
+  player2: {fileID: 0}
 --- !u!1 &1847533651
 GameObject:
   m_ObjectHideFlags: 0
@@ -354,8 +356,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   World: {fileID: 958779247}
   Bombe_Prefab: {fileID: 1594194604120938, guid: 46887b7833d5746df82e75f1433b7d7a,
-    type: 2}
-  Item_Prefab: {fileID: 1292355542708930, guid: 8e56275d125ef43469053f34b6d3bc3c,
     type: 2}
   bombCount: 100
 --- !u!4 &1847533653
