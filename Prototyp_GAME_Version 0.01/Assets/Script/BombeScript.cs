@@ -10,6 +10,7 @@ public class BombeScript : MonoBehaviour
     public int bombPower = 1;
     public int bombTimer = 3;
     private float startTime;
+    public List<GameObject> playerList;
 
     //Zeitpunkt an dem die Bombe erzeugt wurde
     void Awake()
@@ -34,7 +35,9 @@ public class BombeScript : MonoBehaviour
         int z = (int)gameObject.transform.position.z;
 
         Destroy(gameObject);
+        playerList[bombOwnerPlayerID].GetComponent<PlayerScript>().setAvaibleBomb(1);
         //Debug.Log("MAPDESTROYER EXPLODE WIRD AUFGERUFEN mit Position: " +x+ " / " +z);
         FindObjectOfType<MapDestroyer>().Explode(x, z);
+
     }
 }

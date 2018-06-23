@@ -1,122 +1,298 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
+    public bool moveX;
+    public bool moveZ;
+    public WorldScript world;
+    public GameObject body;
+    public GameObject bombe_Prefab;
+    public int playerID;
+    public int life;
+    public int avaibleBomb;
+    public float speed;
+    public int range;
+    public bool aLife;
+    public List<GameObject> playerList;
 
-    bool moveX = true;
-    bool moveZ = true;
-    GameObject player;
-    GameObject player2;
-    public WorldScript World;
-    public GameObject Bombe_Prefab;
-    float angle = 30f;
-
-    public int bombCount = 100;
+    float speedMultiply;
 
     // Use this for initialization
     void Awake()
     {
-        player = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-        player.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
-        player.transform.position = new Vector3(1f, -0.1f, 1f);
-        player.name = "Player 1";
+        moveX = true;
+        moveZ = true;
+        playerID = 0;
+        life = 3;
+        avaibleBomb = 1000;
+        speed = 1;
+        range = 1;
+        aLife = true;
+        speedMultiply = 0.01f;
 
-        //Zu Testzwecken btgl. Camera zweiter Spieler
-        player2 = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-        player2.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
-        player2.transform.position = new Vector3((World.levelBreite - 1) * 2 - 1, -0.1f, (World.levelTiefe - 1) * 2 - 1);
-        player2.name = "Player 2";
     }
 
-    float speedMultiply = 0.01f;
-    // Update is called once per frame
     void Update()
     {
 
-        if ((Input.GetKey("a") || Input.GetKey("d") || Input.GetKey("w") || Input.GetKey("s")) && (moveX || moveZ))
+        if (playerID == 0)
         {
-            speed();
-            wallTest(player);
+            Vector3 tmp = InputManager.OneMainJoystick();
+            if (tmp != new Vector3(0, 0, 0))
+            {
+                speedMulti();
+                wallTest(playerList[0]);
+                //Debug.Log("move" + body.name);
+                body.transform.Translate(tmp.x * speedMultiply  * Time.deltaTime, 0 , tmp.z * speedMultiply * Time.deltaTime);
+            }
+            else if (speedMultiply > 0.1f)
+            {
+                speedMultiply -= 0.1f;
+                //Debug.Log("Increase SM: " +speedMultiply);
+            }
+
         }
-        else if (speedMultiply > 0.1f)
+
+        if (playerID == 1)
         {
-            speedMultiply -= 0.1f;
-            //Debug.Log("Increase SM: " +speedMultiply);
+            Vector3 tmp = InputManager.TwoMainJoystick();
+            if (tmp != new Vector3(0, 0, 0))
+            {
+                speedMulti();
+                wallTest(playerList[1]);
+                //Debug.Log("move" + body.name);
+                body.transform.Translate(tmp.x * speedMultiply * Time.deltaTime, 0, tmp.z * speedMultiply * Time.deltaTime);
+            }
+            else if (speedMultiply > 0.1f)
+            {
+                speedMultiply -= 0.1f;
+                //Debug.Log("Increase SM: " +speedMultiply);
+            }
         }
+
+        if (playerID == 2 && (moveX || moveZ))
+        {
+            Vector3 tmp = InputManager.ThreeMainJoystick();
+            if (tmp != new Vector3(0, 0, 0))
+            {
+                speedMulti();
+                wallTest(playerList[2]);
+                //Debug.Log("move" + body.name);
+                body.transform.Translate(tmp.x * speedMultiply * Time.deltaTime, 0, tmp.z * speedMultiply * Time.deltaTime);
+            }
+            else if (speedMultiply > 0.1f)
+            {
+                speedMultiply -= 0.1f;
+                //Debug.Log("Increase SM: " +speedMultiply);
+            }
+        }
+
+        if (playerID == 3 && (moveX || moveZ))
+        {
+            Vector3 tmp = InputManager.FourMainJoystick();
+            if (tmp != new Vector3(0, 0, 0))
+            {
+                speedMulti();
+                wallTest(playerList[3]);
+                //Debug.Log("move" + body.name);
+                body.transform.Translate(tmp.x * speedMultiply * Time.deltaTime, 0, tmp.z * speedMultiply * Time.deltaTime);
+            }
+            else if (speedMultiply > 0.1f)
+            {
+                speedMultiply -= 0.1f;
+                //Debug.Log("Increase SM: " +speedMultiply);
+            }
+        }
+
         if (speedMultiply < 0.01f)
         {
             speedMultiply = 0.01f;
             //Debug.Log("Setting SM: " +speedMultiply);
         }
 
-        if (Input.GetKey("a") && player.transform.position.x > 0)
+        if (InputManager.OneXButton())
         {
-            //whatsNext(1);
-            if (moveX)
-                player.transform.Translate(speedMultiply * -1f * Time.deltaTime, 0, 0);
+            setBomb(0);
         }
 
-        if (Input.GetKey("d") && player.transform.position.x < World.levelBreite - 1)
+        if (InputManager.TwoXButton())
         {
-            //whatsNext(2);
-            if (moveX)
-                player.transform.Translate(speedMultiply * 1f * Time.deltaTime, 0, 0);
+            setBomb(1);
         }
 
-        if (Input.GetKey("w") && player.transform.position.z < World.levelTiefe - 1)
+        if (InputManager.ThreeXButton())
         {
-            //whatsNext(3);
-            if (moveZ)
-                player.transform.Translate(0, 0, speedMultiply * 1f * Time.deltaTime);
+            setBomb(2);
         }
 
-        if (Input.GetKey("s") && player.transform.position.z > 0)
+        if (InputManager.FourXButton())
         {
-            //whatsNext(4);
-            if (moveZ)
-                player.transform.Translate(0, 0, speedMultiply * -1f * Time.deltaTime);
-        }
-
-        if (Input.GetKey("m"))
-        {
-            //whatsNext(1);
-            Destroy(GameObject.Find("Wand"));
-        }
-
-        if (Input.GetKey("b"))
-        {
-            //whatsNext(1);
-            Destroy(GameObject.Find("Kiste"));
+            setBomb(3);
         }
 
         if (Input.GetKeyDown("space"))
         {
-            //whatsNext(1);
-            createBomb(player);
+            dead(1);
         }
-
     }
 
-    float xPosition;
-    float zPosition;
+
+    public void setWorld(WorldScript world)
+    {
+        this.world = world;
+    }
+
+    // Uebergabe der PlayerID
+    public void setPlayerID(int id)
+    {
+        playerID = id;
+    }
+
+    public int getPlayerID()
+    {
+        return playerID;
+    }
+
+
+    // Tot trifft ein
+    public void dead(int id)
+    {
+        Debug.Log("player_" + playerID.ToString() + " is Dead");
+        playerList[id].GetComponent<PlayerScript>().setLife(-1);
+        playerList[id].GetComponent<PlayerScript>().setALife(false);
+        playerList[id].SetActive(false);
+    }
+
+
+    // PlayerList uebergabe
+    public void setPlayerList(List<GameObject> playerList)
+    {
+        this.playerList = playerList;
+    }
+
+    public List<GameObject> getPlayerList()
+    {
+        return playerList;
+    }
+
+
+    // Speed
+    public void setSpeed()
+    {
+        speed++;
+    }
+
+    public float getSpeed()
+    {
+        return speed;
+    }
+
+
+    // Range
+    public void setRange()
+    {
+        range++;
+    }
+
+    public int getRange()
+    {
+        return range;
+    }
+
+
+    // avaibleBombs
+    public void setAvaibleBomb(int wert)
+    {
+        avaibleBomb += wert;
+    }
+
+    public int getAvaibleBomb()
+    {
+        return avaibleBomb;
+    }
+
+
+    // Lifes
+    public void setLife(int wert)
+    {
+        life += wert;
+    }
+
+    public int getLife()
+    {
+        return life;
+    }
+
+
+    // aLife
+    public bool getALife()
+    {
+        return aLife;
+    }
+
+    public void setALife(bool tmp)
+    {
+        aLife = tmp;
+    }
+
+
+    // Setzt Bombe mit überprüfung von avaibleBomb und aLife
+    public void setBomb(int id)
+    {
+        if (playerList[id].GetComponent<PlayerScript>().getAvaibleBomb() > 0 && playerList[id].GetComponent<PlayerScript>().getALife())
+        {
+            Debug.Log("Bombe_Player_" + id.ToString());
+            createBomb(playerList[id]);
+            playerList[id].GetComponent<PlayerScript>().setAvaibleBomb(-1);
+        }
+    }
+
+
+    void createBomb(GameObject player)
+    {
+        if (world.WorldArray[(int)player.transform.position.x, (int)player.transform.position.z] == null)
+        {
+                GameObject bombeInstanz;
+                bombeInstanz = Instantiate(bombe_Prefab, new Vector3(Mathf.Round(player.transform.position.x), -0.1f, Mathf.Round(player.transform.position.z)), Quaternion.identity);
+
+                BombeScript thisBombeScript = bombeInstanz.GetComponent<BombeScript>();
+
+                thisBombeScript.bombTimer = 3; //WERT MUSS DURCH ITEM ERHÖHT WERDEN
+                thisBombeScript.name = "Bombe"; //BOMBENNAME == PLAYERID. Bombe wird nämlich nur über name gefunden.
+                thisBombeScript.bombOwnerPlayerID = player.GetComponent<PlayerScript>().getPlayerID();
+                thisBombeScript.playerList = player.GetComponent<PlayerScript>().getPlayerList();
+
+                world.WorldArray[(int)player.transform.position.x, (int)player.transform.position.z] = bombeInstanz;
+                //angle += angle;
+        }
+        
+    }
+
+    void speedMulti()
+    {
+        if (speedMultiply < 5.0f)
+        {
+            speedMultiply += (speedMultiply / (speedMultiply * 10.0f));
+            //Debug.Log("Degreace SM: " +speedMultiply);
+        }
+    }
+
     void wallTest(GameObject player)
     {
-        xPosition = Mathf.Round(player.transform.position.x);
-        zPosition = Mathf.Round(player.transform.position.z);
-
-        if (World.WorldArray[(int)xPosition, (int)zPosition] != null)
+       
+        if (world.WorldArray[(int)Mathf.Round(player.transform.position.x), (int)Mathf.Round(player.transform.position.z)] != null)
         {
             //Debug.Log("Object an aktueller Stelle: " + World.WorldArray[(int)xPosition, (int)zPosition]);
-            if (World.WorldArray[(int)xPosition, (int)zPosition].name == "Item_SpeedBoost")
+            if (world.WorldArray[(int)Mathf.Round(player.transform.position.x), (int)Mathf.Round(player.transform.position.z)].name == "Item_SpeedBoost")
             {
-                Destroy(World.WorldArray[(int)xPosition, (int)zPosition]);
+                Destroy(world.WorldArray[(int)Mathf.Round(player.transform.position.x), (int)Mathf.Round(player.transform.position.z)]);
                 speedMultiply = 10f;
             }
-            if (World.WorldArray[(int)xPosition, (int)zPosition].name == "Item_SpeedLow")
+            if (world.WorldArray[(int)Mathf.Round(player.transform.position.x), (int)Mathf.Round(player.transform.position.z)].name == "Item_SpeedLow")
             {
-                Destroy(World.WorldArray[(int)xPosition, (int)zPosition]);
+                Destroy(world.WorldArray[(int)Mathf.Round(player.transform.position.x), (int)Mathf.Round(player.transform.position.z)]);
                 speedMultiply = 0.5f;
             }
         }
@@ -126,52 +302,5 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
-    void createBomb(GameObject player)
-    {
-        if (World.WorldArray[(int)xPosition, (int)zPosition] == null)
-        {
-            if (bombCount > 0)
-            {
-                bombCount--;
-
-                GameObject bombeInstanz;
-                bombeInstanz = Instantiate(Bombe_Prefab, new Vector3(xPosition, -0.1f, zPosition), Quaternion.identity);
-
-                BombeScript thisBombeScript = bombeInstanz.GetComponent<BombeScript>();
-
-                thisBombeScript.bombTimer = 3; //WERT MUSS DURCH ITEM ERHÖHT WERDEN
-                thisBombeScript.name = "Bombe"; //BOMBENNAME == PLAYERID. Bombe wird nämlich nur über name gefunden.
-                thisBombeScript.bombOwnerPlayerID = 1;
-        
-                World.WorldArray[(int)xPosition, (int)zPosition] = bombeInstanz;
-                angle += angle;
-            }
-        }
-    }
-
-    //GEHT NICHT
-    void remoteExplode()
-    {
-
-        for (int i = 0; i < World.WorldArray.Length; i++)
-        {
-            for (int j = 0; j < World.WorldArray.Length; j++)
-            {
-                if (World.WorldArray[i, j].gameObject.name == "Bombe")
-                {
-                    Destroy(World.WorldArray[i, j]);
-                }
-            }
-        }
-
-    }
-
-    void speed()
-    {
-        if (speedMultiply < 5.0f)
-        {
-            speedMultiply += (speedMultiply / (speedMultiply * 10.0f));
-            //Debug.Log("Degreace SM: " +speedMultiply);
-        }
-    }
 }
+

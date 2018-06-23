@@ -392,13 +392,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1847533651}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dff053ec6efa548eb899bade09296d63, type: 3}
+  m_Script: {fileID: 11500000, guid: 3c0c907d999164b4bb6810dd6bf7bcfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  World: {fileID: 958779247}
-  Bombe_Prefab: {fileID: 1594194604120938, guid: 46887b7833d5746df82e75f1433b7d7a,
+  playerPrefab: {fileID: 1667059198137356, guid: 40df6da08bb85fd499b60a58476303fa,
     type: 2}
-  bombCount: 100
+  world: {fileID: 958779247}
+  players: 2
+  playerList: []
 --- !u!4 &1847533653
 Transform:
   m_ObjectHideFlags: 0

@@ -30,8 +30,8 @@ public class CameraController : MonoBehaviour
     void Start()
     {
         cam = GetComponent<Camera>();
-        players.Add(GameObject.Find("Player 1").transform);
-        players.Add(GameObject.Find("Player 2").transform);
+        players.Add(GameObject.Find("Player_0").transform);
+        players.Add(GameObject.Find("Player_1").transform);
         //Liste von Spielern direkt bekommen und drauf zugreifen
         //playerScript = player.getComponent<PlayerScript>;
         //....
