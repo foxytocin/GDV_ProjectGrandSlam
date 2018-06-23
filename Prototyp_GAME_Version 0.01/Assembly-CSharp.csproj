@@ -64,6 +64,7 @@
     <Compile Include="Assets\Script\BombeScript.cs" />
     <Compile Include="Assets\Script\CameraController.cs" />
     <Compile Include="Assets\Script\ItemScript.cs" />
+    <Compile Include="Assets\Script\MapDestroyer.cs" />
     <Compile Include="Assets\Script\PlayerScript.cs" />
     <Compile Include="Assets\Script\WorldScript.cs" />
     <Reference Include="UnityEditor.StandardEvents">
