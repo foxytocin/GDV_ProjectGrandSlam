@@ -108,7 +108,7 @@ public class PlayerScript : MonoBehaviour
 
         if (World.WorldArray[(int)xPosition, (int)zPosition] != null)
         {
-            Debug.Log("Object an aktueller Stelle: " + World.WorldArray[(int)xPosition, (int)zPosition]);
+            //Debug.Log("Object an aktueller Stelle: " + World.WorldArray[(int)xPosition, (int)zPosition]);
             if (World.WorldArray[(int)xPosition, (int)zPosition].name == "Item_SpeedBoost")
             {
                 Destroy(World.WorldArray[(int)xPosition, (int)zPosition]);
@@ -122,7 +122,7 @@ public class PlayerScript : MonoBehaviour
         }
         else
         {
-            Debug.Log("Object an aktueller Stelle: Freier Weg");
+            //Debug.Log("Object an aktueller Stelle: Freier Weg");
         }
     }
 
@@ -142,7 +142,7 @@ public class PlayerScript : MonoBehaviour
                 thisBombeScript.bombTimer = 3; //WERT MUSS DURCH ITEM ERHÖHT WERDEN
                 thisBombeScript.name = "Bombe"; //BOMBENNAME == PLAYERID. Bombe wird nämlich nur über name gefunden.
                 thisBombeScript.bombOwnerPlayerID = 1;
-
+        
                 World.WorldArray[(int)xPosition, (int)zPosition] = bombeInstanz;
                 angle += angle;
             }

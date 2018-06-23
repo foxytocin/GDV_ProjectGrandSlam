@@ -10,7 +10,7 @@ public class MapDestroyer : MonoBehaviour {
     public void Explode(int x, int z)
     {
         //Controlliert benachbarte Zellen auf Bomben, Kisten und Wände
-        ExplodeCell(x, z);
+        //ExplodeCell(x, z);
         ExplodeCell(x + 1, z);
         ExplodeCell(x, z + 1);
         ExplodeCell(x - 1, z);
@@ -18,24 +18,31 @@ public class MapDestroyer : MonoBehaviour {
     }
 
     void ExplodeCell(int x, int z) {
-
-        //Speichert das GameObject was an der uebergebenen Coordinate gefunden wird um dann zu prüfen was es ist.
-        GameObject ObjectInCell = World.WorldArray[x, z];
-        Debug.Log("In der Celle ist eine " +ObjectInCell.name);
-
-        if(ObjectInCell.name == "Bombe")
+        
+        //Speichert das GameObject was an der uebergebenen Coordinate gefunden wird um dann zu prüfen was es ist
+        if (World.WorldArray[x, z] != null)
         {
-            Destroy(ObjectInCell);    
-        }
+            Debug.Log("In der Celle ist eine " + World.WorldArray[x, z].name);
+            if (World.WorldArray[x, z].name == "Bombe")
+            {
+                Debug.Log("Weiter Bombe gefunden. Kettenreaktion sollte ausgelöst werden");
+                //Hier fehlt die Kettenreaktion von Bomben.
+            }
 
-        if (ObjectInCell.name == "Kiste")
-        {
-            Destroy(ObjectInCell);
-        }
+            if (World.WorldArray[x, z].name == "Kiste")
+            {
+                Destroy(World.WorldArray[x, z]);
+            }
 
-        if (ObjectInCell.name == "Wand")
-        {
-            //return;
+            if (World.WorldArray[x, z].name.Contains("Item"))
+            {
+                Destroy(World.WorldArray[x, z]);
+            }
+
+            if (World.WorldArray[x, z].name == "Wand")
+            {
+       
+            }
         }
 
     }

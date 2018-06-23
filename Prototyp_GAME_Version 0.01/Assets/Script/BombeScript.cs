@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class BombeScript : MonoBehaviour
 {
-    public WorldScript World;
-
     public int bombOwnerPlayerID;
     public bool remoteBomb = false;
     public int bombPower = 1;
@@ -25,12 +24,17 @@ public class BombeScript : MonoBehaviour
 
         if ((bombTimer < (Time.time - startTime)) && !remoteBomb)
         {
-            //GEHT NICHT: Zerstörung wird an den MapDestroyer übergeben.
-            FindObjectOfType<MapDestroyer>().Explode((int)transform.position.x,(int)transform.position.z);
-
-            //FUNKTIONIER: Bombe zerstört sich selber
-            //Destroy(gameObject);
+            CallExplode();
         }
     }
 
+    public void CallExplode()
+    {
+        int x = (int)gameObject.transform.position.x;
+        int z = (int)gameObject.transform.position.z;
+
+        Destroy(gameObject);
+        //Debug.Log("MAPDESTROYER EXPLODE WIRD AUFGERUFEN mit Position: " +x+ " / " +z);
+        FindObjectOfType<MapDestroyer>().Explode(x, z);
+    }
 }
