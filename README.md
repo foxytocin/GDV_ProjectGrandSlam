@@ -23,9 +23,11 @@ ________________________________________________________________________________
 #### 2 Player:
   * Controller oder Tastatursteuerung möglich (bisher keine Kollisionsabfrage)
   * Individuelle Werte für Speed, Leben, BombenAnzahl usw.
+  * Steuerung für 4 Player und weitere Funktion vorberetet. Z.B. Play/Pause, Bomben remote Zünden.
 
 #### 2 Items:
-  * Mit unterschiedlichen Eigenschaften um zuordnen zum Player zu testen
+  * Dummy-Animation um der Spielwelt Leben einzuhauchen
+  * Unterschiedlichen Eigenschaften pro Item um individuelle zuordnen zum Player zu testen
   * Rotes Item erhöht den Speed des Players (verliert der Player wieder wenn er stehen bleibt)
   * Blaues item erhöht die Stärke der Bomben des Players
 
@@ -33,9 +35,19 @@ ________________________________________________________________________________
   * Bomben werden mit zufälliger Ausrichtung in Y-Rotation generiert
   * Explosion stoppt an Wänden und Kisten
   * Kisten und Items werden zertört (Player noch nicht)
+  * Bomben in Reichweite lösen eine Kettenreaktion aus (auch mit Bomben anderer Spieler)
+  * Gelegte Bomben werden dem Player abgezogen und nach der Explosion wieder gutgeschrieben
   * Explosions Dummy um Bombenverhalten zu visualisieren
 
 #### Map Generierung:
   * Basis Map Erzeugung
   * Zufällige Generierung von Türmen und Torböge mit unterschiedlicher Ausrichtung
   * Zufällige Verteilung von Kisten und Items
+  
+#### Kamera (Funktionen aktuell deaktiviert / nicht vollständig)
+  * Dynamischer Zoom abhängig von der Map-Größe
+  * Kamera folgt den Spielern
+  * Kamera hält alle Player immer im sichtbaren Bereich
+  * Hohe Entfernung: Orthogonale Ansicht im Pac-Man Style (gute Übersicht trotz geringer Elementgröße)
+  * Geringe Entfernung: 3D-Ansicht mit gewollter Sichtversperrung durch Leveldesign (wie Türme und Torbögen). Player können so Bomben vor anderen Spielern versteckt platzieren oder Bomben übersehen :D.
+  * Durch die dynamische Kamera verändert sich das Spielcharakter fortlaufen und ermöglicht taktischen Umgehen damit
