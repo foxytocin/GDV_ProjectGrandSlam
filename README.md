@@ -16,3 +16,26 @@ Das Spielprinzip und die Regeln sind nach wie vor die gleichen:
 
 Quasi unendliche automatisch-generierte Level sorgen für Abwechslung und verhindern, dass das Spiel langweilig wird. Das Spielfeld ist zu groß oder zu klein? Es sollen mehr oder weniger Kisten auf dem Spielfeld auftauchen? Kein Problem! Über das Hauptmenü lassen sich die Level vor jedem Match nach Belieben konfigurieren und an deine Wünsche anpassen.
 Steige ins Gefecht und führe deinen Charakter mit deiner Tastatur oder deinem Xbox 360 Controller in explosive Matches - aber pass auf, dass du nicht zuerst in die Luft gehst!
+
+_____________________________________________________________________________________________________________________________
+
+### 24.06.2018 Prototyp Version 0.02
+#### 2 Player:
+  * Controller oder Tastatursteuerung möglich (bisher keine Kollisionsabfrage)
+  * Individuelle Werte für Speed, Leben, BombenAnzahl usw.
+
+#### 2 Items:
+  * Mit unterschiedlichen Eigenschaften um zuordnen zum Player zu testen
+  * Rotes Item erhöht den Speed des Players (verliert der Player wieder wenn er stehen bleibt)
+  * Blaues item erhöht die Stärke der Bomben des Players
+
+#### Bomben:
+  * Bomben werden mit zufälliger Ausrichtung in Y-Rotation generiert
+  * Explosion stoppt an Wänden und Kisten
+  * Kisten und Items werden zertört (Player noch nicht)
+  * Explosions Dummy um Bombenverhalten zu visualisieren
+
+#### Map Generierung:
+  * Basis Map Erzeugung
+  * Zufällige Generierung von Türmen und Torböge mit unterschiedlicher Ausrichtung
+  * Zufällige Verteilung von Kisten und Items
