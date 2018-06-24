@@ -323,7 +323,7 @@ InputManager:
     snap: 0
     invert: 0
     type: 2
-    axis: 0
+    axis: 5
     joyNum: 1
   - serializedVersion: 3
     m_Name: J_One_MainVertikal
@@ -339,7 +339,7 @@ InputManager:
     snap: 0
     invert: 0
     type: 2
-    axis: 1
+    axis: 6
     joyNum: 1
   - serializedVersion: 3
     m_Name: K_One_MainHorizontal
@@ -361,8 +361,8 @@ InputManager:
     m_Name: K_One_MainVertikal
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: w
-    positiveButton: s
+    negativeButton: s
+    positiveButton: w
     altNegativeButton: 
     altPositiveButton: 
     gravity: 1000
@@ -403,7 +403,7 @@ InputManager:
     snap: 0
     invert: 0
     type: 2
-    axis: 0
+    axis: 5
     joyNum: 2
   - serializedVersion: 3
     m_Name: J_Two_MainVertikal
@@ -419,7 +419,7 @@ InputManager:
     snap: 0
     invert: 0
     type: 2
-    axis: 1
+    axis: 6
     joyNum: 2
   - serializedVersion: 3
     m_Name: K_Two_MainHorizontal
@@ -441,8 +441,8 @@ InputManager:
     m_Name: K_Two_MainVertikal
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: h
-    positiveButton: n
+    negativeButton: n
+    positiveButton: h
     altNegativeButton: 
     altPositiveButton: 
     gravity: 1000
@@ -483,7 +483,7 @@ InputManager:
     snap: 0
     invert: 0
     type: 2
-    axis: 0
+    axis: 5
     joyNum: 3
   - serializedVersion: 3
     m_Name: J_Three_MainVertikal
@@ -499,7 +499,7 @@ InputManager:
     snap: 0
     invert: 0
     type: 2
-    axis: 1
+    axis: 6
     joyNum: 3
   - serializedVersion: 3
     m_Name: K_Three_MainHorizontal
@@ -563,7 +563,7 @@ InputManager:
     snap: 0
     invert: 0
     type: 2
-    axis: 0
+    axis: 5
     joyNum: 4
   - serializedVersion: 3
     m_Name: J_Four_MainVertikal
@@ -579,7 +579,7 @@ InputManager:
     snap: 0
     invert: 0
     type: 2
-    axis: 1
+    axis: 6
     joyNum: 4
   - serializedVersion: 3
     m_Name: K_Four_MainHorizontal
