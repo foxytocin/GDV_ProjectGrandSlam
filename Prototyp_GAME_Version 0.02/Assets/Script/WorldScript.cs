@@ -46,18 +46,20 @@ public class WorldScript : MonoBehaviour {
 
 	void createWorld()
 	{
-		StartCoroutine(createWalls());
+        //StartCoroutine(createWalls());
+        createWalls();
 	}
 
 
-	public IEnumerator createWalls()
+	//public IEnumerator createWalls()
+    public void createWalls()
 	{
 		WaitForSeconds delay = new WaitForSeconds(generationStepDelay);
   	for (int i = 0; i < levelBreite; i+=2)
    	{
     	for (int j = 0; j < levelTiefe; j+=2)
      	{
-				yield return delay;
+				//yield return delay;
 				//Generiert die Waende (jedes zweite Feld).
 				GameObject wand;
 				wand = Instantiate(levelWand, new Vector3(i, 0, j), Quaternion.Euler(0, elementRotation, 0));
