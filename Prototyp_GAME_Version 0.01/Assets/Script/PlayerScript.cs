@@ -8,13 +8,14 @@ public class PlayerScript : MonoBehaviour
     public bool moveZ;
     public WorldScript world;
     public GameObject body;
-    public GameObject bombe_Prefab;
     public int playerID;
     public int life;
     public int avaibleBomb;
     public float speed;
+    public int bombTimer;
     public int range;
     public bool aLife;
+    public bool remoteBomb;
     public List<GameObject> playerList;
 
     float speedMultiply;
@@ -28,8 +29,10 @@ public class PlayerScript : MonoBehaviour
         life = 3;
         avaibleBomb = 1000;
         speed = 1;
+        bombTimer = 3;
         range = 1;
         aLife = true;
+        remoteBomb = false;
         speedMultiply = 0.01f;
 
     }
@@ -114,22 +117,22 @@ public class PlayerScript : MonoBehaviour
 
         if (InputManager.OneXButton())
         {
-            setBomb(0);
+            SetBomb(0);
         }
 
         if (InputManager.TwoXButton())
         {
-            setBomb(1);
+            SetBomb(1);
         }
 
         if (InputManager.ThreeXButton())
         {
-            setBomb(2);
+            SetBomb(2);
         }
 
         if (InputManager.FourXButton())
         {
-            setBomb(3);
+            SetBomb(3);
         }
 
         if (Input.GetKeyDown("space"))
@@ -159,7 +162,7 @@ public class PlayerScript : MonoBehaviour
     // Tot trifft ein
     public void dead(int id)
     {
-        Debug.Log("player_" + playerID.ToString() + " is Dead");
+        Debug.Log("Player_" + playerID.ToString() + " is Dead");
         playerList[id].GetComponent<PlayerScript>().setLife(-1);
         playerList[id].GetComponent<PlayerScript>().setALife(false);
         playerList[id].SetActive(false);
@@ -191,9 +194,9 @@ public class PlayerScript : MonoBehaviour
 
 
     // Range
-    public void setRange()
+    public void setRange(int tmp)
     {
-        range++;
+        range += tmp;
     }
 
     public int getRange()
@@ -237,38 +240,40 @@ public class PlayerScript : MonoBehaviour
         aLife = tmp;
     }
 
+    //remoteBomb
+    public bool getRemoteBomb()
+    {
+        return remoteBomb;
+    }
+
+    public void setRemoteBombe(bool tmp)
+    {
+        remoteBomb = tmp;
+    }
+
+    //bombTimer
+    public int getbombTimer()
+    {
+        return bombTimer;
+    }
+
+    public void setbombTimer(int tmp)
+    {
+        bombTimer = tmp;
+    }
+
+
 
     // Setzt Bombe mit überprüfung von avaibleBomb und aLife
-    public void setBomb(int id)
+    public void SetBomb(int id)
     {
         if (playerList[id].GetComponent<PlayerScript>().getAvaibleBomb() > 0 && playerList[id].GetComponent<PlayerScript>().getALife())
         {
-            Debug.Log("Bombe_Player_" + id.ToString());
-            createBomb(playerList[id]);
-            playerList[id].GetComponent<PlayerScript>().setAvaibleBomb(-1);
+            //Debug.Log("Bombe_Player_" + id.ToString());
+            FindObjectOfType<BombSpawner>().SpawnBomb(id);
         }
     }
 
-
-    void createBomb(GameObject player)
-    {
-        if (world.WorldArray[(int)player.transform.position.x, (int)player.transform.position.z] == null)
-        {
-                GameObject bombeInstanz;
-                bombeInstanz = Instantiate(bombe_Prefab, new Vector3(Mathf.Round(player.transform.position.x), -0.1f, Mathf.Round(player.transform.position.z)), Quaternion.identity);
-
-                BombeScript thisBombeScript = bombeInstanz.GetComponent<BombeScript>();
-
-                thisBombeScript.bombTimer = 3; //WERT MUSS DURCH ITEM ERHÖHT WERDEN
-                thisBombeScript.name = "Bombe"; //BOMBENNAME == PLAYERID. Bombe wird nämlich nur über name gefunden.
-                thisBombeScript.bombOwnerPlayerID = player.GetComponent<PlayerScript>().getPlayerID();
-                thisBombeScript.playerList = player.GetComponent<PlayerScript>().getPlayerList();
-
-                world.WorldArray[(int)player.transform.position.x, (int)player.transform.position.z] = bombeInstanz;
-                //angle += angle;
-        }
-        
-    }
 
     void speedMulti()
     {
@@ -281,24 +286,27 @@ public class PlayerScript : MonoBehaviour
 
     void wallTest(GameObject player)
     {
-       
-        if (world.WorldArray[(int)Mathf.Round(player.transform.position.x), (int)Mathf.Round(player.transform.position.z)] != null)
+        
+        int xPos = (int)Mathf.Round(player.transform.position.x);
+        int zPos = (int)Mathf.Round(player.transform.position.z);
+
+        if (world.WorldArray[xPos, zPos] != null)
         {
-            //Debug.Log("Object an aktueller Stelle: " + World.WorldArray[(int)xPosition, (int)zPosition]);
-            if (world.WorldArray[(int)Mathf.Round(player.transform.position.x), (int)Mathf.Round(player.transform.position.z)].name == "Item_SpeedBoost")
+            Debug.Log("Object an aktueller Stelle: " +world.WorldArray[xPos, zPos]);
+            if (world.WorldArray[xPos, zPos].name == "Item_SpeedBoost")
             {
-                Destroy(world.WorldArray[(int)Mathf.Round(player.transform.position.x), (int)Mathf.Round(player.transform.position.z)]);
+                Destroy(world.WorldArray[xPos, zPos]);
                 speedMultiply = 10f;
             }
-            if (world.WorldArray[(int)Mathf.Round(player.transform.position.x), (int)Mathf.Round(player.transform.position.z)].name == "Item_SpeedLow")
+            if (world.WorldArray[xPos, zPos].name == "Item_BombPowerUp")
             {
-                Destroy(world.WorldArray[(int)Mathf.Round(player.transform.position.x), (int)Mathf.Round(player.transform.position.z)]);
-                speedMultiply = 0.5f;
+                Destroy(world.WorldArray[xPos, zPos]);
+                player.GetComponent<PlayerScript>().setRange(1);
             }
         }
         else
         {
-            //Debug.Log("Object an aktueller Stelle: Freier Weg");
+            Debug.Log("Object an aktueller Stelle: Freier Weg");
         }
     }
 

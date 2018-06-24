@@ -22,7 +22,7 @@ public class CameraController : MonoBehaviour
     private float levelHeight;
 
     private float maxHeight;
-    private float minHeight = 20f;
+    private float minHeight = 25f;
 
 
 

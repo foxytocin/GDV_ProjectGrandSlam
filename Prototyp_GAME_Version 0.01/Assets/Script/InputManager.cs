@@ -28,7 +28,7 @@ public static class InputManager
     }
     public static bool OneXButton()
     {   
-        if(Input.GetButtonDown("One_X_Button")||Input.GetButtonDown("Mac_One_X_Button"))
+        if(Input.GetButtonDown("One_X_Button") || Input.GetButtonDown("Mac_One_X_Button"))
             return true;
 
         return false;

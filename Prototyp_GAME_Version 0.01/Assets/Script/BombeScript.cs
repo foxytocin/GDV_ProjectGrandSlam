@@ -6,9 +6,9 @@ using UnityEngine;
 public class BombeScript : MonoBehaviour
 {
     public int bombOwnerPlayerID;
-    public bool remoteBomb = false;
-    public int bombPower = 1;
-    public int bombTimer = 3;
+    public int bombPower;
+    public int bombTimer;
+    public bool remoteBomb;
     private float startTime;
     public List<GameObject> playerList;
 
@@ -35,9 +35,18 @@ public class BombeScript : MonoBehaviour
         int z = (int)gameObject.transform.position.z;
 
         Destroy(gameObject);
+        FindObjectOfType<MapDestroyer>().Explode(x, z, bombPower);
         playerList[bombOwnerPlayerID].GetComponent<PlayerScript>().setAvaibleBomb(1);
-        //Debug.Log("MAPDESTROYER EXPLODE WIRD AUFGERUFEN mit Position: " +x+ " / " +z);
-        FindObjectOfType<MapDestroyer>().Explode(x, z);
+    }
 
+    //bombTimer
+    public void setBombTimer(int tmp) {
+        bombTimer = tmp;
+    }
+
+    //remoteBomb
+    public void setremoteBomb(bool tmp)
+    {
+        remoteBomb = tmp;
     }
 }

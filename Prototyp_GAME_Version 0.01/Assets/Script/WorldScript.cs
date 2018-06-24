@@ -13,7 +13,7 @@ public class WorldScript : MonoBehaviour {
 	public GameObject levelBogen;
 	public GameObject levelBoden;
 	public GameObject Item_SpeedBoost_Prefab;
-    public GameObject Item_SpeedLow_Prefab;
+    public GameObject Item_BombPowerUp;
 	public int kistenCounter;
 	float elementRotation = 0f;
 	float generationStepDelay = 0.01f;
@@ -142,9 +142,9 @@ public class WorldScript : MonoBehaviour {
 					{
                         if ((Mathf.Round(Random.value * 10)) % 2 == 0) {
                             GameObject item;
-                            item = Instantiate(Item_SpeedLow_Prefab, new Vector3(i, 0, j), Quaternion.Euler(0, elementRotation, 0));
+                            item = Instantiate(Item_BombPowerUp, new Vector3(i, 0, j), Quaternion.Euler(0, elementRotation, 0));
                             item.transform.parent = transform;
-                            item.name = "Item_SpeedLow";
+                            item.name = "Item_BombPowerUp";
                             WorldArray[i, j] = item;
                             elementRotation += 90f;
                         } else {
