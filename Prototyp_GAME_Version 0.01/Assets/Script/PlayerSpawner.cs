@@ -16,7 +16,7 @@ public class PlayerSpawner : MonoBehaviour {
 	void Start ()
     {
         spawnList.Add(new Vector3(1f, 0f, 1f));
-        spawnList.Add(new Vector3((world.levelBreite - 1) * 2 - 1, 0f, (world.levelTiefe - 1) * 2 - 1));
+        spawnList.Add(new Vector3((world.levelBreite -1 ), 0f, (world.levelTiefe - 1)));
         playerList = new List<GameObject>();
 
         playerColorList = new List<Color>();
