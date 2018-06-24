@@ -39,7 +39,7 @@ public class PlayerScript : MonoBehaviour
 
     void Update()
     {
-
+        // Player Steuerung
         if (playerID == 0)
         {
             Vector3 tmp = InputManager.OneMainJoystick();
@@ -109,12 +109,17 @@ public class PlayerScript : MonoBehaviour
             }
         }
 
+
+        // Speed Verfall
         if (speedMultiply < 0.01f)
         {
             speedMultiply = 0.01f;
             //Debug.Log("Setting SM: " +speedMultiply);
         }
 
+
+
+        // X_Button Abfrage fuer die Player
         if (InputManager.OneXButton())
         {
             SetBomb(0);
@@ -135,10 +140,53 @@ public class PlayerScript : MonoBehaviour
             SetBomb(3);
         }
 
-        if (Input.GetKeyDown("space"))
+
+
+        // A_Button Abfrage fuer die Player
+        if (InputManager.OneAButton())
         {
-            dead(1);
+            // RemoteBombe zünden Player_One
         }
+
+        if (InputManager.TwoAButton())
+        {
+            // RemoteBombe zünden Player_Two
+        }
+
+        if (InputManager.ThreeAButton())
+        {
+            // RemoteBombe zünden Player_Three
+        }
+
+        if (InputManager.FourAButton())
+        {
+            // RemoteBombe zünden Player_Four
+        }
+
+
+
+        // Start_Button Abfrage fuer die Player 
+        if (InputManager.OneStartButton())
+        {
+            //Pause aufufen
+        }
+
+        if (InputManager.TwoStartButton())
+        {
+            //Pause aufufen
+        }
+
+        if (InputManager.ThreeStartButton())
+        {
+            //Pause aufufen
+        }
+
+        if (InputManager.FourStartButton())
+        {
+            //Pause aufufen
+        }
+
+
     }
 
 
