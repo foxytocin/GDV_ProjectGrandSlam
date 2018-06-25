@@ -344,7 +344,7 @@ public class PlayerScript : MonoBehaviour
             if (world.WorldArray[xPos, zPos].name == "Item_SpeedBoost")
             {
                 Destroy(world.WorldArray[xPos, zPos]);
-                speedMultiply = 10f;
+                speedMultiply = 8f;
             }
             if (world.WorldArray[xPos, zPos].name == "Item_BombPowerUp")
             {
@@ -354,6 +354,7 @@ public class PlayerScript : MonoBehaviour
         }
         else
         {
+            world.WorldArray[xPos, zPos] = player;
             Debug.Log("Object an aktueller Stelle: Freier Weg");
         }
     }

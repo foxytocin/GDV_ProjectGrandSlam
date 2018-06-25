@@ -15,7 +15,7 @@ public class BombSpawner : MonoBehaviour
         int xPos = (int)Mathf.Round(player.transform.position.x);
         int zPos = (int)Mathf.Round(player.transform.position.z);
         
-        if (world.WorldArray[xPos, zPos] == null)
+        if (!world.WorldArray[xPos, zPos].name.Contains("Bombe") && !world.WorldArray[xPos, zPos].name.Contains("Wand") && !world.WorldArray[xPos, zPos].name.Contains("Kiste"))
         {
             player.GetComponent<PlayerScript>().setAvaibleBomb(-1);
 
@@ -25,7 +25,7 @@ public class BombSpawner : MonoBehaviour
             BombeScript thisBombeScript = bombeInstanz.GetComponent<BombeScript>();
 
             thisBombeScript.bombTimer = player.GetComponent<PlayerScript>().getbombTimer();
-            thisBombeScript.name = "Bombe_Player_" +id;
+            thisBombeScript.name = "Bombe_" +id;
             thisBombeScript.bombOwnerPlayerID = id;
             thisBombeScript.playerList = player.GetComponent<PlayerScript>().getPlayerList();
             thisBombeScript.bombPower = player.GetComponent<PlayerScript>().getRange();

@@ -8,9 +8,10 @@ public class CameraController : MonoBehaviour
 {
 
     public WorldScript World;
-    public List<Transform> players;
-    public Transform player;
-    public Transform player2;
+    private List<GameObject> players;
+    //public Transform player;
+    //public Transform player2;
+    public PlayerSpawner playerSpawner;
     private Camera cam;
     //private PlayerScript playerScript;
 
@@ -22,7 +23,7 @@ public class CameraController : MonoBehaviour
     private float levelHeight;
 
     private float maxHeight;
-    private float minHeight = 25f;
+    private float minHeight = 10f;
 
 
 
@@ -30,14 +31,17 @@ public class CameraController : MonoBehaviour
     void Start()
     {
         cam = GetComponent<Camera>();
-        players.Add(GameObject.Find("Player_0").transform);
-        players.Add(GameObject.Find("Player_1").transform);
+        //players.Add(GameObject.Find("Player_0").transform);
+        //players.Add(GameObject.Find("Player_1").transform);
+        playerSpawner = GameObject.Find("Player").GetComponent<PlayerSpawner>();
+        
+
         //Liste von Spielern direkt bekommen und drauf zugreifen
         //playerScript = player.getComponent<PlayerScript>;
         //....
         levelWidth = World.levelBreite;
         levelHeight = World.levelTiefe;
-        maxHeight = levelWidth * (levelHeight * 0.07f);
+        maxHeight = levelWidth * (levelHeight * 0.04f);
         this.transform.position = new Vector3(levelWidth / 2, maxHeight, levelHeight / 2);
 
         offset = new Vector3(0, maxHeight, 0);
@@ -45,8 +49,13 @@ public class CameraController : MonoBehaviour
 
     private void LateUpdate()
     {
+        players = playerSpawner.playerList;
+
+        //Debug.Log(players[0]);
+
         if (players.Count == 0)
         {
+            
             return;
         }
         if (Time.fixedTime > 3)
@@ -81,7 +90,7 @@ public class CameraController : MonoBehaviour
         {
             for (int j = i + 1; j < players.Count; j++)
             {
-                float dist = Vector3.Distance(players[i].position, players[j].position);
+                float dist = Vector3.Distance(players[i].transform.position, players[j].transform.position);
                 if (dist > maxDist)
                 {
                     maxDist = dist;
@@ -104,17 +113,17 @@ public class CameraController : MonoBehaviour
     {
         if (players.Count == 1)
         {
-            return players[0].position;
+            return players[0].transform.position;
         }
         Vector3 center = Vector3.zero;
         for (int i = 0; i < players.Count; i++)
         {
             for (int j = i + 1; j < players.Count; j++)
             {
-                center = players[j].position - players[i].position;
+                center = players[j].transform.position - players[i].transform.position;
             }
         }
-        return players[0].position + 0.5f * center;
+        return players[0].transform.position + 0.5f * center;
 
         /*
         if(players.Count == 1)
