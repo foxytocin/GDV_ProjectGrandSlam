@@ -48,6 +48,7 @@ public class WorldScript : MonoBehaviour {
 	{
         //StartCoroutine(createWalls());
         createWalls();
+        StartCoroutine(createBoxes());
 	}
 
 
@@ -101,7 +102,7 @@ public class WorldScript : MonoBehaviour {
 				}
 			}
 		}
-		StartCoroutine(createBoxes());
+		//StartCoroutine(createBoxes());
 	}
 
 

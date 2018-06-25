@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MapDestroyer : MonoBehaviour
 {
@@ -57,9 +58,9 @@ public class MapDestroyer : MonoBehaviour
 
     void ExplodeCell(int x, int z)
     {
-        GameObject thisBomb = World.WorldArray[x, z];
+        GameObject ObjectinCell = World.WorldArray[x, z];
         
-        if (thisBomb == null)
+        if (ObjectinCell == null)
         {
             //Die Celle ist ein Gang
             Instantiate(ExplosionPrefab, new Vector3(x, 0, z), Quaternion.identity);
@@ -68,35 +69,46 @@ public class MapDestroyer : MonoBehaviour
         } else {
 
             //Die Celle ist eine Bombe, Wand, Kiste oder Icon
-            if (thisBomb.name.Contains("Bombe_Player_"))
+            if (ObjectinCell.name.Contains("Bombe_"))
             {
                 Instantiate(ExplosionPrefab, new Vector3(x, 0, z), Quaternion.identity);
           
                 //GameObject thisBombe = World.WorldArray[x, z];
-                BombeScript thisBombeScript = thisBomb.GetComponent<BombeScript>();
+                BombeScript thisBombeScript = ObjectinCell.GetComponent<BombeScript>();
                 thisBombeScript.bombTimer = 0;
                 thisBombeScript.remoteBomb = false;
 
                 shouldExplode = false;
             }
 
-            if (thisBomb.name == "Wand")
+            if (ObjectinCell.name == "Wand")
             {
                 shouldExplode = false;
             }
 
-            if (thisBomb.name == "Kiste")
+            if (ObjectinCell.name == "Kiste")
             {
                 Instantiate(ExplosionPrefab, new Vector3(x, 0, z), Quaternion.identity);
-                Destroy(thisBomb);
+                Destroy(ObjectinCell);
                 shouldExplode = false;
             }
 
-            if (thisBomb.name.Contains("Item"))
+            if (ObjectinCell.name.Contains("Item"))
             {
                 Instantiate(ExplosionPrefab, new Vector3(x, 0, z), Quaternion.identity);
-                Destroy(thisBomb);
-                shouldExplode = false;
+                Destroy(ObjectinCell);
+                shouldExplode = true;
+            }
+
+            if (ObjectinCell.name.Contains("Player_"))
+            {
+                Instantiate(ExplosionPrefab, new Vector3(x, 0, z), Quaternion.identity);
+
+                PlayerScript thisPlayerScript = ObjectinCell.GetComponent<PlayerScript>();
+                thisPlayerScript.setLife(-1);
+              
+                //Destroy(ObjectinCell);
+                shouldExplode = true;
             }
         }
     }
