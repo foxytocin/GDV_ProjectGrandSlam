@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
+# Visual Studio for Mac
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Prototyp_GAME_Version 0.02", "Assembly-CSharp.csproj", "{E86E2E17-B848-5A02-6087-754EE4522138}"
 EndProject
 Global

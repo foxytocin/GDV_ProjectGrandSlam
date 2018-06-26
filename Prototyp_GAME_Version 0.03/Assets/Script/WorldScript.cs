@@ -30,7 +30,7 @@ public class WorldScript : MonoBehaviour
     {
         levelBreite = levelBreite * 2 - 1;
         levelTiefe = levelTiefe * 2 - 1;
-        WorldArray = new GameObject[levelBreite, levelTiefe];
+        //WorldArray = new GameObject[levelBreite, levelTiefe];
         //levelBoden = Instantiate(levelBoden, new Vector3((levelBreite / 2f) - 0.5f, -0.5f, (levelTiefe / 2f) - 0.5f), Quaternion.identity);
         //levelBoden.transform.localScale = new Vector3((levelBreite), 1, (levelTiefe));
 
@@ -64,7 +64,7 @@ public class WorldScript : MonoBehaviour
     {
         GameObject clone;
         clone = Instantiate(levelBoden, new Vector3(((levelBreite / 2f) - 0.5f), -0.5f, rowPosition), Quaternion.identity);
-        clone.transform.localScale = new Vector3(levelBreite, 1f, 1f);
+        clone.transform.localScale = new Vector3(levelBreite * 0.1f, 1f, 0.1f);
 
         if (rowPosition % 2 == 0)
         {

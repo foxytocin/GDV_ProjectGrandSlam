@@ -2,11 +2,12 @@
 
 public class ColliderScript : MonoBehaviour {
 
-    void OnCollisionEnter(Collision col)
+
+    private void OnTriggerEnter(Collider other)
     {
-        if (col.gameObject.name == "Wand")
+        if (other.gameObject.tag == "OffScreen")
         {
-            Destroy(col.gameObject);
+            Destroy(other.gameObject);
         }
     }
 }
