@@ -69,11 +69,9 @@
     <Compile Include="Assets\Script\ExplosionScript.cs" />
     <Compile Include="Assets\Script\InputManager.cs" />
     <Compile Include="Assets\Script\ItemScript.cs" />
-    <Compile Include="Assets\Script\KisteScript.cs" />
     <Compile Include="Assets\Script\MapDestroyer.cs" />
     <Compile Include="Assets\Script\PlayerScript.cs" />
     <Compile Include="Assets\Script\PlayerSpawner.cs" />
-    <Compile Include="Assets\Script\WandScript.cs" />
     <Compile Include="Assets\Script\WorldScript.cs" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>/Users/andreas/Documents/HOCHSCHULE/4. Semester/GraphDat/GDV_ProjectGrandSlam/Prototyp_GAME_Version 0.03/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
