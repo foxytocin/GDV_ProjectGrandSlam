@@ -46,25 +46,25 @@ public class PlayerScript : MonoBehaviour
         if (collisionVector.x == 1f)
         {
             himmelsRichtungen[1] = false;
-            body.transform.Translate(-0.05f, 0, 0);
+            body.transform.Translate(-0.1f, 0, 0);
         }
 
         if (collisionVector.x == -1f)
         {
             himmelsRichtungen[3] = false;
-            body.transform.Translate(0.05f, 0, 0);
+            body.transform.Translate(0.1f, 0, 0);
         }
 
         if (collisionVector.z == 1f)
         {
             himmelsRichtungen[0] = false;
-            body.transform.Translate(0, 0, -0.05f);
+            body.transform.Translate(0, 0, -0.1f);
         }
 
         if (collisionVector.z == -1f)
         {
             himmelsRichtungen[2] = false;
-            body.transform.Translate(0, 0, 0.05f);
+            body.transform.Translate(0, 0, 0.1f);
         }
     }
 
