@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: f27a3a1f204724da1b5c8a071447d876
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - WandPrefab: {instanceID: 0}
+  - GangPrefab: {instanceID: 0}
+  - LevelTextdatei0: {fileID: 4900000, guid: 66c42525ad574491da2540b4f71fd253, type: 3}
+  - LevelTextdatei1: {fileID: 4900000, guid: 45fe15afa09804dd49d5a212ff475e3f, type: 3}
+  - LevelTextdatei2: {fileID: 4900000, guid: b32266f88a4c84f0f9f3ae32928c7ce7, type: 3}
+  - LevelTextdatei3: {fileID: 4900000, guid: e1e986bcbb1b24c049c602c60846a626, type: 3}
+  - LevelTextdatei4: {fileID: 4900000, guid: b98a2a825ef0e4838b8d6b00f8f9518e, type: 3}
+  - LevelTextdatei5: {fileID: 4900000, guid: c9c1f7d54fdb44b4a8c8e5bc75524785, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

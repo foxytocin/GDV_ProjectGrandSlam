@@ -338,25 +338,25 @@ public class PlayerScript : MonoBehaviour
         int xPos = (int)Mathf.Round(player.transform.position.x);
         int zPos = (int)Mathf.Round(player.transform.position.z);
 
-        if (world.WorldArray[xPos, zPos] != null)
-        {
-            Debug.Log("Object an aktueller Stelle: " +world.WorldArray[xPos, zPos]);
-            if (world.WorldArray[xPos, zPos].name == "Item_SpeedBoost")
-            {
-                Destroy(world.WorldArray[xPos, zPos]);
-                speedMultiply = 8f;
-            }
-            if (world.WorldArray[xPos, zPos].name == "Item_BombPowerUp")
-            {
-                Destroy(world.WorldArray[xPos, zPos]);
-                player.GetComponent<PlayerScript>().setRange(1);
-            }
-        }
-        else
-        {
-            //world.WorldArray[xPos, zPos] = player;
-            Debug.Log("Object an aktueller Stelle: Freier Weg");
-        }
+        //if (world.WorldArray[xPos, zPos] != null)
+        //{
+        //    Debug.Log("Object an aktueller Stelle: " +world.WorldArray[xPos, zPos]);
+        //    if (world.WorldArray[xPos, zPos].name == "Item_SpeedBoost")
+        //    {
+        //        Destroy(world.WorldArray[xPos, zPos]);
+        //        speedMultiply = 8f;
+        //    }
+        //    if (world.WorldArray[xPos, zPos].name == "Item_BombPowerUp")
+        //    {
+        //        Destroy(world.WorldArray[xPos, zPos]);
+        //        player.GetComponent<PlayerScript>().setRange(1);
+        //    }
+        //}
+        //else
+        //{
+        //    //world.WorldArray[xPos, zPos] = player;
+        //    Debug.Log("Object an aktueller Stelle: Freier Weg");
+        //}
     }
 
 }

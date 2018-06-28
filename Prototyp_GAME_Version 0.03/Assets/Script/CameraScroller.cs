@@ -15,20 +15,18 @@ public class CameraScroller : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-        transform.Translate(0, 0, 2f * Time.deltaTime);
+	void FixedUpdate () {
+        transform.Translate(0, 0, 0.5f * Time.deltaTime);
 
-	}
-
-    private void LateUpdate()
-    {
         rowPosition = (int)Mathf.Round(transform.position.z) + 32;
 
         if (rowPosition > altePosition)
         {
             altePosition = rowPosition;
             WorldScript.createWorld(rowPosition);
-            Debug.Log("GERADE REIHE NR " + rowPosition);
+            //Debug.Log("GERADE REIHE NR " + rowPosition);
         }
-    }
+
+	}
+
 }
