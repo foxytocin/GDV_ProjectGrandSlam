@@ -26,7 +26,7 @@ public class CameraScroller : MonoBehaviour
         {
             altePosition = rowPosition;
             LevelGenerator.createWorld(rowPosition);
-            Debug.Log("CAMERA ÜBERGIBT REIHE NR.: " + rowPosition);
+            //Debug.Log("CAMERA ÜBERGIBT REIHE NR.: " + rowPosition);
         }
     }
 }

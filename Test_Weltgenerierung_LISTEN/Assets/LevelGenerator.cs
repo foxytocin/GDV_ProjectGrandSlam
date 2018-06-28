@@ -10,6 +10,8 @@ public class LevelGenerator : MonoBehaviour
     public GameObject WandPrefab;
     public GameObject KistePrefab;
 
+    private int KistenMenge;
+
     public TextAsset LevelTextdatei0;
     public TextAsset LevelTextdatei1;
     public TextAsset LevelTextdatei2;
@@ -28,9 +30,36 @@ public class LevelGenerator : MonoBehaviour
     bool specialSection;
     int CameraPositon;
 
+    private void Update()
+    {
+        if(Input.GetKeyDown("1")) {
+            KistenMenge = 6;
+        }
+        if (Input.GetKeyDown("2"))
+        {
+            KistenMenge = 5;
+        }
+        if (Input.GetKeyDown("3"))
+        {
+            KistenMenge = 4;
+        }
+        if (Input.GetKeyDown("4"))
+        {
+            KistenMenge = 3;
+        }
+        if (Input.GetKeyDown("5"))
+        {
+            KistenMenge = 2;
+        }
+        if (Input.GetKeyDown("6"))
+        {
+            KistenMenge = 1;
+        }
+    }
 
     // Use this for initialization
     void Start() {
+        KistenMenge = 6;
         SectionDataOffset = 0;
         rotation = 0;
         specialSection = false;
@@ -39,10 +68,10 @@ public class LevelGenerator : MonoBehaviour
 
     public void createWorld(int CameraPosition)
     {
-        Debug.Log("createWorld: CameraPosition: "+CameraPosition+ " / SectionDateOffset: " +SectionDataOffset);
+        //Debug.Log("createWorld: CameraPosition: "+CameraPosition+ " / SectionDateOffset: " +SectionDataOffset);
         this.CameraPositon = CameraPosition;
         if(CameraPosition - SectionDataOffset < levelSectionData.Length) {
-            drawLevelLine(levelSectionData, CameraPosition);
+            drawLevelLine(CameraPosition);
 
         } else {
             SectionDataOffset = CameraPosition;
@@ -104,13 +133,12 @@ public class LevelGenerator : MonoBehaviour
                 specialSection = true;
             }
 
-            drawLevelLine(levelSectionData, CameraPosition);
+            drawLevelLine(CameraPosition);
         }
     }
 
-
     //Zeichnet die Linien der LevelSectionData zeilenweise
-    void drawLevelLine(string[][] levelSectionData, int CameraPosition) {
+    void drawLevelLine(int CameraPosition) {
 
         for (int x = 0; x < levelSectionData[0].Length; x++)
         {
@@ -128,44 +156,52 @@ public class LevelGenerator : MonoBehaviour
 
     //Erzeugt eine Bodenplatte und zufällig eine Kiste
     void createGang(Vector3 pos) {
-
+        
         Instantiate(BodenPrefab, pos, Quaternion.identity);
 
-        if(((int)(Random.value * 10)) % 5 == 0 && this.CameraPositon > 11) {
+        if(((int)Random.Range(0f, 21f)) % KistenMenge == 0 && this.CameraPositon > 11) {
             Instantiate(KistePrefab, pos + new Vector3(0, 0.5f, 0), Quaternion.Euler(0,0, rotation));
             rotation += 90;
         }
     }
 
-
     //Erzeug ein Stück Wand, einen Turm, oder einen Bogen
     void createWand(Vector3 pos) {
         
-        int RandomValue = (int)(Random.value * 10);
-        bool makeBogen = false;
+        int RandomValue = (int)Random.Range(0f, 21f); //Zahl zwischen 0 und 20
+        int xPos = (int)pos.x;
+        int zPos = (int)pos.z - SectionDataOffset;
+        bool makeBogen = true;
         
-        if(RandomValue % 5 == 0) {
-
+        if(RandomValue == 0) {
+            
             //Macht einen Turm und deaktiviert das ein Bogen erzeugt werden kann
             Instantiate(WandPrefab, pos, Quaternion.identity);
-            //Instantiate(WandPrefab, pos + new Vector3(0, 1, 0), Quaternion.identity); //TUERME SIND DEAKTIVIERT
-            makeBogen = false; //DEAKTIVIERT
+            Instantiate(WandPrefab, pos + new Vector3(0, 1, 0), Quaternion.identity); //TUERME SIND DEAKTIVIERT
+            makeBogen = false;
 
+        //Mach ein normales Stück Wand (ein Cube)
         } else {
             Instantiate(WandPrefab, pos, Quaternion.Euler(0, 0, rotation));
             rotation += 90;
         }
 
-        //Erzeug einen Bogen
-        if (RandomValue == 0 && makeBogen && pos.x < 19) {
+        //Erzeug einen Bogen.
+        //Überprüft das in alle möglich Richtungen eine Wandstück ist zu welchem der Bogen erstellt werden kann.
+        //Stellt sicher dass das Array das die levelSectionData nicht überschritten werden kann.
+        if ((RandomValue % 10 == 0) && makeBogen && (zPos < levelSectionData.Length - 2) && (xPos < 19) &&
+            (levelSectionData[zPos][xPos + 2] == levelWand) &&
+            (levelSectionData[zPos + 2][xPos] == levelWand) &&
+            (levelSectionData[zPos][xPos + 1] != levelWand) &&
+            (levelSectionData[zPos + 1][xPos] != levelWand))
+        {
             Instantiate(WandPrefab, pos + new Vector3(0, 1, 0), Quaternion.identity);
             Instantiate(WandPrefab, pos + new Vector3(0, 2, 0), Quaternion.identity);
-            Instantiate(WandPrefab, pos + new Vector3(1, 2, 0), Quaternion.identity);
-            Instantiate(WandPrefab, pos + new Vector3(2, 2, 0), Quaternion.identity);
-            Instantiate(WandPrefab, pos + new Vector3(2, 1, 0), Quaternion.identity);
+            Instantiate(WandPrefab, pos + ((RandomValue == 20) ? new Vector3(1, 2, 0) : new Vector3(0, 2, 1)), Quaternion.identity);
+            Instantiate(WandPrefab, pos + ((RandomValue == 20) ? new Vector3(2, 2, 0) : new Vector3(0, 2, 2)), Quaternion.identity);
+            Instantiate(WandPrefab, pos + ((RandomValue == 20) ? new Vector3(2, 1, 0) : new Vector3(0, 1, 2)), Quaternion.identity);
         }
     }
-
 
     //Einlesen der LevelTextDatei. Wandelt diese in ein Array um
     string[][] readFile(TextAsset file)
