@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
-    public bool moveX;
-    public bool moveZ;
     public WorldScript world;
     public GameObject body;
     public int playerID;
@@ -25,8 +23,6 @@ public class PlayerScript : MonoBehaviour
     // Use this for initialization
     void Awake()
     {
-        moveX = true;
-        moveZ = true;
         playerID = 0;
         life = 3;
         avaibleBomb = 1000;
