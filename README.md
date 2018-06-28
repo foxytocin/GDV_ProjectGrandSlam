@@ -55,22 +55,22 @@ ________________________________________________________________________________
 
 ### 29.06.2018 Prototyp Version 0.04
 #### Neue Levelgenerierung:
-  * Level werden automatisch dynamisch aus Sectionsabschnitten zusammengebaut.
-  * Die Beschreibung der Muster, wird über eine Textdatei üebergeben. x = Wand. o = Gang.
-  * Zwischen zwei Wandstücken kann zufällig ein Torbogen generiert werden. Normal, oder um 90 Grad zur Sicht gedreht.
-  * Kisten werden zufällig auf den Gangstücken platziert.
-  * Mit den Tasten 1 - 6 kann die Menge der Kisten im Prototyp gesteuert werden.
+  * Level werden automatisch dynamisch aus Sectionsabschnitten zusammengebaut
+  * Die Beschreibung der Muster, wird über eine Textdatei üebergeben. x = Wand. o = Gang
+  * Zwischen zwei Wandstücken kann zufällig ein Torbogen generiert werden. Normal, oder um 90 Grad zur Sicht gedreht
+  * Kisten werden zufällig auf den Gangstücken platziert
+  * Mit den Tasten 1 - 6 kann die Menge der Kisten im Prototyp gesteuert werden
 
-  * WorldArray ist akutell nicht mehr vorhanden.
-  * Aus "World" wird "LevelGenerator".
-  * Das Level hat aktuell keine Information über die Breite. Die Länge wird dynamisch verändert.
-  * Diese beiden werden könnten daher nicht mehr für die Camera verwendet werden.
+  * WorldArray ist akutell nicht mehr vorhanden
+  * Aus "World" wird "LevelGenerator"
+  * Das Level hat aktuell keine Information über die Breite. Die Länge wird dynamisch verändert
+  * Diese beiden werden könnten daher nicht mehr für die Camera verwendet werden
 
 #### Rigidbody auf Player_Prefab
-  * Damit ist eine erste Kollisionsabfrage realisiert. Evtl. Wechsel zur Listen in Listen um direkte Zugriffe zu realisieren. Wird noch getestet.
-  * Davon abhängig sind die Realsierung der Explosion, Items und Kettenreaktionen zwischen Bomben und Intenraktion der Spieler.
+  * Damit ist eine erste Kollisionsabfrage realisiert. Evtl. Wechsel zur Listen in Listen um direkte Zugriffe zu realisieren. Wird noch getestet
+  * Davon abhängig sind die Realsierung der Explosion, Items und Kettenreaktionen zwischen Bomben und Intenraktion der Spieler
 
 #### CameraMovement
-  * Scipt zur Player-Verfolgung implementiert (Josh).
-  * Aktuell aber wegen dem CameraScroller nicht funktionsfähig.
-  * Muss an die neue Art der LevelGenerierung und Interatkion angepasst werden.
+  * Scipt zur Player-Verfolgung implementiert (Josh)
+  * Aktuell aber wegen dem CameraScroller nicht funktionsfähig
+  * Muss an die neue Art der LevelGenerierung und Interatkion angepasst werden
