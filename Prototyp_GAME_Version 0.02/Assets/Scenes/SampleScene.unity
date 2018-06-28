@@ -296,8 +296,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelBreite: 0
   levelTiefe: 0
-  levelWand: {fileID: 1014234322211284, guid: 003ae408beb774f1db89ee2398ed91e8, type: 2}
-  levelKiste: {fileID: 1085317029149138, guid: 80cfb0b10b17b45d28c5666f5160af1e, type: 2}
+  levelWand: {fileID: 1238750708175982, guid: 030b1028b8557f04ba70362684617b0d, type: 2}
+  levelKiste: {fileID: 1334226626058294, guid: 80cfb0b10b17b45d28c5666f5160af1e, type: 2}
   levelBogen: {fileID: 1759410074061626, guid: a8b5d7aed78c848b1abfb2ffd155bbfc, type: 2}
   levelBoden: {fileID: 1382551801169860, guid: fabeec65a6ae14912869fb9650bd9d14, type: 2}
   Item_SpeedBoost_Prefab: {fileID: 1292355542708930, guid: 8e56275d125ef43469053f34b6d3bc3c,
@@ -412,9 +412,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   World: {fileID: 958779247}
-  players: []
-  player: {fileID: 1847533653}
-  player2: {fileID: 1847533653}
+  playerSpawner: {fileID: 0}
 --- !u!1 &1847533651
 GameObject:
   m_ObjectHideFlags: 0
