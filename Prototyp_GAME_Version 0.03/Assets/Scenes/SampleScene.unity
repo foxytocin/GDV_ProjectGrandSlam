@@ -359,7 +359,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 820448853}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 15, y: 15, z: -30}
+  m_LocalPosition: {x: 15, y: 15, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1988335581}
@@ -509,7 +509,7 @@ MonoBehaviour:
   playerPrefab: {fileID: 1667059198137356, guid: 40df6da08bb85fd499b60a58476303fa,
     type: 2}
   world: {fileID: 958779247}
-  players: 0
+  players: 2
   playerList: []
   spawnList: []
 --- !u!4 &1847533653
@@ -536,6 +536,7 @@ GameObject:
   - component: {fileID: 1988335580}
   - component: {fileID: 1988335579}
   - component: {fileID: 1988335578}
+  - component: {fileID: 1988335582}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -606,3 +607,16 @@ Transform:
   m_Father: {fileID: 820448854}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 85, y: 0, z: 0}
+--- !u!114 &1988335582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1988335577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f07c3bf3b7a948c59a07d6c56ad74d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  World: {fileID: 0}
+  playerSpawner: {fileID: 0}
