@@ -12,6 +12,7 @@ public class LevelGenerator : MonoBehaviour
 
     private int KistenMenge;
 
+    public float LevelSpeed;
     public TextAsset LevelTextdatei0;
     public TextAsset LevelTextdatei1;
     public TextAsset LevelTextdatei2;
@@ -23,6 +24,7 @@ public class LevelGenerator : MonoBehaviour
     public const string levelGang = "o";
     public const string levelWand = "x";
 
+    public List<GameObject> AllGameObjects;
     string[][] levelSectionData;
     public string[][] levelBase;
     int SectionDataOffset;
@@ -59,6 +61,7 @@ public class LevelGenerator : MonoBehaviour
 
     // Use this for initialization
     void Start() {
+        LevelSpeed = 0.5f;
         KistenMenge = 6;
         SectionDataOffset = 0;
         rotation = 0;
@@ -160,8 +163,10 @@ public class LevelGenerator : MonoBehaviour
         Instantiate(BodenPrefab, pos, Quaternion.identity);
 
         if(((int)Random.Range(0f, 21f)) % KistenMenge == 0 && this.CameraPositon > 11) {
-            Instantiate(KistePrefab, pos + new Vector3(0, 0.5f, 0), Quaternion.Euler(0,0, rotation));
+            GameObject Kiste = Instantiate(KistePrefab, pos + new Vector3(0, 0.5f, 0), Quaternion.Euler(0,0, rotation));
             rotation += 90;
+
+            AllGameObjects.Add(Kiste);
         }
     }
 

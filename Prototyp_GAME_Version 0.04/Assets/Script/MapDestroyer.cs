@@ -14,52 +14,81 @@ public class MapDestroyer : MonoBehaviour
 
     public void Explode(int x, int z, int bombPower)
     {
-        //Controlliert benachbarte Zellen auf Bomben, Kisten und Wände
+        Debug.Log("EXPLODE AUFGERUGEN");
 
-        Instantiate(ExplosionPrefab, new Vector3(x, 0, z), Quaternion.identity);
+        Instantiate(ExplosionPrefab, new Vector3(x, 0.5f, z), Quaternion.identity);
 
-        for (int ausbreitung = 1; ausbreitung < bombPower + 1; ausbreitung++)
+        foreach (GameObject go in LevelGenerator.AllGameObjects)
         {
-            if (shouldExplode)
+            float dist = Vector3.Distance(new Vector3(x, 0.5f, z), go.transform.position);
+
+            Debug.Log("Entfernung " + dist);
+
+            if ((int)dist <= bombPower)
             {
-                ExplodeCell(x + ausbreitung, z);
+                Debug.Log("DESTROY " + go.gameObject);
+                Instantiate(ExplosionPrefab, go.transform.position, Quaternion.identity);
+                LevelGenerator.AllGameObjects.Remove(go);
+                Destroy(go);
             }
         }
-        shouldExplode = true;
-
-        for (int ausbreitung = 1; ausbreitung < bombPower + 1; ausbreitung++)
-        {
-            if (shouldExplode)
-            {
-                ExplodeCell(x - ausbreitung, z);
-            }
-        }
-        shouldExplode = true;
-
-        for (int ausbreitung = 1; ausbreitung < bombPower + 1; ausbreitung++)
-        {
-            if (shouldExplode)
-            {
-                ExplodeCell(x, z - ausbreitung);
-            }
-        }
-        shouldExplode = true;
-
-        for (int ausbreitung = 1; ausbreitung < bombPower + 1; ausbreitung++)
-        {
-            if (shouldExplode)
-            {
-                ExplodeCell(x, z + ausbreitung);
-            }
-        }
-        shouldExplode = true;
     }
+}
 
 
-    void ExplodeCell(int x, int z)
-    {
-        //GameObject ObjectinCell = World.WorldArray[x, z];
-        
+    //    for (int ausbreitung = 1; ausbreitung < bombPower + 1; ausbreitung++)
+    //    {
+    //        if (shouldExplode)
+    //        {
+    //            ExplodeCell(x + ausbreitung, z);
+    //        }
+    //    }
+    //    shouldExplode = true;
+
+    //    for (int ausbreitung = 1; ausbreitung < bombPower + 1; ausbreitung++)
+    //    {
+    //        if (shouldExplode)
+    //        {
+    //            ExplodeCell(x - ausbreitung, z);
+    //        }
+    //    }
+    //    shouldExplode = true;
+
+    //    for (int ausbreitung = 1; ausbreitung < bombPower + 1; ausbreitung++)
+    //    {
+    //        if (shouldExplode)
+    //        {
+    //            ExplodeCell(x, z - ausbreitung);
+    //        }
+    //    }
+    //    shouldExplode = true;
+
+    //    for (int ausbreitung = 1; ausbreitung < bombPower + 1; ausbreitung++)
+    //    {
+    //        if (shouldExplode)
+    //        {
+    //            ExplodeCell(x, z + ausbreitung);
+    //        }
+    //    }
+    //    shouldExplode = true;
+    //}
+
+
+    //void ExplodeCell(int x, int z, GameObject[] allObjects)
+    //{
+
+        //foreach(object go in allObjects)
+        //{
+        //    float dist = Vector3.Distance(new Vector3(x, 0, z), new Vector3(BombxPos, 0, BombzPos));
+
+        //    Debug.Log("ENTFERNUNG " +dist);
+
+        //    if(dist < bombPower) {
+        //        Destroy(this);
+        //    }
+        //} 
+
+
         //if (ObjectinCell == null)
         //{
         //    //Die Celle ist ein Gang
@@ -111,5 +140,5 @@ public class MapDestroyer : MonoBehaviour
         //        shouldExplode = true;
         //    }
         //}
-    }
-}
+//    }
+//}

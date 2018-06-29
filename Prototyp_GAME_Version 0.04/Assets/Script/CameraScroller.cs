@@ -18,7 +18,7 @@ public class CameraScroller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(0, 0, 0.5f * Time.deltaTime);
+        transform.Translate(0, 0, LevelGenerator.LevelSpeed * Time.deltaTime);
         rowPosition = (int)Mathf.Round(transform.position.z);
 
         if (rowPosition > altePosition)

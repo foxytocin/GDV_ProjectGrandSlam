@@ -28,6 +28,8 @@ public class BombSpawner : MonoBehaviour
             thisBombeScript.bombPower = player.GetComponent<PlayerScript>().getRange();
             thisBombeScript.remoteBomb = player.GetComponent<PlayerScript>().getRemoteBomb();
 
+        Debug.Log("Bombe gelegt: " +thisBombeScript.transform.position);
+
             //world.WorldArray[xPos, zPos] = bombeInstanz;
             //angle += angle;
         //}
