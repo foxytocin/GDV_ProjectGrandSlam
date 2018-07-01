@@ -17,6 +17,7 @@ public class PlayerScript : MonoBehaviour
     public bool aLife;
     public bool remoteBomb;
     public List<GameObject> playerList;
+    public bool creatingBomb;
 
     float speedMultiply;
 
@@ -30,10 +31,11 @@ public class PlayerScript : MonoBehaviour
         avaibleBomb = 1000;
         speed = 1;
         bombTimer = 3;
-        range = 1;
+        range = 3;
         aLife = true;
         remoteBomb = false;
         speedMultiply = 0.01f;
+        creatingBomb = false;
 
     }
 
@@ -116,26 +118,27 @@ public class PlayerScript : MonoBehaviour
             speedMultiply = 0.01f;
             //Debug.Log("Setting SM: " +speedMultiply);
         }
+    }
 
-
-
+    private void LateUpdate()
+    {
         // X_Button Abfrage fuer die Player
-        if (InputManager.OneXButton())
+        if (InputManager.OneXButton() && !creatingBomb)
         {
             SetBomb(0);
         }
 
-        if (InputManager.TwoXButton())
+        if (InputManager.TwoXButton() && !creatingBomb)
         {
             SetBomb(1);
         }
 
-        if (InputManager.ThreeXButton())
+        if (InputManager.ThreeXButton() && !creatingBomb)
         {
             SetBomb(2);
         }
 
-        if (InputManager.FourXButton())
+        if (InputManager.FourXButton() && !creatingBomb)
         {
             SetBomb(3);
         }
@@ -185,7 +188,6 @@ public class PlayerScript : MonoBehaviour
         {
             //Pause aufufen
         }
-
 
     }
 
@@ -315,10 +317,14 @@ public class PlayerScript : MonoBehaviour
     // Setzt Bombe mit überprüfung von avaibleBomb und aLife
     public void SetBomb(int id)
     {
+
         if (playerList[id].GetComponent<PlayerScript>().getAvaibleBomb() > 0 && playerList[id].GetComponent<PlayerScript>().getALife())
         {
+            creatingBomb = true;
             //Debug.Log("Bombe_Player_" + id.ToString());
             FindObjectOfType<BombSpawner>().SpawnBomb(id);
+        } else {
+            creatingBomb = false;
         }
     }
 

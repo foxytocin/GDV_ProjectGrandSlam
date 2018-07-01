@@ -11,24 +11,27 @@ public class BombSpawner : MonoBehaviour
 
     public void SpawnBomb(int id)
     {
-        GameObject player = PlayerSpawner.playerList[id].gameObject;
+
+        PlayerScript player = PlayerSpawner.playerList[id].gameObject.GetComponent<PlayerScript>();
         int xPos = (int)Mathf.Round(player.transform.position.x);
         int zPos = (int)Mathf.Round(player.transform.position.z);
         
         //if (!world.WorldArray[xPos, zPos].name.Contains("Bombe") && !world.WorldArray[xPos, zPos].name.Contains("Wand") && !world.WorldArray[xPos, zPos].name.Contains("Kiste"))
         //{
-            player.GetComponent<PlayerScript>().setAvaibleBomb(-1);
+            player.setAvaibleBomb(-1);
 
             BombScript thisBombeScript = Instantiate(Bomb_Prefab, new Vector3(xPos, 0.4f, zPos), Quaternion.identity).GetComponent<BombScript>();
 
-            thisBombeScript.bombTimer = player.GetComponent<PlayerScript>().getbombTimer();
+            thisBombeScript.bombTimer = player.getbombTimer();
             thisBombeScript.name = "Bombe_" +id;
             thisBombeScript.bombOwnerPlayerID = id;
-            thisBombeScript.playerList = player.GetComponent<PlayerScript>().getPlayerList();
-            thisBombeScript.bombPower = player.GetComponent<PlayerScript>().getRange();
-            thisBombeScript.remoteBomb = player.GetComponent<PlayerScript>().getRemoteBomb();
+            thisBombeScript.playerList = player.getPlayerList();
+            thisBombeScript.bombPower = player.getRange();
+            thisBombeScript.remoteBomb = player.getRemoteBomb();
 
-        Debug.Log("Bombe gelegt: " +thisBombeScript.transform.position);
+            Debug.Log("Bombe gelegt: " +thisBombeScript.transform.position);
+
+            player.creatingBomb = false;
 
             //world.WorldArray[xPos, zPos] = bombeInstanz;
             //angle += angle;

@@ -28,7 +28,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1292355542708930
 GameObject:
@@ -43,7 +43,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &4043619291811466
 Transform:
@@ -125,10 +125,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a289e8e984c8428795621415aeb1cb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  World: {fileID: 0}
   availableBombs: 0
   playerSpeed: 0
-  itemColor: 0
+  speedBonus: 0
 --- !u!135 &135335653050455306
 SphereCollider:
   m_ObjectHideFlags: 1

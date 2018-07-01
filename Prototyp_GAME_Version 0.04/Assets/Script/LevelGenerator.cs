@@ -62,7 +62,7 @@ public class LevelGenerator : MonoBehaviour
     // Use this for initialization
     void Start() {
         LevelSpeed = 0.5f;
-        KistenMenge = 6;
+        KistenMenge = 5;
         SectionDataOffset = 0;
         rotation = 0;
         specialSection = false;
@@ -79,7 +79,7 @@ public class LevelGenerator : MonoBehaviour
         } else {
             SectionDataOffset = CameraPosition;
 
-            int RandomValue = ((int)(Random.value * 10));
+            int RandomValue = (int)(Random.Range(0, 11f));
 
             if(specialSection) {
 
@@ -215,7 +215,8 @@ public class LevelGenerator : MonoBehaviour
         int rows = lines.Length;
 
         string[][] levelBase = new string[rows][];
-        for (int i = 0; i < lines.Length; i++)
+
+        for (int i = 0; i < rows; i++)
         {
             string[] stringsOfLine = Regex.Split(lines[i], "");
             levelBase[i] = stringsOfLine;

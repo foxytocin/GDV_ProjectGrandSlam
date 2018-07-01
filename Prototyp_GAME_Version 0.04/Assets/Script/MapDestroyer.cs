@@ -14,23 +14,64 @@ public class MapDestroyer : MonoBehaviour
 
     public void Explode(int x, int z, int bombPower)
     {
-        Debug.Log("EXPLODE AUFGERUGEN");
-
         Instantiate(ExplosionPrefab, new Vector3(x, 0.5f, z), Quaternion.identity);
+        List<GameObject> KisteToDestory = new List<GameObject>();
 
         foreach (GameObject go in LevelGenerator.AllGameObjects)
         {
-            float dist = Vector3.Distance(new Vector3(x, 0.5f, z), go.transform.position);
+            int xPos = (int)(go.transform.position.x);
+            int zPos = (int)(go.transform.position.z);
 
-            Debug.Log("Entfernung " + dist);
-
-            if ((int)dist <= bombPower)
-            {
-                Debug.Log("DESTROY " + go.gameObject);
-                Instantiate(ExplosionPrefab, go.transform.position, Quaternion.identity);
-                LevelGenerator.AllGameObjects.Remove(go);
-                Destroy(go);
+            if (xPos == x || zPos == z) {
+                KisteToDestory.Add(go);
+                Debug.Log("Kiste die zerstört werden muss: " +xPos+ " / " +zPos);
             }
+
+            for (int i = 1; i < bombPower + 1; i++) {
+
+                if (x + i == xPos && z == zPos) {
+                    Debug.Log("Kiste in +x zerstört: " +xPos+ " / " +zPos);
+                    Instantiate(ExplosionPrefab, new Vector3(x + i, 0.5f, z), Quaternion.identity);
+                    LevelGenerator.AllGameObjects.Remove(go);
+                    Destroy(go);
+                }
+
+                if (x - i == xPos && z == zPos)
+                {
+                    Debug.Log("Kiste in -x zerstört: " + xPos + " / " + zPos);
+                    Instantiate(ExplosionPrefab, new Vector3(x - i, 0.5f, z), Quaternion.identity);
+                    LevelGenerator.AllGameObjects.Remove(go);
+                    Destroy(go);
+                }
+
+                if (x == xPos && z + i == zPos)
+                {
+                    Debug.Log("Kiste in +z zerstört: " + xPos + " / " + zPos);
+                    Instantiate(ExplosionPrefab, new Vector3(x, 0.5f, z + i), Quaternion.identity);
+                    LevelGenerator.AllGameObjects.Remove(go);
+                    Destroy(go);
+                }
+
+                if (x == xPos && z - i == zPos)
+                {
+                    Debug.Log("Kiste in -z zerstört: " + xPos + " / " + zPos);
+                    Instantiate(ExplosionPrefab, new Vector3(x, 0.5f, z - i), Quaternion.identity);
+                    LevelGenerator.AllGameObjects.Remove(go);
+                    Destroy(go);
+                }
+
+            }
+
+           
+
+
+            //if ((int)dist <= bombPower)
+            //{
+            //    Debug.Log("DESTROY " + go.gameObject);
+            //    Instantiate(ExplosionPrefab, go.transform.position, Quaternion.identity);
+            //    LevelGenerator.AllGameObjects.Remove(go);
+            //    Destroy(go);
+            //}
         }
     }
 }
