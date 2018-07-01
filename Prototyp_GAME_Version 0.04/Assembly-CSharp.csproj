@@ -74,6 +74,8 @@
     <Compile Include="Assets\Script\PlayerScript.cs" />
     <Compile Include="Assets\Script\PlayerSpawner.cs" />
     <None Include="Assets\LevelTextdatein\level2.txt" />
+    <None Include="Assets\LevelTextdatein\level8.txt" />
+    <None Include="Assets\LevelTextdatein\level7.txt" />
     <None Include="Assets\LevelTextdatein\level5.txt" />
     <None Include="Assets\LevelTextdatein\level1.txt" />
     <None Include="Assets\LevelTextdatein\level3.txt" />

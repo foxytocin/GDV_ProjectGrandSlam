@@ -25,10 +25,10 @@ GameObject:
   - component: {fileID: 135517589307188646}
   m_Layer: 0
   m_Name: Bomb_Prefab
-  m_TagString: Untagged
+  m_TagString: OffScreen
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &4467837461092848
 Transform:

@@ -14,10 +14,10 @@ public class PlayerSpawner : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
-        spawnList.Add(new Vector3(4f, 0.4f, 4f));
-        spawnList.Add(new Vector3(16f, 0.4f, 4f));
-        spawnList.Add(new Vector3(8f, 0.4f, 4f));
-        spawnList.Add(new Vector3(12f, 0.4f, 4f));
+        spawnList.Add(new Vector3(6f, 0.4f, 2f));
+        spawnList.Add(new Vector3(9f, 0.4f, 2f));
+        spawnList.Add(new Vector3(12f, 0.4f, 2f));
+        spawnList.Add(new Vector3(15f, 0.4f, 2f));
         playerList = new List<GameObject>();
 
         playerColorList = new List<Color>();

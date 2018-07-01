@@ -11,68 +11,79 @@ public class MapDestroyer : MonoBehaviour
 
     //Wird nach Zeitablauf der Bombe durch die BombeScript aufgerufen und emfängt die Position der Bombe
     bool shouldExplode = true;
+    List<GameObject> KisteToDestory;
 
     public void Explode(int x, int z, int bombPower)
     {
+        this.bombPower = bombPower;
         Instantiate(ExplosionPrefab, new Vector3(x, 0.5f, z), Quaternion.identity);
-        List<GameObject> KisteToDestory = new List<GameObject>();
+        KisteToDestory = new List<GameObject>();
 
         foreach (GameObject go in LevelGenerator.AllGameObjects)
         {
             int xPos = (int)(go.transform.position.x);
             int zPos = (int)(go.transform.position.z);
 
-            if (xPos == x || zPos == z) {
+            if (xPos == x || zPos == z)
+            {
                 KisteToDestory.Add(go);
-                Debug.Log("Kiste die zerstört werden muss: " +xPos+ " / " +zPos);
+                Debug.Log("Kiste die zerstört werden muss: " + xPos + " / " + zPos);
             }
+        }
 
-            for (int i = 1; i < bombPower + 1; i++) {
+        Debug.Log("DestroyKiste aufgerufen");
+        DestroyKiste(x, z);
+    }
 
-                if (x + i == xPos && z == zPos) {
-                    Debug.Log("Kiste in +x zerstört: " +xPos+ " / " +zPos);
-                    Instantiate(ExplosionPrefab, new Vector3(x + i, 0.5f, z), Quaternion.identity);
-                    LevelGenerator.AllGameObjects.Remove(go);
+    public void DestroyKiste(int x, int z) 
+    {
+        foreach (GameObject go in KisteToDestory)
+        {
+
+            int xPos = (int)(go.transform.position.x);
+            int zPos = (int)(go.transform.position.z);
+
+            for (int i = 1; i < bombPower + 1; i++)
+            {
+
+                if (x + i == xPos && z == zPos)
+                {
+                    Debug.Log("Kiste in +x zerstört: " + xPos + " / " + zPos);
                     Destroy(go);
+                    Instantiate(ExplosionPrefab, new Vector3(x + i, 0.5f, z), Quaternion.identity);
+                    //KisteToDestory.Remove(go);
                 }
 
                 if (x - i == xPos && z == zPos)
                 {
                     Debug.Log("Kiste in -x zerstört: " + xPos + " / " + zPos);
-                    Instantiate(ExplosionPrefab, new Vector3(x - i, 0.5f, z), Quaternion.identity);
-                    LevelGenerator.AllGameObjects.Remove(go);
                     Destroy(go);
+                    Instantiate(ExplosionPrefab, new Vector3(x - i, 0.5f, z), Quaternion.identity);
+                    //KisteToDestory.Remove(go);
                 }
 
                 if (x == xPos && z + i == zPos)
                 {
                     Debug.Log("Kiste in +z zerstört: " + xPos + " / " + zPos);
-                    Instantiate(ExplosionPrefab, new Vector3(x, 0.5f, z + i), Quaternion.identity);
-                    LevelGenerator.AllGameObjects.Remove(go);
                     Destroy(go);
+                    Instantiate(ExplosionPrefab, new Vector3(x, 0.5f, z + i), Quaternion.identity);
+                    //KisteToDestory.Remove(go);
                 }
 
                 if (x == xPos && z - i == zPos)
                 {
                     Debug.Log("Kiste in -z zerstört: " + xPos + " / " + zPos);
-                    Instantiate(ExplosionPrefab, new Vector3(x, 0.5f, z - i), Quaternion.identity);
-                    LevelGenerator.AllGameObjects.Remove(go);
                     Destroy(go);
+                    Instantiate(ExplosionPrefab, new Vector3(x, 0.5f, z - i), Quaternion.identity);
+                    //KisteToDestory.Remove(go);
                 }
-
             }
-
-           
-
-
-            //if ((int)dist <= bombPower)
-            //{
-            //    Debug.Log("DESTROY " + go.gameObject);
-            //    Instantiate(ExplosionPrefab, go.transform.position, Quaternion.identity);
-            //    LevelGenerator.AllGameObjects.Remove(go);
-            //    Destroy(go);
-            //}
         }
+        foreach (GameObject go in KisteToDestory)
+        {
+            LevelGenerator.AllGameObjects.Remove(go);
+        }
+        KisteToDestory.Clear();
     }
 }
 

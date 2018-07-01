@@ -20,17 +20,20 @@ public class LevelGenerator : MonoBehaviour
     public TextAsset LevelTextdatei4;
     public TextAsset LevelTextdatei5;
     public TextAsset LevelTextdatei6;
+    public TextAsset LevelTextdatei7;
+    public TextAsset LevelTextdatei8;
 
-    public const string levelGang = "o";
-    public const string levelWand = "x";
+    private const string levelGang = "o";
+    private const string levelWand = "x";
+    private const string levelKiste = "k";
 
     public List<GameObject> AllGameObjects;
-    string[][] levelSectionData;
-    public string[][] levelBase;
-    int SectionDataOffset;
-    int rotation;
-    bool specialSection;
-    int CameraPositon;
+    private string[][] levelSectionData;
+    private string[][] levelBase;
+    private int SectionDataOffset;
+    private int rotation;
+    private bool specialSection;
+    private int CameraPositon;
 
     private void Update()
     {
@@ -67,6 +70,7 @@ public class LevelGenerator : MonoBehaviour
         rotation = 0;
         specialSection = false;
         levelSectionData = readFile(LevelTextdatei0);
+        AllGameObjects = new List<GameObject>();
     }
 
     public void createWorld(int CameraPosition)
@@ -102,32 +106,32 @@ public class LevelGenerator : MonoBehaviour
                         specialSection = true;
                         break;
                     case 4:
-                        levelSectionData = readFile(LevelTextdatei6);
-                        specialSection = false;
-                        break;
-                    case 5:
                         levelSectionData = readFile(LevelTextdatei2);
                         specialSection = false;
                         break;
-                    case 6:
+                    case 5:
                         levelSectionData = readFile(LevelTextdatei3);
                         specialSection = false;
                         break;
+                    case 6:
+                        levelSectionData = readFile(LevelTextdatei4);
+                        specialSection = false;
+                        break;
                     case 7:
-                        levelSectionData = readFile(LevelTextdatei4);
-                        specialSection = false;
-                        break;
-                    case 8:
-                        levelSectionData = readFile(LevelTextdatei4);
-                        specialSection = false;
-                        break;
-                    case 9:
                         levelSectionData = readFile(LevelTextdatei5);
                         specialSection = false;
                         break;
+                    case 8:
+                        levelSectionData = readFile(LevelTextdatei6);
+                        specialSection = false;
+                        break;
+                    case 9:
+                        levelSectionData = readFile(LevelTextdatei7);
+                        specialSection = false;
+                        break;
                     case 10:
-                        levelSectionData = readFile(LevelTextdatei1);
-                        specialSection = true;
+                        levelSectionData = readFile(LevelTextdatei8);
+                        specialSection = false;
                         break;
                 }
 
@@ -142,16 +146,19 @@ public class LevelGenerator : MonoBehaviour
 
     //Zeichnet die Linien der LevelSectionData zeilenweise
     void drawLevelLine(int CameraPosition) {
-
-        for (int x = 0; x < levelSectionData[0].Length; x++)
+        
+        for (int i = 0; i < levelSectionData[0].Length; i++)
         {
-            switch (levelSectionData[CameraPosition - SectionDataOffset][x])
+            switch (levelSectionData[CameraPosition - SectionDataOffset][i])
             {
                 case levelGang:
-                    createGang(new Vector3(x, 0f, CameraPosition));
+                    createGang(new Vector3(i, 0f, CameraPosition));
                     break;
                 case levelWand:
-                    createWand(new Vector3(x, 0.5f, CameraPosition));
+                    createWand(new Vector3(i, 0.5f, CameraPosition));
+                    break;
+                case levelKiste:
+                    createKiste(new Vector3(i, 0f, CameraPosition));
                     break;
             }
         }
@@ -163,10 +170,11 @@ public class LevelGenerator : MonoBehaviour
         Instantiate(BodenPrefab, pos, Quaternion.identity);
 
         if(((int)Random.Range(0f, 21f)) % KistenMenge == 0 && this.CameraPositon > 11) {
-            GameObject Kiste = Instantiate(KistePrefab, pos + new Vector3(0, 0.5f, 0), Quaternion.Euler(0,0, rotation));
+            GameObject Kiste = Instantiate(KistePrefab, pos + new Vector3(0f, 0.5f, 0f), Quaternion.Euler(0, 0, rotation));
             rotation += 90;
 
             AllGameObjects.Add(Kiste);
+            Debug.Log(AllGameObjects.Count);
         }
     }
 
@@ -206,6 +214,17 @@ public class LevelGenerator : MonoBehaviour
             Instantiate(WandPrefab, pos + ((RandomValue == 20) ? new Vector3(2, 2, 0) : new Vector3(0, 2, 2)), Quaternion.identity);
             Instantiate(WandPrefab, pos + ((RandomValue == 20) ? new Vector3(2, 1, 0) : new Vector3(0, 1, 2)), Quaternion.identity);
         }
+    }
+
+    //Erzeugt eine Kiste und Boden unter ihr
+    void createKiste(Vector3 pos) {
+        
+        Instantiate(BodenPrefab, pos, Quaternion.identity);
+        GameObject Kiste = Instantiate(KistePrefab, pos + new Vector3(0f, 0.5f, 0f), Quaternion.Euler(0, 0, rotation));
+        rotation += 90;
+
+        AllGameObjects.Add(Kiste);
+        Debug.Log(AllGameObjects.Count);
     }
 
     //Einlesen der LevelTextDatei. Wandelt diese in ein Array um
