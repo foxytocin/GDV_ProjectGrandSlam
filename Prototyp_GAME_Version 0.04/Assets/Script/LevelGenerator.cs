@@ -27,7 +27,9 @@ public class LevelGenerator : MonoBehaviour
     private const string levelWand = "x";
     private const string levelKiste = "k";
 
-    public List<GameObject> AllGameObjects;
+    //public List<GameObject> AllGameObjects;
+    public GameObject[,] AllGameObjects;
+
     private string[][] levelSectionData;
     private string[][] levelBase;
     private int SectionDataOffset;
@@ -82,7 +84,8 @@ public class LevelGenerator : MonoBehaviour
         rotation = 0;
         specialSection = false;
         levelSectionData = readFile(LevelTextdatei0);
-        AllGameObjects = new List<GameObject>();
+        //AllGameObjects = new List<GameObject>();
+        AllGameObjects = new GameObject[22,3000];
     }
 
     public void createWorld(int CameraPosition)
@@ -183,10 +186,13 @@ public class LevelGenerator : MonoBehaviour
 
         if(((int)Random.Range(0f, 21f)) % KistenMenge == 0 && this.CameraPositon > 11 && KistenMengeGen) {
             GameObject Kiste = Instantiate(KistePrefab, pos + new Vector3(0f, 0.5f, 0f), Quaternion.Euler(0, 0, rotation));
+            Kiste.name = "Kiste";
             rotation += 90;
 
-            AllGameObjects.Add(Kiste);
-            Debug.Log(AllGameObjects.Count);
+            //AllGameObjects.Add(Kiste);
+            //Debug.Log(AllGameObjects.Count);
+            Debug.Log("Kiste erzeugt" +(int)Kiste.transform.position.x+" / "+(int)Kiste.transform.position.z);
+            AllGameObjects[(int)Kiste.transform.position.x, (int)Kiste.transform.position.z] = Kiste;
         }
     }
 
@@ -201,14 +207,20 @@ public class LevelGenerator : MonoBehaviour
         if(RandomValue == 0) {
             
             //Macht einen Turm und deaktiviert das ein Bogen erzeugt werden kann
-            Instantiate(WandPrefab, pos, Quaternion.identity);
+            GameObject Wand = Instantiate(WandPrefab, pos, Quaternion.identity);
             Instantiate(WandPrefab, pos + new Vector3(0, 1, 0), Quaternion.identity); //TUERME SIND DEAKTIVIERT
+            Wand.name = "Wand";
             makeBogen = false;
+
+            AllGameObjects[(int)Wand.transform.position.x, (int)Wand.transform.position.z] = Wand;
 
         //Mach ein normales Stück Wand (ein Cube)
         } else {
-            Instantiate(WandPrefab, pos, Quaternion.Euler(0, 0, rotation));
+            GameObject Wand = Instantiate(WandPrefab, pos, Quaternion.Euler(0, 0, rotation));
+            Wand.name = "Wand";
             rotation += 90;
+
+            AllGameObjects[(int)Wand.transform.position.x, (int)Wand.transform.position.z] = Wand;
         }
 
         //Erzeug einen Bogen.
@@ -233,10 +245,13 @@ public class LevelGenerator : MonoBehaviour
         
         Instantiate(BodenPrefab, pos, Quaternion.identity);
         GameObject Kiste = Instantiate(KistePrefab, pos + new Vector3(0f, 0.5f, 0f), Quaternion.Euler(0, 0, rotation));
+        Kiste.name = "Kiste";
         rotation += 90;
 
-        AllGameObjects.Add(Kiste);
-        Debug.Log(AllGameObjects.Count);
+        //AllGameObjects.Add(Kiste);
+        //Debug.Log(AllGameObjects.Count);
+        Debug.Log("Kiste erzeugt" + (int)Kiste.transform.position.x + " / " + (int)Kiste.transform.position.z);
+        AllGameObjects[(int)Kiste.transform.position.x, (int)Kiste.transform.position.z] = Kiste;
     }
 
     //Einlesen der LevelTextDatei. Wandelt diese in ein Array um

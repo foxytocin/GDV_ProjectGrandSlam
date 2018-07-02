@@ -20,7 +20,8 @@ public class BombSpawner : MonoBehaviour
         //{
             player.setAvaibleBomb(-1);
 
-            BombScript thisBombeScript = Instantiate(Bomb_Prefab, new Vector3(xPos, 0.4f, zPos), Quaternion.identity).GetComponent<BombScript>();
+            GameObject bombeInstanz = Instantiate(Bomb_Prefab, new Vector3(xPos, 0.4f, zPos), Quaternion.identity);
+            BombScript thisBombeScript = bombeInstanz.GetComponent<BombScript>();
 
             thisBombeScript.bombTimer = player.getbombTimer();
             thisBombeScript.name = "Bombe_" +id;
@@ -33,6 +34,7 @@ public class BombSpawner : MonoBehaviour
 
             player.creatingBomb = false;
 
+            LevelGenerator.AllGameObjects[xPos,zPos] = bombeInstanz;
             //world.WorldArray[xPos, zPos] = bombeInstanz;
             //angle += angle;
         //}
