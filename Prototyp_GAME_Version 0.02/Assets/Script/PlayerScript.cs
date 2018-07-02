@@ -37,7 +37,7 @@ public class PlayerScript : MonoBehaviour
         himmelsRichtungen.Add(true);//Süden
         himmelsRichtungen.Add(true);//Westen
     }
-
+    /*
     void OnTriggerEnter(Collider collision)
     {
         Vector3 collisionVector = new Vector3(Mathf.Round(collision.transform.position.x - playerList[playerID].transform.position.x), collision.transform.position.y - playerList[playerID].transform.position.y, Mathf.Round(collision.transform.position.z - playerList[playerID].transform.position.z));
@@ -85,7 +85,7 @@ public class PlayerScript : MonoBehaviour
             himmelsRichtungen[0] = true;
     }
 
-
+    */
 
     void Update()
     {
@@ -107,8 +107,8 @@ public class PlayerScript : MonoBehaviour
                     {
                         tmp.x = 0f;
                     }
-                    
-                    if (tmp != new Vector3(0, 0, 0))
+
+                if (tmp != new Vector3(0, 0, 0))
                     {
                     Debug.Log("Move" + tmp.ToString());
                         speedMulti();
