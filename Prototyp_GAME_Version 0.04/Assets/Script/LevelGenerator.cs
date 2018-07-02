@@ -33,37 +33,49 @@ public class LevelGenerator : MonoBehaviour
     private int SectionDataOffset;
     private int rotation;
     private bool specialSection;
+    private bool KistenMengeGen;
     private int CameraPositon;
 
     private void Update()
     {
         if(Input.GetKeyDown("1")) {
+            KistenMengeGen = true;
             KistenMenge = 6;
         }
         if (Input.GetKeyDown("2"))
         {
+            KistenMengeGen = true;
             KistenMenge = 5;
         }
         if (Input.GetKeyDown("3"))
         {
+            KistenMengeGen = true;
             KistenMenge = 4;
         }
         if (Input.GetKeyDown("4"))
         {
+            KistenMengeGen = true;
             KistenMenge = 3;
         }
         if (Input.GetKeyDown("5"))
         {
+            KistenMengeGen = true;
             KistenMenge = 2;
         }
         if (Input.GetKeyDown("6"))
         {
+            KistenMengeGen = true;
             KistenMenge = 1;
+        }
+        if (Input.GetKeyDown("0"))
+        {
+            KistenMengeGen = false;
         }
     }
 
     // Use this for initialization
     void Start() {
+        KistenMengeGen = true;
         LevelSpeed = 0.5f;
         KistenMenge = 5;
         SectionDataOffset = 0;
@@ -169,7 +181,7 @@ public class LevelGenerator : MonoBehaviour
         
         Instantiate(BodenPrefab, pos, Quaternion.identity);
 
-        if(((int)Random.Range(0f, 21f)) % KistenMenge == 0 && this.CameraPositon > 11) {
+        if(((int)Random.Range(0f, 21f)) % KistenMenge == 0 && this.CameraPositon > 11 && KistenMengeGen) {
             GameObject Kiste = Instantiate(KistePrefab, pos + new Vector3(0f, 0.5f, 0f), Quaternion.Euler(0, 0, rotation));
             rotation += 90;
 
