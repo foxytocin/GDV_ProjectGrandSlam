@@ -186,12 +186,9 @@ public class LevelGenerator : MonoBehaviour
 
         if(((int)Random.Range(0f, 21f)) % KistenMenge == 0 && this.CameraPositon > 11 && KistenMengeGen) {
             GameObject Kiste = Instantiate(KistePrefab, pos + new Vector3(0f, 0.5f, 0f), Quaternion.Euler(0, 0, rotation));
-            Kiste.name = "Kiste";
+            Kiste.tag = "Kiste";
             rotation += 90;
 
-            //AllGameObjects.Add(Kiste);
-            //Debug.Log(AllGameObjects.Count);
-            Debug.Log("Kiste erzeugt" +(int)Kiste.transform.position.x+" / "+(int)Kiste.transform.position.z);
             AllGameObjects[(int)Kiste.transform.position.x, (int)Kiste.transform.position.z] = Kiste;
         }
     }
@@ -209,7 +206,7 @@ public class LevelGenerator : MonoBehaviour
             //Macht einen Turm und deaktiviert das ein Bogen erzeugt werden kann
             GameObject Wand = Instantiate(WandPrefab, pos, Quaternion.identity);
             Instantiate(WandPrefab, pos + new Vector3(0, 1, 0), Quaternion.identity); //TUERME SIND DEAKTIVIERT
-            Wand.name = "Wand";
+            Wand.tag = "Wand";
             makeBogen = false;
 
             AllGameObjects[(int)Wand.transform.position.x, (int)Wand.transform.position.z] = Wand;
@@ -217,7 +214,7 @@ public class LevelGenerator : MonoBehaviour
         //Mach ein normales Stück Wand (ein Cube)
         } else {
             GameObject Wand = Instantiate(WandPrefab, pos, Quaternion.Euler(0, 0, rotation));
-            Wand.name = "Wand";
+            Wand.tag = "Wand";
             rotation += 90;
 
             AllGameObjects[(int)Wand.transform.position.x, (int)Wand.transform.position.z] = Wand;
@@ -245,12 +242,9 @@ public class LevelGenerator : MonoBehaviour
         
         Instantiate(BodenPrefab, pos, Quaternion.identity);
         GameObject Kiste = Instantiate(KistePrefab, pos + new Vector3(0f, 0.5f, 0f), Quaternion.Euler(0, 0, rotation));
-        Kiste.name = "Kiste";
+        Kiste.tag = "Kiste";
         rotation += 90;
 
-        //AllGameObjects.Add(Kiste);
-        //Debug.Log(AllGameObjects.Count);
-        Debug.Log("Kiste erzeugt" + (int)Kiste.transform.position.x + " / " + (int)Kiste.transform.position.z);
         AllGameObjects[(int)Kiste.transform.position.x, (int)Kiste.transform.position.z] = Kiste;
     }
 

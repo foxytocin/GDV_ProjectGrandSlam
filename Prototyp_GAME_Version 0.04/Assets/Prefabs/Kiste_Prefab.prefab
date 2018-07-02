@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 65037560155076356}
   m_Layer: 0
   m_Name: Kiste_Prefab
-  m_TagString: OffScreen
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295

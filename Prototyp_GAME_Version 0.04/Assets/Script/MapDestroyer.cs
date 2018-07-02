@@ -61,45 +61,40 @@ public class MapDestroyer : MonoBehaviour
 
         if (thisBomb == null)
         {
-            //Die Celle ist ein Gang
             Instantiate(ExplosionPrefab, new Vector3(x, 0, z), Quaternion.identity);
             shouldExplode = true;
-
         }
         else
         {
-
-            //Die Celle ist eine Bombe, Wand, Kiste oder Icon
-            if (thisBomb.name.Contains("Bombe_"))
+            switch (thisBomb.tag)
             {
-                Instantiate(ExplosionPrefab, new Vector3(x, 0, z), Quaternion.identity);
+                case "Bombe":
+                    Instantiate(ExplosionPrefab, new Vector3(x, 0, z), Quaternion.identity);
+                    BombScript thisBombeScript = thisBomb.GetComponent<BombScript>();
+                    thisBombeScript.bombTimer = 0;
+                    thisBombeScript.remoteBomb = false;
+                    shouldExplode = false;
+                    break;
 
-                //GameObject thisBombe = World.WorldArray[x, z];
-                BombScript thisBombeScript = thisBomb.GetComponent<BombScript>();
-                thisBombeScript.bombTimer = 0;
-                thisBombeScript.remoteBomb = false;
+                case "Wand":
+                    shouldExplode = false;
+                    break;
 
-                shouldExplode = false;
+                case "Kiste":
+                    Instantiate(ExplosionPrefab, new Vector3(x, 0, z), Quaternion.identity);
+                    Destroy(thisBomb);
+                    shouldExplode = false;
+                    break;
+
+                case "Item":
+                    Instantiate(ExplosionPrefab, new Vector3(x, 0, z), Quaternion.identity);
+                    Destroy(thisBomb);
+                    shouldExplode = true;
+                    break;
+
+                default:
+                    break;
             }
-
-            if (thisBomb.name == "Wand")
-            {
-                shouldExplode = false;
-            }
-
-            if (thisBomb.name == "Kiste")
-            {
-                Instantiate(ExplosionPrefab, new Vector3(x, 0, z), Quaternion.identity);
-                Destroy(thisBomb);
-                shouldExplode = false;
-            }
-
-            if (thisBomb.name.Contains("Item"))
-            {
-                Instantiate(ExplosionPrefab, new Vector3(x, 0, z), Quaternion.identity);
-                Destroy(thisBomb);
-                shouldExplode = false;
-            }
-        }
+        } 
     }
 }

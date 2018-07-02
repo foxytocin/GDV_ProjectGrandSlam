@@ -39,14 +39,14 @@ public class BombScript : MonoBehaviour
         playerList[bombOwnerPlayerID].GetComponent<PlayerScript>().setAvaibleBomb(1);
     }
 
-    //bombTimer
-    public void setBombTimer(int tmp) {
-        bombTimer = tmp;
-    }
+    ////bombTimer
+    //public void setBombTimer(int tmp) {
+    //    bombTimer = tmp;
+    //}
 
-    //remoteBomb
-    public void setremoteBomb(bool tmp)
-    {
-        remoteBomb = tmp;
-    }
+    ////remoteBomb
+    //public void setremoteBomb(bool tmp)
+    //{
+    //    remoteBomb = tmp;
+    //}
 }

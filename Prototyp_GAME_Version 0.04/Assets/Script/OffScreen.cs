@@ -6,8 +6,27 @@ public class OffScreen : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "OffScreen") {
-            Destroy(other.gameObject);
+
+        switch (other.gameObject.tag)
+        {
+            case "Wand":
+                Destroy(other.gameObject);
+                break;
+
+            case "Kiste":
+                Destroy(other.gameObject);
+                break;
+
+            case "Item":
+                Destroy(other.gameObject);
+                break;
+
+            case "OffScreen":
+                Destroy(other.gameObject);
+                break;
+
+            default:
+                break;
         }
     }
 }
