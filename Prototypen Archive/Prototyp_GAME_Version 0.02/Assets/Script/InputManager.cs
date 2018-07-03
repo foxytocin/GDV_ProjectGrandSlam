@@ -22,7 +22,7 @@ public static class InputManager
     }
     public static Vector3 OneMainJoystick()
     {
-        return new Vector3(OneMainHorizontal(), 0, OneMainVertikal());
+        return new Vector3(Mathf.Round(OneMainHorizontal()), 0, Mathf.Round(OneMainVertikal()));
     }
     public static bool OneXButton()
     {   

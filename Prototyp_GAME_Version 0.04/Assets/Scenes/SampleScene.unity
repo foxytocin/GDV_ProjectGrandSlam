@@ -662,6 +662,7 @@ MonoBehaviour:
   players: 2
   playerList: []
   spawnList: []
+  LevelGenerator: {fileID: 958779247}
 --- !u!4 &1847533653
 Transform:
   m_ObjectHideFlags: 0
