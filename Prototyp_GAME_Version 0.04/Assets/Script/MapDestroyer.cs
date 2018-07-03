@@ -1,65 +1,89 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class MapDestroyer : MonoBehaviour
 {
     public LevelGenerator LevelGenerator;
     public GameObject ExplosionPrefab;
-    public int bombPower;
+    private IEnumerator coroutinexPositiv;
+    private IEnumerator coroutinexNegativ;
+    private IEnumerator coroutinezPositiv;
+    private IEnumerator coroutinezNegativ;
 
     //Wird nach Zeitablauf der Bombe durch die BombeScript aufgerufen und emfängt die Position der Bombe
-    bool shouldExplode = true;
 
     public void Explode(int x, int z, int bombPower)
     {
-        //Controlliert benachbarte Zellen auf Bomben, Kisten und Wände
-        Instantiate(ExplosionPrefab, new Vector3(x, 0, z), Quaternion.identity);
+        coroutinexPositiv = xPositiv(bombPower, 0.1f, x, z);
+        coroutinexNegativ = xNegativ(bombPower, 0.1f, x, z);
+        coroutinezPositiv = zPositiv(bombPower, 0.1f, x, z);
+        coroutinezNegativ = zNegativ(bombPower, 0.1f, x, z);
 
-        for (int ausbreitung = 1; ausbreitung < bombPower + 1; ausbreitung++)
-        {
-            if (shouldExplode)
-            {
-                ExplodeCell(x + ausbreitung, z);
-            }
-        }
-        shouldExplode = true;
-
-        for (int ausbreitung = 1; ausbreitung < bombPower + 1; ausbreitung++)
-        {
-            if (shouldExplode)
-            {
-                ExplodeCell(x - ausbreitung, z);
-            }
-        }
-        shouldExplode = true;
-
-        for (int ausbreitung = 1; ausbreitung < bombPower + 1; ausbreitung++)
-        {
-            if (shouldExplode)
-            {
-                ExplodeCell(x, z - ausbreitung);
-            }
-        }
-        shouldExplode = true;
-
-        for (int ausbreitung = 1; ausbreitung < bombPower + 1; ausbreitung++)
-        {
-            if (shouldExplode)
-            {
-                ExplodeCell(x, z + ausbreitung);
-            }
-        }
-        shouldExplode = true;
+        StartCoroutine(coroutinexPositiv);
+        StartCoroutine(coroutinexNegativ);
+        StartCoroutine(coroutinezPositiv);
+        StartCoroutine(coroutinezNegativ);
     }
 
 
-    void ExplodeCell(int x, int z)
+    private IEnumerator xPositiv(int bombPower, float waitTime, int x, int z)
+    {
+        Instantiate(ExplosionPrefab, new Vector3(x, 0, z), Quaternion.identity);
+        yield return new WaitForSeconds(waitTime);
+
+        int distanz = 1;
+        while (distanz <= bombPower && ExplodeCell(x + distanz, z))
+        {
+            yield return new WaitForSeconds(waitTime);
+            distanz++;
+        }
+    }
+
+    private IEnumerator xNegativ(int bombPower, float waitTime, int x, int z)
+    {
+        yield return new WaitForSeconds(waitTime);
+
+        int distanz = 1;
+        while (distanz <= bombPower && ExplodeCell(x - distanz, z))
+        {
+            yield return new WaitForSeconds(waitTime);
+            distanz++;
+        }
+    }
+
+    private IEnumerator zPositiv(int bombPower, float waitTime, int x, int z)
+    {
+        yield return new WaitForSeconds(waitTime);
+
+        int distanz = 1;
+        while (distanz <= bombPower && ExplodeCell(x, z + distanz))
+        {
+            yield return new WaitForSeconds(waitTime);
+            distanz++;
+        }
+    }
+
+    private IEnumerator zNegativ(int bombPower, float waitTime, int x, int z)
+    {
+        yield return new WaitForSeconds(waitTime);
+
+        int distanz = 1;
+        while (distanz <= bombPower && ExplodeCell(x, z - distanz))
+        {
+            yield return new WaitForSeconds(waitTime);
+            distanz++;
+        }
+    }
+
+
+    bool ExplodeCell(int x, int z)
     {
         GameObject thisBomb = LevelGenerator.AllGameObjects[x, z];
 
         if (thisBomb == null)
         {
             Instantiate(ExplosionPrefab, new Vector3(x, 0, z), Quaternion.identity);
-            shouldExplode = true;
+            return true;
         }
         else
         {
@@ -70,28 +94,25 @@ public class MapDestroyer : MonoBehaviour
                     BombScript thisBombeScript = thisBomb.GetComponent<BombScript>();
                     thisBombeScript.bombTimer = 0;
                     thisBombeScript.remoteBomb = false;
-                    shouldExplode = false;
-                    break;
+                    return false;
 
                 case "Wand":
-                    shouldExplode = false;
-                    break;
+                    return false;
 
                 case "Kiste":
                     Instantiate(ExplosionPrefab, new Vector3(x, 0, z), Quaternion.identity);
                     Destroy(thisBomb);
-                    shouldExplode = false;
-                    break;
+                    return false;
 
                 case "Item":
                     Instantiate(ExplosionPrefab, new Vector3(x, 0, z), Quaternion.identity);
                     Destroy(thisBomb);
-                    shouldExplode = true;
-                    break;
+                    return true;
 
                 default:
                     break;
             }
-        } 
+        }
+        return false;
     }
 }
