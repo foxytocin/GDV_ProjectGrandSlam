@@ -27,5 +27,10 @@ public class BombSpawner : MonoBehaviour
         player.creatingBomb = false;
 
         LevelGenerator.AllGameObjects[xPos,zPos] = bombeInstanz;
+
+        if(thisBombeScript.remoteBomb) {
+            PlayerSpawner.playerList[id].gameObject.GetComponent<PlayerScript>().remoteBombList.Add(bombeInstanz);
+            Debug.Log("Remote Bombe zur Liste hinzugefügt" +player.remoteBombList.Count);
+        }
     }
 }

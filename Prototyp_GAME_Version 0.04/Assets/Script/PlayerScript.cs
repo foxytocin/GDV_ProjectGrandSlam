@@ -16,7 +16,9 @@ public class PlayerScript : MonoBehaviour
     public bool aLife;
     public bool remoteBomb;
     public List<GameObject> playerList;
+    public List<GameObject> remoteBombList;
     public bool creatingBomb;
+    public RemoteBomb RemoteBomb;
 
     float speedMultiply;
 
@@ -32,7 +34,7 @@ public class PlayerScript : MonoBehaviour
         bombTimer = 3;
         range = 3;
         aLife = true;
-        remoteBomb = false;
+        remoteBomb = true;
         speedMultiply = 0.01f;
         creatingBomb = false;
 
@@ -144,22 +146,24 @@ public class PlayerScript : MonoBehaviour
         // A_Button Abfrage fuer die Player
         if (InputManager.OneAButton())
         {
-            // RemoteBombe zünden Player_One
+            //FindObjectOfType<RemoteBomb>().remoteBomb(0);
+            RemoteBombEx(0);
         }
 
         if (InputManager.TwoAButton())
         {
-            // RemoteBombe zünden Player_Two
+            //FindObjectOfType<RemoteBomb>().remoteBomb(1);
+            RemoteBombEx(1);
         }
 
         if (InputManager.ThreeAButton())
         {
-            // RemoteBombe zünden Player_Three
+            //FindObjectOfType<RemoteBomb>().remoteBomb(2);
         }
 
         if (InputManager.FourAButton())
         {
-            // RemoteBombe zünden Player_Four
+            //FindObjectOfType<RemoteBomb>().remoteBomb(3);
         }
 
 
@@ -322,6 +326,15 @@ public class PlayerScript : MonoBehaviour
         } else {
             creatingBomb = false;
         }
+    }
+
+    public void RemoteBombEx(int id)
+    {
+        foreach(GameObject bomb in playerList[id].GetComponent<PlayerScript>().remoteBombList) {
+            bomb.GetComponent<BombScript>().bombTimer = 0;
+            bomb.GetComponent<BombScript>().remoteBomb = false;
+        }
+        playerList[id].GetComponent<PlayerScript>().remoteBombList.Clear();
     }
 
 

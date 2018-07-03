@@ -34,7 +34,7 @@ public class BombScript : MonoBehaviour
         int z = (int)gameObject.transform.position.z;
 
         Destroy(gameObject);
-        FindObjectOfType<MapDestroyer>().Explode(x, z, bombPower);
+        FindObjectOfType<MapDestroyer>().Explode(x, z, bombPower, bombOwnerPlayerID);
         playerList[bombOwnerPlayerID].GetComponent<PlayerScript>().setAvaibleBomb(1);
     }
 }

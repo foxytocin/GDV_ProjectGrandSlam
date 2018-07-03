@@ -319,7 +319,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &594464648
 MonoBehaviour:
@@ -332,10 +332,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75b96b90476454c26a2688cdcc613b9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerSpawner: {fileID: 0}
   LevelGenerator: {fileID: 958779247}
   ExplosionPrefab: {fileID: 1164955088114102, guid: 4bc7b12269e8044c4a793897b17c9c4a,
     type: 2}
-  bombPower: 0
+--- !u!1 &799907529
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 799907531}
+  - component: {fileID: 799907530}
+  m_Layer: 0
+  m_Name: RemoteBomb
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &799907530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 799907529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ed829af6c9a64ee5aed1d8bdff453f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerScript: {fileID: 0}
+--- !u!4 &799907531
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 799907529}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &846212267
 GameObject:
   m_ObjectHideFlags: 0
@@ -412,7 +453,7 @@ MonoBehaviour:
   WandPrefab: {fileID: 1752548113676288, guid: 003ae408beb774f1db89ee2398ed91e8, type: 2}
   KistePrefab: {fileID: 1968458687304108, guid: a742c7a8826264c8fa7d619f4d1ee624,
     type: 2}
-  LevelSpeed: 2
+  LevelSpeed: 5
   LevelTextdatei0: {fileID: 4900000, guid: 2430e90e2d3db42d7b5789bedb7b1208, type: 3}
   LevelTextdatei1: {fileID: 4900000, guid: 61be0b2b652ba49d29806dbd98b81ad5, type: 3}
   LevelTextdatei2: {fileID: 4900000, guid: 2078adf1716044f50a961889d03caa58, type: 3}
@@ -573,7 +614,7 @@ Transform:
   - {fileID: 550916280}
   - {fileID: 1471981543}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1754055006
 MonoBehaviour:
