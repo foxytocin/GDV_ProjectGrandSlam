@@ -12,20 +12,24 @@ public class BombSpawner : MonoBehaviour
         int xPos = (int)Mathf.Round(player.transform.position.x);
         int zPos = (int)Mathf.Round(player.transform.position.z);
 
-        player.setAvaibleBomb(-1);
+        //Debug.Log(LevelGenerator.AllGameObjects[xPos, zPos]);
+        if(LevelGenerator.AllGameObjects[xPos, zPos] == null) {
+            
+            player.setAvaibleBomb(-1);
 
-        GameObject bombeInstanz = Instantiate(Bomb_Prefab, new Vector3(xPos, 0.4f, zPos), Quaternion.identity);
-        BombScript thisBombeScript = bombeInstanz.GetComponent<BombScript>();
+            GameObject bombeInstanz = Instantiate(Bomb_Prefab, new Vector3(xPos, 0.4f, zPos), Quaternion.identity);
+            BombScript thisBombeScript = bombeInstanz.GetComponent<BombScript>();
 
-        thisBombeScript.playerList = player.getPlayerList();
-        thisBombeScript.bombTimer = player.getbombTimer();
-        thisBombeScript.bombOwnerPlayerID = id;
-        thisBombeScript.bombPower = player.getRange();
-        thisBombeScript.remoteBomb = player.getRemoteBomb();
-        thisBombeScript.tag = "Bombe";
+            thisBombeScript.playerList = player.getPlayerList();
+            thisBombeScript.bombTimer = player.getbombTimer();
+            thisBombeScript.bombOwnerPlayerID = id;
+            thisBombeScript.bombPower = player.getRange();
+            thisBombeScript.remoteBomb = player.getRemoteBomb();
+            thisBombeScript.tag = "Bombe";
+
+            LevelGenerator.AllGameObjects[xPos, zPos] = bombeInstanz;
+        }
 
         player.creatingBomb = false;
-
-        LevelGenerator.AllGameObjects[xPos,zPos] = bombeInstanz;
     }
 }

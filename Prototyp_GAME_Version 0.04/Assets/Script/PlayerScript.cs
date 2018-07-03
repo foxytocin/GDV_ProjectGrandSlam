@@ -34,7 +34,7 @@ public class PlayerScript : MonoBehaviour
         playerID = 0;
         life = 3;
         avaibleBomb = 1000;
-        speed = 6;
+        speed = 5f;
         bombTimer = 3;
         range = 1;
         aLife = true;
@@ -52,7 +52,7 @@ public class PlayerScript : MonoBehaviour
         if (playerID == 0)
         {
             Vector3 tmp = InputManager.OneMainJoystick();
-            Debug.Log("move: " + tmp.ToString());
+            //Debug.Log("move: " + tmp.ToString());
             if (tmp != new Vector3(0, 0, 0))
             {
                 if (( lastTmpVector == tmp || target == body.transform.position ) && myTime > 0.2f)
@@ -138,7 +138,7 @@ public class PlayerScript : MonoBehaviour
             }
         }
 
-        body.transform.position = Vector3.MoveTowards(body.transform.position, target, speed*Time.deltaTime);
+        body.transform.position = Vector3.MoveTowards(body.transform.position, target, speed * Time.deltaTime);
 
         // Speed Verfall
         if (speedMultiply < 0.01f)
@@ -346,8 +346,8 @@ public class PlayerScript : MonoBehaviour
         if (playerList[id].GetComponent<PlayerScript>().getAvaibleBomb() > 0 && playerList[id].GetComponent<PlayerScript>().getALife())
         {
             creatingBomb = true;
-            //Debug.Log("Bombe_Player_" + id.ToString());
             FindObjectOfType<BombSpawner>().SpawnBomb(id);
+
         } else {
             creatingBomb = false;
         }
@@ -359,13 +359,12 @@ public class PlayerScript : MonoBehaviour
         if (speedMultiply < 5.0f)
         {
             speedMultiply += (speedMultiply / (speedMultiply * 10.0f));
-            //Debug.Log("Degreace SM: " +speedMultiply);
         }
     }
 
     bool freeWay(Vector3 tmp)
     {
-        if(levelGenerator.AllGameObjects[(int) (target.x + tmp.x),(int) (target.z + tmp.z)] == null)
+        if(levelGenerator.AllGameObjects[(int)(target.x + tmp.x),(int)(target.z + tmp.z)] == null)
         {
             return true;
         }
