@@ -9,9 +9,11 @@ public class PlayerSpawner : MonoBehaviour {
     public List<Vector3> spawnList;
     Vector3 spawnPosition;
     List<Color> playerColorList;
+    public LevelGenerator LevelGenerator;
 
-	// Use this for initialization
-	void Start ()
+
+    // Use this for initialization
+    void Awake()
     {
         spawnList.Add(new Vector3(6f, 0.4f, 2f));
         spawnList.Add(new Vector3(9f, 0.4f, 2f));
@@ -33,7 +35,7 @@ public class PlayerSpawner : MonoBehaviour {
             playerList.Add(tmpPlayer);
             playerList[i].GetComponent<PlayerScript>().setPlayerID(i);
             playerList[i].GetComponent<PlayerScript>().setPlayerList(playerList);
-           // playerList[i].GetComponent<PlayerScript>().setWorld(world); WAS MACHT DAS ???
+            playerList[i].GetComponent<PlayerScript>().setWorld(LevelGenerator);
             spawnPosition.x += 2;
         }
     }

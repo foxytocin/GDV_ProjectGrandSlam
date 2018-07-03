@@ -75,9 +75,9 @@ public class CameraController : MonoBehaviour
         float dist = Mathf.Lerp(transform.position.y, zoom, speed * Time.deltaTime);
         offset = new Vector3(0, dist, 0);
         Vector3 endPos = centerPoint + offset;
-        Vector3 smoothPos = Vector3.Lerp(transform.position + CameraScroller.transform.position, endPos, speed * Time.deltaTime);
+        //Vector3 smoothPos = Vector3.Lerp(transform.position + CameraScroller.transform.position, endPos, speed * Time.deltaTime);
 
-        transform.position = smoothPos;
+        //transform.position = smoothPos;
     }
 
     float GetGreatestDistance()

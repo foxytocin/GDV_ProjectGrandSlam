@@ -5,7 +5,7 @@ public class PlayerScript : MonoBehaviour
 {
     public bool moveX;
     public bool moveZ;
-    public LevelGenerator LevelGenerator;
+    public LevelGenerator levelGenerator;
     public GameObject body;
     public int playerID;
     public int life;
@@ -17,6 +17,11 @@ public class PlayerScript : MonoBehaviour
     public bool remoteBomb;
     public List<GameObject> playerList;
     public bool creatingBomb;
+    public Vector3 target;
+    public Vector3 lastTmpVector;
+    public bool[] himmelsrichtungen;
+    float myTime;
+
 
     float speedMultiply;
 
@@ -28,35 +33,42 @@ public class PlayerScript : MonoBehaviour
         playerID = 0;
         life = 3;
         avaibleBomb = 1000;
-        speed = 1;
+        speed = 6;
         bombTimer = 3;
         range = 1;
         aLife = true;
         remoteBomb = false;
         speedMultiply = 0.01f;
         creatingBomb = false;
-
+        target = body.transform.position;
+        myTime = 0f;
     }
 
-    void Update()
+    void FixedUpdate()
     {
+        myTime += Time.deltaTime;
         // Player Steuerung
         if (playerID == 0)
         {
             Vector3 tmp = InputManager.OneMainJoystick();
+            Debug.Log("move: " + tmp.ToString());
             if (tmp != new Vector3(0, 0, 0))
             {
-                speedMulti();
-                //wallTest(playerList[0]);
-                //Debug.Log("move" + body.name);
-                body.transform.Translate(tmp.x * speedMultiply  * Time.deltaTime, 0 , tmp.z * speedMultiply * Time.deltaTime);
+                if (( lastTmpVector == tmp || target == body.transform.position ) && myTime > 0.2f)
+                {
+                    if (freeWay(tmp))
+                    {
+                        target += tmp;
+                        lastTmpVector = tmp;
+                    }
+                    myTime = 0f;
+                }
             }
             else if (speedMultiply > 0.1f)
             {
                 speedMultiply -= 0.1f;
                 //Debug.Log("Increase SM: " +speedMultiply);
             }
-
         }
 
         if (playerID == 1)
@@ -64,10 +76,15 @@ public class PlayerScript : MonoBehaviour
             Vector3 tmp = InputManager.TwoMainJoystick();
             if (tmp != new Vector3(0, 0, 0))
             {
-                speedMulti();
-                //wallTest(playerList[1]);
-                //Debug.Log("move" + body.name);
-                body.transform.Translate(tmp.x * speedMultiply * Time.deltaTime, 0, tmp.z * speedMultiply * Time.deltaTime);
+                if ((lastTmpVector == tmp || target == body.transform.position) && myTime > 0.2f)
+                {
+                    if (freeWay(tmp))
+                    {
+                        target += tmp;
+                        lastTmpVector = tmp;
+                    }
+                    myTime = 0f;
+                }
             }
             else if (speedMultiply > 0.1f)
             {
@@ -76,15 +93,20 @@ public class PlayerScript : MonoBehaviour
             }
         }
 
-        if (playerID == 2 && (moveX || moveZ))
+        if (playerID == 2)
         {
             Vector3 tmp = InputManager.ThreeMainJoystick();
             if (tmp != new Vector3(0, 0, 0))
             {
-                speedMulti();
-                //wallTest(playerList[2]);
-                //Debug.Log("move" + body.name);
-                body.transform.Translate(tmp.x * speedMultiply * Time.deltaTime, 0, tmp.z * speedMultiply * Time.deltaTime);
+                if ((lastTmpVector == tmp || target == body.transform.position) && myTime > 0.2f)
+                {
+                    if (freeWay(tmp))
+                    {
+                        target += tmp;
+                        lastTmpVector = tmp;
+                    }
+                    myTime = 0f;
+                }
             }
             else if (speedMultiply > 0.1f)
             {
@@ -93,15 +115,20 @@ public class PlayerScript : MonoBehaviour
             }
         }
 
-        if (playerID == 3 && (moveX || moveZ))
+        if (playerID == 3)
         {
             Vector3 tmp = InputManager.FourMainJoystick();
             if (tmp != new Vector3(0, 0, 0))
             {
-                speedMulti();
-                //wallTest(playerList[3]);
-                //Debug.Log("move" + body.name);
-                body.transform.Translate(tmp.x * speedMultiply * Time.deltaTime, 0, tmp.z * speedMultiply * Time.deltaTime);
+                if ((lastTmpVector == tmp || target == body.transform.position) && myTime > 0.2f)
+                {
+                    if (freeWay(tmp))
+                    {
+                        target += tmp;
+                        lastTmpVector = tmp;
+                    }
+                    myTime = 0f;
+                }
             }
             else if (speedMultiply > 0.1f)
             {
@@ -110,6 +137,7 @@ public class PlayerScript : MonoBehaviour
             }
         }
 
+        body.transform.position = Vector3.MoveTowards(body.transform.position, target, speed*Time.deltaTime);
 
         // Speed Verfall
         if (speedMultiply < 0.01f)
@@ -190,7 +218,7 @@ public class PlayerScript : MonoBehaviour
 
     public void setWorld(LevelGenerator LevelGenerator)
     {
-        this.LevelGenerator = LevelGenerator;
+        this.levelGenerator = LevelGenerator;
     }
 
     // Uebergabe der PlayerID
@@ -332,6 +360,16 @@ public class PlayerScript : MonoBehaviour
             speedMultiply += (speedMultiply / (speedMultiply * 10.0f));
             //Debug.Log("Degreace SM: " +speedMultiply);
         }
+    }
+
+    bool freeWay(Vector3 tmp)
+    {
+        if(levelGenerator.AllGameObjects[(int) (target.x + tmp.x),(int) (target.z + tmp.z)] == null)
+        {
+            return true;
+        }
+
+        return false;
     }
 }
 
