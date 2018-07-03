@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
@@ -31,7 +30,7 @@ public class PlayerScript : MonoBehaviour
         avaibleBomb = 1000;
         speed = 1;
         bombTimer = 3;
-        range = 3;
+        range = 1;
         aLife = true;
         remoteBomb = false;
         speedMultiply = 0.01f;
@@ -48,7 +47,7 @@ public class PlayerScript : MonoBehaviour
             if (tmp != new Vector3(0, 0, 0))
             {
                 speedMulti();
-                wallTest(playerList[0]);
+                //wallTest(playerList[0]);
                 //Debug.Log("move" + body.name);
                 body.transform.Translate(tmp.x * speedMultiply  * Time.deltaTime, 0 , tmp.z * speedMultiply * Time.deltaTime);
             }
@@ -66,7 +65,7 @@ public class PlayerScript : MonoBehaviour
             if (tmp != new Vector3(0, 0, 0))
             {
                 speedMulti();
-                wallTest(playerList[1]);
+                //wallTest(playerList[1]);
                 //Debug.Log("move" + body.name);
                 body.transform.Translate(tmp.x * speedMultiply * Time.deltaTime, 0, tmp.z * speedMultiply * Time.deltaTime);
             }
@@ -83,7 +82,7 @@ public class PlayerScript : MonoBehaviour
             if (tmp != new Vector3(0, 0, 0))
             {
                 speedMulti();
-                wallTest(playerList[2]);
+                //wallTest(playerList[2]);
                 //Debug.Log("move" + body.name);
                 body.transform.Translate(tmp.x * speedMultiply * Time.deltaTime, 0, tmp.z * speedMultiply * Time.deltaTime);
             }
@@ -100,7 +99,7 @@ public class PlayerScript : MonoBehaviour
             if (tmp != new Vector3(0, 0, 0))
             {
                 speedMulti();
-                wallTest(playerList[3]);
+                //wallTest(playerList[3]);
                 //Debug.Log("move" + body.name);
                 body.transform.Translate(tmp.x * speedMultiply * Time.deltaTime, 0, tmp.z * speedMultiply * Time.deltaTime);
             }
@@ -118,10 +117,7 @@ public class PlayerScript : MonoBehaviour
             speedMultiply = 0.01f;
             //Debug.Log("Setting SM: " +speedMultiply);
         }
-    }
 
-    private void LateUpdate()
-    {
         // X_Button Abfrage fuer die Player
         if (InputManager.OneXButton() && !creatingBomb)
         {
@@ -337,34 +333,5 @@ public class PlayerScript : MonoBehaviour
             //Debug.Log("Degreace SM: " +speedMultiply);
         }
     }
-
-    void wallTest(GameObject player)
-    {
-        
-        int xPos = (int)Mathf.Round(player.transform.position.x);
-        int zPos = (int)Mathf.Round(player.transform.position.z);
-
-
-        //if (world.WorldArray[xPos, zPos] != null)
-        //{
-        //    Debug.Log("Object an aktueller Stelle: " +world.WorldArray[xPos, zPos]);
-        //    if (world.WorldArray[xPos, zPos].name == "Item_SpeedBoost")
-        //    {
-        //        Destroy(world.WorldArray[xPos, zPos]);
-        //        speedMultiply = 8f;
-        //    }
-        //    if (world.WorldArray[xPos, zPos].name == "Item_BombPowerUp")
-        //    {
-        //        Destroy(world.WorldArray[xPos, zPos]);
-        //        player.GetComponent<PlayerScript>().setRange(1);
-        //    }
-        //}
-        //else
-        //{
-        //    world.WorldArray[xPos, zPos] = player;
-        //    Debug.Log("Object an aktueller Stelle: Freier Weg");
-        //}
-    }
-
 }
 

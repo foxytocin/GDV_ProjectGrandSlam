@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -38,15 +37,4 @@ public class BombScript : MonoBehaviour
         FindObjectOfType<MapDestroyer>().Explode(x, z, bombPower);
         playerList[bombOwnerPlayerID].GetComponent<PlayerScript>().setAvaibleBomb(1);
     }
-
-    ////bombTimer
-    //public void setBombTimer(int tmp) {
-    //    bombTimer = tmp;
-    //}
-
-    ////remoteBomb
-    //public void setremoteBomb(bool tmp)
-    //{
-    //    remoteBomb = tmp;
-    //}
 }

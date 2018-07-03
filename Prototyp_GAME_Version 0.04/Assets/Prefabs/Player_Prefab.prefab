@@ -125,6 +125,7 @@ MonoBehaviour:
   aLife: 0
   remoteBomb: 0
   playerList: []
+  creatingBomb: 0
 --- !u!135 &135988338786602062
 SphereCollider:
   m_ObjectHideFlags: 1

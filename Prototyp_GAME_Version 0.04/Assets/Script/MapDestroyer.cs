@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class MapDestroyer : MonoBehaviour
 {
@@ -14,7 +12,6 @@ public class MapDestroyer : MonoBehaviour
     public void Explode(int x, int z, int bombPower)
     {
         //Controlliert benachbarte Zellen auf Bomben, Kisten und Wände
-
         Instantiate(ExplosionPrefab, new Vector3(x, 0, z), Quaternion.identity);
 
         for (int ausbreitung = 1; ausbreitung < bombPower + 1; ausbreitung++)

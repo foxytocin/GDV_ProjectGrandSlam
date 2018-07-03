@@ -422,7 +422,6 @@ MonoBehaviour:
   LevelTextdatei6: {fileID: 4900000, guid: 6be5678e9276042dbb7d660debff261f, type: 3}
   LevelTextdatei7: {fileID: 4900000, guid: df24ee73838ed4d4ca2cf4f541b32cc9, type: 3}
   LevelTextdatei8: {fileID: 4900000, guid: f3000d33ae0864024a87e6704f4f0ed0, type: 3}
-  AllGameObjects: []
 --- !u!4 &958779248
 Transform:
   m_ObjectHideFlags: 0

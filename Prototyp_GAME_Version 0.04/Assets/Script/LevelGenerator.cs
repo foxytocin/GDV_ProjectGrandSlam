@@ -1,8 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using System.Text.RegularExpressions;
-using UnityEngine.SceneManagement;
 
 public class LevelGenerator : MonoBehaviour
 {
@@ -35,49 +32,48 @@ public class LevelGenerator : MonoBehaviour
     private int SectionDataOffset;
     private int rotation;
     private bool specialSection;
-    private bool KistenMengeGen;
-    private int CameraPositon;
+    private bool GenerateKisten;
 
     private void Update()
     {
         if(Input.GetKeyDown("1")) {
-            KistenMengeGen = true;
+            GenerateKisten = true;
             KistenMenge = 6;
         }
         if (Input.GetKeyDown("2"))
         {
-            KistenMengeGen = true;
+            GenerateKisten = true;
             KistenMenge = 5;
         }
         if (Input.GetKeyDown("3"))
         {
-            KistenMengeGen = true;
+            GenerateKisten = true;
             KistenMenge = 4;
         }
         if (Input.GetKeyDown("4"))
         {
-            KistenMengeGen = true;
+            GenerateKisten = true;
             KistenMenge = 3;
         }
         if (Input.GetKeyDown("5"))
         {
-            KistenMengeGen = true;
+            GenerateKisten = true;
             KistenMenge = 2;
         }
         if (Input.GetKeyDown("6"))
         {
-            KistenMengeGen = true;
+            GenerateKisten = true;
             KistenMenge = 1;
         }
         if (Input.GetKeyDown("0"))
         {
-            KistenMengeGen = false;
+            GenerateKisten = false;
         }
     }
 
     // Use this for initialization
     void Start() {
-        KistenMengeGen = true;
+        GenerateKisten = true;
         LevelSpeed = 0.5f;
         KistenMenge = 5;
         SectionDataOffset = 0;
@@ -91,7 +87,6 @@ public class LevelGenerator : MonoBehaviour
     public void createWorld(int CameraPosition)
     {
         //Debug.Log("createWorld: CameraPosition: "+CameraPosition+ " / SectionDateOffset: " +SectionDataOffset);
-        this.CameraPositon = CameraPosition;
         if(CameraPosition - SectionDataOffset < levelSectionData.Length) {
             drawLevelLine(CameraPosition);
 
@@ -154,10 +149,26 @@ public class LevelGenerator : MonoBehaviour
                 levelSectionData = readFile(LevelTextdatei1);
                 specialSection = true;
             }
-
             drawLevelLine(CameraPosition);
         }
+        //Debug.Log("cleanLine: " +(CameraPosition - 20));
+        //cleanLine((CameraPosition - 20));
     }
+
+
+    //void cleanLine(int CameraPosition) {
+
+    //    Debug.Log("CameraPosition: "+CameraPosition+ " / " +levelSectionData[0].Length);
+    //    if(CameraPosition >= 0) {
+
+    //        for (int i = 0; i < levelSectionData[0].Length; i++)
+    //        {
+    //            Debug.Log("Destroy" +AllGameObjects[i, CameraPosition]);
+    //            Destroy(AllGameObjects[i, CameraPosition]);
+    //        }
+
+    //    }
+    //}
 
     //Zeichnet die Linien der LevelSectionData zeilenweise
     void drawLevelLine(int CameraPosition) {
@@ -167,7 +178,7 @@ public class LevelGenerator : MonoBehaviour
             switch (levelSectionData[CameraPosition - SectionDataOffset][i])
             {
                 case levelGang:
-                    createGang(new Vector3(i, 0f, CameraPosition));
+                    createGang(new Vector3(i, 0f, CameraPosition), CameraPosition);
                     break;
                 case levelWand:
                     createWand(new Vector3(i, 0.5f, CameraPosition));
@@ -180,11 +191,11 @@ public class LevelGenerator : MonoBehaviour
     }
 
     //Erzeugt eine Bodenplatte und zufällig eine Kiste
-    void createGang(Vector3 pos) {
+    void createGang(Vector3 pos, int CameraPosition) {
         
         Instantiate(BodenPrefab, pos, Quaternion.identity);
 
-        if(((int)Random.Range(0f, 21f)) % KistenMenge == 0 && this.CameraPositon > 11 && KistenMengeGen) {
+        if(((int)Random.Range(0f, 21f)) % KistenMenge == 0 && CameraPosition > 11 && GenerateKisten) {
             GameObject Kiste = Instantiate(KistePrefab, pos + new Vector3(0f, 0.5f, 0f), Quaternion.Euler(0, 0, rotation));
             Kiste.tag = "Kiste";
             rotation += 90;
