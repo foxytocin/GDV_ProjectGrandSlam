@@ -280,18 +280,14 @@ public class PlayerScript : MonoBehaviour
 
     bool freeWay(Vector3 tmp)
     {
-<<<<<<< HEAD
         // Pruefen das keine Zwei Tasten für diagonales gehen gedrückt sind 
         if (tmp == new Vector3(-1, 0, 0) || tmp == new Vector3(1, 0, 0) || tmp == new Vector3(0, 0, -1) || tmp == new Vector3(0, 0, 1))
-=======
-        if(levelGenerator.AllGameObjects[Mathf.RoundToInt(target.x + tmp.x), Mathf.RoundToInt(target.z + tmp.z)] == null)
->>>>>>> master
         {
             //entweder hat sich der Richungsvector nicht geändert oder das Objekt die selbe Position wie TargetVector
             if ((lastTmpVector == tmp || target == body.transform.position) && myTime > 0.2f)
             {
                 //Prueft im Array an der naechsten stelle ob dort ein objekt liegt wenn nicht dann return.true
-                if (levelGenerator.AllGameObjects[(int)(target.x + tmp.x), (int)(target.z + tmp.z)] == null)
+                if (levelGenerator.AllGameObjects[Mathf.RoundToInt(target.x + tmp.x), Mathf.RoundToInt(target.z + tmp.z)] == null)
                 {
                     myTime = 0f;
                     return true;
