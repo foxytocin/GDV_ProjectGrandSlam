@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
-    public bool moveX;
-    public bool moveZ;
     public LevelGenerator levelGenerator;
     public GameObject body;
     public int playerID;
@@ -18,19 +16,12 @@ public class PlayerScript : MonoBehaviour
     public bool remoteBomb;
     public List<GameObject> playerList;
     public bool creatingBomb;
-    public Vector3 target;
-    public Vector3 lastTmpVector;
-    public bool[] himmelsrichtungen;
+    Vector3 target;
+    Vector3 lastTmpVector;
     float myTime;
 
-
-    float speedMultiply;
-
-    // Use this for initialization
     void Awake()
     {
-        moveX = true;
-        moveZ = true;
         playerID = 0;
         life = 3;
         avaibleBomb = 1000;
@@ -39,180 +30,114 @@ public class PlayerScript : MonoBehaviour
         range = 1;
         aLife = true;
         remoteBomb = false;
-        speedMultiply = 0.01f;
         creatingBomb = false;
         target = body.transform.position;
         myTime = 0f;
     }
 
-    void FixedUpdate()
+    void Update()
     {
         myTime += Time.deltaTime;
+        Vector3 tmp = new Vector3();
+
         // Player Steuerung
-        if (playerID == 0)
+        switch (playerID)
         {
-            Vector3 tmp = InputManager.OneMainJoystick();
-            //Debug.Log("move: " + tmp.ToString());
-            if (tmp != new Vector3(0, 0, 0))
-            {
-                if (( lastTmpVector == tmp || target == body.transform.position ) && myTime > 0.2f)
+            //Player 1
+            case 0:
+
+                tmp = InputManager.OneMainJoystick();
+
+                if (InputManager.OneXButton() && !creatingBomb)
+                    SetBomb(0);
+
+                if (InputManager.OneAButton())
                 {
-                    if (freeWay(tmp))
-                    {
-                        target += tmp;
-                        lastTmpVector = tmp;
-                    }
-                    myTime = 0f;
+                    // RemoteBombe zünden Player_One
                 }
-            }
-            else if (speedMultiply > 0.1f)
-            {
-                speedMultiply -= 0.1f;
-                //Debug.Log("Increase SM: " +speedMultiply);
-            }
+
+                if (InputManager.OneStartButton())
+                {
+                    //Pause aufufen
+                }
+
+                break;
+
+            //Player 2
+            case 1:
+
+                tmp = InputManager.TwoMainJoystick();
+
+                if (InputManager.TwoXButton() && !creatingBomb)
+                    SetBomb(1);
+
+                if (InputManager.TwoAButton())
+                {
+                    // RemoteBombe zünden Player_Two
+                }
+
+                if (InputManager.TwoStartButton())
+                {
+                    //Pause aufufen
+                }
+
+                break;
+
+            //Player 3
+            case 2:
+
+                tmp = InputManager.ThreeMainJoystick();
+
+                if (InputManager.ThreeXButton() && !creatingBomb)
+                    SetBomb(2);
+
+                if (InputManager.ThreeAButton())
+                {
+                    // RemoteBombe zünden Player_Three
+                }
+
+                if (InputManager.ThreeStartButton())
+                {
+                    //Pause aufufen
+                }
+
+                break;
+
+            //Player 4
+            case 3:
+
+                tmp = InputManager.FourMainJoystick();
+
+                if (InputManager.FourXButton() && !creatingBomb)
+                    SetBomb(3);
+
+                if (InputManager.FourAButton())
+                {
+                    // RemoteBombe zünden Player_Four
+                }
+
+                if (InputManager.FourStartButton())
+                {
+                    //Pause aufufen
+                }
+
+                break;
+
+            //Player Default (Exeption)
+            default:
+                Debug.Log("Playerfehler");
+                break;
         }
 
-        if (playerID == 1)
+        //Target bewegen
+        if (freeWay(tmp))
         {
-            Vector3 tmp = InputManager.TwoMainJoystick();
-            if (tmp != new Vector3(0, 0, 0))
-            {
-                if ((lastTmpVector == tmp || target == body.transform.position) && myTime > 0.2f)
-                {
-                    if (freeWay(tmp))
-                    {
-                        target += tmp;
-                        lastTmpVector = tmp;
-                    }
-                    myTime = 0f;
-                }
-            }
-            else if (speedMultiply > 0.1f)
-            {
-                speedMultiply -= 0.1f;
-                //Debug.Log("Increase SM: " +speedMultiply);
-            }
+            target += tmp;
+            lastTmpVector = tmp;
         }
 
-        if (playerID == 2)
-        {
-            Vector3 tmp = InputManager.ThreeMainJoystick();
-            if (tmp != new Vector3(0, 0, 0))
-            {
-                if ((lastTmpVector == tmp || target == body.transform.position) && myTime > 0.2f)
-                {
-                    if (freeWay(tmp))
-                    {
-                        target += tmp;
-                        lastTmpVector = tmp;
-                    }
-                    myTime = 0f;
-                }
-            }
-            else if (speedMultiply > 0.1f)
-            {
-                speedMultiply -= 0.1f;
-                //Debug.Log("Increase SM: " +speedMultiply);
-            }
-        }
-
-        if (playerID == 3)
-        {
-            Vector3 tmp = InputManager.FourMainJoystick();
-            if (tmp != new Vector3(0, 0, 0))
-            {
-                if ((lastTmpVector == tmp || target == body.transform.position) && myTime > 0.2f)
-                {
-                    if (freeWay(tmp))
-                    {
-                        target += tmp;
-                        lastTmpVector = tmp;
-                    }
-                    myTime = 0f;
-                }
-            }
-            else if (speedMultiply > 0.1f)
-            {
-                speedMultiply -= 0.1f;
-                //Debug.Log("Increase SM: " +speedMultiply);
-            }
-        }
-
+        //Objekt zum target Bewegung
         body.transform.position = Vector3.MoveTowards(body.transform.position, target, speed * Time.deltaTime);
-
-        // Speed Verfall
-        if (speedMultiply < 0.01f)
-        {
-            speedMultiply = 0.01f;
-            //Debug.Log("Setting SM: " +speedMultiply);
-        }
-
-        // X_Button Abfrage fuer die Player
-        if (InputManager.OneXButton() && !creatingBomb)
-        {
-            SetBomb(0);
-        }
-
-        if (InputManager.TwoXButton() && !creatingBomb)
-        {
-            SetBomb(1);
-        }
-
-        if (InputManager.ThreeXButton() && !creatingBomb)
-        {
-            SetBomb(2);
-        }
-
-        if (InputManager.FourXButton() && !creatingBomb)
-        {
-            SetBomb(3);
-        }
-
-
-
-        // A_Button Abfrage fuer die Player
-        if (InputManager.OneAButton())
-        {
-            // RemoteBombe zünden Player_One
-        }
-
-        if (InputManager.TwoAButton())
-        {
-            // RemoteBombe zünden Player_Two
-        }
-
-        if (InputManager.ThreeAButton())
-        {
-            // RemoteBombe zünden Player_Three
-        }
-
-        if (InputManager.FourAButton())
-        {
-            // RemoteBombe zünden Player_Four
-        }
-
-
-
-        // Start_Button Abfrage fuer die Player 
-        if (InputManager.OneStartButton())
-        {
-            //Pause aufufen
-        }
-
-        if (InputManager.TwoStartButton())
-        {
-            //Pause aufufen
-        }
-
-        if (InputManager.ThreeStartButton())
-        {
-            //Pause aufufen
-        }
-
-        if (InputManager.FourStartButton())
-        {
-            //Pause aufufen
-        }
 
     }
 
@@ -354,21 +279,24 @@ public class PlayerScript : MonoBehaviour
     }
 
 
-    void speedMulti()
-    {
-        if (speedMultiply < 5.0f)
-        {
-            speedMultiply += (speedMultiply / (speedMultiply * 10.0f));
-        }
-    }
-
     bool freeWay(Vector3 tmp)
     {
-        if(levelGenerator.AllGameObjects[(int)(target.x + tmp.x),(int)(target.z + tmp.z)] == null)
+        // Pruefen das keine Zwei Tasten für diagonales gehen gedrückt sind 
+        if (tmp == new Vector3(-1, 0, 0) || tmp == new Vector3(1, 0, 0) || tmp == new Vector3(0, 0, -1) || tmp == new Vector3(0, 0, 1))
         {
-            return true;
+            //entweder hat sich der Richungsvector nicht geändert oder das Objekt die selbe Position wie TargetVector
+            if ((lastTmpVector == tmp || target == body.transform.position) && myTime > 0.2f)
+            {
+                //Prueft im Array an der naechsten stelle ob dort ein objekt liegt wenn nicht dann return.true
+                if (levelGenerator.AllGameObjects[(int)(target.x + tmp.x), (int)(target.z + tmp.z)] == null)
+                {
+                    myTime = 0f;
+                    return true;
+                }
+                return false;
+            }
+            return false;
         }
-
         return false;
     }
 }
