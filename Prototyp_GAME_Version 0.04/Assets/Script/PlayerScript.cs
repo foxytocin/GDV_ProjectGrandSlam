@@ -1,5 +1,4 @@
-
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
@@ -19,6 +18,7 @@ public class PlayerScript : MonoBehaviour
     Vector3 target;
     Vector3 lastTmpVector;
     float myTime;
+    public List<GameObject> remoteBombList;
 
     void Awake()
     {
@@ -267,7 +267,6 @@ public class PlayerScript : MonoBehaviour
     // Setzt Bombe mit überprüfung von avaibleBomb und aLife
     public void SetBomb(int id)
     {
-
         if (playerList[id].GetComponent<PlayerScript>().getAvaibleBomb() > 0 && playerList[id].GetComponent<PlayerScript>().getALife())
         {
             creatingBomb = true;
@@ -281,8 +280,12 @@ public class PlayerScript : MonoBehaviour
 
     bool freeWay(Vector3 tmp)
     {
+<<<<<<< HEAD
         // Pruefen das keine Zwei Tasten für diagonales gehen gedrückt sind 
         if (tmp == new Vector3(-1, 0, 0) || tmp == new Vector3(1, 0, 0) || tmp == new Vector3(0, 0, -1) || tmp == new Vector3(0, 0, 1))
+=======
+        if(levelGenerator.AllGameObjects[Mathf.RoundToInt(target.x + tmp.x), Mathf.RoundToInt(target.z + tmp.z)] == null)
+>>>>>>> master
         {
             //entweder hat sich der Richungsvector nicht geändert oder das Objekt die selbe Position wie TargetVector
             if ((lastTmpVector == tmp || target == body.transform.position) && myTime > 0.2f)
@@ -300,6 +303,3 @@ public class PlayerScript : MonoBehaviour
         return false;
     }
 }
-
-
-﻿

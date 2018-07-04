@@ -80,13 +80,11 @@ public class LevelGenerator : MonoBehaviour
         rotation = 0;
         specialSection = false;
         levelSectionData = readFile(LevelTextdatei0);
-        //AllGameObjects = new List<GameObject>();
         AllGameObjects = new GameObject[22,3000];
     }
 
     public void createWorld(int CameraPosition)
     {
-        //Debug.Log("createWorld: CameraPosition: "+CameraPosition+ " / SectionDateOffset: " +SectionDataOffset);
         if(CameraPosition - SectionDataOffset < levelSectionData.Length) {
             drawLevelLine(CameraPosition);
 

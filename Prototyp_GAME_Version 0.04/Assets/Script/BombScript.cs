@@ -30,11 +30,11 @@ public class BombScript : MonoBehaviour
 
     public void CallExplode()
     {
-        int x = (int)gameObject.transform.position.x;
-        int z = (int)gameObject.transform.position.z;
+        int x = Mathf.RoundToInt(gameObject.transform.position.x);
+        int z = Mathf.RoundToInt(gameObject.transform.position.z);
 
         Destroy(gameObject);
-        FindObjectOfType<MapDestroyer>().Explode(x, z, bombPower);
+        FindObjectOfType<MapDestroyer>().Explode(x, z, bombPower, bombOwnerPlayerID);
         playerList[bombOwnerPlayerID].GetComponent<PlayerScript>().setAvaibleBomb(1);
     }
 }

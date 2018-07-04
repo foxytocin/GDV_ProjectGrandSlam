@@ -4,7 +4,6 @@ public class CameraScroller : MonoBehaviour
 {
     public int rowPosition;
     public int altePosition;
-    private bool create;
     public LevelGenerator LevelGenerator;
 
     // Use this for initialization
@@ -17,7 +16,7 @@ public class CameraScroller : MonoBehaviour
     void Update()
     {
         transform.Translate(0, 0, LevelGenerator.LevelSpeed * Time.deltaTime);
-        rowPosition = (int)Mathf.Round(transform.position.z);
+        rowPosition = Mathf.RoundToInt(transform.position.z);
 
         if (rowPosition > altePosition)
         {

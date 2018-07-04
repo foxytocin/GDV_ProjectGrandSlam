@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 
 public class BombSpawner : MonoBehaviour
+
 {
     public LevelGenerator LevelGenerator;
     public GameObject Bomb_Prefab;
@@ -9,8 +10,8 @@ public class BombSpawner : MonoBehaviour
     public void SpawnBomb(int id)
     {
         PlayerScript player = PlayerSpawner.playerList[id].gameObject.GetComponent<PlayerScript>();
-        int xPos = (int)Mathf.Round(player.transform.position.x);
-        int zPos = (int)Mathf.Round(player.transform.position.z);
+        int xPos = Mathf.RoundToInt(player.transform.position.x);
+        int zPos = Mathf.RoundToInt(player.transform.position.z);
 
         //Debug.Log(LevelGenerator.AllGameObjects[xPos, zPos]);
         if(LevelGenerator.AllGameObjects[xPos, zPos] == null) {

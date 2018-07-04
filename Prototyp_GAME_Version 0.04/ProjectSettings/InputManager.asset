@@ -684,7 +684,7 @@ InputManager:
     negativeButton: 
     positiveButton: joystick 1 button 0
     altNegativeButton: 
-    altPositiveButton: 
+    altPositiveButton: q
     gravity: 1000
     dead: 0.001
     sensitivity: 1000
@@ -697,7 +697,7 @@ InputManager:
     m_Name: Two_A_Button
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: 
+    negativeButton: g
     positiveButton: joystick 2 button 0
     altNegativeButton: 
     altPositiveButton: 

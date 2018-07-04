@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class MapDestroyer : MonoBehaviour
 {
+    public PlayerSpawner PlayerSpawner;
     public LevelGenerator LevelGenerator;
     public GameObject ExplosionPrefab;
     private IEnumerator coroutinexPositiv;
@@ -12,12 +13,12 @@ public class MapDestroyer : MonoBehaviour
 
     //Wird nach Zeitablauf der Bombe durch die BombeScript aufgerufen und emfängt die Position der Bombe
 
-    public void Explode(int x, int z, int bombPower)
+    public void Explode(int x, int z, int bombPower, int id)
     {
-        coroutinexPositiv = xPositiv(bombPower, 0.1f, x, z);
-        coroutinexNegativ = xNegativ(bombPower, 0.1f, x, z);
-        coroutinezPositiv = zPositiv(bombPower, 0.1f, x, z);
-        coroutinezNegativ = zNegativ(bombPower, 0.1f, x, z);
+        coroutinexPositiv = xPositiv(bombPower, 0.1f, x, z, id);
+        coroutinexNegativ = xNegativ(bombPower, 0.1f, x, z, id);
+        coroutinezPositiv = zPositiv(bombPower, 0.1f, x, z, id);
+        coroutinezNegativ = zNegativ(bombPower, 0.1f, x, z, id);
 
         StartCoroutine(coroutinexPositiv);
         StartCoroutine(coroutinexNegativ);
@@ -26,49 +27,49 @@ public class MapDestroyer : MonoBehaviour
     }
 
 
-    private IEnumerator xPositiv(int bombPower, float waitTime, int x, int z)
+    private IEnumerator xPositiv(int bombPower, float waitTime, int x, int z,int id)
     {
         Instantiate(ExplosionPrefab, new Vector3(x, 0, z), Quaternion.identity);
         yield return new WaitForSeconds(waitTime);
 
         int distanz = 1;
-        while (distanz <= bombPower && ExplodeCell(x + distanz, z))
+        while (distanz <= bombPower && ExplodeCell(x + distanz, z, id))
         {
             yield return new WaitForSeconds(waitTime);
             distanz++;
         }
     }
 
-    private IEnumerator xNegativ(int bombPower, float waitTime, int x, int z)
+    private IEnumerator xNegativ(int bombPower, float waitTime, int x, int z, int id)
     {
         yield return new WaitForSeconds(waitTime);
 
         int distanz = 1;
-        while (distanz <= bombPower && ExplodeCell(x - distanz, z))
+        while (distanz <= bombPower && ExplodeCell(x - distanz, z, id))
         {
             yield return new WaitForSeconds(waitTime);
             distanz++;
         }
     }
 
-    private IEnumerator zPositiv(int bombPower, float waitTime, int x, int z)
+    private IEnumerator zPositiv(int bombPower, float waitTime, int x, int z, int id)
     {
         yield return new WaitForSeconds(waitTime);
 
         int distanz = 1;
-        while (distanz <= bombPower && ExplodeCell(x, z + distanz))
+        while (distanz <= bombPower && ExplodeCell(x, z + distanz, id))
         {
             yield return new WaitForSeconds(waitTime);
             distanz++;
         }
     }
 
-    private IEnumerator zNegativ(int bombPower, float waitTime, int x, int z)
+    private IEnumerator zNegativ(int bombPower, float waitTime, int x, int z, int id)
     {
         yield return new WaitForSeconds(waitTime);
 
         int distanz = 1;
-        while (distanz <= bombPower && ExplodeCell(x, z - distanz))
+        while (distanz <= bombPower && ExplodeCell(x, z - distanz, id))
         {
             yield return new WaitForSeconds(waitTime);
             distanz++;
@@ -76,22 +77,23 @@ public class MapDestroyer : MonoBehaviour
     }
 
 
-    bool ExplodeCell(int x, int z)
+    bool ExplodeCell(int x, int z, int id)
     {
-        GameObject thisBomb = LevelGenerator.AllGameObjects[x, z];
+        GameObject thisGameObject = LevelGenerator.AllGameObjects[x, z];
 
-        if (thisBomb == null)
+        if (thisGameObject == null)
         {
             Instantiate(ExplosionPrefab, new Vector3(x, 0, z), Quaternion.identity);
             return true;
         }
         else
         {
-            switch (thisBomb.tag)
+            switch (thisGameObject.tag)
             {
                 case "Bombe":
                     Instantiate(ExplosionPrefab, new Vector3(x, 0, z), Quaternion.identity);
-                    BombScript thisBombeScript = thisBomb.GetComponent<BombScript>();
+                    BombScript thisBombeScript = thisGameObject.GetComponent<BombScript>();
+                    //PlayerSpawner.playerList[id].gameObject.GetComponent<PlayerScript>().remoteBombList.Remove(thisGameObject);
                     thisBombeScript.bombTimer = 0;
                     thisBombeScript.remoteBomb = false;
                     return false;
@@ -101,12 +103,17 @@ public class MapDestroyer : MonoBehaviour
 
                 case "Kiste":
                     Instantiate(ExplosionPrefab, new Vector3(x, 0, z), Quaternion.identity);
-                    Destroy(thisBomb);
+                    Destroy(thisGameObject);
                     return false;
 
                 case "Item":
                     Instantiate(ExplosionPrefab, new Vector3(x, 0, z), Quaternion.identity);
-                    Destroy(thisBomb);
+                    Destroy(thisGameObject);
+                    return true;
+
+                case "Player":
+                    Instantiate(ExplosionPrefab, new Vector3(x, 0, z), Quaternion.identity);
+                    thisGameObject.GetComponent<PlayerScript>().setLife(-1);
                     return true;
 
                 default:

@@ -31,6 +31,7 @@ public class PlayerSpawner : MonoBehaviour {
         {
             GameObject tmpPlayer = Instantiate(playerPrefab, spawnList[i], Quaternion.identity);
             tmpPlayer.name = "Player_" + i.ToString();
+            tmpPlayer.tag = "Player";
             tmpPlayer.GetComponent<Renderer>().material.color = playerColorList[i];
             playerList.Add(tmpPlayer);
             playerList[i].GetComponent<PlayerScript>().setPlayerID(i);
