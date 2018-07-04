@@ -363,7 +363,7 @@ public class PlayerScript : MonoBehaviour
 
     bool freeWay(Vector3 tmp)
     {
-        if(levelGenerator.AllGameObjects[(int)(target.x + tmp.x),(int)(target.z + tmp.z)] == null)
+        if(levelGenerator.AllGameObjects[Mathf.RoundToInt(target.x + tmp.x), Mathf.RoundToInt(target.z + tmp.z)] == null)
         {
             return true;
         }

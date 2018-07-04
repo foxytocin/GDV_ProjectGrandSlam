@@ -1,55 +1,9 @@
 Base path: /Applications/Unity/Unity.app/Contents
 Cmd: initializeCompiler
-Cmd: preprocess
-  insize=3079 outsize=302 ok=1
-Cmd: preprocess
-  insize=2963 outsize=388 ok=1
-Cmd: preprocess
-  insize=2542 outsize=276 ok=1
-Cmd: preprocess
-  insize=2582 outsize=368 ok=1
-Cmd: preprocessCompute
-  insize=1382 outsize=1386 ok=1
-Cmd: preprocess
-  insize=3618 outsize=353 ok=1
-Cmd: preprocess
-  insize=5780 outsize=1782 ok=1
-Cmd: preprocessCompute
-  insize=3176 outsize=3182 ok=1
-Cmd: preprocess
-  insize=2188 outsize=281 ok=1
-Cmd: preprocess
-  insize=31310 outsize=1466 ok=1
-Cmd: preprocess
-  insize=2601 outsize=1305 ok=1
-Cmd: preprocess
-  insize=7066 outsize=798 ok=1
-Cmd: preprocess
-  insize=934 outsize=280 ok=1
-Cmd: preprocess
-  insize=6596 outsize=467 ok=1
-Cmd: preprocess
-  insize=1868 outsize=283 ok=1
-Cmd: preprocess
-  insize=11336 outsize=651 ok=1
-Cmd: preprocess
-  insize=2431 outsize=469 ok=1
-Cmd: preprocess
-  insize=4145 outsize=528 ok=1
-Cmd: preprocessCompute
-  insize=1480 outsize=1484 ok=1
-Cmd: preprocess
-  insize=5415 outsize=2548 ok=1
-Cmd: preprocess
-  insize=1652 outsize=347 ok=1
-Cmd: preprocess
-  insize=3309 outsize=229 ok=1
-Cmd: preprocessCompute
-  insize=2283 outsize=2285 ok=1
-Cmd: preprocess
-  insize=3314 outsize=1461 ok=1
-Cmd: preprocess
-  insize=1893 outsize=901 ok=1
+Cmd: initializeCompiler
+Cmd: initializeCompiler
+Cmd: initializeCompiler
+Cmd: initializeCompiler
 Cmd: initializeCompiler
 Cmd: initializeCompiler
 Cmd: initializeCompiler
