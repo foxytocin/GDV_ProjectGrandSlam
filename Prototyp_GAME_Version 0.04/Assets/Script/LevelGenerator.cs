@@ -222,7 +222,7 @@ public class LevelGenerator : MonoBehaviour
 
         //Mach ein normales Stück Wand (ein Cube)
         } else {
-            GameObject Wand = Instantiate(WandPrefab, pos, Quaternion.Euler(0, 0, rotation));
+            GameObject Wand = Instantiate(WandPrefab, pos, Quaternion.identity); //Euler(0, 0, rotation
             Wand.tag = "Wand";
             rotation += 90;
 

@@ -29,7 +29,7 @@ public class MapDestroyer : MonoBehaviour
 
     private IEnumerator xPositiv(int bombPower, float waitTime, int x, int z,int id)
     {
-        Instantiate(ExplosionPrefab, new Vector3(x, 0, z), Quaternion.identity);
+        Instantiate(ExplosionPrefab, new Vector3(x, 0.5f, z), Quaternion.identity);
         yield return new WaitForSeconds(waitTime);
 
         int distanz = 1;
@@ -83,7 +83,7 @@ public class MapDestroyer : MonoBehaviour
 
         if (thisGameObject == null)
         {
-            Instantiate(ExplosionPrefab, new Vector3(x, 0, z), Quaternion.identity);
+            Instantiate(ExplosionPrefab, new Vector3(x, 0.5f, z), Quaternion.identity);
             return true;
         }
         else
@@ -91,7 +91,7 @@ public class MapDestroyer : MonoBehaviour
             switch (thisGameObject.tag)
             {
                 case "Bombe":
-                    Instantiate(ExplosionPrefab, new Vector3(x, 0, z), Quaternion.identity);
+                    Instantiate(ExplosionPrefab, new Vector3(x, 0.5f, z), Quaternion.identity);
                     BombScript thisBombeScript = thisGameObject.GetComponent<BombScript>();
                     //PlayerSpawner.playerList[id].gameObject.GetComponent<PlayerScript>().remoteBombList.Remove(thisGameObject);
                     thisBombeScript.bombTimer = 0;
@@ -102,17 +102,17 @@ public class MapDestroyer : MonoBehaviour
                     return false;
 
                 case "Kiste":
-                    Instantiate(ExplosionPrefab, new Vector3(x, 0, z), Quaternion.identity);
+                    Instantiate(ExplosionPrefab, new Vector3(x, 0.5f, z), Quaternion.identity);
                     Destroy(thisGameObject);
                     return false;
 
                 case "Item":
-                    Instantiate(ExplosionPrefab, new Vector3(x, 0, z), Quaternion.identity);
+                    Instantiate(ExplosionPrefab, new Vector3(x, 0.5f, z), Quaternion.identity);
                     Destroy(thisGameObject);
                     return true;
 
                 case "Player":
-                    Instantiate(ExplosionPrefab, new Vector3(x, 0, z), Quaternion.identity);
+                    Instantiate(ExplosionPrefab, new Vector3(x, 0.5f, z), Quaternion.identity);
                     thisGameObject.GetComponent<PlayerScript>().setLife(-1);
                     return true;
 

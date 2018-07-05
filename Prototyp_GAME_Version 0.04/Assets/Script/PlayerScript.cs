@@ -26,7 +26,7 @@ public class PlayerScript : MonoBehaviour
         avaibleBomb = 1000;
         speed = 5f;
         bombTimer = 3;
-        range = 1;
+        range = 2;
         aLife = true;
         remoteBomb = false;
         creatingBomb = false;
