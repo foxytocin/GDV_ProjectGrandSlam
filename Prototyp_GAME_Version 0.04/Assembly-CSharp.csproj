@@ -113,6 +113,7 @@
     <Compile Include="Assets\Script\CameraScroller.cs" />
     <Compile Include="Assets\Script\CameraZoom.cs" />
     <Compile Include="Assets\Script\ExplosionScript.cs" />
+    <Compile Include="Assets\Script\ExplosionScript2.cs" />
     <Compile Include="Assets\Script\InputManager.cs" />
     <Compile Include="Assets\Script\ItemScript.cs" />
     <Compile Include="Assets\Script\LevelGenerator.cs" />

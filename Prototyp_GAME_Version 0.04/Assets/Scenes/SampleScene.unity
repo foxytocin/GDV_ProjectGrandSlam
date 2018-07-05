@@ -336,6 +336,7 @@ MonoBehaviour:
   LevelGenerator: {fileID: 958779247}
   ExplosionPrefab: {fileID: 1164955088114102, guid: 4bc7b12269e8044c4a793897b17c9c4a,
     type: 2}
+  ExplosionPrefab2: {fileID: 159918, guid: a0040bf7072bc2f4e82d887d50a9c5e2, type: 2}
 --- !u!1 &799907529
 GameObject:
   m_ObjectHideFlags: 0
