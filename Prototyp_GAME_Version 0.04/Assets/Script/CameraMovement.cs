@@ -22,13 +22,18 @@ public class CameraMovement : MonoBehaviour {
         Vector3 centerPoint = CalcCenterPoint(players.Count);
 
         Vector3 local = transform.InverseTransformPoint(centerPoint);
-        transform.localPosition = new Vector3(centerPoint.x, 0, Mathf.Clamp(local.z / 2f, -4f, +4f));
+        //transform.localPosition = new Vector3(centerPoint.x, 0, Mathf.Clamp(local.z / 2f, -4f, +4f));
+
+
+        float x = Mathf.Lerp(transform.localPosition.x, centerPoint.x, 4f * Time.deltaTime);
+        float z = Mathf.Lerp(transform.localPosition.z, Mathf.Clamp(local.z / 2f, -4f, +4f), 4f * Time.deltaTime);
+        transform.localPosition = new Vector3(x, 0f, z);
     }
 
     public Vector3 CalcCenterPoint(int numPlayers)
     {
         Vector3 center = Vector3.zero;
-        int count = 0;
+        
         if (numPlayers == 1)
         {
             return players[0].transform.position;
