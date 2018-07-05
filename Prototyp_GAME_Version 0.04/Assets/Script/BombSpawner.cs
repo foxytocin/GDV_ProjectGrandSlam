@@ -14,7 +14,7 @@ public class BombSpawner : MonoBehaviour
         int zPos = Mathf.RoundToInt(player.transform.position.z);
 
         //Debug.Log(LevelGenerator.AllGameObjects[xPos, zPos]);
-        if(LevelGenerator.AllGameObjects[xPos, zPos] == null) {
+        if(LevelGenerator.AllGameObjects[xPos, zPos] == null || LevelGenerator.AllGameObjects[xPos, zPos].gameObject.tag == "Player") {
             
             player.setAvaibleBomb(-1);
 

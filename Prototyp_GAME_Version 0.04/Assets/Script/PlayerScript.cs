@@ -135,7 +135,7 @@ public class PlayerScript : MonoBehaviour
             //Im Array aktuelle position loeschen
             levelGenerator.AllGameObjects[(int)target.x, (int)target.z] = null;
 
-            //neue position berechenen 
+            //neue position berechenen
             target += tmp;
 
             //Im Array auf neuer Position speichern
