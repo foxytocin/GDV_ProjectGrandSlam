@@ -8,11 +8,11 @@ public class CameraDirection : MonoBehaviour {
     void Start()
     {
         //Offset at Beginning, currently random -> make dynamic
-        transform.position = new Vector3(0f, 11f, -15f);
+        transform.position = new Vector3(0f, 4f, -10f);
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         target = GameObject.Find("HorizontalAxis").GetComponent<CameraMovement>().CalcCenterPoint(2);
         Vector3 targetPostition = new Vector3(this.transform.position.x, target.y, target.z);
