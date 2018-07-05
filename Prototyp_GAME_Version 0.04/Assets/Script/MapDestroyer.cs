@@ -6,18 +6,15 @@ public class MapDestroyer : MonoBehaviour
     //public PlayerSpawner PlayerSpawner;
     public LevelGenerator levelGenerator;
     public GameObject ExplosionPrefab;
-    public GameObject ExplosionPrefab2;
     private IEnumerator coroutinexPositiv;
     private IEnumerator coroutinexNegativ;
     private IEnumerator coroutinezPositiv;
     private IEnumerator coroutinezNegativ;
 
     //Wird nach Zeitablauf der Bombe durch die BombeScript aufgerufen und emfängt die Position der Bombe
-
     public void Explode(xzPosition bombPosition, int bombPower, int id)
     {
         Instantiate(ExplosionPrefab, new Vector3(bombPosition.x, 0.5f, bombPosition.z), Quaternion.identity);
-        Instantiate(ExplosionPrefab2, new Vector3(bombPosition.x, 0.5f, bombPosition.z), Quaternion.identity);
 
         coroutinexPositiv = xPositiv(bombPower, 0.1f, bombPosition, id);
         coroutinexNegativ = xNegativ(bombPower, 0.1f, bombPosition, id);
@@ -87,7 +84,6 @@ public class MapDestroyer : MonoBehaviour
         if (thisGameObject == null)
         {
             Instantiate(ExplosionPrefab, new Vector3(x, 0.5f, z), Quaternion.identity);
-            Instantiate(ExplosionPrefab2, new Vector3(x, 0.5f, z), Quaternion.identity);
             return true;
         }
         else
@@ -96,11 +92,8 @@ public class MapDestroyer : MonoBehaviour
             {
                 case "Bombe":
                     Instantiate(ExplosionPrefab, new Vector3(x, 0.5f, z), Quaternion.identity);
-                    Instantiate(ExplosionPrefab2, new Vector3(x, 0.5f, z), Quaternion.identity);
-                    BombScript thisBombeScript = thisGameObject.GetComponent<BombScript>();
-                    //PlayerSpawner.playerList[id].gameObject.GetComponent<PlayerScript>().remoteBombList.Remove(thisGameObject);
-                    thisBombeScript.bombTimer = 0;
-                    thisBombeScript.remoteBomb = false;
+                    thisGameObject.GetComponent<BombScript>().bombTimer = 0;
+                    thisGameObject.GetComponent<BombScript>().remoteBomb = false;
                     return false;
 
                 case "Wand":
@@ -108,19 +101,16 @@ public class MapDestroyer : MonoBehaviour
 
                 case "Kiste":
                     Instantiate(ExplosionPrefab, new Vector3(x, 0.5f, z), Quaternion.identity);
-                    Instantiate(ExplosionPrefab2, new Vector3(x, 0.5f, z), Quaternion.identity);
                     Destroy(thisGameObject);
                     return false;
 
                 case "Item":
                     Instantiate(ExplosionPrefab, new Vector3(x, 0.5f, z), Quaternion.identity);
-                    Instantiate(ExplosionPrefab2, new Vector3(x, 0.5f, z), Quaternion.identity);
                     Destroy(thisGameObject);
                     return true;
 
                 case "Player":
                     Instantiate(ExplosionPrefab, new Vector3(x, 0.5f, z), Quaternion.identity);
-                    Instantiate(ExplosionPrefab2, new Vector3(x, 0.5f, z), Quaternion.identity);
                     thisGameObject.GetComponent<PlayerScript>().dead(thisGameObject.GetComponent<PlayerScript>().getPlayerID());
                     levelGenerator.AllGameObjects[x, z] = null;
                     return true;

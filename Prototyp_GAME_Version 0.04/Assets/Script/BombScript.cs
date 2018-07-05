@@ -17,6 +17,7 @@ public class BombScript : MonoBehaviour
     void Awake()
     {
         startTime = Time.time;
+        bombPosition = new xzPosition((int)transform.position.x, (int)transform.position.z);
     }
 
     // Update is called once per frame
@@ -32,7 +33,6 @@ public class BombScript : MonoBehaviour
 
     public void CallExplode()
     {
-        bombPosition = new xzPosition(Mathf.RoundToInt(gameObject.transform.position.x), Mathf.RoundToInt(gameObject.transform.position.z));
       
         if((int)playerList[bombOwnerPlayerID].gameObject.transform.position.x == bombPosition.x && (int)playerList[bombOwnerPlayerID].gameObject.transform.position.z == bombPosition.z)
         {

@@ -280,8 +280,10 @@ public class PlayerScript : MonoBehaviour
     {
         if (playerList[id].GetComponent<PlayerScript>().getAvaibleBomb() > 0 && playerList[id].GetComponent<PlayerScript>().getALife())
         {
+            xzPosition playerPosition = new xzPosition(Mathf.RoundToInt(body.transform.position.x), Mathf.RoundToInt(body.transform.position.z));
+
             creatingBomb = true;
-            FindObjectOfType<BombSpawner>().SpawnBomb(id);
+            FindObjectOfType<BombSpawner>().SpawnBomb(playerPosition, id);
 
         } else
         {
