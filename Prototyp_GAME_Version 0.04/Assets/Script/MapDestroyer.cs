@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class MapDestroyer : MonoBehaviour
 {
-    public PlayerSpawner PlayerSpawner;
+    //public PlayerSpawner PlayerSpawner;
     public LevelGenerator LevelGenerator;
     public GameObject ExplosionPrefab;
     public GameObject ExplosionPrefab2;
@@ -16,6 +16,9 @@ public class MapDestroyer : MonoBehaviour
 
     public void Explode(int x, int z, int bombPower, int id)
     {
+        Instantiate(ExplosionPrefab, new Vector3(x, 0.5f, z), Quaternion.identity);
+        Instantiate(ExplosionPrefab2, new Vector3(x, 0.5f, z), Quaternion.identity);
+
         coroutinexPositiv = xPositiv(bombPower, 0.1f, x, z, id);
         coroutinexNegativ = xNegativ(bombPower, 0.1f, x, z, id);
         coroutinezPositiv = zPositiv(bombPower, 0.1f, x, z, id);
@@ -30,8 +33,6 @@ public class MapDestroyer : MonoBehaviour
 
     private IEnumerator xPositiv(int bombPower, float waitTime, int x, int z,int id)
     {
-        Instantiate(ExplosionPrefab, new Vector3(x, 0.5f, z), Quaternion.identity);
-        Instantiate(ExplosionPrefab2, new Vector3(x, 0.5f, z), Quaternion.identity);
         yield return new WaitForSeconds(waitTime);
 
         int distanz = 1;
