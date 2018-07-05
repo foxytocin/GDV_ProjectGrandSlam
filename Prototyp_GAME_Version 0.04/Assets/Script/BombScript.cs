@@ -10,6 +10,8 @@ public class BombScript : MonoBehaviour
     public bool remoteBomb;
     private float startTime;
     public List<GameObject> playerList;
+    public LevelGenerator levelGenerator;
+    public xzPosition bombPosition;
 
     //Zeitpunkt an dem die Bombe erzeugt wurde
     void Awake()
@@ -30,15 +32,15 @@ public class BombScript : MonoBehaviour
 
     public void CallExplode()
     {
-        int x = Mathf.RoundToInt(gameObject.transform.position.x);
-        int z = Mathf.RoundToInt(gameObject.transform.position.z);
-
-        if((int)playerList[bombOwnerPlayerID].gameObject.transform.position.x == x && (int)playerList[bombOwnerPlayerID].gameObject.transform.position.z == z) {
+        bombPosition = new xzPosition(Mathf.RoundToInt(gameObject.transform.position.x), Mathf.RoundToInt(gameObject.transform.position.z));
+      
+        if((int)playerList[bombOwnerPlayerID].gameObject.transform.position.x == bombPosition.x && (int)playerList[bombOwnerPlayerID].gameObject.transform.position.z == bombPosition.z)
+        {
             playerList[bombOwnerPlayerID].GetComponent<PlayerScript>().dead(bombOwnerPlayerID);
         }
 
         Destroy(gameObject);
-        FindObjectOfType<MapDestroyer>().Explode(x, z, bombPower, bombOwnerPlayerID);
         playerList[bombOwnerPlayerID].GetComponent<PlayerScript>().setAvaibleBomb(1);
+        FindObjectOfType<MapDestroyer>().Explode(bombPosition, bombPower, bombOwnerPlayerID);
     }
 }

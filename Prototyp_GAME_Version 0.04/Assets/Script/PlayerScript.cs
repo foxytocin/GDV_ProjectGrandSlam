@@ -20,6 +20,7 @@ public class PlayerScript : MonoBehaviour
     public LevelGenerator levelGenerator;
     public GameObject body;
 
+
     void Start()
     {
         life = 3;

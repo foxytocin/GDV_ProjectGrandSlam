@@ -332,8 +332,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75b96b90476454c26a2688cdcc613b9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerSpawner: {fileID: 0}
-  LevelGenerator: {fileID: 958779247}
+  levelGenerator: {fileID: 958779247}
   ExplosionPrefab: {fileID: 1164955088114102, guid: 4bc7b12269e8044c4a793897b17c9c4a,
     type: 2}
   ExplosionPrefab2: {fileID: 159918, guid: a0040bf7072bc2f4e82d887d50a9c5e2, type: 2}

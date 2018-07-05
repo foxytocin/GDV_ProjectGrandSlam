@@ -6,22 +6,19 @@ public class BombSpawner : MonoBehaviour
     public LevelGenerator LevelGenerator;
     public GameObject Bomb_Prefab;
     public PlayerSpawner PlayerSpawner;
+    public xzPosition BombPositon;
 
     public void SpawnBomb(int id)
     {
-        
         PlayerScript player = PlayerSpawner.playerList[id].gameObject.GetComponent<PlayerScript>();
-        int xPos = Mathf.RoundToInt(player.gameObject.transform.position.x);
-        int zPos = Mathf.RoundToInt(player.gameObject.transform.position.z);
-        //Debug.Log("player: " + player.target + "\n x: " + xPos + "\n z:" + zPos);
+        BombPositon = new xzPosition(Mathf.RoundToInt(player.gameObject.transform.position.x), Mathf.RoundToInt(player.gameObject.transform.position.z));
 
-        //Debug.Log(LevelGenerator.AllGameObjects[xPos, zPos].gameObject.tag.ToString());
-        if(LevelGenerator.AllGameObjects[xPos, zPos] == null || LevelGenerator.AllGameObjects[xPos, zPos].gameObject.tag == "Player")
+        if(LevelGenerator.AllGameObjects[BombPositon.x, BombPositon.z] == null || LevelGenerator.AllGameObjects[BombPositon.x, BombPositon.z].gameObject.tag == "Player")
         {
             
             player.setAvaibleBomb(-1);
 
-            GameObject bombeInstanz = Instantiate(Bomb_Prefab, new Vector3(xPos, 0.4f, zPos), Quaternion.identity);
+            GameObject bombeInstanz = Instantiate(Bomb_Prefab, new Vector3(BombPositon.x, 0.4f, BombPositon.z), Quaternion.identity);
             BombScript thisBombeScript = bombeInstanz.GetComponent<BombScript>();
 
             thisBombeScript.playerList = player.getPlayerList();
@@ -31,7 +28,7 @@ public class BombSpawner : MonoBehaviour
             thisBombeScript.remoteBomb = player.getRemoteBomb();
             thisBombeScript.tag = "Bombe";
 
-            LevelGenerator.AllGameObjects[xPos, zPos] = bombeInstanz;
+            LevelGenerator.AllGameObjects[BombPositon.x, BombPositon.z] = bombeInstanz;
         }
 
         player.creatingBomb = false;
