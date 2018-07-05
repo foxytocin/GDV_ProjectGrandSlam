@@ -20,20 +20,20 @@ public class CameraZoom : MonoBehaviour {
         players = playerSpawner.playerList;
 
         //Debug.Log("verticalAxis world and local pos: " + transform.position + transform.localPosition);
-        CameraMoving(2);
+        CameraMoving(players.Count);
     }
 
     void CameraMoving(int numPlayers)
     {
 
-        float zoom = Mathf.Lerp(-5f, 10f, GetGreatestDistance() / (21 + 1));
+        float zoom = Mathf.Lerp(3f, 10f, GetGreatestDistance() / (21 + 1));
         //LookAt, SmoothFollow SmoothDirection
         //3fach verschachtelte Kamera, getrennt voneinander 
 
         // BUG Irgendwie zuckt hier was...
         float dist = Mathf.Lerp(transform.position.y, zoom, 4f * Time.deltaTime);
-        Debug.Log("dist: " + dist);
-        Debug.Log("t.pos.y: " + transform.position.y);
+        //Debug.Log("dist: " + dist);
+        //Debug.Log("t.pos.y: " + transform.position.y);
         Vector3 offset = new Vector3(0, dist, 0);
         //offset = new Vector3(0, dist, cameraScroller.transform.position.z);
         transform.localPosition = offset;

@@ -9,7 +9,7 @@ public class CameraMovement : MonoBehaviour {
     public PlayerSpawner playerSpawner;
 
     // Use this for initialization
-    void Start()
+    void Awake()
     {
         playerSpawner = GameObject.Find("Player").GetComponent<PlayerSpawner>();
         cameraScroller = GameObject.Find("CameraScroller").GetComponent<CameraScroller>();
@@ -19,16 +19,10 @@ public class CameraMovement : MonoBehaviour {
     void LateUpdate()
     {
         players = playerSpawner.playerList;
-        Vector3 centerPoint = CalcCenterPoint(2);
-        //Debug.Log("centerPoint world and tolocal:" + centerPoint + transform.InverseTransformPoint(centerPoint));
-        //transform.position = centerPoint;
+        Vector3 centerPoint = CalcCenterPoint(players.Count);
 
         Vector3 local = transform.InverseTransformPoint(centerPoint);
         transform.localPosition = new Vector3(centerPoint.x, 0, Mathf.Clamp(local.z / 2f, -4f, +4f));
-        //transform.Translate(0, 0, 0.5f * Time.deltaTime);
-        //transform.localPosition = Center.transform.localPosition;
-        //Debug.Log("CenterLocal: " + Center.transform.position);
-        //Debug.Log("horizontalAxis world and local pos: " + transform.position + transform.localPosition);
     }
 
     public Vector3 CalcCenterPoint(int numPlayers)
@@ -67,26 +61,6 @@ public class CameraMovement : MonoBehaviour {
 
             center = (minPos + maxPos) * 0.5f;
             return center;
-
-            // Größte Distanz und nur abhängig davon Kamera, springt aber..
-            /*
-            GameObject[] p = GetGreatestDistanceObjects();
-            center = p[1].transform.position - p[0].transform.position;
-            return p[0].transform.position + 0.5f * center;
-
-            */
-            //Mathematisch korrekt, allerdings ist ein Objeckt meistens außerhalb
-            /*
-            float dist = GetGreatestDistance();
-            Debug.Log(dist);
-
-            foreach(GameObject player in players)
-            {
-                center += player.transform.position;
-                count++;
-            }
-            return center/count;
-            */
         }
         else
         {
