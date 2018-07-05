@@ -120,7 +120,7 @@ public class MapDestroyer : MonoBehaviour
                 case "Player":
                     Instantiate(ExplosionPrefab, new Vector3(x, 0.5f, z), Quaternion.identity);
                     Instantiate(ExplosionPrefab2, new Vector3(x, 0.5f, z), Quaternion.identity);
-                    thisGameObject.GetComponent<PlayerScript>().setLife(-1);
+                    thisGameObject.GetComponent<PlayerScript>().dead(thisGameObject.GetComponent<PlayerScript>().getPlayerID());
                     return true;
 
                 default:
