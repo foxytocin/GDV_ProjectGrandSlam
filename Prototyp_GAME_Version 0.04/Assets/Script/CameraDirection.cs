@@ -8,7 +8,7 @@ public class CameraDirection : MonoBehaviour {
     void Start()
     {
         //Offset at Beginning, currently random -> make dynamic
-        transform.position = new Vector3(0f, 0f, -10f);
+        transform.position = new Vector3(0f, 4f, -10f);
     }
 
     // Update is called once per frame
