@@ -19,6 +19,8 @@ public class PlayerScript : MonoBehaviour
     public List<GameObject> remoteBombList;
     public LevelGenerator levelGenerator;
     public GameObject body;
+    public GhostSpawnerScript ghostSpawner;
+
 
 
     void Start()
@@ -177,6 +179,8 @@ public class PlayerScript : MonoBehaviour
         playerList[id].GetComponent<PlayerScript>().setLife(-1);
         playerList[id].GetComponent<PlayerScript>().setALife(false);
         playerList[id].SetActive(false);
+
+        ghostSpawner.GetComponent<GhostSpawnerScript>().createGhost(body.transform.position);
     }
 
 
@@ -280,10 +284,8 @@ public class PlayerScript : MonoBehaviour
     {
         if (playerList[id].GetComponent<PlayerScript>().getAvaibleBomb() > 0 && playerList[id].GetComponent<PlayerScript>().getALife())
         {
-            xzPosition playerPosition = new xzPosition(Mathf.RoundToInt(body.transform.position.x), Mathf.RoundToInt(body.transform.position.z));
-
             creatingBomb = true;
-            FindObjectOfType<BombSpawner>().SpawnBomb(playerPosition, id);
+            FindObjectOfType<BombSpawner>().SpawnBomb((new xzPosition(Mathf.RoundToInt(body.transform.position.x), Mathf.RoundToInt(body.transform.position.z))),id);
 
         } else
         {

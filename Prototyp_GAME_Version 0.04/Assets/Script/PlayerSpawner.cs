@@ -9,6 +9,7 @@ public class PlayerSpawner : MonoBehaviour {
     public List<Vector3> spawnList;
     List<Color> playerColorList;
     public LevelGenerator LevelGenerator;
+    public GhostSpawnerScript ghostSpawner;
 
 
     // Use this for initialization
@@ -36,6 +37,7 @@ public class PlayerSpawner : MonoBehaviour {
             playerList[i].GetComponent<PlayerScript>().setPlayerID(i);
             playerList[i].GetComponent<PlayerScript>().setPlayerList(playerList);
             playerList[i].GetComponent<PlayerScript>().setWorld(LevelGenerator);
+            playerList[i].GetComponent<PlayerScript>().ghostSpawner = ghostSpawner;
         }
     }
 }
