@@ -7,7 +7,6 @@ public class PlayerSpawner : MonoBehaviour {
     public int players;
     public List<GameObject> playerList;
     public List<Vector3> spawnList;
-    Vector3 spawnPosition;
     List<Color> playerColorList;
     public LevelGenerator LevelGenerator;
 
@@ -37,7 +36,6 @@ public class PlayerSpawner : MonoBehaviour {
             playerList[i].GetComponent<PlayerScript>().setPlayerID(i);
             playerList[i].GetComponent<PlayerScript>().setPlayerList(playerList);
             playerList[i].GetComponent<PlayerScript>().setWorld(LevelGenerator);
-            spawnPosition.x += 2;
         }
     }
 }

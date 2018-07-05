@@ -95,8 +95,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dff053ec6efa548eb899bade09296d63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveX: 0
-  moveZ: 0
   levelGenerator: {fileID: 0}
   body: {fileID: 1667059198137356}
   playerID: 0
@@ -109,6 +107,4 @@ MonoBehaviour:
   remoteBomb: 0
   playerList: []
   creatingBomb: 0
-  target: {x: 0, y: 0, z: 0}
-  lastTmpVector: {x: 0, y: 0, z: 0}
-  himmelsrichtungen: 
+  remoteBombList: []

@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
-    public LevelGenerator levelGenerator;
-    public GameObject body;
     public int playerID;
     public int life;
     public int avaibleBomb;
@@ -19,10 +17,11 @@ public class PlayerScript : MonoBehaviour
     Vector3 lastTmpVector;
     float myTime;
     public List<GameObject> remoteBombList;
+    public LevelGenerator levelGenerator;
+    public GameObject body;
 
-    void Awake()
+    void Start()
     {
-        playerID = 0;
         life = 3;
         avaibleBomb = 1000;
         speed = 5f;
@@ -33,6 +32,7 @@ public class PlayerScript : MonoBehaviour
         creatingBomb = false;
         target = body.transform.position;
         myTime = 0f;
+        levelGenerator.AllGameObjects[(int)body.transform.position.x, (int)body.transform.position.z] = playerList[playerID];
     }
 
     void Update()
@@ -58,7 +58,7 @@ public class PlayerScript : MonoBehaviour
 
                 if (InputManager.OneStartButton())
                 {
-                    //Pause aufufen
+                    //Pause aufrufen
                 }
 
                 break;
@@ -78,7 +78,7 @@ public class PlayerScript : MonoBehaviour
 
                 if (InputManager.TwoStartButton())
                 {
-                    //Pause aufufen
+                    //Pause aufrufen
                 }
 
                 break;
@@ -98,7 +98,7 @@ public class PlayerScript : MonoBehaviour
 
                 if (InputManager.ThreeStartButton())
                 {
-                    //Pause aufufen
+                    //Pause aufrufen
                 }
 
                 break;
@@ -118,7 +118,7 @@ public class PlayerScript : MonoBehaviour
 
                 if (InputManager.FourStartButton())
                 {
-                    //Pause aufufen
+                    //Pause aufrufen
                 }
 
                 break;
@@ -130,9 +130,18 @@ public class PlayerScript : MonoBehaviour
         }
 
         //Target bewegen
-        if (freeWay(tmp))
+        if (freeWay(tmp) && aLife)
         {
+            //Im Array aktuelle position loeschen
+            levelGenerator.AllGameObjects[(int)target.x, (int)target.z] = null;
+
+            //neue position berechenen 
             target += tmp;
+
+            //Im Array auf neuer Position speichern
+            levelGenerator.AllGameObjects[(int)target.x, (int)target.z] = playerList[playerID];
+
+            //speichern des alten Richtungsvectors
             lastTmpVector = tmp;
         }
 
@@ -272,7 +281,8 @@ public class PlayerScript : MonoBehaviour
             creatingBomb = true;
             FindObjectOfType<BombSpawner>().SpawnBomb(id);
 
-        } else {
+        } else
+        {
             creatingBomb = false;
         }
     }
