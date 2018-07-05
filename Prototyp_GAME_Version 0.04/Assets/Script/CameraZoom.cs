@@ -32,8 +32,8 @@ public class CameraZoom : MonoBehaviour {
 
         // BUG Irgendwie zuckt hier was...
         float dist = Mathf.Lerp(transform.position.y, zoom, 4f * Time.deltaTime);
-        Debug.Log("dist: " + dist);
-        Debug.Log("t.pos.y: " + transform.position.y);
+        //Debug.Log("dist: " + dist);
+        //Debug.Log("t.pos.y: " + transform.position.y);
         Vector3 offset = new Vector3(0, dist, 0);
         //offset = new Vector3(0, dist, cameraScroller.transform.position.z);
         transform.localPosition = offset;

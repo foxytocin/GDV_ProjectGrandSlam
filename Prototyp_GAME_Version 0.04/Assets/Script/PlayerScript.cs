@@ -13,7 +13,7 @@ public class PlayerScript : MonoBehaviour
     public bool remoteBomb;
     public List<GameObject> playerList;
     public bool creatingBomb;
-    Vector3 target;
+    public Vector3 target;
     Vector3 lastTmpVector;
     float myTime;
     public List<GameObject> remoteBombList;
@@ -132,8 +132,9 @@ public class PlayerScript : MonoBehaviour
         //Target bewegen
         if (freeWay(tmp) && aLife)
         {
-            //Im Array aktuelle position loeschen
-            levelGenerator.AllGameObjects[(int)target.x, (int)target.z] = null;
+            if (levelGenerator.AllGameObjects[(int)target.x, (int)target.z].gameObject.tag == "Player")
+                //Im Array aktuelle position loeschen
+                levelGenerator.AllGameObjects[(int)target.x, (int)target.z] = null;
 
             //neue position berechenen
             target += tmp;

@@ -9,12 +9,15 @@ public class BombSpawner : MonoBehaviour
 
     public void SpawnBomb(int id)
     {
+        
         PlayerScript player = PlayerSpawner.playerList[id].gameObject.GetComponent<PlayerScript>();
-        int xPos = Mathf.RoundToInt(player.transform.position.x);
-        int zPos = Mathf.RoundToInt(player.transform.position.z);
+        int xPos = Mathf.RoundToInt(player.gameObject.transform.position.x);
+        int zPos = Mathf.RoundToInt(player.gameObject.transform.position.z);
+        //Debug.Log("player: " + player.target + "\n x: " + xPos + "\n z:" + zPos);
 
-        //Debug.Log(LevelGenerator.AllGameObjects[xPos, zPos]);
-        if(LevelGenerator.AllGameObjects[xPos, zPos] == null || LevelGenerator.AllGameObjects[xPos, zPos].gameObject.tag == "Player") {
+        //Debug.Log(LevelGenerator.AllGameObjects[xPos, zPos].gameObject.tag.ToString());
+        if(LevelGenerator.AllGameObjects[xPos, zPos] == null || LevelGenerator.AllGameObjects[xPos, zPos].gameObject.tag == "Player")
+        {
             
             player.setAvaibleBomb(-1);
 
