@@ -42,7 +42,7 @@ MonoBehaviour:
   ambientOcclusion:
     m_Enabled: 1
     m_Settings:
-      intensity: 3
+      intensity: 2
       radius: 0.3
       sampleCount: 10
       downsampling: 1
@@ -100,7 +100,7 @@ MonoBehaviour:
     m_Enabled: 1
     m_Settings:
       bloom:
-        intensity: 0.5
+        intensity: 0.3
         threshold: 1.1
         softKnee: 0.5
         radius: 3

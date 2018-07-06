@@ -285,7 +285,7 @@ public class PlayerScript : MonoBehaviour
         if (playerList[id].GetComponent<PlayerScript>().getAvaibleBomb() > 0 && playerList[id].GetComponent<PlayerScript>().getALife())
         {
             creatingBomb = true;
-            FindObjectOfType<BombSpawner>().SpawnBomb((new xzPosition(Mathf.RoundToInt(body.transform.position.x), Mathf.RoundToInt(body.transform.position.z))),id);
+            FindObjectOfType<BombSpawner>().SpawnBomb((new xzPosition(Mathf.RoundToInt(body.transform.position.x), Mathf.RoundToInt(body.transform.position.z))), id);
 
         } else
         {
