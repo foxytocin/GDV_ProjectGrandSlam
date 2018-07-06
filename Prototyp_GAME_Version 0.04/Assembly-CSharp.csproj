@@ -119,7 +119,6 @@
     <Compile Include="Assets\Script\ItemScript.cs" />
     <Compile Include="Assets\Script\LevelGenerator.cs" />
     <Compile Include="Assets\Script\MapDestroyer.cs" />
-    <Compile Include="Assets\Script\OffScreen.cs" />
     <Compile Include="Assets\Script\PlayerScript.cs" />
     <Compile Include="Assets\Script\PlayerSpawner.cs" />
     <Compile Include="Assets\Script\RemoteBomb.cs" />

@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 4033234250139818}
   - component: {fileID: 33400871094158168}
   - component: {fileID: 23476109552969644}
-  - component: {fileID: 64561003914413084}
   - component: {fileID: 114130611869422666}
   m_Layer: 0
   m_Name: Ghost_Prefab
@@ -84,20 +83,6 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1356645802074468}
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!64 &64561003914413084
-MeshCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1356645802074468}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_SkinWidth: 0.01
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!114 &114130611869422666
 MonoBehaviour:

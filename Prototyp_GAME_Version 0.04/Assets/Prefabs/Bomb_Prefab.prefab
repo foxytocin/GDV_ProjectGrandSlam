@@ -22,7 +22,6 @@ GameObject:
   - component: {fileID: 33250990287004892}
   - component: {fileID: 23744123405812876}
   - component: {fileID: 114068350067144626}
-  - component: {fileID: 65219342354669322}
   m_Layer: 0
   m_Name: Bomb_Prefab
   m_TagString: OffScreen
@@ -85,18 +84,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1250733733974060}
   m_Mesh: {fileID: 4300000, guid: 92b35c9b5b4ba454f9b649655c474278, type: 3}
---- !u!65 &65219342354669322
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1250733733974060}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.992894, y: 2.61303, z: 1.998026}
-  m_Center: {x: 0, y: 0.308264, z: 0}
 --- !u!114 &114068350067144626
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -112,4 +99,3 @@ MonoBehaviour:
   bombPower: 0
   bombTimer: 0
   remoteBomb: 0
-  playerList: []

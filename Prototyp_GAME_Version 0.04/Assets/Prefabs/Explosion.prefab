@@ -3660,16 +3660,16 @@ ParticleSystem:
       properties: 0
   LightsModule:
     enabled: 1
-    ratio: 0.5
+    ratio: 1
     light: {fileID: 108617041145167214, guid: 7c58f4444937a4cb88398be1f569fcf8, type: 2}
     randomDistribution: 1
     color: 0
     range: 1
-    intensity: 1
+    intensity: 0
     rangeCurve:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 3
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -3722,7 +3722,7 @@ ParticleSystem:
     intensityCurve:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 1.2
       minScalar: 1
       maxCurve:
         serializedVersion: 2

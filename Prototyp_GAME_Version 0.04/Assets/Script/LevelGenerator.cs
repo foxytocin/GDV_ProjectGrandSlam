@@ -24,8 +24,10 @@ public class LevelGenerator : MonoBehaviour
     private const string levelWand = "x";
     private const string levelKiste = "k";
 
-    //public List<GameObject> AllGameObjects;
     public GameObject[,] AllGameObjects;
+    public GameObject[,] SecondaryGameObjects1;
+    public GameObject[,] SecondaryGameObjects2;
+    public GameObject[,] SecondaryGameObjects3;
 
     private string[][] levelSectionData;
     private string[][] levelBase;
@@ -81,6 +83,9 @@ public class LevelGenerator : MonoBehaviour
         specialSection = false;
         levelSectionData = readFile(LevelTextdatei0);
         AllGameObjects = new GameObject[22,3000];
+        SecondaryGameObjects1 = new GameObject[22, 3000];
+        SecondaryGameObjects2 = new GameObject[22, 3000];
+        SecondaryGameObjects3 = new GameObject[22, 3000];
     }
 
     public void createWorld(int CameraPosition)
@@ -149,24 +154,33 @@ public class LevelGenerator : MonoBehaviour
             }
             drawLevelLine(CameraPosition);
         }
-        //Debug.Log("cleanLine: " +(CameraPosition - 20));
-        //cleanLine((CameraPosition - 20));
+        cleanLine((CameraPosition - 30));
     }
 
 
-    //void cleanLine(int CameraPosition) {
+    void cleanLine(int CameraPosition) {
 
-    //    Debug.Log("CameraPosition: "+CameraPosition+ " / " +levelSectionData[0].Length);
-    //    if(CameraPosition >= 0) {
+        //Debug.Log("CameraPosition: "+CameraPosition+ " / " +levelSectionData[0].Length);
+        if(CameraPosition >= 0) {
 
-    //        for (int i = 0; i < levelSectionData[0].Length; i++)
-    //        {
-    //            Debug.Log("Destroy" +AllGameObjects[i, CameraPosition]);
-    //            Destroy(AllGameObjects[i, CameraPosition]);
-    //        }
+            for (int i = 0; i < levelSectionData[0].Length; i++)
+            {
+                if (AllGameObjects[i, CameraPosition] != null)
+                    Destroy(AllGameObjects[i, CameraPosition]);
 
-    //    }
-    //}
+                if(SecondaryGameObjects1[i, CameraPosition] != null)
+                    Destroy(SecondaryGameObjects1[i, CameraPosition]);
+                
+                if (SecondaryGameObjects2[i, CameraPosition] != null)
+                    Destroy(SecondaryGameObjects2[i, CameraPosition]);
+
+                if (SecondaryGameObjects3[i, CameraPosition] != null)
+                    Destroy(SecondaryGameObjects3[i, CameraPosition]);
+            }
+
+        }
+    }
+
 
     //Zeichnet die Linien der LevelSectionData zeilenweise
     void drawLevelLine(int CameraPosition) {
@@ -188,19 +202,21 @@ public class LevelGenerator : MonoBehaviour
         }
     }
 
+
     //Erzeugt eine Bodenplatte und zufällig eine Kiste
     void createGang(Vector3 pos, int CameraPosition) {
         
-        Instantiate(BodenPrefab, pos, Quaternion.identity);
+        SecondaryGameObjects1[(int)pos.x, (int)pos.z] = Instantiate(BodenPrefab, pos, Quaternion.identity);
 
         if(((int)Random.Range(0f, 21f)) % KistenMenge == 0 && CameraPosition > 11 && GenerateKisten) {
             GameObject Kiste = Instantiate(KistePrefab, pos + new Vector3(0f, 0.5f, 0f), Quaternion.Euler(0, 0, rotation));
             Kiste.tag = "Kiste";
             rotation += 90;
 
-            AllGameObjects[(int)Kiste.transform.position.x, (int)Kiste.transform.position.z] = Kiste;
+            AllGameObjects[(int)pos.x, (int)pos.z] = Kiste;
         }
     }
+
 
     //Erzeug ein Stück Wand, einen Turm, oder einen Bogen
     void createWand(Vector3 pos) {
@@ -214,19 +230,19 @@ public class LevelGenerator : MonoBehaviour
             
             //Macht einen Turm und deaktiviert das ein Bogen erzeugt werden kann
             GameObject Wand = Instantiate(WandPrefab, pos, Quaternion.identity);
-            Instantiate(WandPrefab, pos + new Vector3(0, 1, 0), Quaternion.identity); //TUERME SIND DEAKTIVIERT
+            SecondaryGameObjects1[(int)pos.x, (int)pos.z] = Instantiate(WandPrefab, pos + new Vector3(0, 1, 0), Quaternion.identity);
             Wand.tag = "Wand";
             makeBogen = false;
 
-            AllGameObjects[(int)Wand.transform.position.x, (int)Wand.transform.position.z] = Wand;
+            AllGameObjects[(int)pos.x, (int)pos.z] = Wand;
 
         //Mach ein normales Stück Wand (ein Cube)
         } else {
-            GameObject Wand = Instantiate(WandPrefab, pos, Quaternion.identity); //Euler(0, 0, rotation
+            GameObject Wand = Instantiate(WandPrefab, pos, Quaternion.identity);
             Wand.tag = "Wand";
             rotation += 90;
 
-            AllGameObjects[(int)Wand.transform.position.x, (int)Wand.transform.position.z] = Wand;
+            AllGameObjects[(int)pos.x, (int)pos.z] = Wand;
         }
 
         //Erzeug einen Bogen.
@@ -238,23 +254,23 @@ public class LevelGenerator : MonoBehaviour
             (levelSectionData[zPos][xPos + 1] != levelWand) &&
             (levelSectionData[zPos + 1][xPos] != levelWand))
         {
-            Instantiate(WandPrefab, pos + new Vector3(0, 1, 0), Quaternion.identity);
-            Instantiate(WandPrefab, pos + new Vector3(0, 2, 0), Quaternion.identity);
-            Instantiate(WandPrefab, pos + ((RandomValue == 20) ? new Vector3(1, 2, 0) : new Vector3(0, 2, 1)), Quaternion.identity);
-            Instantiate(WandPrefab, pos + ((RandomValue == 20) ? new Vector3(2, 2, 0) : new Vector3(0, 2, 2)), Quaternion.identity);
-            Instantiate(WandPrefab, pos + ((RandomValue == 20) ? new Vector3(2, 1, 0) : new Vector3(0, 1, 2)), Quaternion.identity);
+            SecondaryGameObjects1[(int)pos.x, (int)pos.z] = Instantiate(WandPrefab, pos + new Vector3(0, 1, 0), Quaternion.identity);
+            SecondaryGameObjects2[(int)pos.x, (int)pos.z] = Instantiate(WandPrefab, pos + new Vector3(0, 2, 0), Quaternion.identity);
+            SecondaryGameObjects3[(int)pos.x, (int)pos.z] = Instantiate(WandPrefab, pos + ((RandomValue == 20) ? new Vector3(1, 2, 0) : new Vector3(0, 2, 1)), Quaternion.identity);
+            SecondaryGameObjects2[(int)pos.x + 1, (int)pos.z] = Instantiate(WandPrefab, pos + ((RandomValue == 20) ? new Vector3(2, 2, 0) : new Vector3(0, 2, 2)), Quaternion.identity);
+            SecondaryGameObjects3[(int)pos.x + 1, (int)pos.z] = Instantiate(WandPrefab, pos + ((RandomValue == 20) ? new Vector3(2, 1, 0) : new Vector3(0, 1, 2)), Quaternion.identity);
         }
     }
 
     //Erzeugt eine Kiste und Boden unter ihr
     void createKiste(Vector3 pos) {
         
-        Instantiate(BodenPrefab, pos, Quaternion.identity);
+        SecondaryGameObjects1[(int)pos.x, (int)pos.z] = Instantiate(BodenPrefab, pos, Quaternion.identity);
         GameObject Kiste = Instantiate(KistePrefab, pos + new Vector3(0f, 0.5f, 0f), Quaternion.Euler(0, 0, rotation));
         Kiste.tag = "Kiste";
         rotation += 90;
 
-        AllGameObjects[(int)Kiste.transform.position.x, (int)Kiste.transform.position.z] = Kiste;
+        AllGameObjects[(int)pos.x, (int)pos.z] = Kiste;
     }
 
     //Einlesen der LevelTextDatei. Wandelt diese in ein Array um
