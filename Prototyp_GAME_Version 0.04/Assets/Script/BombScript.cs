@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-
+﻿using UnityEngine;
 
 public class BombScript : MonoBehaviour
 {
@@ -9,8 +7,6 @@ public class BombScript : MonoBehaviour
     public int bombTimer;
     public bool remoteBomb;
     private float startTime;
-    public List<GameObject> playerList;
-    public LevelGenerator levelGenerator;
     public xzPosition bombPosition;
 
     //Zeitpunkt an dem die Bombe erzeugt wurde
@@ -27,20 +23,8 @@ public class BombScript : MonoBehaviour
 
         if ((bombTimer < (Time.time - startTime)) && !remoteBomb)
         {
-            CallExplode();
+            FindObjectOfType<MapDestroyer>().Explode(bombPosition, bombPower, bombOwnerPlayerID);
+            Destroy(gameObject);
         }
-    }
-
-    public void CallExplode()
-    {
-      
-        if((int)playerList[bombOwnerPlayerID].gameObject.transform.position.x == bombPosition.x && (int)playerList[bombOwnerPlayerID].gameObject.transform.position.z == bombPosition.z)
-        {
-            playerList[bombOwnerPlayerID].GetComponent<PlayerScript>().dead(bombOwnerPlayerID);
-        }
-
-        Destroy(gameObject);
-        playerList[bombOwnerPlayerID].GetComponent<PlayerScript>().setAvaibleBomb(1);
-        FindObjectOfType<MapDestroyer>().Explode(bombPosition, bombPower, bombOwnerPlayerID);
     }
 }

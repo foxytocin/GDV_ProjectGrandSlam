@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class MapDestroyer : MonoBehaviour
 {
-    //public PlayerSpawner PlayerSpawner;
     public LevelGenerator levelGenerator;
+    public PlayerSpawner PlayerSpawner;
     public GameObject ExplosionPrefab;
     private IEnumerator coroutinexPositiv;
     private IEnumerator coroutinexNegativ;
@@ -14,6 +14,13 @@ public class MapDestroyer : MonoBehaviour
     //Wird nach Zeitablauf der Bombe durch die BombeScript aufgerufen und emfängt die Position der Bombe
     public void Explode(xzPosition bombPosition, int bombPower, int id)
     {
+        if ((int) PlayerSpawner.playerList[id].gameObject.transform.position.x == bombPosition.x && (int) PlayerSpawner.playerList[id].gameObject.transform.position.z == bombPosition.z)
+        {
+             PlayerSpawner.playerList[id].GetComponent<PlayerScript>().dead(id);
+        }
+
+        PlayerSpawner.playerList[id].GetComponent<PlayerScript>().setAvaibleBomb(1);
+
         Instantiate(ExplosionPrefab, new Vector3(bombPosition.x, 0.5f, bombPosition.z), Quaternion.identity);
 
         coroutinexPositiv = xPositiv(bombPower, 0.1f, bombPosition, id);

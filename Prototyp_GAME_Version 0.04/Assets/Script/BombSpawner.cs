@@ -19,7 +19,6 @@ public class BombSpawner : MonoBehaviour
             GameObject bombeInstanz = Instantiate(Bomb_Prefab, new Vector3(bombPosition.x, 0.4f, bombPosition.z), Quaternion.identity);
             BombScript thisBombeScript = bombeInstanz.GetComponent<BombScript>();
 
-            thisBombeScript.playerList = player.getPlayerList();
             thisBombeScript.bombTimer = player.getbombTimer();
             thisBombeScript.bombOwnerPlayerID = id;
             thisBombeScript.bombPower = player.getRange();

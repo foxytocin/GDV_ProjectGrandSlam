@@ -113,6 +113,8 @@
     <Compile Include="Assets\Script\CameraMovement.cs" />
     <Compile Include="Assets\Script\CameraScroller.cs" />
     <Compile Include="Assets\Script\CameraZoom.cs" />
+    <Compile Include="Assets\Script\GhostScript.cs" />
+    <Compile Include="Assets\Script\GhostSpawnerScript.cs" />
     <Compile Include="Assets\Script\InputManager.cs" />
     <Compile Include="Assets\Script\ItemScript.cs" />
     <Compile Include="Assets\Script\LevelGenerator.cs" />
