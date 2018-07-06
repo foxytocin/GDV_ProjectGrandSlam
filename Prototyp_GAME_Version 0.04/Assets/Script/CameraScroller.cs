@@ -21,7 +21,7 @@ public class CameraScroller : MonoBehaviour
         if (rowPosition > altePosition)
         {
             altePosition = rowPosition;
-            LevelGenerator.createWorld(rowPosition);
+            LevelGenerator.createWorld(rowPosition + LevelGenerator.tiefeLevelStartBasis);
             //Debug.Log("CAMERA ÜBERGIBT REIHE NR.: " + rowPosition);
         }
     }

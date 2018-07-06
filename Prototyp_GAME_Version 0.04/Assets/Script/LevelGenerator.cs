@@ -35,6 +35,7 @@ public class LevelGenerator : MonoBehaviour
     private int rotation;
     private bool specialSection;
     private bool GenerateKisten;
+    public const int tiefeLevelStartBasis = 40;
 
     private void Update()
     {
@@ -74,7 +75,7 @@ public class LevelGenerator : MonoBehaviour
     }
 
     // Use this for initialization
-    void Start() {
+    void Awake() {
         GenerateKisten = true;
         LevelSpeed = 0.5f;
         KistenMenge = 5;
@@ -86,6 +87,14 @@ public class LevelGenerator : MonoBehaviour
         SecondaryGameObjects1 = new GameObject[22, 3000];
         SecondaryGameObjects2 = new GameObject[22, 3000];
         SecondaryGameObjects3 = new GameObject[22, 3000];
+        createStartBasis(tiefeLevelStartBasis);
+    }
+
+    public void createStartBasis(int tiefe)
+    {
+        for (int i = 0; i < tiefe; i++) {
+            createWorld(i);
+        }
     }
 
     public void createWorld(int CameraPosition)
@@ -154,7 +163,7 @@ public class LevelGenerator : MonoBehaviour
             }
             drawLevelLine(CameraPosition);
         }
-        cleanLine((CameraPosition - 30));
+        cleanLine((CameraPosition - (30 + tiefeLevelStartBasis)));
     }
 
 
@@ -163,9 +172,9 @@ public class LevelGenerator : MonoBehaviour
         //Debug.Log("CameraPosition: "+CameraPosition+ " / " +levelSectionData[0].Length);
         if(CameraPosition >= 0) {
 
-            for (int i = 0; i < levelSectionData[0].Length; i++)
+            for (int i = 0; i < levelSectionData[0].Length - 1; i++)
             {
-                if (AllGameObjects[i, CameraPosition] != null)
+                if (AllGameObjects[i, CameraPosition] != null && AllGameObjects[i, CameraPosition].gameObject.tag != "Player")
                     Destroy(AllGameObjects[i, CameraPosition]);
 
                 if(SecondaryGameObjects1[i, CameraPosition] != null)
@@ -185,7 +194,7 @@ public class LevelGenerator : MonoBehaviour
     //Zeichnet die Linien der LevelSectionData zeilenweise
     void drawLevelLine(int CameraPosition) {
         
-        for (int i = 0; i < levelSectionData[0].Length; i++)
+        for (int i = 0; i < levelSectionData[0].Length - 1; i++)
         {
             switch (levelSectionData[CameraPosition - SectionDataOffset][i])
             {
