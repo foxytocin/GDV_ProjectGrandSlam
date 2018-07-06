@@ -14,10 +14,10 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
-  m_Fog: 0
-  m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  m_Fog: 1
+  m_FogColor: {r: 0.24705882, g: 0.24705882, b: 0.24705882, a: 1}
   m_FogMode: 3
-  m_FogDensity: 0.01
+  m_FogDensity: 0.035
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
@@ -391,7 +391,6 @@ MonoBehaviour:
   LevelTextdatei6: {fileID: 4900000, guid: 6be5678e9276042dbb7d660debff261f, type: 3}
   LevelTextdatei7: {fileID: 4900000, guid: df24ee73838ed4d4ca2cf4f541b32cc9, type: 3}
   LevelTextdatei8: {fileID: 4900000, guid: f3000d33ae0864024a87e6704f4f0ed0, type: 3}
-  tiefeLevelStartBasis: 30
 --- !u!4 &958779248
 Transform:
   m_ObjectHideFlags: 0
@@ -447,8 +446,8 @@ Camera:
   m_GameObject: {fileID: 1471981539}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.24705882, g: 0.24705882, b: 0.24705882, a: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
