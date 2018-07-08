@@ -30,13 +30,13 @@ public class PlayerScript : MonoBehaviour
         avaibleBomb = 1000;
         speed = 5f;
         bombTimer = 3;
-        range = 2;
+        range = 1;
         aLife = true;
         remoteBomb = false;
         creatingBomb = false;
         target = transform.position;
         myTime = 0f;
-        levelGenerator.AllGameObjects[Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.z)] = playerList[playerID];
+        levelGenerator.AllGameObjects[(int)transform.position.x, (int)transform.position.z] = playerList[playerID];
     }
 
     void Update()
@@ -57,7 +57,7 @@ public class PlayerScript : MonoBehaviour
 
                 // RemoteBombe zünden Player_One
                 if (InputManager.OneAButton())
-                    return;
+                    FindObjectOfType<RemoteBomb>().remoteBomb(0);
                 
                 //Pause aufrufen
                 if (InputManager.OneStartButton())
@@ -75,7 +75,7 @@ public class PlayerScript : MonoBehaviour
 
                 // RemoteBombe zünden Player_Two
                 if (InputManager.TwoAButton())
-                    return;
+                    FindObjectOfType<RemoteBomb>().remoteBomb(1);
 
                 //Pause aufrufen
                 if (InputManager.TwoStartButton())
@@ -93,7 +93,7 @@ public class PlayerScript : MonoBehaviour
 
                 // RemoteBombe zünden Player_Three
                 if (InputManager.ThreeAButton())
-                    return;
+                    FindObjectOfType<RemoteBomb>().remoteBomb(2);
 
                 //Pause aufrufen
                 if (InputManager.ThreeStartButton())
@@ -111,7 +111,7 @@ public class PlayerScript : MonoBehaviour
 
                 // RemoteBombe zünden Player_Four
                 if (InputManager.FourAButton())
-                    return;
+                    FindObjectOfType<RemoteBomb>().remoteBomb(3);
 
                 //Pause aufrufen
                 if (InputManager.FourStartButton())

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 public class BombSpawner : MonoBehaviour
 
@@ -19,7 +20,7 @@ public class BombSpawner : MonoBehaviour
         PlayerScript player = PlayerSpawner.playerList[id].gameObject.GetComponent<PlayerScript>();
 
         //Erlaubt das Legen einer Bombe, wenn das Feld frei (null) ist, oder der Spieler ("Player") selbst sich auf diesem befindet.
-        if(LevelGenerator.AllGameObjects[(int)bombPosition.x, (int)bombPosition.z] == null || LevelGenerator.AllGameObjects[(int)bombPosition.x, (int)bombPosition.z].gameObject.tag == "Player")
+        if (LevelGenerator.AllGameObjects[(int)bombPosition.x, (int)bombPosition.z] == null || LevelGenerator.AllGameObjects[(int)bombPosition.x, (int)bombPosition.z].gameObject.tag == "Player")
         {
             player.setAvaibleBomb(-1);
 
@@ -36,7 +37,6 @@ public class BombSpawner : MonoBehaviour
             //Traegt die gelegte Bombe im AllGameObject-Array ein, damit die Interaktion mit anderen GameObjecten moeglich ist.
             LevelGenerator.AllGameObjects[(int)bombPosition.x, (int)bombPosition.z] = bombeInstanz;
         }
-
         //Zum Abschluss der Pruefung ob eine Bombe gelegt werden darf oder nach erfolgreichem Legen der Bombe, wird das erneute bombemlegen wieder erlaubt.
         player.creatingBomb = false;
     }

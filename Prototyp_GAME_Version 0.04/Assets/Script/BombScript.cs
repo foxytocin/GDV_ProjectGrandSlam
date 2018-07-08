@@ -8,6 +8,7 @@ public class BombScript : MonoBehaviour
     public bool remoteBomb;
     private float startTime;
     private Vector3 bombPosition;
+    public BombSpawner bombSpawner;
 
 
     void Awake()

@@ -291,7 +291,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ed829af6c9a64ee5aed1d8bdff453f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerScript: {fileID: 0}
+  levelGenerator: {fileID: 958779247}
 --- !u!4 &799907531
 Transform:
   m_ObjectHideFlags: 0
@@ -594,8 +594,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19340d33f8ff5480a84b97353b77e41e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rowPosition: 0
-  altePosition: 0
   LevelGenerator: {fileID: 958779247}
 --- !u!1 &1847533651
 GameObject:

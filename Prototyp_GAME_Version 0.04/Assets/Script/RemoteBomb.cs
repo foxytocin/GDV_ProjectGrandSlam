@@ -4,19 +4,22 @@ using UnityEngine;
 
 public class RemoteBomb : MonoBehaviour {
 
-    public PlayerScript PlayerScript;
+    public LevelGenerator levelGenerator;
 
     public void remoteBomb(int playerID) {
+
+        GameObject[] bombArray = GameObject.FindGameObjectsWithTag("Bombe");
+
+        for (int i = 0; i < bombArray.Length; i++)
+        {
+            if (bombArray[i].GetComponent<BombScript>().bombOwnerPlayerID == playerID)
+            {
+                bombArray[i].GetComponent<BombScript>().bombTimer = 0;
+                bombArray[i].GetComponent<BombScript>().remoteBomb = false;
+            }
+        }
         
 
-        foreach (GameObject bomb in PlayerScript.GetComponent<PlayerScript>().remoteBombList) {
-            
-            //Debug.Log("Bombe mit der ID: " +bomb.GetComponent<BombScript>().bombOwnerPlayerID);
-            //if(bomb.GetComponent<BombScript>().bombOwnerPlayerID == playerID) 
-            PlayerScript.GetComponent<PlayerScript>().remoteBombList.RemoveAt(PlayerScript.GetComponent<PlayerScript>().remoteBombList.IndexOf(bomb));
-            bomb.GetComponent<BombScript>().bombTimer = 0;
-            bomb.GetComponent<BombScript>().remoteBomb = false; 
-            //}
-        }
+        
     }
 }
