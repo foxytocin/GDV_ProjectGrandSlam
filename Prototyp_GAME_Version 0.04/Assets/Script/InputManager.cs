@@ -4,6 +4,8 @@ public static class InputManager
 {
 
     // Player_One
+
+    // X Werte werden abgefragt
     public static float OneMainHorizontal()
     {
         float r = 0.0f;
@@ -11,6 +13,8 @@ public static class InputManager
         r += Input.GetAxis("K_One_MainHorizontal");
         return Mathf.Clamp(r, -1.0f, 1.0f);
     }
+
+    // Z Werte werden abgefragt
     public static float OneMainVertikal()
     {
         float r = 0.0f;
@@ -18,10 +22,14 @@ public static class InputManager
         r += Input.GetAxis("K_One_MainVertikal");
         return Mathf.Clamp(r, -1.0f, 1.0f);
     }
+
+    // Zusammenfügen der X und Z Werten in einen Vector3
     public static Vector3 OneMainJoystick()
     {
         return new Vector3(OneMainHorizontal(), 0, OneMainVertikal());
     }
+
+    // Zusatz Tasten 
     public static bool OneXButton()
     {   
         if(Input.GetButtonDown("One_X_Button") || Input.GetButtonDown("Mac_One_X_Button"))
@@ -46,6 +54,8 @@ public static class InputManager
 
 
     //player_Two
+
+    // X Werte werden abgefragt
     public static float TwoMainHorizontal()
     {
         float r = 0.0f;
@@ -53,6 +63,8 @@ public static class InputManager
         r += Input.GetAxis("K_Two_MainHorizontal");
         return Mathf.Clamp(r, -1.0f, 1.0f);
     }
+
+    // Z Werte werden abgefragt
     public static float TwoMainVertikal()
     {
         float r = 0.0f;
@@ -60,10 +72,14 @@ public static class InputManager
         r += Input.GetAxis("K_Two_MainVertikal");
         return Mathf.Clamp(r, -1.0f, 1.0f);
     }
+
+    // Zusammenfügen der X und Z Werten in einen Vector3
     public static Vector3 TwoMainJoystick()
     {
         return new Vector3(TwoMainHorizontal(), 0, TwoMainVertikal());
     }
+
+    // Zusatz Tasten
     public static bool TwoXButton()
     {
         if (Input.GetButtonDown("Two_X_Button") || Input.GetButtonDown("Mac_Two_X_Button"))
@@ -89,6 +105,8 @@ public static class InputManager
 
 
     //Player_Three
+
+    // X Werte werden abgefragt
     public static float ThreeMainHorizontal()
     {
         float r = 0.0f;
@@ -96,6 +114,8 @@ public static class InputManager
         r += Input.GetAxis("K_Three_MainHorizontal");
         return Mathf.Clamp(r, -1.0f, 1.0f);
     }
+
+    // Z Werte werden abgefragt
     public static float ThreeMainVertikal()
     {
         float r = 0.0f;
@@ -103,10 +123,14 @@ public static class InputManager
         r += Input.GetAxis("K_Three_MainVertikal");
         return Mathf.Clamp(r, -1.0f, 1.0f);
     }
+
+    // Zusammenfügen der X und Z Werten in einen Vector3
     public static Vector3 ThreeMainJoystick()
     {
         return new Vector3(ThreeMainHorizontal(), 0, ThreeMainVertikal());
     }
+
+    // Zusatz Tasten
     public static bool ThreeXButton()
     {
         if (Input.GetButtonDown("Three_X_Button") || Input.GetButtonDown("Mac_Three_X_Button"))
@@ -131,6 +155,8 @@ public static class InputManager
 
 
     //Player_Four
+
+    // X Werte werden abgefragt
     public static float FourMainHorizontal()
     {
         float r = 0.0f;
@@ -138,6 +164,8 @@ public static class InputManager
         r += Input.GetAxis("K_Two_MainHorizontal");
         return Mathf.Clamp(r, -1.0f, 1.0f);
     }
+
+    // Z Werte werden abgefragt
     public static float FourMainVertikal()
     {
         float r = 0.0f;
@@ -145,10 +173,14 @@ public static class InputManager
         r += Input.GetAxis("K_Four_MainVertikal");
         return Mathf.Clamp(r, -1.0f, 1.0f);
     }
+
+    // Zusammenfügen der X und Z Werten in einen Vector3
     public static Vector3 FourMainJoystick()
     {
         return new Vector3(FourMainHorizontal(), 0, FourMainVertikal());
     }
+
+    // Zusatz Tasten
     public static bool FourXButton()
     {
         if (Input.GetButtonDown("Four_X_Button") || Input.GetButtonDown("Mac_Four_X_Button"))

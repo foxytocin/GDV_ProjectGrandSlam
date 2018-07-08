@@ -628,8 +628,7 @@ MonoBehaviour:
     type: 2}
   players: 2
   playerList: []
-  spawnList: []
-  LevelGenerator: {fileID: 958779247}
+  levelGenerator: {fileID: 958779247}
   ghostSpawner: {fileID: 772635015}
 --- !u!4 &1847533653
 Transform:

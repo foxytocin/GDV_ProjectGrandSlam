@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
+    // PlayerStats
     public int playerID;
     public int life;
     public int avaibleBomb;
@@ -11,6 +12,8 @@ public class PlayerScript : MonoBehaviour
     public int range;
     public bool aLife;
     public bool remoteBomb;
+
+
     public List<GameObject> playerList;
     public bool creatingBomb;
     public Vector3 target;
@@ -18,9 +21,7 @@ public class PlayerScript : MonoBehaviour
     float myTime;
     public List<GameObject> remoteBombList;
     public LevelGenerator levelGenerator;
-    public GameObject body;
     public GhostSpawnerScript ghostSpawner;
-
 
 
     void Start()
@@ -33,9 +34,9 @@ public class PlayerScript : MonoBehaviour
         aLife = true;
         remoteBomb = false;
         creatingBomb = false;
-        target = body.transform.position;
+        target = transform.position;
         myTime = 0f;
-        levelGenerator.AllGameObjects[(int)body.transform.position.x, (int)body.transform.position.z] = playerList[playerID];
+        levelGenerator.AllGameObjects[Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.z)] = playerList[playerID];
     }
 
     void Update()
@@ -54,16 +55,14 @@ public class PlayerScript : MonoBehaviour
                 if (InputManager.OneXButton() && !creatingBomb)
                     SetBomb(0);
 
+                // RemoteBombe zünden Player_One
                 if (InputManager.OneAButton())
-                {
-                    // RemoteBombe zünden Player_One
-                }
-
+                    return;
+                
+                //Pause aufrufen
                 if (InputManager.OneStartButton())
-                {
-                    //Pause aufrufen
-                }
-
+                    return;
+                    
                 break;
 
             //Player 2
@@ -74,15 +73,13 @@ public class PlayerScript : MonoBehaviour
                 if (InputManager.TwoXButton() && !creatingBomb)
                     SetBomb(1);
 
+                // RemoteBombe zünden Player_Two
                 if (InputManager.TwoAButton())
-                {
-                    // RemoteBombe zünden Player_Two
-                }
+                    return;
 
+                //Pause aufrufen
                 if (InputManager.TwoStartButton())
-                {
-                    //Pause aufrufen
-                }
+                    return;
 
                 break;
 
@@ -94,15 +91,13 @@ public class PlayerScript : MonoBehaviour
                 if (InputManager.ThreeXButton() && !creatingBomb)
                     SetBomb(2);
 
+                // RemoteBombe zünden Player_Three
                 if (InputManager.ThreeAButton())
-                {
-                    // RemoteBombe zünden Player_Three
-                }
+                    return;
 
+                //Pause aufrufen
                 if (InputManager.ThreeStartButton())
-                {
-                    //Pause aufrufen
-                }
+                    return;
 
                 break;
 
@@ -114,19 +109,17 @@ public class PlayerScript : MonoBehaviour
                 if (InputManager.FourXButton() && !creatingBomb)
                     SetBomb(3);
 
+                // RemoteBombe zünden Player_Four
                 if (InputManager.FourAButton())
-                {
-                    // RemoteBombe zünden Player_Four
-                }
+                    return;
 
+                //Pause aufrufen
                 if (InputManager.FourStartButton())
-                {
-                    //Pause aufrufen
-                }
+                    return;
 
                 break;
 
-            //Player Default (Exeption)
+            //Player Default (Exception)
             default:
                 Debug.Log("Playerfehler");
                 break;
@@ -135,22 +128,22 @@ public class PlayerScript : MonoBehaviour
         //Target bewegen
         if (freeWay(tmp) && aLife)
         {
+            //Im Array aktuelle position loeschen wenn das objekt auch wirklich ein Player ist 
             if (levelGenerator.AllGameObjects[(int)target.x, (int)target.z].gameObject.tag == "Player")
-                //Im Array aktuelle position loeschen
                 levelGenerator.AllGameObjects[(int)target.x, (int)target.z] = null;
 
             //neue position berechenen
             target += tmp;
 
-            //Im Array auf neuer Position speichern
+            //Player wird im Array auf der neuer Position 
             levelGenerator.AllGameObjects[(int)target.x, (int)target.z] = playerList[playerID];
 
-            //speichern des alten Richtungsvectors
+            //speichern des benutzten Bewegungsvectors
             lastTmpVector = tmp;
         }
 
         //Objekt zum target Bewegung
-        body.transform.position = Vector3.MoveTowards(body.transform.position, target, speed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
 
     }
 
@@ -180,7 +173,7 @@ public class PlayerScript : MonoBehaviour
         playerList[id].GetComponent<PlayerScript>().setALife(false);
         playerList[id].SetActive(false);
 
-        ghostSpawner.GetComponent<GhostSpawnerScript>().createGhost(body.transform.position);
+        ghostSpawner.GetComponent<GhostSpawnerScript>().createGhost(transform.position);
     }
 
 
@@ -285,7 +278,7 @@ public class PlayerScript : MonoBehaviour
         if (playerList[id].GetComponent<PlayerScript>().getAvaibleBomb() > 0 && playerList[id].GetComponent<PlayerScript>().getALife())
         {
             creatingBomb = true;
-            FindObjectOfType<BombSpawner>().SpawnBomb((new xzPosition(Mathf.RoundToInt(body.transform.position.x), Mathf.RoundToInt(body.transform.position.z))), id);
+            FindObjectOfType<BombSpawner>().SpawnBomb((new xzPosition(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.z))),id);
 
         } else
         {
@@ -300,7 +293,7 @@ public class PlayerScript : MonoBehaviour
         if (tmp == new Vector3(-1, 0, 0) || tmp == new Vector3(1, 0, 0) || tmp == new Vector3(0, 0, -1) || tmp == new Vector3(0, 0, 1))
         {
             //entweder hat sich der Richungsvector nicht geändert oder das Objekt die selbe Position wie TargetVector
-            if ((lastTmpVector == tmp || target == body.transform.position) && myTime > 0.2f)
+            if ((lastTmpVector == tmp || target == transform.position) && myTime > 0.2f)
             {
                 //Prueft im Array an der naechsten stelle ob dort ein objekt liegt wenn nicht dann return.true
                 if (levelGenerator.AllGameObjects[Mathf.RoundToInt(target.x + tmp.x), Mathf.RoundToInt(target.z + tmp.z)] == null)
