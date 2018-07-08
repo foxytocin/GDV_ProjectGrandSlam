@@ -10,23 +10,34 @@ public class MapDestroyer : MonoBehaviour
     private IEnumerator coroutinexNegativ;
     private IEnumerator coroutinezPositiv;
     private IEnumerator coroutinezNegativ;
+    private Vector3 explosionPosition;
 
-    //Wird nach Zeitablauf der Bombe durch die BombeScript aufgerufen und emfängt die Position der Bombe
-    public void Explode(xzPosition bombPosition, int bombPower, int id)
+    //Wird beim explodieren der Bombe durch das BombeScript aufgerufen.
+    //Empfaengt die Position, die bombPower der Bombe und die ID des Spielers welche sie gelegt hat.
+    public void Explode(Vector3 position, int bombPower, int id)
     {
-        if ((int) PlayerSpawner.playerList[id].gameObject.transform.position.x == bombPosition.x && (int) PlayerSpawner.playerList[id].gameObject.transform.position.z == bombPosition.z)
+        explosionPosition = position;
+
+        //Ueberprüft ob der Spieler, der die Bombe gelegt hat, exakt an der gleichen Stelle (in der Bombe) stehen geblieben ist.
+        //Sollte dies zutreffen, wird der Spieler getoetet.
+        if ((int) PlayerSpawner.playerList[id].gameObject.transform.position.x == (int)explosionPosition.x && (int) PlayerSpawner.playerList[id].gameObject.transform.position.z == (int)explosionPosition.z)
         {
              PlayerSpawner.playerList[id].GetComponent<PlayerScript>().dead(id);
         }
 
+        //Die explodierte Bombe wird dem Spieler wieder gutgeschrieben.
         PlayerSpawner.playerList[id].GetComponent<PlayerScript>().setAvaibleBomb(1);
 
-        Instantiate(ExplosionPrefab, new Vector3(bombPosition.x, 0.5f, bombPosition.z), Quaternion.identity);
+        //Explosions-Animation an der Stelle der Bombe wird abgespielt.
+        Instantiate(ExplosionPrefab, explosionPosition, Quaternion.identity);
 
-        coroutinexPositiv = xPositiv(bombPower, 0.1f, bombPosition, id);
-        coroutinexNegativ = xNegativ(bombPower, 0.1f, bombPosition, id);
-        coroutinezPositiv = zPositiv(bombPower, 0.1f, bombPosition, id);
-        coroutinezNegativ = zNegativ(bombPower, 0.1f, bombPosition, id);
+        //Es werden 4 Coroutinen angelegt und gestartet, welche gleichzeitig in alle Himmelsrichtung (x, -x, z, -z) die Fehler durchlaufen.
+        //Die bombPower gibt an wieviele Felder in jede Richtung erreicht und geprueft werden muessen.
+        //Die Player ID der Bombe (= ID vom Player der sie gelegt hat) wird durchgereicht, falls diese spaeter noch benoetigt wird.
+        coroutinexPositiv = xPositiv(bombPower, 0.1f, id);
+        coroutinexNegativ = xNegativ(bombPower, 0.1f, id);
+        coroutinezPositiv = zPositiv(bombPower, 0.1f, id);
+        coroutinezNegativ = zNegativ(bombPower, 0.1f, id);
 
         StartCoroutine(coroutinexPositiv);
         StartCoroutine(coroutinexNegativ);
@@ -34,49 +45,49 @@ public class MapDestroyer : MonoBehaviour
         StartCoroutine(coroutinezNegativ);
     }
 
-
-    private IEnumerator xPositiv(int bombPower, float waitTime, xzPosition bombPosition, int id)
+    //Jeder der 4 Coroutinen laeuft solange der Rueckgabewert von ExplodeCell = true ist.
+    private IEnumerator xPositiv(int bombPower, float waitTime, int id)
     {
         yield return new WaitForSeconds(waitTime);
 
         int distanz = 1;
-        while (distanz <= bombPower && ExplodeCell(bombPosition.x + distanz, bombPosition.z, id))
+        while (distanz <= bombPower && ExplodeCell((int)explosionPosition.x + distanz, (int)explosionPosition.z, id))
         {
             yield return new WaitForSeconds(waitTime);
             distanz++;
         }
     }
 
-    private IEnumerator xNegativ(int bombPower, float waitTime, xzPosition bombPosition, int id)
+    private IEnumerator xNegativ(int bombPower, float waitTime, int id)
     {
         yield return new WaitForSeconds(waitTime);
 
         int distanz = 1;
-        while (distanz <= bombPower && ExplodeCell(bombPosition.x - distanz, bombPosition.z, id))
+        while (distanz <= bombPower && ExplodeCell((int)explosionPosition.x - distanz, (int)explosionPosition.z, id))
         {
             yield return new WaitForSeconds(waitTime);
             distanz++;
         }
     }
 
-    private IEnumerator zPositiv(int bombPower, float waitTime, xzPosition bombPosition, int id)
+    private IEnumerator zPositiv(int bombPower, float waitTime, int id)
     {
         yield return new WaitForSeconds(waitTime);
 
         int distanz = 1;
-        while (distanz <= bombPower && ExplodeCell(bombPosition.x, bombPosition.z + distanz, id))
+        while (distanz <= bombPower && ExplodeCell((int)explosionPosition.x, (int)explosionPosition.z + distanz, id))
         {
             yield return new WaitForSeconds(waitTime);
             distanz++;
         }
     }
 
-    private IEnumerator zNegativ(int bombPower, float waitTime, xzPosition bombPosition, int id)
+    private IEnumerator zNegativ(int bombPower, float waitTime, int id)
     {
         yield return new WaitForSeconds(waitTime);
 
         int distanz = 1;
-        while (distanz <= bombPower && ExplodeCell(bombPosition.x, bombPosition.z - distanz, id))
+        while (distanz <= bombPower && ExplodeCell((int)explosionPosition.x, (int)explosionPosition.z - distanz, id))
         {
             yield return new WaitForSeconds(waitTime);
             distanz++;
@@ -84,6 +95,10 @@ public class MapDestroyer : MonoBehaviour
     }
 
 
+    //Prueft was fuer ein GameObject sich in der zu pruefenden Zelle befindet und "reagiert" entsprechend.
+    //Waende und Kisten sorgen dafuer das der Rueckgabewert = false wird und die Explosion in diese Richtung nicht mehr fortgesetzt wird.
+    //Bomben stoppen die aktuelle Explosion ebenfalls, werden aber direkt gezuendet in dem ihr Timer auf 0 und die remoteBomb funktion deaktiviert wird.
+    //So werden Kettenreaktionen unter den Bomben erzeugt.
     bool ExplodeCell(int x, int z, int id)
     {
         GameObject thisGameObject = levelGenerator.AllGameObjects[x, z];
@@ -95,6 +110,7 @@ public class MapDestroyer : MonoBehaviour
         }
         else
         {
+            //Switch-Case prueft den Tag des GameObjects. Performance ist so besser als mit dem Namen zu arbeiten, welcher ein Sting waere. 
             switch (thisGameObject.tag)
             {
                 case "Bombe":

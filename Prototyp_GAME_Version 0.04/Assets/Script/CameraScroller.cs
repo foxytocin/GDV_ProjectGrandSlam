@@ -2,8 +2,8 @@
 
 public class CameraScroller : MonoBehaviour
 {
-    public int rowPosition;
-    public int altePosition;
+    private int rowPosition;
+    private int altePosition;
     public LevelGenerator LevelGenerator;
 
     // Use this for initialization
@@ -16,13 +16,15 @@ public class CameraScroller : MonoBehaviour
     void Update()
     {
         transform.Translate(0, 0, LevelGenerator.LevelSpeed * Time.deltaTime);
-        rowPosition = Mathf.RoundToInt(transform.position.z);
+        rowPosition = (int)transform.position.z;
 
+        //Prüft ob die Camera genau EINE Zeile weitergescrollt ist um die createWorld() für genau diese 1 Zeile aufzurufen.
         if (rowPosition > altePosition)
         {
             altePosition = rowPosition;
+
+            //LevelGenerator.tiefeLevelStartBasis ist ein definierter Startwert, der x Zeilen des Levels direkt zum Start erstellt. 
             LevelGenerator.createWorld(rowPosition + LevelGenerator.tiefeLevelStartBasis);
-            //Debug.Log("CAMERA ÜBERGIBT REIHE NR.: " + rowPosition);
         }
     }
 }
