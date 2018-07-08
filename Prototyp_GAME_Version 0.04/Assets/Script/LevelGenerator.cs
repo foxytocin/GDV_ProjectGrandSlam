@@ -172,7 +172,7 @@ public class LevelGenerator : MonoBehaviour
         //Debug.Log("CameraPosition: "+CameraPosition+ " / " +levelSectionData[0].Length);
         if(CameraPosition >= 0) {
 
-            for (int i = 0; i < levelSectionData[0].Length - 1; i++)
+            for (int i = 0; i < levelSectionData[0].Length - 2; i++)
             {
                 if (AllGameObjects[i, CameraPosition] != null && AllGameObjects[i, CameraPosition].gameObject.tag != "Player")
                     Destroy(AllGameObjects[i, CameraPosition]);
