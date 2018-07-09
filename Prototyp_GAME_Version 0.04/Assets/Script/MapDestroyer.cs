@@ -117,10 +117,8 @@ public class MapDestroyer : MonoBehaviour
             switch (thisGameObject.tag)
             {
                 case "Bombe":
-                    Instantiate(ExplosionPrefab, new Vector3(x, 0.5f, z), Quaternion.identity);
                     thisGameObject.GetComponent<BombScript>().bombTimer = 0;
                     thisGameObject.GetComponent<BombScript>().remoteBomb = false;
-                    levelGenerator.AllGameObjects[x, z] = Instantiate(KillFieldPrefab, new Vector3(x, 0.1f, z), Quaternion.Euler(90f, 0, 0));
                     return false;
 
                 case "Wand":

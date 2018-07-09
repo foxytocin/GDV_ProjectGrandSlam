@@ -3,14 +3,12 @@
 public class KillField : MonoBehaviour
 {
     private float startTime;
-    private float killTime = 1f;
-    private Vector3 killFieldPosition;
+    private float killTime = 0.9f;
 
     void Awake()
     {
         //Zeitpunkt an dem die Bombe erzeugt wurde
         startTime = Time.time;
-        killFieldPosition = transform.position;
     }
 
     //Update is called once per frame

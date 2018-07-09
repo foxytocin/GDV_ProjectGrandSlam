@@ -13,7 +13,6 @@ public class PlayerScript : MonoBehaviour
     public bool alive;
     public bool remoteBomb;
 
-
     public List<GameObject> playerList;
     public bool creatingBomb;
     public Vector3 target;
@@ -27,7 +26,7 @@ public class PlayerScript : MonoBehaviour
     void Start()
     {
         life = 3;
-        avaibleBomb = 1000;
+        avaibleBomb = 10;
         speed = 5f;
         bombTimer = 3;
         range = 3;
@@ -129,7 +128,7 @@ public class PlayerScript : MonoBehaviour
         if (freeWay(tmp) && alive)
         {
             //Im Array aktuelle position loeschen wenn das objekt auch wirklich ein Player ist 
-            if (levelGenerator.AllGameObjects[(int)target.x, (int)target.z].gameObject.tag == "Player")
+            if (levelGenerator.AllGameObjects[(int)target.x, (int)target.z] != null && levelGenerator.AllGameObjects[(int)target.x, (int)target.z].gameObject.tag == "Player")
                 levelGenerator.AllGameObjects[(int)target.x, (int)target.z] = null;
 
             //neue position berechenen
@@ -295,7 +294,7 @@ public class PlayerScript : MonoBehaviour
             if ((lastTmpVector == tmp || target == transform.position) && myTime > 0.2f)
             {
                 //Prueft im Array an der naechsten stelle ob dort ein objekt liegt wenn nicht dann return.true
-                if (levelGenerator.AllGameObjects[(int)(target.x + tmp.x), (int)(target.z + tmp.z)] == null)
+                if (levelGenerator.AllGameObjects[Mathf.RoundToInt(target.x + tmp.x), Mathf.RoundToInt(target.z + tmp.z)] == null)
                 {
                     myTime = 0f;
                     return true;
@@ -303,7 +302,7 @@ public class PlayerScript : MonoBehaviour
                 } else {
                     if (levelGenerator.AllGameObjects[(int)(target.x + tmp.x), (int)(target.z + tmp.z)].gameObject.tag == "KillField")
                     {
-                        this.GetComponent<PlayerScript>().dead(this.GetComponent<PlayerScript>().getPlayerID());
+                        dead(getPlayerID());
                     }
                     return false;
                 }
