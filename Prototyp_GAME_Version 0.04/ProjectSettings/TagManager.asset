@@ -9,6 +9,7 @@ TagManager:
   - Kiste
   - Wand
   - Item
+  - KillField
   layers:
   - Default
   - TransparentFX

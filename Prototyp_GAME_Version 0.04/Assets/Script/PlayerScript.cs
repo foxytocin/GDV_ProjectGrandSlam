@@ -30,7 +30,7 @@ public class PlayerScript : MonoBehaviour
         avaibleBomb = 1000;
         speed = 5f;
         bombTimer = 3;
-        range = 1;
+        range = 3;
         alive = true;
         remoteBomb = false;
         creatingBomb = false;
@@ -144,7 +144,6 @@ public class PlayerScript : MonoBehaviour
 
         //Objekt zum target Bewegung
         transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
-
     }
 
 
@@ -296,12 +295,18 @@ public class PlayerScript : MonoBehaviour
             if ((lastTmpVector == tmp || target == transform.position) && myTime > 0.2f)
             {
                 //Prueft im Array an der naechsten stelle ob dort ein objekt liegt wenn nicht dann return.true
-                if (levelGenerator.AllGameObjects[Mathf.RoundToInt(target.x + tmp.x), Mathf.RoundToInt(target.z + tmp.z)] == null)
+                if (levelGenerator.AllGameObjects[(int)(target.x + tmp.x), (int)(target.z + tmp.z)] == null)
                 {
                     myTime = 0f;
                     return true;
+
+                } else {
+                    if (levelGenerator.AllGameObjects[(int)(target.x + tmp.x), (int)(target.z + tmp.z)].gameObject.tag == "KillField")
+                    {
+                        this.GetComponent<PlayerScript>().dead(this.GetComponent<PlayerScript>().getPlayerID());
+                    }
+                    return false;
                 }
-                return false;
             }
             return false;
         }

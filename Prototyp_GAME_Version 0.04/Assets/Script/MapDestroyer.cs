@@ -6,6 +6,7 @@ public class MapDestroyer : MonoBehaviour
     public LevelGenerator levelGenerator;
     public PlayerSpawner PlayerSpawner;
     public GameObject ExplosionPrefab;
+    public GameObject KillFieldPrefab;
     private IEnumerator coroutinexPositiv;
     private IEnumerator coroutinexNegativ;
     private IEnumerator coroutinezPositiv;
@@ -30,6 +31,7 @@ public class MapDestroyer : MonoBehaviour
 
         //Explosions-Animation an der Stelle der Bombe wird abgespielt.
         Instantiate(ExplosionPrefab, explosionPosition, Quaternion.identity);
+        levelGenerator.AllGameObjects[(int)explosionPosition.x, (int)explosionPosition.z] = Instantiate(KillFieldPrefab, new Vector3(explosionPosition.x, 0.1f, explosionPosition.z), Quaternion.Euler(90f, 0, 0));
 
         //Es werden 4 Coroutinen angelegt und gestartet, welche gleichzeitig in alle Himmelsrichtung (x, -x, z, -z) die Fehler durchlaufen.
         //Die bombPower gibt an wieviele Felder in jede Richtung erreicht und geprueft werden muessen.
@@ -106,6 +108,7 @@ public class MapDestroyer : MonoBehaviour
         if (thisGameObject == null)
         {
             Instantiate(ExplosionPrefab, new Vector3(x, 0.5f, z), Quaternion.identity);
+            levelGenerator.AllGameObjects[x, z] = Instantiate(KillFieldPrefab, new Vector3(x, 0.1f, z), Quaternion.Euler(90f, 0, 0));
             return true;
         }
         else
@@ -117,6 +120,7 @@ public class MapDestroyer : MonoBehaviour
                     Instantiate(ExplosionPrefab, new Vector3(x, 0.5f, z), Quaternion.identity);
                     thisGameObject.GetComponent<BombScript>().bombTimer = 0;
                     thisGameObject.GetComponent<BombScript>().remoteBomb = false;
+                    levelGenerator.AllGameObjects[x, z] = Instantiate(KillFieldPrefab, new Vector3(x, 0.1f, z), Quaternion.Euler(90f, 0, 0));
                     return false;
 
                 case "Wand":
@@ -125,17 +129,20 @@ public class MapDestroyer : MonoBehaviour
                 case "Kiste":
                     Instantiate(ExplosionPrefab, new Vector3(x, 0.5f, z), Quaternion.identity);
                     Destroy(thisGameObject);
+                    levelGenerator.AllGameObjects[x, z] = Instantiate(KillFieldPrefab, new Vector3(x, 0.1f, z), Quaternion.Euler(90f, 0, 0));
                     return false;
 
                 case "Item":
                     Instantiate(ExplosionPrefab, new Vector3(x, 0.5f, z), Quaternion.identity);
                     Destroy(thisGameObject);
+                    levelGenerator.AllGameObjects[x, z] = Instantiate(KillFieldPrefab, new Vector3(x, 0.1f, z), Quaternion.Euler(90f, 0, 0));
                     return true;
 
                 case "Player":
                     Instantiate(ExplosionPrefab, new Vector3(x, 0.5f, z), Quaternion.identity);
                     thisGameObject.GetComponent<PlayerScript>().dead(thisGameObject.GetComponent<PlayerScript>().getPlayerID());
                     levelGenerator.AllGameObjects[x, z] = null;
+                    levelGenerator.AllGameObjects[x, z] = Instantiate(KillFieldPrefab, new Vector3(x, 0.1f, z), Quaternion.Euler(90f, 0, 0));
                     return true;
 
                 default:

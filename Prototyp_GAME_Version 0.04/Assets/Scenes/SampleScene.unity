@@ -222,6 +222,8 @@ MonoBehaviour:
   levelGenerator: {fileID: 958779247}
   PlayerSpawner: {fileID: 1847533652}
   ExplosionPrefab: {fileID: 159918, guid: a0040bf7072bc2f4e82d887d50a9c5e2, type: 2}
+  KillFieldPrefab: {fileID: 1206288029528642, guid: d91cc400b4f5845eb83f69994d35df9c,
+    type: 2}
 --- !u!1 &772635014
 GameObject:
   m_ObjectHideFlags: 0
@@ -683,5 +685,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraScroller: {fileID: 0}
-  players: []
+  livingPlayers: []
   playerSpawner: {fileID: 0}

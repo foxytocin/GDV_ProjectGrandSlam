@@ -10,7 +10,6 @@ public class BombScript : MonoBehaviour
     private Vector3 bombPosition;
     public BombSpawner bombSpawner;
 
-
     void Awake()
     {
         //Zeitpunkt an dem die Bombe erzeugt wurde
@@ -30,7 +29,7 @@ public class BombScript : MonoBehaviour
         {
             //Explode() im MapDestroyer wird aufgerufen um von der bombPosition und mit deren bombPower zu pruefen welche weiteren Felder um die Bombe herum explodieren muessen.
             FindObjectOfType<MapDestroyer>().Explode(bombPosition, bombPower, bombOwnerPlayerID);
-
+          
             //Bombe selber wird zerstört.
             Destroy(gameObject);
         }
