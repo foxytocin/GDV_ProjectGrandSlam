@@ -27,16 +27,19 @@ public class CameraMovement : MonoBehaviour {
                 break;
             }
         }
-        Debug.Log(livingPlayers.Count);
+        //Debug.Log(livingPlayers.Count);
         Vector3 centerPoint = CalcCenterPoint();
 
         Vector3 local = transform.InverseTransformPoint(centerPoint);
         //transform.localPosition = new Vector3(centerPoint.x, 0, Mathf.Clamp(local.z / 2f, -4f, +4f));
 
 
-        float x = Mathf.Lerp(transform.localPosition.x, centerPoint.x, 4f * Time.deltaTime);
-        float z = Mathf.Lerp(transform.localPosition.z, Mathf.Clamp(local.z / 2f, -4f, +4f), 4f * Time.deltaTime);
-        transform.localPosition = new Vector3(x, 0f, z);
+        //float x = Mathf.Lerp(transform.localPosition.x, centerPoint.x, 4f * Time.deltaTime);
+        //float z = Mathf.Lerp(transform.localPosition.z, Mathf.Clamp(local.z / 2f, -4f, +4f), 4f * Time.deltaTime);
+        float x = centerPoint.x;
+        float z = Mathf.Clamp(local.z / 2f, -4f, 4f);
+
+        transform.localPosition = Vector3.Lerp(transform.localPosition, new Vector3(x, 0f, z), 4f * Time.deltaTime);
     }
 
     public Vector3 CalcCenterPoint()
