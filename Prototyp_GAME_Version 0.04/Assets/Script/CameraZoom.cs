@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraZoom : MonoBehaviour {
 
-
+    //private CameraMovement cameraMovement;
     public List<GameObject> players;
     public PlayerSpawner playerSpawner;
 
@@ -16,8 +16,9 @@ public class CameraZoom : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        
-        players = playerSpawner.playerList;
+
+        //players = playerSpawner.playerList;
+        players = GameObject.Find("HorizontalAxis").GetComponent<CameraMovement>().livingPlayers;
 
         //Debug.Log("verticalAxis world and local pos: " + transform.position + transform.localPosition);
         CameraMoving(players.Count);

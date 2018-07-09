@@ -10,7 +10,7 @@ public class PlayerScript : MonoBehaviour
     public float speed;
     public int bombTimer;
     public int range;
-    public bool aLife;
+    public bool alive;
     public bool remoteBomb;
 
 
@@ -31,7 +31,7 @@ public class PlayerScript : MonoBehaviour
         speed = 5f;
         bombTimer = 3;
         range = 1;
-        aLife = true;
+        alive = true;
         remoteBomb = false;
         creatingBomb = false;
         target = transform.position;
@@ -126,7 +126,7 @@ public class PlayerScript : MonoBehaviour
         }
 
         //Target bewegen
-        if (freeWay(tmp) && aLife)
+        if (freeWay(tmp) && alive)
         {
             //Im Array aktuelle position loeschen wenn das objekt auch wirklich ein Player ist 
             if (levelGenerator.AllGameObjects[(int)target.x, (int)target.z].gameObject.tag == "Player")
@@ -240,12 +240,12 @@ public class PlayerScript : MonoBehaviour
     // aLife
     public bool getALife()
     {
-        return aLife;
+        return alive;
     }
 
     public void setALife(bool tmp)
     {
-        aLife = tmp;
+        alive = tmp;
     }
 
     //remoteBomb

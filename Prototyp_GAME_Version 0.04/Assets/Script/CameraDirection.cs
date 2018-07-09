@@ -14,7 +14,7 @@ public class CameraDirection : MonoBehaviour {
     // Update is called once per frame
     void LateUpdate()
     {
-        target = GameObject.Find("HorizontalAxis").GetComponent<CameraMovement>().CalcCenterPoint(2);
+        target = GameObject.Find("HorizontalAxis").GetComponent<CameraMovement>().CalcCenterPoint();
         Vector3 targetPostition = new Vector3(this.transform.position.x, target.y, target.z);
         this.transform.LookAt(targetPostition);
 

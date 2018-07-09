@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraMovement : MonoBehaviour {
 
     public CameraScroller cameraScroller;
-    public List<GameObject> players;
+    public List<GameObject> livingPlayers;
     public PlayerSpawner playerSpawner;
 
     // Use this for initialization
@@ -18,8 +18,17 @@ public class CameraMovement : MonoBehaviour {
     // Update is called once per frame
     void LateUpdate()
     {
-        players = playerSpawner.playerList;
-        Vector3 centerPoint = CalcCenterPoint(players.Count);
+        livingPlayers = playerSpawner.playerList;
+        foreach (GameObject player in livingPlayers)
+        {
+            if(player.GetComponent<PlayerScript>().getALife() == false)
+            {
+                livingPlayers.Remove(player);
+                break;
+            }
+        }
+        Debug.Log(livingPlayers.Count);
+        Vector3 centerPoint = CalcCenterPoint();
 
         Vector3 local = transform.InverseTransformPoint(centerPoint);
         //transform.localPosition = new Vector3(centerPoint.x, 0, Mathf.Clamp(local.z / 2f, -4f, +4f));
@@ -30,18 +39,19 @@ public class CameraMovement : MonoBehaviour {
         transform.localPosition = new Vector3(x, 0f, z);
     }
 
-    public Vector3 CalcCenterPoint(int numPlayers)
+    public Vector3 CalcCenterPoint()
     {
+        int numPlayers = livingPlayers.Count;
         Vector3 center = Vector3.zero;
         
         if (numPlayers == 1)
         {
-            return players[0].transform.position;
+            return livingPlayers[0].transform.position;
         }
         else if (numPlayers == 2)
         {
-            center = players[1].transform.position - players[0].transform.position;
-            return players[0].transform.position + 0.5f * center;
+            center = livingPlayers[1].transform.position - livingPlayers[0].transform.position;
+            return livingPlayers[0].transform.position + 0.5f * center;
 
         }
         else if (numPlayers == 3)
@@ -50,7 +60,7 @@ public class CameraMovement : MonoBehaviour {
             List<float> xPos = new List<float>();
             List<float> zPos = new List<float>();
 
-            foreach (GameObject player in players)
+            foreach (GameObject player in livingPlayers)
             {
                 xPos.Add(player.transform.position.x);
                 zPos.Add(player.transform.position.z);
@@ -72,7 +82,7 @@ public class CameraMovement : MonoBehaviour {
             List<float> xPos = new List<float>();
             List<float> zPos = new List<float>();
 
-            foreach (GameObject player in players)
+            foreach (GameObject player in livingPlayers)
             {
                 xPos.Add(player.transform.position.x);
                 zPos.Add(player.transform.position.z);
