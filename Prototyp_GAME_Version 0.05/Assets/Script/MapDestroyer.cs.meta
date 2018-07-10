@@ -3,7 +3,12 @@ guid: 75b96b90476454c26a2688cdcc613b9b
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - levelGenerator: {instanceID: 0}
+  - PlayerSpawner: {instanceID: 0}
+  - ExplosionPrefab: {instanceID: 0}
+  - KillFieldPrefab: {instanceID: 0}
+  - Parts: {fileID: 1058781635785696, guid: 64f748d2e2239264dba8c28eb7627d11, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
