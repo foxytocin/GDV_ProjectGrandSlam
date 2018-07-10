@@ -17,7 +17,7 @@ public class PlayerSpawner : MonoBehaviour
     List<Vector3> spawnList;
     List<Color> playerColorList;
 
-    void Awake()
+    void Start()
     {
 
         spawnList = new List<Vector3>();
@@ -58,7 +58,7 @@ public class PlayerSpawner : MonoBehaviour
             tmpPlayerScript.setPlayerID(i);
             // Player bekommt seine die PlayerListe mit Ueberreicht
             tmpPlayerScript.setPlayerList(playerList);
-            // Player bekommt den LevelGenerator Ueberreicht damit der Player auf das Worldarray zugreifen kann
+            // Player bekommt den LevelGenerator Ueberreicht damit der Player auf das AllGameObject-Array zugreifen kann
             tmpPlayerScript.setWorld(levelGenerator);
             // Player bekommt den GhostSpawner Uebergeben, damit beim Tod ein Geist Spawnen kann
             tmpPlayerScript.ghostSpawner = ghostSpawner;

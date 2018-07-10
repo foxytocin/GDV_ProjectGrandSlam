@@ -37,7 +37,24 @@ public class LevelGenerator : MonoBehaviour
     private bool GenerateKisten;
     public const int tiefeLevelStartBasis = 40;
 
-    private void Update()
+    // Use this for initialization
+    void Awake()
+    {
+        GenerateKisten = true;
+        LevelSpeed = 0.5f;
+        KistenMenge = 5;
+        SectionDataOffset = 0;
+        rotation = 0;
+        specialSection = false;
+        AllGameObjects = new GameObject[23, 2000];
+        SecondaryGameObjects1 = new GameObject[23, 2000];
+        SecondaryGameObjects2 = new GameObject[23, 2000];
+        SecondaryGameObjects3 = new GameObject[23, 2000];
+        levelSectionData = readFile(LevelTextdatei0);
+        createStartBasis(tiefeLevelStartBasis);
+    }
+
+    private void LateUpdate()
     {
         if(Input.GetKeyDown("1")) {
             GenerateKisten = true;
@@ -74,21 +91,6 @@ public class LevelGenerator : MonoBehaviour
         }
     }
 
-    // Use this for initialization
-    void Awake() {
-        GenerateKisten = true;
-        LevelSpeed = 0.5f;
-        KistenMenge = 5;
-        SectionDataOffset = 0;
-        rotation = 0;
-        specialSection = false;
-        levelSectionData = readFile(LevelTextdatei0);
-        AllGameObjects = new GameObject[22,3000];
-        SecondaryGameObjects1 = new GameObject[22, 3000];
-        SecondaryGameObjects2 = new GameObject[22, 3000];
-        SecondaryGameObjects3 = new GameObject[22, 3000];
-        createStartBasis(tiefeLevelStartBasis);
-    }
 
     public void createStartBasis(int tiefe)
     {
@@ -200,7 +202,7 @@ public class LevelGenerator : MonoBehaviour
     //Zeichnet die Linien der LevelSectionData zeilenweise
     void drawLevelLine(int CameraPosition) {
         
-        for (int i = 0; i < levelSectionData[0].Length - 1; i++)
+        for (int i = 0; i < levelSectionData[0].Length; i++)
         {
             switch (levelSectionData[CameraPosition - SectionDataOffset][i])
             {

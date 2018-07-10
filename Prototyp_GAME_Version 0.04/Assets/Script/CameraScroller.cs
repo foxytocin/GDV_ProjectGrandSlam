@@ -2,7 +2,7 @@
 
 public class CameraScroller : MonoBehaviour
 {
-    private int rowPosition;
+    public int rowPosition;
     private int altePosition;
     public LevelGenerator LevelGenerator;
 

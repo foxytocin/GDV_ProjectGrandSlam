@@ -135,7 +135,7 @@ public class PlayerScript : MonoBehaviour
             target += tmp;
 
             //Player wird im Array auf der neuer Position 
-            levelGenerator.AllGameObjects[(int)target.x, (int)target.z] = playerList[playerID];
+            levelGenerator.AllGameObjects[(int)target.x, (int)target.z] = playerList[this.playerID];
 
             //speichern des benutzten Bewegungsvectors
             lastTmpVector = tmp;
