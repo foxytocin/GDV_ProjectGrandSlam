@@ -23,7 +23,7 @@ public class PlayerSpawner : MonoBehaviour
         playerColorList = new List<Color>();
 
         //Standardmäßig wird beim Laden der Scene ein Spieler erstellt
-        startplayers = 2;
+        startplayers = 1;
         players = startplayers;
         createPlayers();
     }
