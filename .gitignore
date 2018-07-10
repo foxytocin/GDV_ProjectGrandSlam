@@ -7,6 +7,8 @@
 /[Bb]uilds/
 [Ll]ibrary/
 /[Ll]ibrary/
+metadaten/
+/metadaten/
 sysinfo.txt
 *.stackdump
 *.apk
