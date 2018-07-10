@@ -8,10 +8,6 @@ public class CameraZoom : MonoBehaviour {
     public List<GameObject> players;
     public PlayerSpawner playerSpawner;
 
-    void Start()
-    {
-        playerSpawner = GameObject.Find("Player").GetComponent<PlayerSpawner>();
-    }
 
     // Update is called once per frame
     void Update()
