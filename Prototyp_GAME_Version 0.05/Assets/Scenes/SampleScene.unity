@@ -674,7 +674,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   players: []
-  playerSpawner: {fileID: 0}
+  playerSpawner: {fileID: 1847533652}
 --- !u!1 &1620339720
 GameObject:
   m_ObjectHideFlags: 0
@@ -850,6 +850,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94483070908c6264e920a34535fd35a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraScroller: {fileID: 0}
+  cameraScroller: {fileID: 1754055006}
   livingPlayers: []
-  playerSpawner: {fileID: 0}
+  playerSpawner: {fileID: 1847533652}

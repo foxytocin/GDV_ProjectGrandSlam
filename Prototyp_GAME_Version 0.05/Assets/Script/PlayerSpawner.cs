@@ -17,7 +17,7 @@ public class PlayerSpawner : MonoBehaviour
     List<Vector3> spawnList;
     List<Color> playerColorList;
 
-    void Start()
+    void Awake()
     {
         spawnList = new List<Vector3>();
         playerColorList = new List<Color>();
