@@ -7,7 +7,7 @@ public class MapDestroyer : MonoBehaviour
     public PlayerSpawner PlayerSpawner;
     public GameObject ExplosionPrefab;
     public GameObject KillFieldPrefab;
-    public GameObject Parts;
+    public GameObject KistenPartsPrefab;
     private IEnumerator coroutinexPositiv;
     private IEnumerator coroutinexNegativ;
     private IEnumerator coroutinezPositiv;
@@ -129,8 +129,9 @@ public class MapDestroyer : MonoBehaviour
                     Instantiate(ExplosionPrefab, new Vector3(x, 0.5f, z), Quaternion.identity);
                     Destroy(thisGameObject);
                     levelGenerator.AllGameObjects[x, z] = Instantiate(KillFieldPrefab, new Vector3(x, 0.1f, z), Quaternion.Euler(90f, 0, 0));
+
                     //Ersetzt die Kiste durch Kiste_destroyed Prefab
-                    Instantiate(Parts, new Vector3(x, 0, z), Quaternion.identity);
+                    Instantiate(KistenPartsPrefab, new Vector3(x, 0.5f, z), Quaternion.identity);
                     return false;
 
                 case "Item":

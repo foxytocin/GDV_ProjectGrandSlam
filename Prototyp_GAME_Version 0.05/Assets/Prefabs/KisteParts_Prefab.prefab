@@ -321,7 +321,7 @@ GameObject:
   - component: {fileID: 4500819346585246}
   - component: {fileID: 114101931654716302}
   m_Layer: 0
-  m_Name: Kiste_destroyed
+  m_Name: KisteParts_Prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

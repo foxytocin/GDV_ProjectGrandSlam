@@ -255,7 +255,8 @@ MonoBehaviour:
   ExplosionPrefab: {fileID: 159918, guid: a0040bf7072bc2f4e82d887d50a9c5e2, type: 2}
   KillFieldPrefab: {fileID: 1206288029528642, guid: d91cc400b4f5845eb83f69994d35df9c,
     type: 2}
-  Parts: {fileID: 1724026369652452, guid: 64f748d2e2239264dba8c28eb7627d11, type: 2}
+  KistenPartsPrefab: {fileID: 1724026369652452, guid: 64f748d2e2239264dba8c28eb7627d11,
+    type: 2}
 --- !u!1 &772635014
 GameObject:
   m_ObjectHideFlags: 0
@@ -796,7 +797,7 @@ MonoBehaviour:
   players: 0
   playerList: []
   levelGenerator: {fileID: 958779247}
-  ghostSpawner: {fileID: 0}
+  ghostSpawner: {fileID: 772635015}
 --- !u!4 &1847533653
 Transform:
   m_ObjectHideFlags: 0

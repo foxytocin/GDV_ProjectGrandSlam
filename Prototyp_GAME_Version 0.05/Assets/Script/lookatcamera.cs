@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class lookatcamera : MonoBehaviour {
 
+    Vector3 targetPosition;
+
     GameObject target;
 
 	void Start () {
@@ -13,7 +15,7 @@ public class lookatcamera : MonoBehaviour {
 
     void Update()
     {
-        Vector3 targetPosition = new Vector3(target.transform.position.x, target.transform.position.y, target.transform.position.z);
+        targetPosition = new Vector3(target.transform.position.x, target.transform.position.y, target.transform.position.z);
         transform.LookAt(targetPosition);
     }
 }
