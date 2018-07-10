@@ -12,7 +12,7 @@ public class RemoteBomb : MonoBehaviour {
 
         for (int i = 0; i < bombArray.Length; i++)
         {
-            if (bombArray[i].GetComponent<BombScript>().bombOwnerPlayerID == playerID)
+            if (bombArray[i].GetComponent<BombScript>().bombOwnerPlayerID == playerID && bombArray[i].GetComponent<BombScript>().remoteBomb == true)
             {
                 bombArray[i].GetComponent<BombScript>().bombTimer = 0;
                 bombArray[i].GetComponent<BombScript>().remoteBomb = false;

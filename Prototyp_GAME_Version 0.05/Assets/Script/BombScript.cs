@@ -8,6 +8,8 @@ public class BombScript : MonoBehaviour
     public bool remoteBomb;
     private float startTime;
     private Vector3 bombPosition;
+    private float bombAngle;
+    private int bombRotation;
     public BombSpawner bombSpawner;
 
     void Awake()
@@ -15,13 +17,16 @@ public class BombScript : MonoBehaviour
         //Zeitpunkt an dem die Bombe erzeugt wurde
         startTime = Time.time;
         bombPosition = transform.position;
+        transform.eulerAngles += new Vector3(0, bombAngle, 0);
+        bombAngle = Random.Range(0, 36f) * 10f;
+        bombRotation = Random.value >= 0.5f ? 1 : -1;
     }
 
     //Update is called once per frame
     void Update()
     {
         //Bombe dreht sich um die eigene y-Achse.
-        transform.eulerAngles += new Vector3(0, 70f * Time.deltaTime, 0);
+        transform.eulerAngles += new Vector3(0, 70f * (Time.deltaTime * bombRotation), 0);
 
         //Wenn der bombTimer erreicht wird und es keine remoteBomb ist, wird sie gezuendet.
         //Wenn es eine remoteBombe ist, bleibt diese aktiv bis der Player sie selber zündet.

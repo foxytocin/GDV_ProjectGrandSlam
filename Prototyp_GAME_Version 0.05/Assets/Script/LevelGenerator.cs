@@ -218,7 +218,7 @@ public class LevelGenerator : MonoBehaviour
     //Erzeugt eine Bodenplatte und zufällig eine Kiste
     void createGang(Vector3 pos, int CameraPosition) {
         
-        SecondaryGameObjects1[(int)pos.x, (int)pos.z] = Instantiate(BodenPrefab, pos, Quaternion.identity);
+        SecondaryGameObjects1[(int)pos.x, (int)pos.z] = Instantiate(BodenPrefab, pos, Quaternion.Euler(90f, 0, 0));
 
         if(((int)Random.Range(0f, 21f)) % KistenMenge == 0 && CameraPosition > 11 && GenerateKisten) {
             GameObject Kiste = Instantiate(KistePrefab, pos + new Vector3(0f, 0.5f, 0f), Quaternion.Euler(0, 0, rotation));
@@ -277,7 +277,7 @@ public class LevelGenerator : MonoBehaviour
     //Erzeugt eine Kiste und Boden unter ihr
     void createKiste(Vector3 pos) {
         
-        SecondaryGameObjects1[(int)pos.x, (int)pos.z] = Instantiate(BodenPrefab, pos, Quaternion.identity);
+        SecondaryGameObjects1[(int)pos.x, (int)pos.z] = Instantiate(BodenPrefab, pos, Quaternion.Euler(90f, 0, 0));
         GameObject Kiste = Instantiate(KistePrefab, pos + new Vector3(0f, 0.5f, 0f), Quaternion.Euler(0, 0, rotation));
         Kiste.tag = "Kiste";
         rotation += 90;

@@ -411,7 +411,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9da519e23e8da4f4b86c0843007cf72a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BodenPrefab: {fileID: 1372497418830032, guid: fabeec65a6ae14912869fb9650bd9d14,
+  BodenPrefab: {fileID: 1555658859024004, guid: fabeec65a6ae14912869fb9650bd9d14,
     type: 2}
   WandPrefab: {fileID: 1752548113676288, guid: 003ae408beb774f1db89ee2398ed91e8, type: 2}
   KistePrefab: {fileID: 1968458687304108, guid: a742c7a8826264c8fa7d619f4d1ee624,
