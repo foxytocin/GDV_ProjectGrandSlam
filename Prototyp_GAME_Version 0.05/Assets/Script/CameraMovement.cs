@@ -8,12 +8,6 @@ public class CameraMovement : MonoBehaviour {
     public List<GameObject> livingPlayers;
     public PlayerSpawner playerSpawner;
 
-    // Use this for initialization
-    void Awake()
-    {
-        playerSpawner = GameObject.Find("Player").GetComponent<PlayerSpawner>();
-        cameraScroller = GameObject.Find("CameraScroller").GetComponent<CameraScroller>();
-    }
 
     // Update is called once per frame
     void LateUpdate()

@@ -17,13 +17,13 @@ public class PlayerSpawner : MonoBehaviour
     List<Vector3> spawnList;
     List<Color> playerColorList;
 
-    void Start()
+    void Awake()
     {
         spawnList = new List<Vector3>();
         playerColorList = new List<Color>();
 
         //Standardmäßig wird beim Laden der Scene ein Spieler erstellt
-        startplayers = 1;
+        startplayers = 2;
         players = startplayers;
         createPlayers();
     }
