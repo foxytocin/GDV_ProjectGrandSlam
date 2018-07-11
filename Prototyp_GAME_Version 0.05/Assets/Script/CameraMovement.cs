@@ -7,6 +7,7 @@ public class CameraMovement : MonoBehaviour {
     private CameraScroller cameraScroller;
     public List<GameObject> livingPlayers;
     private PlayerSpawner playerSpawner;
+    public Vector3 centerPoint;
 
     private void Start()
     {
@@ -26,7 +27,7 @@ public class CameraMovement : MonoBehaviour {
             }
         }
         //Debug.Log(livingPlayers.Count);
-        Vector3 centerPoint = CalcCenterPoint();
+        centerPoint = CalcCenterPoint();
 
         Vector3 local = transform.InverseTransformPoint(centerPoint);
         //transform.localPosition = new Vector3(centerPoint.x, 0, Mathf.Clamp(local.z / 2f, -4f, +4f));
