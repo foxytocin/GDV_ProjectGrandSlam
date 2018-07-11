@@ -579,7 +579,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1000
+  far clip plane: 80
   field of view: 50
   orthographic: 0
   orthographic size: 8
@@ -622,6 +622,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1de60bbf67cd00a4ca0fac4480aee9d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  smooth: 0.3
+  distance: 5
 --- !u!114 &1471981545
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -675,8 +677,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4d7a531c1143df41bee0eed412ae6f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  players: []
-  playerSpawner: {fileID: 1847533652}
 --- !u!1 &1620339720
 GameObject:
   m_ObjectHideFlags: 0
@@ -745,7 +745,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1754055004}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -9.976711, y: -5.101205, z: -26.27795}
+  m_LocalPosition: {x: 0, y: 0, z: -26.27795}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2023082694}
@@ -852,6 +852,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94483070908c6264e920a34535fd35a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraScroller: {fileID: 1754055006}
   livingPlayers: []
-  playerSpawner: {fileID: 1847533652}
+  centerPoint: {x: 0, y: 0, z: 0}
