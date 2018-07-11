@@ -5,25 +5,34 @@ using UnityEngine;
 public class CameraZoom : MonoBehaviour {
 
     //private CameraMovement cameraMovement;
-    public List<GameObject> players;
-    public PlayerSpawner playerSpawner;
+    private List<GameObject> players;
+    private CameraMovement cm;
+
+    private float fieldWidth;
+    //public PlayerSpawner playerSpawner;
 
 
     // Update is called once per frame
-    void Update()
+    private void Start()
     {
-
-        //players = playerSpawner.playerList;
-        players = GameObject.Find("HorizontalAxis").GetComponent<CameraMovement>().livingPlayers;
-
-        //Debug.Log("verticalAxis world and local pos: " + transform.position + transform.localPosition);
-        CameraMoving(players.Count);
+        cm = GameObject.Find("HorizontalAxis").GetComponent<CameraMovement>();
+        fieldWidth = GameObject.Find("LevelGenerator").GetComponent<LevelGenerator>().AllGameObjects.GetLength(0) - 4;
     }
 
-    void CameraMoving(int numPlayers)
+    void LateUpdate()
     {
+        //Debug.Log(fieldWidth);
+        //players = playerSpawner.playerList;
+        players = cm.livingPlayers;
 
-        float zoom = Mathf.Lerp(3f, 10f, GetGreatestDistance() / (21 + 1));
+        //Debug.Log("verticalAxis world and local pos: " + transform.position + transform.localPosition);
+        CameraMoving();
+    }
+
+    void CameraMoving()
+    {
+        //float zoom = Mathf.Lerp(fieldWidth/6f, fieldWidth/2f, GetGreatestDistance() / (fieldWidth));
+        float zoom = Mathf.Lerp(3f, 10f, GetGreatestDistance() / 18);
         //LookAt, SmoothFollow SmoothDirection
         //3fach verschachtelte Kamera, getrennt voneinander 
 
@@ -39,7 +48,7 @@ public class CameraZoom : MonoBehaviour {
 
     float GetGreatestDistance()
     {
-        if (players.Count == 1)
+        if (players.Count == 1 || players.Count == 0)
         {
             return 0;
         }

@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour {
 
-    public CameraScroller cameraScroller;
+    private CameraScroller cameraScroller;
     public List<GameObject> livingPlayers;
-    public PlayerSpawner playerSpawner;
+    private PlayerSpawner playerSpawner;
 
-
+    private void Start()
+    {
+        cameraScroller = GameObject.Find("CameraScroller").GetComponent<CameraScroller>();
+        playerSpawner = GameObject.Find("PlayerSpawner").GetComponent<PlayerSpawner>();
+    }
     // Update is called once per frame
     void LateUpdate()
     {
