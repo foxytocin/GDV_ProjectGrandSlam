@@ -5,7 +5,13 @@ using UnityEngine;
 public class CameraDirection : MonoBehaviour {
     private Vector3 target;
     private CameraMovement cm;
-    // Use this for initialization
+
+
+    //private GameObject target;
+    public float smooth = 0.3F;
+    public float distance = 5.0F;
+    private float yVelocity = 0.0F;
+
     void Start()
     {
         //Offset at Beginning, currently random -> make dynamic
@@ -16,13 +22,24 @@ public class CameraDirection : MonoBehaviour {
 
     // Update is called once per frame
     void LateUpdate()
-    {        
+    {
+        // Working but trying to smooth it        
         target = cm.centerPoint;
         Vector3 targetPostition = Vector3.Lerp(transform.position, new Vector3(this.transform.position.x, 0, target.z), 4f * Time.deltaTime);
         this.transform.LookAt(targetPostition);
 
         //Limit lookAt Rotation
         Camera.main.transform.localEulerAngles = new Vector3(Mathf.Clamp(Camera.main.transform.localEulerAngles.x, 40f, 80f), 0, 0);
+        
+        // Smooth Try
+        /*
+        //target = cm.centerPoint;
 
+        float yAngle = Mathf.SmoothDampAngle(transform.eulerAngles.y, target.transform.position.y, ref yVelocity, smooth);
+        Vector3 position = target.transform.position;
+        //position += Quaternion.Euler(0, yAngle, 0) * new Vector3(0, 0, -distance);
+        transform.position = position;
+        transform.LookAt(target.transform);
+        */
     }
 }
