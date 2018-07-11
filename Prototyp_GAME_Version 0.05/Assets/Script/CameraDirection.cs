@@ -18,7 +18,7 @@ public class CameraDirection : MonoBehaviour {
     void LateUpdate()
     {        
         target = cm.centerPoint;
-        Vector3 targetPostition = new Vector3(this.transform.position.x, 0, target.z);
+        Vector3 targetPostition = Vector3.Lerp(transform.position, new Vector3(this.transform.position.x, 0, target.z), 4f * Time.deltaTime);
         this.transform.LookAt(targetPostition);
 
         //Limit lookAt Rotation
