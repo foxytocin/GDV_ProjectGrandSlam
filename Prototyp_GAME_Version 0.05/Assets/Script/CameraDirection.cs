@@ -36,7 +36,7 @@ public class CameraDirection : MonoBehaviour {
 
         //Limit lookAt Rotation
         Camera.main.transform.localEulerAngles = new Vector3(Mathf.Clamp(Camera.main.transform.localEulerAngles.x, 40f, 80f), 0, 0);
-        
+
         // Smooth Try
         /*
         //target = cm.centerPoint;
@@ -47,5 +47,16 @@ public class CameraDirection : MonoBehaviour {
         transform.position = position;
         transform.LookAt(target.transform);
         */
+        getDistanceToCenter();
+    }
+
+    void getDistanceToCenter()
+    {
+        float distance = Vector3.Distance(this.transform.position, target);
+        var depthSettings = pp.depthOfField.settings;
+        depthSettings.focusDistance = distance;
+        Debug.Log(distance);
+
+        pp.depthOfField.settings = depthSettings;
     }
 }
