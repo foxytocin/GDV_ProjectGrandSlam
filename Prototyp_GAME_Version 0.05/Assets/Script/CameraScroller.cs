@@ -27,4 +27,6 @@ public class CameraScroller : MonoBehaviour
             LevelGenerator.createWorld(rowPosition + LevelGenerator.tiefeLevelStartBasis);
         }
     }
+
+    
 }

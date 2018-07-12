@@ -300,4 +300,13 @@ public class LevelGenerator : MonoBehaviour
         }
         return levelBase;
     }
+
+    public void setLevelSpeed(float speed)
+    {
+        this.LevelSpeed = speed; 
+    }
+    public float getLevelSpeed()
+    {
+        return LevelSpeed;
+    }
 }
