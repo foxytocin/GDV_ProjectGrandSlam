@@ -14,6 +14,8 @@ public class CameraDirection : MonoBehaviour {
     public float distance = 5.0F;
     private float yVelocity = 0.0F;
 
+    DepthOfFieldModel.Settings depthSettings;
+
     void Start()
     {
         //Offset at Beginning, currently random -> make dynamic
@@ -24,6 +26,10 @@ public class CameraDirection : MonoBehaviour {
         //Change PostProcessing Settings
         pp = GetComponent<PostProcessingBehaviour>().profile;
         pp.bloom.enabled = true;
+        
+        depthSettings = pp.depthOfField.settings;
+        depthSettings.focalLength = 220;
+        depthSettings.aperture = 8.4f;
     }
 
     // Update is called once per frame
@@ -47,16 +53,13 @@ public class CameraDirection : MonoBehaviour {
         transform.position = position;
         transform.LookAt(target.transform);
         */
-        getDistanceToCenter();
+        setFocusPoint();
     }
 
-    void getDistanceToCenter()
+    void setFocusPoint()
     {
-        float distance = Vector3.Distance(this.transform.position, target);
-        var depthSettings = pp.depthOfField.settings;
+        float distance = Vector3.Distance(this.transform.position, target);        
         depthSettings.focusDistance = distance;
-        Debug.Log(distance);
-
         pp.depthOfField.settings = depthSettings;
     }
 }
