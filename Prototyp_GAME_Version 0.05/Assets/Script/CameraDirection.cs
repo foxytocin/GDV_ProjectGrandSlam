@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.PostProcessing;
 
 public class CameraDirection : MonoBehaviour {
     private Vector3 target;
     private CameraMovement cm;
 
+    private PostProcessingProfile pp;
 
     //private GameObject target;
     public float smooth = 0.3F;
@@ -18,6 +20,10 @@ public class CameraDirection : MonoBehaviour {
         transform.position = new Vector3(0f, 4f, -10f);        
 
         cm = GameObject.Find("HorizontalAxis").GetComponent<CameraMovement>();
+        
+        //Change PostProcessing Settings
+        pp = GetComponent<PostProcessingBehaviour>().profile;
+        pp.bloom.enabled = true;
     }
 
     // Update is called once per frame
