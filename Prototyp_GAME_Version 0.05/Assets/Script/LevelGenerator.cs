@@ -170,15 +170,27 @@ public class LevelGenerator : MonoBehaviour
 
             for (int i = 0; i < levelSectionData[0].Length - 1; i++)
             {
-                if (AllGameObjects[i, CameraPosition] != null)
+                GameObject thisGameObject = AllGameObjects[i, CameraPosition];
+
+                if (thisGameObject != null)
                 {
-                    if (AllGameObjects[i, CameraPosition].gameObject.tag == "Player") {
-                        AllGameObjects[i, CameraPosition].gameObject.GetComponent<PlayerScript>().dead(AllGameObjects[i, CameraPosition].gameObject.GetComponent<PlayerScript>().getPlayerID());
-                        AllGameObjects[i, CameraPosition] = null;
-                    } else {
-                        FallScript fc = AllGameObjects[i, CameraPosition].gameObject.GetComponent<FallScript>();
-                        if (fc != false)
-                            fc.fallDown();
+                    switch (thisGameObject.tag)
+                    {
+                        case "Player":
+                            thisGameObject.GetComponent<PlayerScript>().dead(thisGameObject.GetComponent<PlayerScript>().getPlayerID());
+                            AllGameObjects[i, CameraPosition] = null;
+                            break;
+
+                        case "Bombe":
+                            thisGameObject.GetComponent<BombScript>().remoteBomb = false;
+                            thisGameObject.GetComponent<BombScript>().bombTimer = 0;
+                            break;
+
+                        default:
+                            FallScript fc = thisGameObject.GetComponent<FallScript>();
+                            if (fc != false)
+                                fc.fallDown();
+                            break;
                     }
                 }
 
