@@ -6,7 +6,6 @@ public class LevelGenerator : MonoBehaviour
     public GameObject BodenPrefab;
     public GameObject WandPrefab;
     public GameObject KistePrefab;
-    public FallScript fallScript;
 
     private int KistenMenge;
 
@@ -166,8 +165,7 @@ public class LevelGenerator : MonoBehaviour
 
 
     void cleanLine(int CameraPosition) {
-
-        //Debug.Log("CameraPosition: "+CameraPosition+ " / " +levelSectionData[0].Length);
+        
         if(CameraPosition >= 0) {
 
             for (int i = 0; i < levelSectionData[0].Length - 1; i++)
@@ -182,8 +180,6 @@ public class LevelGenerator : MonoBehaviour
                         if (fc != false)
                             fc.fallDown();
                     }
-
-
                 }
 
                 //Object 1 beinhaltet: Boden
@@ -199,7 +195,6 @@ public class LevelGenerator : MonoBehaviour
                     if (fc != false)
                         fc.fallDown();
                 }
-                    
 
                 if (SecondaryGameObjects3[i, CameraPosition] != null) {
                     FallScript fc = SecondaryGameObjects3[i, CameraPosition].gameObject.GetComponent<FallScript>();
