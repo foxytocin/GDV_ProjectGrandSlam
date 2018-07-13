@@ -6,6 +6,7 @@ public class LevelGenerator : MonoBehaviour
     public GameObject BodenPrefab;
     public GameObject WandPrefab;
     public GameObject KistePrefab;
+    public FallScript fallScript;
 
     private int KistenMenge;
 
@@ -35,7 +36,7 @@ public class LevelGenerator : MonoBehaviour
     private int rotation;
     private bool specialSection;
     private bool GenerateKisten;
-    public const int tiefeLevelStartBasis = 40;
+    public const int tiefeLevelStartBasis = 25;
 
     // Use this for initialization
     void Awake()
@@ -160,7 +161,7 @@ public class LevelGenerator : MonoBehaviour
             }
             drawLevelLine(CameraPosition);
         }
-        cleanLine((CameraPosition - (30 + tiefeLevelStartBasis)));
+        cleanLine((CameraPosition - (10 + tiefeLevelStartBasis)));
     }
 
 
@@ -176,20 +177,36 @@ public class LevelGenerator : MonoBehaviour
                     if (AllGameObjects[i, CameraPosition].gameObject.tag == "Player") {
                         AllGameObjects[i, CameraPosition].gameObject.GetComponent<PlayerScript>().dead(AllGameObjects[i, CameraPosition].gameObject.GetComponent<PlayerScript>().getPlayerID());
                         AllGameObjects[i, CameraPosition] = null;
+                    } else {
+                        FallScript fc = AllGameObjects[i, CameraPosition].gameObject.GetComponent<FallScript>();
+                        if (fc != false)
+                            fc.fallDown();
                     }
-                    Destroy(AllGameObjects[i, CameraPosition]);
+
+
                 }
 
-                if(SecondaryGameObjects1[i, CameraPosition] != null)
-                    Destroy(SecondaryGameObjects1[i, CameraPosition]);
-                
-                if (SecondaryGameObjects2[i, CameraPosition] != null)
-                    Destroy(SecondaryGameObjects2[i, CameraPosition]);
+                //Object 1 beinhaltet: Boden
+                if (SecondaryGameObjects1[i, CameraPosition] != null)
+                {
+                    FallScript fc = SecondaryGameObjects1[i, CameraPosition].gameObject.GetComponent<FallScript>();
+                    if (fc != false)
+                        fc.fallDown();
+                }
 
-                if (SecondaryGameObjects3[i, CameraPosition] != null)
-                    Destroy(SecondaryGameObjects3[i, CameraPosition]);
+                if (SecondaryGameObjects2[i, CameraPosition] != null) {
+                    FallScript fc = SecondaryGameObjects2[i, CameraPosition].gameObject.GetComponent<FallScript>();
+                    if (fc != false)
+                        fc.fallDown();
+                }
+                    
+
+                if (SecondaryGameObjects3[i, CameraPosition] != null) {
+                    FallScript fc = SecondaryGameObjects3[i, CameraPosition].gameObject.GetComponent<FallScript>();
+                    if (fc != false)
+                        fc.fallDown();
+                }
             }
-
         }
     }
 
@@ -218,10 +235,10 @@ public class LevelGenerator : MonoBehaviour
     //Erzeugt eine Bodenplatte und zufällig eine Kiste
     void createGang(Vector3 pos, int CameraPosition) {
         
-        SecondaryGameObjects1[(int)pos.x, (int)pos.z] = Instantiate(BodenPrefab, pos, Quaternion.Euler(90f, 0, 0));
+        SecondaryGameObjects1[(int)pos.x, (int)pos.z] = Instantiate(BodenPrefab, pos - new Vector3(0, 0.1f, 0), Quaternion.identity);
 
         if(((int)Random.Range(0f, 21f)) % KistenMenge == 0 && CameraPosition > 11 && GenerateKisten) {
-            GameObject Kiste = Instantiate(KistePrefab, pos + new Vector3(0f, 0.5f, 0f), Quaternion.Euler(0, 0, rotation));
+            GameObject Kiste = Instantiate(KistePrefab, pos + new Vector3(0f, 0.5f, 0f), Quaternion.Euler(0, rotation, 0));
             Kiste.tag = "Kiste";
             rotation += 90;
 
@@ -277,8 +294,8 @@ public class LevelGenerator : MonoBehaviour
     //Erzeugt eine Kiste und Boden unter ihr
     void createKiste(Vector3 pos) {
         
-        SecondaryGameObjects1[(int)pos.x, (int)pos.z] = Instantiate(BodenPrefab, pos, Quaternion.Euler(90f, 0, 0));
-        GameObject Kiste = Instantiate(KistePrefab, pos + new Vector3(0f, 0.5f, 0f), Quaternion.Euler(0, 0, rotation));
+        SecondaryGameObjects1[(int)pos.x, (int)pos.z] = Instantiate(BodenPrefab, pos - new Vector3(0, 0.1f, 0), Quaternion.identity);
+        GameObject Kiste = Instantiate(KistePrefab, pos + new Vector3(0f, 0.5f, 0f), Quaternion.Euler(0, rotation, 0));
         Kiste.tag = "Kiste";
         rotation += 90;
 
@@ -305,6 +322,7 @@ public class LevelGenerator : MonoBehaviour
     {
         this.LevelSpeed = speed; 
     }
+
     public float getLevelSpeed()
     {
         return LevelSpeed;
