@@ -3,7 +3,7 @@ using System.Collections;
 
 public class FallScript : MonoBehaviour {
 
-    float speed;
+    float gravity;
     float randomDelay;
     float fallDelay;
     bool falling = false;
@@ -11,7 +11,7 @@ public class FallScript : MonoBehaviour {
 
     private void Start()
     {
-        randomDelay = Random.Range(4f, 16f) / 10f;
+        randomDelay = Random.Range(0.4f, 3f) / 10f;
         fallDelay = Random.Range(4f, 31f) / 10f;
     }
 
@@ -26,8 +26,8 @@ public class FallScript : MonoBehaviour {
         }
 
         if(falling) {
-            speed += Time.deltaTime * 2;
-            transform.Translate(0, -((speed * Time.deltaTime) * randomDelay), 0);
+            gravity += Time.deltaTime;
+            transform.Translate(0, -((gravity * gravity * Time.deltaTime) + randomDelay), 0);
         }
 
         if(transform.position.y < - 30f) {
