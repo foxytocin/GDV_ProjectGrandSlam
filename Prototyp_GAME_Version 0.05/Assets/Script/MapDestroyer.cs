@@ -26,7 +26,7 @@ public class MapDestroyer : MonoBehaviour
 
     //Wird beim explodieren der Bombe durch das BombeScript aufgerufen.
     //Empfaengt die Position, die bombPower der Bombe und die ID des Spielers welche sie gelegt hat.
-    public void Explode(Vector3 position, int bombPower, int id)
+    public IEnumerator explode(Vector3 position, int bombPower, int id)
     {
         explosionPosition = position;
 
@@ -57,6 +57,8 @@ public class MapDestroyer : MonoBehaviour
         StartCoroutine(coroutinexNegativ);
         StartCoroutine(coroutinezPositiv);
         StartCoroutine(coroutinezNegativ);
+
+        yield return null;
     }
 
     //Jeder der 4 Coroutinen laeuft solange der Rueckgabewert von ExplodeCell = true ist.
@@ -129,7 +131,7 @@ public class MapDestroyer : MonoBehaviour
             switch (thisGameObject.tag)
             {
                 case "Bombe":
-                    thisGameObject.GetComponent<BombScript>().countDown = 0;
+                    thisGameObject.GetComponent<BombScript>().countDown = 0f;
                     thisGameObject.GetComponent<BombScript>().remoteBomb = false;
                     return false;
 

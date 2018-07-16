@@ -41,9 +41,10 @@ public class BombScript : MonoBehaviour
     }
 
     void explode() {
-        
+
         //Explode() im MapDestroyer wird aufgerufen um von der bombPosition und mit deren bombPower zu pruefen welche weiteren Felder um die Bombe herum explodieren muessen.
-        FindObjectOfType<MapDestroyer>().Explode(bombPosition, bombPower, bombOwnerPlayerID);
+        MapDestroyer mapDestroyer = FindObjectOfType<MapDestroyer>();
+        mapDestroyer.StartCoroutine(mapDestroyer.explode(bombPosition, bombPower, bombOwnerPlayerID));
 
         //Bombe selber wird zerstört.
         Destroy(gameObject);
