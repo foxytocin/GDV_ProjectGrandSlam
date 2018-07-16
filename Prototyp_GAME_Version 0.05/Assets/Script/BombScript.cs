@@ -11,6 +11,7 @@ public class BombScript : MonoBehaviour
     private Vector3 bombPosition;
     private float bombAngle;
     private int bombRotation;
+    bool exploded = false;
 
     void Start()
     {
@@ -32,13 +33,19 @@ public class BombScript : MonoBehaviour
 
         //Wenn der bombTimer erreicht wird und es keine remoteBomb ist, wird sie gezuendet.
         //Wenn es eine remoteBombe ist, bleibt diese aktiv bis der Player sie selber zündet.
-        if (countDown <= 0 && !remoteBomb)
+        if (countDown <= 0 && !remoteBomb && !exploded)
         {
-            //Explode() im MapDestroyer wird aufgerufen um von der bombPosition und mit deren bombPower zu pruefen welche weiteren Felder um die Bombe herum explodieren muessen.
-            FindObjectOfType<MapDestroyer>().Explode(bombPosition, bombPower, bombOwnerPlayerID);
-          
-            //Bombe selber wird zerstört.
-            Destroy(gameObject);
+            exploded = true;
+            explode();
         }
+    }
+
+    void explode() {
+        
+        //Explode() im MapDestroyer wird aufgerufen um von der bombPosition und mit deren bombPower zu pruefen welche weiteren Felder um die Bombe herum explodieren muessen.
+        FindObjectOfType<MapDestroyer>().Explode(bombPosition, bombPower, bombOwnerPlayerID);
+
+        //Bombe selber wird zerstört.
+        Destroy(gameObject);
     }
 }

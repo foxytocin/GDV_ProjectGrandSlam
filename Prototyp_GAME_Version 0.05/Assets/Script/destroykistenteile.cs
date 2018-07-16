@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class destroykistenteile : MonoBehaviour {
 
@@ -8,12 +6,6 @@ public class destroykistenteile : MonoBehaviour {
     void Start()
     {
         Destroy(gameObject, 1f);
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
 
     }
 }
