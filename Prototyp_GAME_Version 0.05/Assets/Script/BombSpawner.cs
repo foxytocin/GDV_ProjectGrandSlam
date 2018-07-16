@@ -32,6 +32,7 @@ public class BombSpawner : MonoBehaviour
             thisBombeScript.bombPower = player.getRange();
             thisBombeScript.remoteBomb = player.getRemoteBomb();
             thisBombeScript.tag = "Bombe";
+            thisBombeScript.playerColor = player.GetComponent<Renderer>().material.color;
 
             //Traegt die gelegte Bombe im AllGameObject-Array ein, damit die Interaktion mit anderen GameObjecten moeglich ist.
             LevelGenerator.AllGameObjects[(int)bombPosition.x, (int)bombPosition.z] = bombeInstanz;
