@@ -14,6 +14,16 @@ public class MapDestroyer : MonoBehaviour
     private IEnumerator coroutinezNegativ;
     private Vector3 explosionPosition;
 
+    public AudioSource audioSource;
+    public AudioClip audioClip;
+
+
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
+
+
     //Wird beim explodieren der Bombe durch das BombeScript aufgerufen.
     //Empfaengt die Position, die bombPower der Bombe und die ID des Spielers welche sie gelegt hat.
     public void Explode(Vector3 position, int bombPower, int id)
@@ -32,6 +42,7 @@ public class MapDestroyer : MonoBehaviour
 
         //Explosions-Animation an der Stelle der Bombe wird abgespielt.
         Instantiate(ExplosionPrefab, explosionPosition, Quaternion.identity);
+        audioSource.PlayOneShot(audioClip);
         levelGenerator.AllGameObjects[(int)explosionPosition.x, (int)explosionPosition.z] = Instantiate(KillFieldPrefab, new Vector3(explosionPosition.x, 0.1f, explosionPosition.z), Quaternion.Euler(90f, 0, 0));
 
         //Es werden 4 Coroutinen angelegt und gestartet, welche gleichzeitig in alle Himmelsrichtung (x, -x, z, -z) die Fehler durchlaufen.

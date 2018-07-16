@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 using System.Text.RegularExpressions;
 
 public class LevelGenerator : MonoBehaviour
@@ -42,7 +43,7 @@ public class LevelGenerator : MonoBehaviour
     {
         GenerateKisten = true;
         LevelSpeed = 0.5f;
-        KistenMenge = 5;
+        KistenMenge = 3;
         SectionDataOffset = 0;
         rotation = 0;
         specialSection = false;
@@ -160,11 +161,11 @@ public class LevelGenerator : MonoBehaviour
             }
             drawLevelLine(CameraPosition);
         }
-        cleanLine((CameraPosition - (10 + tiefeLevelStartBasis)));
+        StartCoroutine(cleanLine((CameraPosition - (10 + tiefeLevelStartBasis))));
     }
 
 
-    void cleanLine(int CameraPosition) {
+    IEnumerator cleanLine(int CameraPosition) {
         
         if(CameraPosition >= 0) {
 
@@ -215,6 +216,8 @@ public class LevelGenerator : MonoBehaviour
                 }
             }
         }
+
+        yield return null;
     }
 
 

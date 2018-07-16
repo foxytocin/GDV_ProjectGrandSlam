@@ -28,8 +28,8 @@ public class PlayerScript : MonoBehaviour
         life = 3;
         avaibleBomb = 10;
         speed = 5f;
-        bombTimer = 3;
-        range = 3;
+        bombTimer = 2;
+        range = 1;
         alive = true;
         remoteBomb = false;
         creatingBomb = false;
@@ -128,7 +128,7 @@ public class PlayerScript : MonoBehaviour
         if (freeWay(tmp) && alive)
         {
             //Im Array aktuelle position loeschen wenn das objekt auch wirklich ein Player ist 
-            if (levelGenerator.AllGameObjects[(int)target.x, (int)target.z] != null && levelGenerator.AllGameObjects[(int)target.x, (int)target.z].gameObject.tag == "Player")
+            if (levelGenerator.AllGameObjects[(int)target.x, (int)target.z] != null && levelGenerator.AllGameObjects[(int)target.x, (int)target.z].gameObject.CompareTag("Player"))
                 levelGenerator.AllGameObjects[(int)target.x, (int)target.z] = null;
 
             //neue position berechenen
@@ -271,7 +271,7 @@ public class PlayerScript : MonoBehaviour
 
 
     // Setzt Bombe mit überprüfung von avaibleBomb und aLife
-    public void SetBomb(int id)
+    void SetBomb(int id)
     {
         if (playerList[id].GetComponent<PlayerScript>().getAvaibleBomb() > 0 && playerList[id].GetComponent<PlayerScript>().getALife())
         {
@@ -300,7 +300,7 @@ public class PlayerScript : MonoBehaviour
                     return true;
 
                 } else {
-                    if (levelGenerator.AllGameObjects[(int)(target.x + tmp.x), (int)(target.z + tmp.z)].gameObject.tag == "KillField")
+                    if (levelGenerator.AllGameObjects[(int)(target.x + tmp.x), (int)(target.z + tmp.z)].gameObject.CompareTag("KillField"))
                     {
                         dead(getPlayerID());
                     }
