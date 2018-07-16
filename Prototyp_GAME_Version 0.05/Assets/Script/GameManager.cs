@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour {
     {
         audioSource = GetComponent<AudioSource>();
         audioSource.PlayOneShot(audioStart);
-        audioSource.PlayOneShot(audioBackgoundMusic, 0.3f);
+        audioSource.PlayOneShot(audioBackgoundMusic, 0.2f);
     }
 
     // Update is called once per frame

@@ -8,7 +8,7 @@ public class PlayerScript : MonoBehaviour
     public int life;
     public int avaibleBomb;
     public float speed;
-    public int bombTimer;
+    public float bombTimer;
     public int range;
     public bool alive;
     public bool remoteBomb;
@@ -28,7 +28,7 @@ public class PlayerScript : MonoBehaviour
         life = 3;
         avaibleBomb = 10;
         speed = 5f;
-        bombTimer = 2;
+        bombTimer = 1.5f;
         range = 1;
         alive = true;
         remoteBomb = false;
@@ -258,7 +258,7 @@ public class PlayerScript : MonoBehaviour
     }
 
     //bombTimer
-    public int getbombTimer()
+    public float getbombTimer()
     {
         return bombTimer;
     }
