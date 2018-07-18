@@ -115,8 +115,11 @@ public class CameraMovement : MonoBehaviour {
 
             foreach (Vector3 player in positions)
             {
-                xPos.Add(player.x);
-                zPos.Add(player.z);
+                if(player.y == 0.45f)
+                {
+                    xPos.Add(player.x);
+                    zPos.Add(player.z);
+                }
             }
 
             float maxX = Mathf.Max(xPos.ToArray());
