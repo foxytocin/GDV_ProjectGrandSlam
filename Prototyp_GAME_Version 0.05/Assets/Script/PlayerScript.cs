@@ -57,11 +57,11 @@ public class PlayerScript : MonoBehaviour
                 // RemoteBombe zünden Player_One
                 if (InputManager.OneAButton())
                     FindObjectOfType<RemoteBomb>().remoteBomb(0);
-                
+
                 //Pause aufrufen
                 if (InputManager.OneStartButton())
                     return;
-                    
+                
                 break;
 
             //Player 2
