@@ -27,7 +27,7 @@ public class RemoteBomb : MonoBehaviour {
                 {
                     bombScript.countDown = 0f;
                     bombScript.remoteBomb = false;
-                    yield return new WaitForSeconds(bombScript.bombPower / 10f + 0.1f);
+                    yield return new WaitForSeconds(bombScript.bombPower * 0.05f + 0.05f);
                 }
             }
 

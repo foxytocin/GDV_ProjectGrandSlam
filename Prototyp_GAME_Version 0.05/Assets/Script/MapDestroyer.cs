@@ -48,10 +48,10 @@ public class MapDestroyer : MonoBehaviour
         //Es werden 4 Coroutinen angelegt und gestartet, welche gleichzeitig in alle Himmelsrichtung (x, -x, z, -z) die Fehler durchlaufen.
         //Die bombPower gibt an wieviele Felder in jede Richtung erreicht und geprueft werden muessen.
         //Die Player ID der Bombe (= ID vom Player der sie gelegt hat) wird durchgereicht, falls diese spaeter noch benoetigt wird.
-        coroutinexPositiv = xPositiv(bombPower, 0.1f, id);
-        coroutinexNegativ = xNegativ(bombPower, 0.1f, id);
-        coroutinezPositiv = zPositiv(bombPower, 0.1f, id);
-        coroutinezNegativ = zNegativ(bombPower, 0.1f, id);
+        coroutinexPositiv = xPositiv(bombPower, 0.05f, id);
+        coroutinexNegativ = xNegativ(bombPower, 0.05f, id);
+        coroutinezPositiv = zPositiv(bombPower, 0.05f, id);
+        coroutinezNegativ = zNegativ(bombPower, 0.05f, id);
 
         StartCoroutine(coroutinexPositiv);
         StartCoroutine(coroutinexNegativ);
