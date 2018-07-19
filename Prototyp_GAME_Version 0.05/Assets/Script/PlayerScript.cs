@@ -26,10 +26,10 @@ public class PlayerScript : MonoBehaviour
     void Start()
     {
         life = 3;
-        avaibleBomb = 10;
+        avaibleBomb = 3;
         speed = 5f;
-        bombTimer = 1.5f;
-        range = 3;
+        bombTimer = 2f;
+        range = 1;
         alive = true;
         remoteBomb = false;
         creatingBomb = false;

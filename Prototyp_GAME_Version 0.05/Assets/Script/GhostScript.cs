@@ -6,12 +6,6 @@ public class GhostScript : MonoBehaviour {
 
     public Vector3 spawnPosition;
     public Vector3 destroyPosition;
-
-	// Use this for initialization
-	void Start ()
-    {
-        
-    }
 	
 	// Update is called once per frame
 	void Update ()

@@ -15,8 +15,20 @@ public class BombScript : MonoBehaviour
     private int bombRotation;
     bool exploded = false;
 
+    public AudioSource audioSource;
+    public AudioClip audioZischen;
+    public AudioClip audioPlopp;
+
+    void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
+
     void Start()
     {
+        audioSource.PlayOneShot(audioPlopp, 0.3f);
+        audioSource.PlayOneShot(audioZischen, 0.9f);
+
         countDown = bombTimer;
         bombPosition = transform.position;
         transform.eulerAngles += new Vector3(0, bombAngle, 0);
