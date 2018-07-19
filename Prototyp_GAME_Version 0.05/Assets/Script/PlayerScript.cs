@@ -171,7 +171,7 @@ public class PlayerScript : MonoBehaviour
         playerList[id].GetComponent<PlayerScript>().setALife(false);
         playerList[id].SetActive(false);
 
-        ghostSpawner.GetComponent<GhostSpawnerScript>().createGhost(transform.position);
+        ghostSpawner.GetComponent<GhostSpawnerScript>().createGhost(transform.position, id);
     }
 
 

@@ -9,6 +9,7 @@ public class GhostSpawnerScript : MonoBehaviour {
     Vector3 destroyPosition;
 
     public AudioSource audioSource;
+    public AudioClip audioScream0;
     public AudioClip audioScream1;
     public AudioClip audioScream2;
     public AudioClip audioScream3;
@@ -20,16 +21,14 @@ public class GhostSpawnerScript : MonoBehaviour {
         audioSource = GetComponent<AudioSource>();
     }
 
-    public void createGhost(Vector3 spawnposition)
+    public void createGhost(Vector3 spawnposition, int id)
     {
-        randomScream = (int)Random.Range(1f, 4f);
-        Debug.Log(randomScream);
-
-        switch(randomScream)
+        switch(id)
         {
+            case 0: audioSource.PlayOneShot(audioScream0, 0.9f); break;
             case 1: audioSource.PlayOneShot(audioScream1, 0.8f); break;
             case 2: audioSource.PlayOneShot(audioScream2, 0.5f); break;
-            case 3: audioSource.PlayOneShot(audioScream3, 0.9f); break;
+            case 3: audioSource.PlayOneShot(audioScream3, 0.5f); break;
             default: break;
         }
 

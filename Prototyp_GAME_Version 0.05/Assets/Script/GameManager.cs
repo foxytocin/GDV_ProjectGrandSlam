@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour {
         player = 1;
         playertmp = player;
         audioSource = GetComponent<AudioSource>();
-        audioSource.PlayOneShot(audioStart);
+        audioSource.PlayOneShot(audioStart, 0.8f);
         audioSource.PlayOneShot(audioBackgoundMusic, 0.15f);
     }
 
