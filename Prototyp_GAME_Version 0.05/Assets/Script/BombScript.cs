@@ -32,7 +32,7 @@ public class BombScript : MonoBehaviour
     void Update()
     {
         //Bombe dreht sich um die eigene y-Achse.
-        transform.eulerAngles += new Vector3(0, 70f * (Time.deltaTime * bombRotation), 0);
+        transform.eulerAngles += new Vector3(0, 80f * (Time.deltaTime * bombRotation), 0);
 
         //coubtDown wird runtergezaehlt
         countDown -= Time.deltaTime;

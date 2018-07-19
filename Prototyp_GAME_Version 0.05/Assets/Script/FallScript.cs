@@ -11,7 +11,7 @@ public class FallScript : MonoBehaviour {
 
     private void Start()
     {
-        randomDelay = Random.Range(0.4f, 3f) / 10f;
+        randomDelay = Random.Range(0.5f, 3f) / 10f;
         fallDelay = Random.Range(4f, 31f) / 10f;
     }
 
@@ -27,7 +27,7 @@ public class FallScript : MonoBehaviour {
 
         if(falling) {
             gravity += Time.deltaTime;
-            transform.Translate(0, -((gravity * gravity * Time.deltaTime) + randomDelay), 0);
+            transform.Translate(0, -((gravity * gravity) + randomDelay), 0);
         }
 
         if(transform.position.y < - 30f) {
