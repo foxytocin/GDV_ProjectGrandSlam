@@ -50,6 +50,20 @@ public static class InputManager
 
         return false;
     }
+    public static bool OneR1Button()
+    {
+        if (Input.GetButtonDown("One_R1_Button"))
+            return true;
+
+        return false;
+    }
+    public static bool OneL1Button()
+    {
+        if (Input.GetButtonDown("One_L1_Button"))
+            return true;
+
+        return false;
+    }
 
 
     //player_Two
@@ -96,6 +110,20 @@ public static class InputManager
     public static bool TwoStartButton()
     {
         if (Input.GetButtonDown("Two_Start_Button"))
+            return true;
+
+        return false;
+    }
+    public static bool TwoR1Button()
+    {
+        if (Input.GetButtonDown("Two_R1_Button"))
+            return true;
+
+        return false;
+    }
+    public static bool TwoL1Button()
+    {
+        if (Input.GetButtonDown("Two_L1_Button"))
             return true;
 
         return false;
@@ -151,6 +179,20 @@ public static class InputManager
 
         return false;
     }
+    public static bool ThreeR1Button()
+    {
+        if (Input.GetButtonDown("Three_R1_Button"))
+            return true;
+
+        return false;
+    }
+    public static bool ThreeL1Button()
+    {
+        if (Input.GetButtonDown("Three_L1_Button"))
+            return true;
+
+        return false;
+    }
 
 
     //Player_Four
@@ -197,6 +239,20 @@ public static class InputManager
     public static bool FourStartButton()
     {
         if (Input.GetButtonDown("Four_Start_Button"))
+            return true;
+
+        return false;
+    }
+    public static bool FourR1Button()
+    {
+        if (Input.GetButtonDown("Four_R1_Button"))
+            return true;
+
+        return false;
+    }
+    public static bool FourL1Button()
+    {
+        if (Input.GetButtonDown("Four_L1_Button"))
             return true;
 
         return false;
