@@ -6,11 +6,14 @@ public class CameraMovement : MonoBehaviour {
 
     private CameraScroller cameraScroller;
     public List<GameObject> livingPlayers;
+    public Vector3[] positions;
     private PlayerSpawner playerSpawner;
+    public int numPlayers;
     public Vector3 centerPoint;
 
     private void Start()
     {
+        positions = new Vector3[4];
         cameraScroller = GameObject.Find("CameraScroller").GetComponent<CameraScroller>();
         playerSpawner = GameObject.Find("PlayerSpawner").GetComponent<PlayerSpawner>();
     }
@@ -18,16 +21,29 @@ public class CameraMovement : MonoBehaviour {
     void LateUpdate()
     {
         livingPlayers = playerSpawner.playerList;
+        int i = 0;
         foreach (GameObject player in livingPlayers)
         {
+            if(player.transform.position.y == 0.45f)
+            {
+                positions[i] = player.transform.position;
+                i++;
+            }
+            
+            /*
             if(player.GetComponent<PlayerScript>().getALife() == false)
             {
                 livingPlayers.Remove(player);
                 break;
             }
+            */
         }
+        numPlayers = i; 
         //Debug.Log(livingPlayers.Count);
         centerPoint = CalcCenterPoint();
+        //Debug.Log(centerPoint);
+        Debug.Log(positions[0] + "" + positions[1] + "" + positions[2]);
+
 
         Vector3 local = transform.InverseTransformPoint(centerPoint);
         //transform.localPosition = new Vector3(centerPoint.x, 0, Mathf.Clamp(local.z / 2f, -4f, +4f));
@@ -45,9 +61,83 @@ public class CameraMovement : MonoBehaviour {
         transform.localPosition = Vector3.Lerp(transform.localPosition, new Vector3(centerPoint.x, 0f, z), 4f * Time.deltaTime);
     }
 
+    public void setPlayerPosition(int i, Vector3 pos)
+    {
+        positions[i] = pos;
+    }
+
     public Vector3 CalcCenterPoint()
     {
-        int numPlayers = livingPlayers.Count;
+        //int numPlayers = livingPlayers.Count;
+        Vector3 center = Vector3.zero;
+
+        if (numPlayers == 1)
+        {
+            return positions[0];
+        }
+        else if (numPlayers == 2)
+        {
+            center = positions[1] - positions[0];
+            return positions[0] + 0.5f * center;
+
+        }
+        else if(numPlayers == 3)
+        {
+            //Min und Max Values
+            List<float> xPos = new List<float>();
+            List<float> zPos = new List<float>();
+
+            foreach (Vector3 player in positions)
+            {
+                if(player.y == 0.45f)
+                {
+                    xPos.Add(player.x);
+                    zPos.Add(player.z);
+                }
+            }
+
+            float maxX = Mathf.Max(xPos.ToArray());
+            float maxZ = Mathf.Max(zPos.ToArray());
+            float minX = Mathf.Min(xPos.ToArray());
+            float minZ = Mathf.Min(zPos.ToArray());
+
+            Vector3 minPos = new Vector3(minX, 0, minZ);
+            Vector3 maxPos = new Vector3(maxX, 0, maxZ);
+
+            center = (minPos + maxPos) * 0.5f;
+            return center;
+        }
+        else
+        {
+            //Min und Max Values
+            List<float> xPos = new List<float>();
+            List<float> zPos = new List<float>();
+
+            foreach (Vector3 player in positions)
+            {
+                if(player.y == 0.45f)
+                {
+                    xPos.Add(player.x);
+                    zPos.Add(player.z);
+                }
+            }
+
+            float maxX = Mathf.Max(xPos.ToArray());
+            float maxZ = Mathf.Max(zPos.ToArray());
+            float minX = Mathf.Min(xPos.ToArray());
+            float minZ = Mathf.Min(zPos.ToArray());
+
+            Vector3 minPos = new Vector3(minX, 0, minZ);
+            Vector3 maxPos = new Vector3(maxX, 0, maxZ);
+
+            center = (minPos + maxPos) * 0.5f;
+            return center;
+        }
+    }
+
+    public Vector3 CalcCenterPointOld()
+    {
+        //int numPlayers = livingPlayers.Count;
         Vector3 center = Vector3.zero;
         
         if (numPlayers == 1)
