@@ -26,7 +26,7 @@ public class BombScript : MonoBehaviour
 
     void Start()
     {
-        audioSource.PlayOneShot(audioPlopp, 0.3f);
+        audioSource.PlayOneShot(audioPlopp, 1f);
         audioSource.PlayOneShot(audioZischen, 0.9f);
 
         countDown = bombTimer;

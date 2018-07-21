@@ -230,7 +230,7 @@ MonoBehaviour:
   countDown: 0
   audioSource: {fileID: 82107526330366666}
   audioZischen: {fileID: 8300000, guid: f079e9e70cf3d4db8a5033d147a22166, type: 3}
-  audioPlopp: {fileID: 8300000, guid: 2f9fef32f6eff49bb9ef1e5766a6081b, type: 3}
+  audioPlopp: {fileID: 8300000, guid: 64d9524191c8a4fefa0c149811dffe01, type: 3}
 --- !u!198 &198296220029790472
 ParticleSystem:
   m_ObjectHideFlags: 1

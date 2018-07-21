@@ -13,7 +13,7 @@ public class BombSpawner : MonoBehaviour
         //Position der Bombe = Position des Spielers. Damit die Bombe direkt in die Mitte einer Zelle snappt, werden die x- und z-Achsen gerundet.
         bombPosition = position;
         bombPosition.x = Mathf.RoundToInt(bombPosition.x);
-        bombPosition.y -= 0.1f;
+        //bombPosition.y -= 0.1f;
         bombPosition.z = Mathf.RoundToInt(bombPosition.z);
 
         PlayerScript player = PlayerSpawner.playerList[id].gameObject.GetComponent<PlayerScript>();
