@@ -13,7 +13,7 @@ public class FallScript : MonoBehaviour {
     {
         randomDelay = Random.Range(0.5f, 3f) / 10f;
         fallDelay = Random.Range(4f, 31f) / 10f;
-        rotationY = Random.Range(-1f, 1f);
+        rotationY = Random.Range(-4f, 4f);
     }
 
     // Update is called once per frame
@@ -35,7 +35,7 @@ public class FallScript : MonoBehaviour {
         if(falling) {
             gravity += Time.deltaTime;
             transform.Translate(0, -((gravity * gravity) + randomDelay), 0);
-            transform.localEulerAngles += new Vector3(0, rotationY + gravity, 0);
+            transform.localEulerAngles += new Vector3(0, rotationY * gravity, 0);
         }
 
         if(transform.position.y < - 50f) {
