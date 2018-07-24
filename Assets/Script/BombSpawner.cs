@@ -23,7 +23,7 @@ public class BombSpawner : MonoBehaviour
         {
             player.setAvaibleBomb(-1);
 
-            GameObject bombeInstanz = Instantiate(Bomb_Prefab, bombPosition, Quaternion.identity);
+            GameObject bombeInstanz = Instantiate(Bomb_Prefab, bombPosition, Quaternion.identity, transform);
             BombScript thisBombeScript = bombeInstanz.GetComponent<BombScript>();
 
             //Uebertraegt die PlayerStats auf die gelegte Bombe, damit sie ihr individuelles Verhalten bekommt.

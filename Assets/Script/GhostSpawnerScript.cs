@@ -32,7 +32,7 @@ public class GhostSpawnerScript : MonoBehaviour {
             default: break;
         }
 
-        ghost = Instantiate(Ghost_Prefab, spawnposition, Quaternion.identity);
+        ghost = Instantiate(Ghost_Prefab, spawnposition, Quaternion.identity, transform);
 
         destroyPosition = spawnposition;
         destroyPosition.y += 3;

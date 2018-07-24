@@ -245,10 +245,10 @@ public class LevelGenerator : MonoBehaviour
     //Erzeugt eine Bodenplatte und zufällig eine Kiste
     void createGang(Vector3 pos, int CameraPosition) {
         
-        SecondaryGameObjects1[(int)pos.x, (int)pos.z] = Instantiate(BodenPrefab, pos - new Vector3(0, 0.1f, 0), Quaternion.identity);
+        SecondaryGameObjects1[(int)pos.x, (int)pos.z] = Instantiate(BodenPrefab, pos - new Vector3(0, 0.1f, 0), Quaternion.identity, transform);
 
         if(((int)Random.Range(0f, 21f)) % KistenMenge == 0 && CameraPosition > 11 && GenerateKisten) {
-            GameObject Kiste = Instantiate(KistePrefab, pos + new Vector3(0f, 0.5f, 0f), Quaternion.Euler(0, rotation, 0));
+            GameObject Kiste = Instantiate(KistePrefab, pos + new Vector3(0f, 0.5f, 0f), Quaternion.Euler(0, rotation, 0), transform);
             Kiste.tag = "Kiste";
             rotation += 90;
 
@@ -268,8 +268,8 @@ public class LevelGenerator : MonoBehaviour
         if(RandomValue == 0) {
             
             //Macht einen Turm und deaktiviert das ein Bogen erzeugt werden kann
-            GameObject Wand = Instantiate(WandPrefab, pos, Quaternion.identity);
-            SecondaryGameObjects1[(int)pos.x, (int)pos.z] = Instantiate(WandPrefab, pos + new Vector3(0, 1, 0), Quaternion.identity);
+            GameObject Wand = Instantiate(WandPrefab, pos, Quaternion.identity, transform);
+            SecondaryGameObjects1[(int)pos.x, (int)pos.z] = Instantiate(WandPrefab, pos + new Vector3(0, 1, 0), Quaternion.identity, transform);
             Wand.tag = "Wand";
             makeBogen = false;
 
@@ -277,7 +277,7 @@ public class LevelGenerator : MonoBehaviour
 
         //Mach ein normales Stück Wand (ein Cube)
         } else {
-            GameObject Wand = Instantiate(WandPrefab, pos, Quaternion.identity);
+            GameObject Wand = Instantiate(WandPrefab, pos, Quaternion.identity, transform);
             Wand.tag = "Wand";
             rotation += 90;
 
@@ -293,19 +293,19 @@ public class LevelGenerator : MonoBehaviour
             (levelSectionData[zPos][xPos + 1] != levelWand) &&
             (levelSectionData[zPos + 1][xPos] != levelWand))
         {
-            SecondaryGameObjects1[(int)pos.x, (int)pos.z] = Instantiate(WandPrefab, pos + new Vector3(0, 1, 0), Quaternion.identity);
-            SecondaryGameObjects2[(int)pos.x, (int)pos.z] = Instantiate(WandPrefab, pos + new Vector3(0, 2, 0), Quaternion.identity);
-            SecondaryGameObjects3[(int)pos.x, (int)pos.z] = Instantiate(WandPrefab, pos + ((RandomValue == 20) ? new Vector3(1, 2, 0) : new Vector3(0, 2, 1)), Quaternion.identity);
-            SecondaryGameObjects2[(int)pos.x + 1, (int)pos.z] = Instantiate(WandPrefab, pos + ((RandomValue == 20) ? new Vector3(2, 2, 0) : new Vector3(0, 2, 2)), Quaternion.identity);
-            SecondaryGameObjects3[(int)pos.x + 1, (int)pos.z] = Instantiate(WandPrefab, pos + ((RandomValue == 20) ? new Vector3(2, 1, 0) : new Vector3(0, 1, 2)), Quaternion.identity);
+            SecondaryGameObjects1[(int)pos.x, (int)pos.z] = Instantiate(WandPrefab, pos + new Vector3(0, 1, 0), Quaternion.identity, transform);
+            SecondaryGameObjects2[(int)pos.x, (int)pos.z] = Instantiate(WandPrefab, pos + new Vector3(0, 2, 0), Quaternion.identity, transform);
+            SecondaryGameObjects3[(int)pos.x, (int)pos.z] = Instantiate(WandPrefab, pos + ((RandomValue == 20) ? new Vector3(1, 2, 0) : new Vector3(0, 2, 1)), Quaternion.identity, transform);
+            SecondaryGameObjects2[(int)pos.x + 1, (int)pos.z] = Instantiate(WandPrefab, pos + ((RandomValue == 20) ? new Vector3(2, 2, 0) : new Vector3(0, 2, 2)), Quaternion.identity, transform);
+            SecondaryGameObjects3[(int)pos.x + 1, (int)pos.z] = Instantiate(WandPrefab, pos + ((RandomValue == 20) ? new Vector3(2, 1, 0) : new Vector3(0, 1, 2)), Quaternion.identity, transform);
         }
     }
 
     //Erzeugt eine Kiste und Boden unter ihr
     void createKiste(Vector3 pos) {
         
-        SecondaryGameObjects1[(int)pos.x, (int)pos.z] = Instantiate(BodenPrefab, pos - new Vector3(0, 0.1f, 0), Quaternion.identity);
-        GameObject Kiste = Instantiate(KistePrefab, pos + new Vector3(0f, 0.5f, 0f), Quaternion.Euler(0, rotation, 0));
+        SecondaryGameObjects1[(int)pos.x, (int)pos.z] = Instantiate(BodenPrefab, pos - new Vector3(0, 0.1f, 0), Quaternion.identity, transform);
+        GameObject Kiste = Instantiate(KistePrefab, pos + new Vector3(0f, 0.5f, 0f), Quaternion.Euler(0, rotation, 0), transform);
         Kiste.tag = "Kiste";
         rotation += 90;
 

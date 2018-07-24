@@ -41,9 +41,9 @@ public class MapDestroyer : MonoBehaviour
         PlayerSpawner.playerList[id].GetComponent<PlayerScript>().setAvaibleBomb(1);
 
         //Explosions-Animation an der Stelle der Bombe wird abgespielt.
-        Instantiate(ExplosionPrefab, explosionPosition, Quaternion.identity);
+        Instantiate(ExplosionPrefab, explosionPosition, Quaternion.identity, transform);
         audioSource.PlayOneShot(audioClip);
-        levelGenerator.AllGameObjects[(int)explosionPosition.x, (int)explosionPosition.z] = Instantiate(KillFieldPrefab, new Vector3(explosionPosition.x, 0.1f, explosionPosition.z), Quaternion.Euler(90f, 0, 0));
+        levelGenerator.AllGameObjects[(int)explosionPosition.x, (int)explosionPosition.z] = Instantiate(KillFieldPrefab, new Vector3(explosionPosition.x, 0.1f, explosionPosition.z), Quaternion.Euler(90f, 0, 0), transform);
 
         //Es werden 4 Coroutinen angelegt und gestartet, welche gleichzeitig in alle Himmelsrichtung (x, -x, z, -z) die Fehler durchlaufen.
         //Die bombPower gibt an wieviele Felder in jede Richtung erreicht und geprueft werden muessen.
@@ -121,8 +121,8 @@ public class MapDestroyer : MonoBehaviour
 
         if (thisGameObject == null)
         {
-            Instantiate(ExplosionPrefab, new Vector3(x, 0.5f, z), Quaternion.identity);
-            levelGenerator.AllGameObjects[x, z] = Instantiate(KillFieldPrefab, new Vector3(x, 0.1f, z), Quaternion.Euler(90f, 0, 0));
+            Instantiate(ExplosionPrefab, new Vector3(x, 0.5f, z), Quaternion.identity, transform);
+            levelGenerator.AllGameObjects[x, z] = Instantiate(KillFieldPrefab, new Vector3(x, 0.1f, z), Quaternion.Euler(90f, 0, 0), transform);
             return true;
         }
         else
@@ -139,25 +139,25 @@ public class MapDestroyer : MonoBehaviour
                     return false;
 
                 case "Kiste":
-                    Instantiate(ExplosionPrefab, new Vector3(x, 0.5f, z), Quaternion.identity);
+                    Instantiate(ExplosionPrefab, new Vector3(x, 0.5f, z), Quaternion.identity, transform);
                     Destroy(thisGameObject);
-                    levelGenerator.AllGameObjects[x, z] = Instantiate(KillFieldPrefab, new Vector3(x, 0.1f, z), Quaternion.Euler(90f, 0, 0));
+                    levelGenerator.AllGameObjects[x, z] = Instantiate(KillFieldPrefab, new Vector3(x, 0.1f, z), Quaternion.Euler(90f, 0, 0), transform);
 
                     //Ersetzt die Kiste durch Kiste_destroyed Prefab
-                    Instantiate(KistenPartsPrefab, new Vector3(x, 0.5f, z), Quaternion.identity);
+                    Instantiate(KistenPartsPrefab, new Vector3(x, 0.5f, z), Quaternion.identity, transform);
                     return false;
 
                 case "Item":
-                    Instantiate(ExplosionPrefab, new Vector3(x, 0.5f, z), Quaternion.identity);
+                    Instantiate(ExplosionPrefab, new Vector3(x, 0.5f, z), Quaternion.identity, transform);
                     Destroy(thisGameObject);
-                    levelGenerator.AllGameObjects[x, z] = Instantiate(KillFieldPrefab, new Vector3(x, 0.1f, z), Quaternion.Euler(90f, 0, 0));
+                    levelGenerator.AllGameObjects[x, z] = Instantiate(KillFieldPrefab, new Vector3(x, 0.1f, z), Quaternion.Euler(90f, 0, 0), transform);
                     return true;
 
                 case "Player":
-                    Instantiate(ExplosionPrefab, new Vector3(x, 0.5f, z), Quaternion.identity);
+                    Instantiate(ExplosionPrefab, new Vector3(x, 0.5f, z), Quaternion.identity, transform);
                     thisGameObject.GetComponent<PlayerScript>().dead(thisGameObject.GetComponent<PlayerScript>().getPlayerID());
                     levelGenerator.AllGameObjects[x, z] = null;
-                    levelGenerator.AllGameObjects[x, z] = Instantiate(KillFieldPrefab, new Vector3(x, 0.1f, z), Quaternion.Euler(90f, 0, 0));
+                    levelGenerator.AllGameObjects[x, z] = Instantiate(KillFieldPrefab, new Vector3(x, 0.1f, z), Quaternion.Euler(90f, 0, 0), transform);
                     return true;
 
                 default:
