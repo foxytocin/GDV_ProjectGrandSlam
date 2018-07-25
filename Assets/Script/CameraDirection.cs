@@ -30,10 +30,11 @@ public class CameraDirection : MonoBehaviour {
         depthSettings = pp.depthOfField.settings;
         depthSettings.focalLength = 220;
         depthSettings.aperture = 8.4f;
+
+        StartCoroutine(cameraDirection());
     }
 
-    // Update is called once per frame
-    void LateUpdate()
+    IEnumerator cameraDirection()
     {
         // Working but trying to smooth it        
         target = cm.centerPoint;
@@ -54,6 +55,8 @@ public class CameraDirection : MonoBehaviour {
         transform.LookAt(target.transform);
         */
         setFocusPoint();
+
+        yield return new WaitForEndOfFrame();
     }
 
     void setFocusPoint()

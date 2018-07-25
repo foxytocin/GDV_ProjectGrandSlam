@@ -13,8 +13,7 @@ public class BombScript : MonoBehaviour
     private Vector3 bombPosition;
     private float bombAngle;
     private int bombRotation;
-    bool exploded = false;
-
+    
     public AudioSource audioSource;
     public AudioClip audioZischen;
     public AudioClip audioPlopp;
@@ -38,27 +37,25 @@ public class BombScript : MonoBehaviour
         if(remoteBomb) {
             GetComponent<Renderer>().material.color = playerColor;
         }
+        
+        StartCoroutine(bombAnimation());
     }
 
-    //Update is called once per frame
-    void Update()
+    IEnumerator bombAnimation()
     {
-        //Bombe dreht sich um die eigene y-Achse.
-        transform.eulerAngles += new Vector3(0, 80f * (Time.deltaTime * bombRotation), 0);
-
-        //coubtDown wird runtergezaehlt
-        countDown -= Time.deltaTime;
-
-        //Wenn der bombTimer erreicht wird und es keine remoteBomb ist, wird sie gezuendet.
-        //Wenn es eine remoteBombe ist, bleibt diese aktiv bis der Player sie selber zündet.
-        if (countDown <= 0 && !remoteBomb && !exploded)
+        while (countDown >= 0 || remoteBomb)
         {
-            exploded = true;
-            explode();
+            transform.eulerAngles += new Vector3(0, 80f * (Time.deltaTime * bombRotation), 0);
+            countDown -= Time.deltaTime;
+            yield return new WaitForEndOfFrame();
         }
+
+         explode();
     }
 
-    void explode() {
+    public void explode() {
+
+        StopCoroutine(this.bombAnimation());
 
         //Explode() im MapDestroyer wird aufgerufen um von der bombPosition und mit deren bombPower zu pruefen welche weiteren Felder um die Bombe herum explodieren muessen.
         MapDestroyer mapDestroyer = FindObjectOfType<MapDestroyer>();

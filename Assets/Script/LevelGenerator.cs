@@ -55,7 +55,7 @@ public class LevelGenerator : MonoBehaviour
         createStartBasis(tiefeLevelStartBasis);
     }
 
-    private void LateUpdate()
+    private void Update()
     {
         if(Input.GetKeyDown("5")) {
             GenerateKisten = true;
@@ -183,8 +183,7 @@ public class LevelGenerator : MonoBehaviour
                             break;
 
                         case "Bombe":
-                            thisGameObject.GetComponent<BombScript>().remoteBomb = false;
-                            thisGameObject.GetComponent<BombScript>().bombTimer = 0;
+                            thisGameObject.GetComponent<BombScript>().explode();
                             break;
 
                         default:

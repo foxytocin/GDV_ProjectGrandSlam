@@ -30,7 +30,6 @@ public class RemoteBomb : MonoBehaviour {
                     yield return new WaitForSeconds(bombScript.bombPower * 0.06f + 0.06f);
                 }
             }
-
         }
     }
 }

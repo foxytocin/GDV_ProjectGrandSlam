@@ -131,8 +131,7 @@ public class MapDestroyer : MonoBehaviour
             switch (thisGameObject.tag)
             {
                 case "Bombe":
-                    thisGameObject.GetComponent<BombScript>().countDown = 0f;
-                    thisGameObject.GetComponent<BombScript>().remoteBomb = false;
+                    thisGameObject.GetComponent<BombScript>().explode();
                     return false;
 
                 case "Wand":
