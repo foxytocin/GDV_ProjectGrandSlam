@@ -6,7 +6,6 @@ public class FallScript : MonoBehaviour {
     float gravity;
     float randomDelay;
     float fallDelay;
-    bool falling = false;
     bool start = false;
 
     private void Start()
@@ -14,36 +13,30 @@ public class FallScript : MonoBehaviour {
         randomDelay = Random.Range(0.5f, 3f) / 10f;
         fallDelay = Random.Range(4f, 31f) / 10f;
         rotationY = Random.Range(-4f, 4f);
+        gravity = 0;
     }
 
-    // Update is called once per frame
-    void Update () {
-
-        if (start)
+    IEnumerator falling()
+    {
+        while(fallDelay >= 0)
         {
             transform.localEulerAngles += new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f));
-        
             fallDelay -= Time.deltaTime;
-            if (fallDelay <= 0)
-            {
-                start = false;
-                falling = true;
-            }
-
+            yield return new WaitForEndOfFrame();
         }
 
-        if(falling) {
-            gravity += Time.deltaTime;
+        while(transform.position.y > -50f)
+        {
+            gravity += 0.01f;
             transform.Translate(0, -((gravity * gravity) + randomDelay), 0);
             transform.localEulerAngles += new Vector3(0, rotationY * gravity, 0);
+            yield return new WaitForEndOfFrame();
         }
 
-        if(transform.position.y < - 50f) {
-            Destroy(gameObject);
-        }
-	}
+        Destroy(gameObject);
+    }
 
     public void fallDown() {
-        start = true;
+        StartCoroutine(falling());
     }
 }
