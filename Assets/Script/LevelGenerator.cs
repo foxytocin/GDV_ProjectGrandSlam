@@ -183,7 +183,8 @@ public class LevelGenerator : MonoBehaviour
                             break;
 
                         case "Bombe":
-                            thisGameObject.GetComponent<BombScript>().explode();
+                            thisGameObject.GetComponent<BombScript>().remoteBomb = false;
+                            thisGameObject.GetComponent<BombScript>().countDown = 0f;
                             break;
 
                         default:

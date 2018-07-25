@@ -53,9 +53,7 @@ public class BombScript : MonoBehaviour
          explode();
     }
 
-    public void explode() {
-
-        StopCoroutine(this.bombAnimation());
+    void explode() {
 
         //Explode() im MapDestroyer wird aufgerufen um von der bombPosition und mit deren bombPower zu pruefen welche weiteren Felder um die Bombe herum explodieren muessen.
         MapDestroyer mapDestroyer = FindObjectOfType<MapDestroyer>();
