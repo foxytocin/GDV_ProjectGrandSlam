@@ -27,7 +27,7 @@ public class FallScript : MonoBehaviour {
 
         while(transform.position.y > -50f)
         {
-            gravity += 0.01f;
+            gravity += Time.deltaTime;
             transform.Translate(0, -((gravity * gravity) + randomDelay), 0);
             transform.localEulerAngles += new Vector3(0, rotationY * gravity, 0);
             yield return new WaitForEndOfFrame();

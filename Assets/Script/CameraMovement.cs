@@ -42,7 +42,7 @@ public class CameraMovement : MonoBehaviour {
         //Debug.Log(livingPlayers.Count);
         centerPoint = CalcCenterPoint();
         //Debug.Log(centerPoint);
-        Debug.Log(positions[0] + "" + positions[1] + "" + positions[2]);
+        //Debug.Log(positions[0] + "" + positions[1] + "" + positions[2]);
 
 
         Vector3 local = transform.InverseTransformPoint(centerPoint);

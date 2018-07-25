@@ -30,11 +30,10 @@ public class CameraDirection : MonoBehaviour {
         depthSettings = pp.depthOfField.settings;
         depthSettings.focalLength = 220;
         depthSettings.aperture = 8.4f;
-
-        StartCoroutine(cameraDirection());
     }
 
-    IEnumerator cameraDirection()
+    // Update is called once per frame
+    void LateUpdate()
     {
         // Working but trying to smooth it        
         target = cm.centerPoint;
@@ -47,7 +46,6 @@ public class CameraDirection : MonoBehaviour {
         // Smooth Try
         /*
         //target = cm.centerPoint;
-
         float yAngle = Mathf.SmoothDampAngle(transform.eulerAngles.y, target.transform.position.y, ref yVelocity, smooth);
         Vector3 position = target.transform.position;
         //position += Quaternion.Euler(0, yAngle, 0) * new Vector3(0, 0, -distance);
@@ -55,8 +53,6 @@ public class CameraDirection : MonoBehaviour {
         transform.LookAt(target.transform);
         */
         setFocusPoint();
-
-        yield return new WaitForEndOfFrame();
     }
 
     void setFocusPoint()
