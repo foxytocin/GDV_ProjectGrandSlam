@@ -1039,7 +1039,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 1620339723}
-  audioBackgoundMusic: {fileID: 8300000, guid: 62a53b759f3a14266ae56181baa7079c, type: 3}
+  audioBackgoundMusic: {fileID: 0}
   audioStart: {fileID: 8300000, guid: 054e1619409914dae9b53e3e236cf741, type: 3}
   audioTwoPlayer: {fileID: 8300000, guid: 5e265ebef7a9e4a4c9f091ebb643ba32, type: 3}
   audioThreePlayer: {fileID: 8300000, guid: a89088d5e365b400c92313799fc864f8, type: 3}
@@ -1054,11 +1054,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 0
-  m_Volume: 1
+  m_audioClip: {fileID: 8300000, guid: 7a6c0d174aa324df0b17a46263fce4c0, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0.5
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
