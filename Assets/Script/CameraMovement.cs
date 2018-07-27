@@ -196,4 +196,14 @@ public class CameraMovement : MonoBehaviour {
             return center;
         }
     }
+
+
+    // Prototyp der Position übergaben 
+    // Joshua bitte dann noch fertig schreiben!
+    // DU bekommst ein Vector und eine ID von mir. 
+    // ID ist dafue das du den Vector an die richtige stelle im Array oder der Liste Speichern kannst
+    public void playerPosition(Vector3 pos, int iD)
+    {
+
+    }
 }
