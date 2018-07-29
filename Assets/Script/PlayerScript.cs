@@ -23,6 +23,7 @@ public class PlayerScript : MonoBehaviour
     public GhostSpawnerScript ghostSpawner;
     public CameraMovement camera;
     bool RichtungsAenderung; //true == z; false == x 
+    bool fall = false;
 
 
     void Start()
@@ -146,7 +147,7 @@ public class PlayerScript : MonoBehaviour
         }
 
         //Objekt zum target Bewegung
-        if (transform.position.y != -1f)
+        if (transform.position.y > -1f)
         {
             Vector3 tmpVectorPos = transform.position;
             //Debug.Log("nicht Tot");
@@ -170,10 +171,23 @@ public class PlayerScript : MonoBehaviour
 
                     camera.playerPosition(transform.position, playerID);
             }
-            else if (transform.position.y != -1f && !alive)
+            else if (transform.position.y < 0.45f && !alive)
             {
                 transform.position.Set(transform.position.x, -1, transform.position.z);
                 camera.playerPosition(transform.position, playerID);
+            }
+        }
+        
+
+        if(fall)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
+
+            if (transform.position.y == -50)
+            {
+                setLife(-1);
+                setALife(false);
+                this.gameObject.SetActive(false);
             }
         }
     }
@@ -331,16 +345,12 @@ public class PlayerScript : MonoBehaviour
                 {
                     myTime = 0f;
                     return true;
-
                 }
                 else
                 {
                     if (levelGenerator.AllGameObjects[(int)(target.x + tmp.x), (int)(target.z + tmp.z)].gameObject.CompareTag("FreeFall"))
                     {
-                        setLife(-1);
-                        setALife(false);
-                        this.gameObject.SetActive(false);
-
+                        playerFall();
                     }
 
                     if (levelGenerator.AllGameObjects[(int)(target.x + tmp.x), (int)(target.z + tmp.z)].gameObject.CompareTag("KillField"))
@@ -354,4 +364,13 @@ public class PlayerScript : MonoBehaviour
         }
         return false;
     }
+    
+     
+    void playerFall()
+    {
+        target.y = -50f;
+        fall = true;
+        alive = false;
+    }
+                    
 }
