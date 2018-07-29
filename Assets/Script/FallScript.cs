@@ -6,10 +6,12 @@ public class FallScript : MonoBehaviour {
     float gravity;
     float randomDelay;
     float fallDelay;
-    bool start = false;
+    public GameObject FreeFallPrefab;
+    public LevelGenerator LevelGenerator;
 
     private void Start()
     {
+        LevelGenerator = FindObjectOfType<LevelGenerator>();
         randomDelay = Random.Range(0.5f, 3f) / 10f;
         fallDelay = Random.Range(4f, 31f) / 10f;
         rotationY = Random.Range(-4f, 4f);
@@ -24,6 +26,8 @@ public class FallScript : MonoBehaviour {
             fallDelay -= Time.deltaTime;
             yield return new WaitForEndOfFrame();
         }
+
+        LevelGenerator.AllGameObjects[(int)transform.position.x, (int)transform.position.z] = Instantiate(FreeFallPrefab, transform.position, Quaternion.identity);
 
         while(transform.position.y > -50f)
         {

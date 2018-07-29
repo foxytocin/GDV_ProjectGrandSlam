@@ -149,7 +149,7 @@ public class PlayerScript : MonoBehaviour
         if (transform.position.y != -1f)
         {
             Vector3 tmpVectorPos = transform.position;
-            Debug.Log("nicht Tot");
+            //Debug.Log("nicht Tot");
             if (transform.position != (transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime)) && alive)
             {
                 if (tmpVectorPos.x != transform.position.x && RichtungsAenderung)
@@ -164,9 +164,9 @@ public class PlayerScript : MonoBehaviour
                 }
 
                 if (tmpVectorPos.z < transform.position.z || tmpVectorPos.x < transform.position.x)
-                    transform.Rotate(5, 0, 0);
+                    transform.Rotate(7, 0, 0);
                 else if (tmpVectorPos.z > transform.position.z || tmpVectorPos.x > transform.position.x)
-                    transform.Rotate(-5, 0, 0);
+                    transform.Rotate(-7, 0, 0);
 
                     camera.playerPosition(transform.position, playerID);
             }
