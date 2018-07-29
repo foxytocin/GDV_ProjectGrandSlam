@@ -23,7 +23,9 @@ public class PlayerScript : MonoBehaviour
     public GhostSpawnerScript ghostSpawner;
     public CameraMovement camera;
     bool RichtungsAenderung; //true == z; false == x 
-    public bool fall = false;
+    bool fall = false;
+    float gravity;
+
 
 
     void Start()
@@ -38,6 +40,7 @@ public class PlayerScript : MonoBehaviour
         creatingBomb = false;
         target = transform.position;
         myTime = 0f;
+        gravity = 0f;
         levelGenerator.AllGameObjects[(int)transform.position.x, (int)transform.position.z] = playerList[playerID];
         camera.playerPosition(transform.position, playerID);
         transform.Rotate(0, 90, 0, Space.World);
@@ -181,7 +184,8 @@ public class PlayerScript : MonoBehaviour
 
         if(fall)
         {
-            transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
+            gravity += Time.deltaTime;
+            transform.position = Vector3.MoveTowards(transform.position, target, gravity * gravity);
 
             if (transform.position.y == -50)
             {

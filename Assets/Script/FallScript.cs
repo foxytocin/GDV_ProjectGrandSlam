@@ -33,9 +33,7 @@ public class FallScript : MonoBehaviour {
             }
         }
         
-
         LevelGenerator.AllGameObjects[(int)transform.position.x, (int)transform.position.z] = Instantiate(FreeFallPrefab, transform.position, Quaternion.identity);
-
 
         while(transform.position.y > -50f)
         {
