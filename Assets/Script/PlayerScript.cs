@@ -189,6 +189,7 @@ public class PlayerScript : MonoBehaviour
 
             if (transform.position.y == -50)
             {
+                gravity = 0f;
                 setLife(-1);
                 setALife(false);
                 this.gameObject.SetActive(false);
