@@ -1217,6 +1217,8 @@ MonoBehaviour:
   playerList: []
   levelGenerator: {fileID: 958779247}
   ghostSpawner: {fileID: 772635015}
+  camera: {fileID: 2023082695}
+  playerOne: {fileID: 2100000, guid: 2704b5aad813e4d36969a28c10315e57, type: 2}
 --- !u!4 &1847533653
 Transform:
   m_ObjectHideFlags: 0
