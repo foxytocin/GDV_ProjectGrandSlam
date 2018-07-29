@@ -11,7 +11,7 @@ public class CameraMovement : MonoBehaviour {
     public int numPlayers;
     public Vector3 centerPoint;
 
-    private void Start()
+    private void Awake()
     {
         positions = new Vector3[4];
         cameraScroller = GameObject.Find("CameraScroller").GetComponent<CameraScroller>();
@@ -20,16 +20,16 @@ public class CameraMovement : MonoBehaviour {
     // Update is called once per frame
     void LateUpdate()
     {
-        livingPlayers = playerSpawner.playerList;
-        int i = 0;
-        foreach (GameObject player in livingPlayers)
-        {
-            if(player.transform.position.y == 0.45f)
-            {
-                positions[i] = player.transform.position;
-                i++;
-            }
-            
+        //livingPlayers = playerSpawner.playerList;
+        //int i = 0;
+        //foreach (GameObject player in livingPlayers)
+        //{
+        //    if(player.transform.position.y == 0.45f)
+        //    {
+        //        positions[i] = player.transform.position;
+        //        i++;
+        //    }
+        //    
             /*
             if(player.GetComponent<PlayerScript>().getALife() == false)
             {
@@ -37,8 +37,8 @@ public class CameraMovement : MonoBehaviour {
                 break;
             }
             */
-        }
-        numPlayers = i; 
+        //}
+        //numPlayers = i; 
         //Debug.Log(livingPlayers.Count);
         centerPoint = CalcCenterPoint();
         //Debug.Log(centerPoint);
@@ -204,6 +204,6 @@ public class CameraMovement : MonoBehaviour {
     // ID ist dafue das du den Vector an die richtige stelle im Array oder der Liste Speichern kannst
     public void playerPosition(Vector3 pos, int iD)
     {
-
+        positions[iD] = pos;
     }
 }

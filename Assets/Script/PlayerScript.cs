@@ -21,6 +21,7 @@ public class PlayerScript : MonoBehaviour
     public List<GameObject> remoteBombList;
     public LevelGenerator levelGenerator;
     public GhostSpawnerScript ghostSpawner;
+    public CameraMovement camera;
 
 
     void Start()
@@ -36,6 +37,7 @@ public class PlayerScript : MonoBehaviour
         target = transform.position;
         myTime = 0f;
         levelGenerator.AllGameObjects[(int)transform.position.x, (int)transform.position.z] = playerList[playerID];
+        camera.playerPosition(transform.position, playerID);
     }
 
     void Update()
@@ -142,7 +144,20 @@ public class PlayerScript : MonoBehaviour
         }
 
         //Objekt zum target Bewegung
-        transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
+        if (transform.position.y != -1f)
+        {
+            Debug.Log("nicht Tot");
+            if (transform.position != (transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime)) && alive)
+            {
+                transform.Rotate(5, 0, 0);
+                camera.playerPosition(transform.position, playerID);
+            }
+            else if (transform.position.y != -1f && !alive)
+            {
+                transform.position.Set(transform.position.x, -1, transform.position.z);
+                camera.playerPosition(transform.position, playerID);
+            }
+        }
     }
 
 

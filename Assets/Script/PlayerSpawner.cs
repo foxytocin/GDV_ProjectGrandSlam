@@ -16,6 +16,9 @@ public class PlayerSpawner : MonoBehaviour
     public GhostSpawnerScript ghostSpawner;
     List<Vector3> spawnList;
     List<Color> playerColorList;
+    public CameraMovement camera;
+
+    public Material playerOne;
 
     void Awake()
     {
@@ -67,7 +70,7 @@ public class PlayerSpawner : MonoBehaviour
             // Der Player bekommt sein Tag
             tmpPlayer.tag = "Player";
             // Der Player bekommt seine einzigartige Farbe
-            tmpPlayer.GetComponent<Renderer>().material.color = playerColorList[i];
+            tmpPlayer.GetComponent<Renderer>().material = playerOne;
 
             // Zwischenspeichern von dem PlayerSript des tmpPlayers, zum bearbeiten
             PlayerScript tmpPlayerScript = tmpPlayer.GetComponent<PlayerScript>();
@@ -79,6 +82,8 @@ public class PlayerSpawner : MonoBehaviour
             tmpPlayerScript.setWorld(levelGenerator);
             // Player bekommt den GhostSpawner Uebergeben, damit beim Tod ein Geist Spawnen kann
             tmpPlayerScript.ghostSpawner = ghostSpawner;
+            // Player bekommt das CameraScript movement 
+            tmpPlayerScript.camera = camera;
 
             // Player wird in die PlayerListe angefuegt
             playerList.Add(tmpPlayer);
