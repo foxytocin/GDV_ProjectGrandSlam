@@ -178,8 +178,6 @@ public class LevelGenerator : MonoBehaviour
                     switch (thisGameObject.tag)
                     {
                         case "Player":
-                            thisGameObject.GetComponent<PlayerScript>().dead();
-                            AllGameObjects[i, CameraPosition] = null;
                             break;
 
                         case "Bombe":

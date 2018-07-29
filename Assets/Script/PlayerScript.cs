@@ -23,7 +23,7 @@ public class PlayerScript : MonoBehaviour
     public GhostSpawnerScript ghostSpawner;
     public CameraMovement camera;
     bool RichtungsAenderung; //true == z; false == x 
-    bool fall = false;
+    public bool fall = false;
 
 
     void Start()
@@ -366,7 +366,7 @@ public class PlayerScript : MonoBehaviour
     }
     
      
-    void playerFall()
+    public void playerFall()
     {
         target.y = -50f;
         fall = true;
