@@ -197,14 +197,14 @@ public class PlayerScript : MonoBehaviour
 
 
     // Tot trifft ein
-    public void dead(int id)
+    public void dead()
     {
         Debug.Log("Player_" + playerID.ToString() + " is Dead");
-        playerList[id].GetComponent<PlayerScript>().setLife(-1);
-        playerList[id].GetComponent<PlayerScript>().setALife(false);
-        playerList[id].SetActive(false);
+        setLife(-1);
+        setALife(false);
+        this.gameObject.SetActive(false);
 
-        ghostSpawner.GetComponent<GhostSpawnerScript>().createGhost(transform.position, id);
+        ghostSpawner.GetComponent<GhostSpawnerScript>().createGhost(transform.position, playerID);
     }
 
 
@@ -332,10 +332,20 @@ public class PlayerScript : MonoBehaviour
                     myTime = 0f;
                     return true;
 
-                } else {
+                }
+                else
+                {
+                    if (levelGenerator.AllGameObjects[(int)(target.x + tmp.x), (int)(target.z + tmp.z)].gameObject.CompareTag("FreeFall"))
+                    {
+                        setLife(-1);
+                        setALife(false);
+                        this.gameObject.SetActive(false);
+
+                    }
+
                     if (levelGenerator.AllGameObjects[(int)(target.x + tmp.x), (int)(target.z + tmp.z)].gameObject.CompareTag("KillField"))
                     {
-                        dead(getPlayerID());
+                        dead();
                     }
                     return false;
                 }

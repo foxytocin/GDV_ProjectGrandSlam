@@ -34,7 +34,7 @@ public class MapDestroyer : MonoBehaviour
         //Sollte dies zutreffen, wird der Spieler getoetet.
         if ((int) PlayerSpawner.playerList[id].gameObject.transform.position.x == (int)explosionPosition.x && (int) PlayerSpawner.playerList[id].gameObject.transform.position.z == (int)explosionPosition.z)
         {
-             PlayerSpawner.playerList[id].GetComponent<PlayerScript>().dead(id);
+             PlayerSpawner.playerList[id].GetComponent<PlayerScript>().dead();
         }
 
         //Die explodierte Bombe wird dem Spieler wieder gutgeschrieben.
@@ -155,7 +155,7 @@ public class MapDestroyer : MonoBehaviour
 
                 case "Player":
                     Instantiate(ExplosionPrefab, new Vector3(x, 0.5f, z), Quaternion.identity, transform);
-                    thisGameObject.GetComponent<PlayerScript>().dead(thisGameObject.GetComponent<PlayerScript>().getPlayerID());
+                    thisGameObject.GetComponent<PlayerScript>().dead();
                     levelGenerator.AllGameObjects[x, z] = null;
                     levelGenerator.AllGameObjects[x, z] = Instantiate(KillFieldPrefab, new Vector3(x, 0.1f, z), Quaternion.Euler(90f, 0, 0), transform);
                     return true;
