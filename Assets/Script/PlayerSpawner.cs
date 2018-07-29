@@ -54,7 +54,7 @@ public class PlayerSpawner : MonoBehaviour
 
         // ColorList enthälten die SpawnFarben der Player 1-4
         playerColorList = new List<Color>();
-        playerColorList.Add(new Color(1, 0, 0));    // Player 1 (Red)
+        playerColorList.Add(new Color(1, 0, 0, 0.5f));    // Player 1 (Red)
         playerColorList.Add(new Color(0, 1, 0));    // Player 2 (Green)
         playerColorList.Add(new Color(0, 0, 1));    // Player 3 (Blue)
         playerColorList.Add(new Color(0, 0, 0));    // Player 4 (Black)
@@ -71,6 +71,7 @@ public class PlayerSpawner : MonoBehaviour
             tmpPlayer.tag = "Player";
             // Der Player bekommt seine einzigartige Farbe
             tmpPlayer.GetComponent<Renderer>().material = playerOne;
+            tmpPlayer.GetComponent<Renderer>().material.color = playerColorList[i];
 
             // Zwischenspeichern von dem PlayerSript des tmpPlayers, zum bearbeiten
             PlayerScript tmpPlayerScript = tmpPlayer.GetComponent<PlayerScript>();

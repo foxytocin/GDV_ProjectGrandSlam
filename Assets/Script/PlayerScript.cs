@@ -22,6 +22,7 @@ public class PlayerScript : MonoBehaviour
     public LevelGenerator levelGenerator;
     public GhostSpawnerScript ghostSpawner;
     public CameraMovement camera;
+    bool RichtungsAenderung; //true == z; false == x 
 
 
     void Start()
@@ -38,6 +39,7 @@ public class PlayerScript : MonoBehaviour
         myTime = 0f;
         levelGenerator.AllGameObjects[(int)transform.position.x, (int)transform.position.z] = playerList[playerID];
         camera.playerPosition(transform.position, playerID);
+        transform.Rotate(0, 90, 0, Space.World);
     }
 
     void Update()
@@ -146,11 +148,27 @@ public class PlayerScript : MonoBehaviour
         //Objekt zum target Bewegung
         if (transform.position.y != -1f)
         {
+            Vector3 tmpVectorPos = transform.position;
             Debug.Log("nicht Tot");
             if (transform.position != (transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime)) && alive)
             {
-                transform.Rotate(5, 0, 0);
-                camera.playerPosition(transform.position, playerID);
+                if (tmpVectorPos.x != transform.position.x && RichtungsAenderung)
+                {
+                    transform.Rotate(0, 90, 0, Space.World);
+                    RichtungsAenderung = false;
+                }
+                else if (tmpVectorPos.z != transform.position.z && !RichtungsAenderung)
+                {
+                    transform.Rotate(0, -90, 0,Space.World);
+                    RichtungsAenderung = true;
+                }
+
+                if (tmpVectorPos.z < transform.position.z || tmpVectorPos.x < transform.position.x)
+                    transform.Rotate(5, 0, 0);
+                else if (tmpVectorPos.z > transform.position.z || tmpVectorPos.x > transform.position.x)
+                    transform.Rotate(-5, 0, 0);
+
+                    camera.playerPosition(transform.position, playerID);
             }
             else if (transform.position.y != -1f && !alive)
             {
