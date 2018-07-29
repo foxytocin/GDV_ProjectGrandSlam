@@ -22,6 +22,11 @@ public class FallScript : MonoBehaviour {
     {
         while(fallDelay >= 0)
         {
+            if(LevelGenerator.AllGameObjects[(int)transform.position.x, (int)transform.position.z] != null) {
+                if(LevelGenerator.AllGameObjects[(int)transform.position.x, (int)transform.position.z].gameObject.CompareTag("Player")) {
+                    LevelGenerator.AllGameObjects[(int)transform.position.x, (int)transform.position.z].gameObject.transform.localEulerAngles += new Vector3(Random.Range(-4f, 4f), Random.Range(-4f, 4f), Random.Range(-4f, 4f));
+                  }
+            }
             transform.localEulerAngles += new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f));
             fallDelay -= Time.deltaTime;
             yield return new WaitForEndOfFrame();
