@@ -23,7 +23,8 @@ public class FallScript : MonoBehaviour {
         while(fallDelay >= 0)
         {
             if(LevelGenerator.AllGameObjects[(int)transform.position.x, (int)transform.position.z] != null) {
-                if(LevelGenerator.AllGameObjects[(int)transform.position.x, (int)transform.position.z].gameObject.CompareTag("Player")) {
+                if(LevelGenerator.AllGameObjects[(int)transform.position.x, (int)transform.position.z].gameObject.CompareTag("Player") ||
+                   LevelGenerator.AllGameObjects[(int)transform.position.x, (int)transform.position.z].gameObject.CompareTag("Bombe")) {
                     LevelGenerator.AllGameObjects[(int)transform.position.x, (int)transform.position.z].gameObject.transform.localEulerAngles += new Vector3(Random.Range(-4f, 4f), Random.Range(-4f, 4f), Random.Range(-4f, 4f));
                   }
             }
@@ -33,6 +34,11 @@ public class FallScript : MonoBehaviour {
         }
 
         if(LevelGenerator.AllGameObjects[(int)transform.position.x, (int)transform.position.z] != null) {
+            if(LevelGenerator.AllGameObjects[(int)transform.position.x, (int)transform.position.z].gameObject.CompareTag("Bombe")) {
+                LevelGenerator.AllGameObjects[(int)transform.position.x, (int)transform.position.z].gameObject.GetComponent<BombScript>().remoteBomb = false;
+                LevelGenerator.AllGameObjects[(int)transform.position.x, (int)transform.position.z].gameObject.GetComponent<BombScript>().countDown = 0f;
+            }
+
             if(LevelGenerator.AllGameObjects[(int)transform.position.x, (int)transform.position.z].gameObject.CompareTag("Player")) {
                 LevelGenerator.AllGameObjects[(int)transform.position.x, (int)transform.position.z].gameObject.GetComponent<PlayerScript>().playerFall();
             }

@@ -117,6 +117,9 @@ public class MapDestroyer : MonoBehaviour
     //So werden Kettenreaktionen unter den Bomben erzeugt.
     bool ExplodeCell(int x, int z, int id)
     {
+        if(x < 0) x = 0;
+        if(z < 0) z = 0;
+
         GameObject thisGameObject = levelGenerator.AllGameObjects[x, z];
 
         if (thisGameObject == null)
@@ -146,6 +149,10 @@ public class MapDestroyer : MonoBehaviour
                     //Ersetzt die Kiste durch Kiste_destroyed Prefab
                     Instantiate(KistenPartsPrefab, new Vector3(x, 0.5f, z), Quaternion.identity, transform);
                     return false;
+
+                case "FreeFall":
+                    Instantiate(ExplosionPrefab, new Vector3(x, 0.5f, z), Quaternion.identity, transform);
+                    return true;
 
                 case "Item":
                     Instantiate(ExplosionPrefab, new Vector3(x, 0.5f, z), Quaternion.identity, transform);
