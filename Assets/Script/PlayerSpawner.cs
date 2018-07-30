@@ -45,9 +45,9 @@ public class PlayerSpawner : MonoBehaviour
 
         //SpawnListe enthaelt die Startpositionen der Player 1-4 
         spawnList.Add(new Vector3(6f, 0.45f, 2f));   // Player 1
-        spawnList.Add(new Vector3(9f, 0.45f, 2f));   // Player 2
-        spawnList.Add(new Vector3(12f, 0.45f, 2f));  // Player 3
-        spawnList.Add(new Vector3(15f, 0.45f, 2f));  // Player 4
+        spawnList.Add(new Vector3(12f, 0.45f, 2f));   // Player 2
+        spawnList.Add(new Vector3(18f, 0.45f, 2f));  // Player 3
+        spawnList.Add(new Vector3(24f, 0.45f, 2f));  // Player 4
 
         // PlayerList wird Initalisiert
         playerList = new List<GameObject>();

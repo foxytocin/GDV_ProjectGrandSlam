@@ -618,15 +618,15 @@ MonoBehaviour:
   KistePrefab: {fileID: 1968458687304108, guid: a742c7a8826264c8fa7d619f4d1ee624,
     type: 2}
   LevelSpeed: 0.5
-  LevelTextdatei0: {fileID: 4900000, guid: 2430e90e2d3db42d7b5789bedb7b1208, type: 3}
-  LevelTextdatei1: {fileID: 4900000, guid: 61be0b2b652ba49d29806dbd98b81ad5, type: 3}
-  LevelTextdatei2: {fileID: 4900000, guid: 2078adf1716044f50a961889d03caa58, type: 3}
-  LevelTextdatei3: {fileID: 4900000, guid: cc16838bf11ab4b0f94955eb6125cf54, type: 3}
-  LevelTextdatei4: {fileID: 4900000, guid: b59342ffe3de94618889bbef04790caa, type: 3}
-  LevelTextdatei5: {fileID: 4900000, guid: dfb9c6b6ef26e4d0db4e004d5a078ae7, type: 3}
-  LevelTextdatei6: {fileID: 4900000, guid: 6be5678e9276042dbb7d660debff261f, type: 3}
-  LevelTextdatei7: {fileID: 4900000, guid: df24ee73838ed4d4ca2cf4f541b32cc9, type: 3}
-  LevelTextdatei8: {fileID: 4900000, guid: f3000d33ae0864024a87e6704f4f0ed0, type: 3}
+  LevelTextdatei0: {fileID: 4900000, guid: aa9ab9f64860a4684814e727a5edf8ed, type: 3}
+  LevelTextdatei1: {fileID: 4900000, guid: e1d3aaea6ffb7475fa3597124ee1c6d2, type: 3}
+  LevelTextdatei2: {fileID: 4900000, guid: e1d3aaea6ffb7475fa3597124ee1c6d2, type: 3}
+  LevelTextdatei3: {fileID: 4900000, guid: e1d3aaea6ffb7475fa3597124ee1c6d2, type: 3}
+  LevelTextdatei4: {fileID: 4900000, guid: e1d3aaea6ffb7475fa3597124ee1c6d2, type: 3}
+  LevelTextdatei5: {fileID: 4900000, guid: e1d3aaea6ffb7475fa3597124ee1c6d2, type: 3}
+  LevelTextdatei6: {fileID: 4900000, guid: e1d3aaea6ffb7475fa3597124ee1c6d2, type: 3}
+  LevelTextdatei7: {fileID: 4900000, guid: e1d3aaea6ffb7475fa3597124ee1c6d2, type: 3}
+  LevelTextdatei8: {fileID: 4900000, guid: e1d3aaea6ffb7475fa3597124ee1c6d2, type: 3}
 --- !u!4 &958779248
 Transform:
   m_ObjectHideFlags: 0

@@ -47,10 +47,10 @@ public class LevelGenerator : MonoBehaviour
         SectionDataOffset = 0;
         rotation = 0;
         specialSection = false;
-        AllGameObjects = new GameObject[23, 2000];
-        SecondaryGameObjects1 = new GameObject[23, 2000];
-        SecondaryGameObjects2 = new GameObject[23, 2000];
-        SecondaryGameObjects3 = new GameObject[23, 2000];
+        AllGameObjects = new GameObject[33, 2000];
+        SecondaryGameObjects1 = new GameObject[33, 2000];
+        SecondaryGameObjects2 = new GameObject[33, 2000];
+        SecondaryGameObjects3 = new GameObject[33, 2000];
         levelSectionData = readFile(LevelTextdatei0);
         createStartBasis(tiefeLevelStartBasis);
     }
@@ -283,7 +283,7 @@ public class LevelGenerator : MonoBehaviour
         //Erzeug einen Bogen.
         //Überprüft das in alle möglich Richtungen eine Wandstück ist zu welchem der Bogen erstellt werden kann.
         //Stellt sicher dass das Array das die levelSectionData nicht überschritten werden kann.
-        if ((RandomValue % 10 == 0) && makeBogen && (zPos < levelSectionData.Length - 2) && (xPos < 19) &&
+        if ((RandomValue % 10 == 0) && makeBogen && (zPos < levelSectionData.Length - 3) && (xPos < levelSectionData[0].Length - 5) &&
             (levelSectionData[zPos][xPos + 2] == levelWand) &&
             (levelSectionData[zPos + 2][xPos] == levelWand) &&
             (levelSectionData[zPos][xPos + 1] != levelWand) &&
