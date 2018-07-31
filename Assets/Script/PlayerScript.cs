@@ -60,7 +60,7 @@ public class PlayerScript : MonoBehaviour
                 tmp = InputManager.OneMainJoystick();
 
                 if (InputManager.OneXButton() && !creatingBomb)
-                    SetBomb(0);
+                    SetBomb();
 
                 // RemoteBombe zünden Player_One
                 if (InputManager.OneAButton())
@@ -78,7 +78,7 @@ public class PlayerScript : MonoBehaviour
                 tmp = InputManager.TwoMainJoystick();
 
                 if (InputManager.TwoXButton() && !creatingBomb)
-                    SetBomb(1);
+                    SetBomb();
 
                 // RemoteBombe zünden Player_Two
                 if (InputManager.TwoAButton())
@@ -96,7 +96,7 @@ public class PlayerScript : MonoBehaviour
                 tmp = InputManager.ThreeMainJoystick();
 
                 if (InputManager.ThreeXButton() && !creatingBomb)
-                    SetBomb(2);
+                    SetBomb();
 
                 // RemoteBombe zünden Player_Three
                 if (InputManager.ThreeAButton())
@@ -114,7 +114,7 @@ public class PlayerScript : MonoBehaviour
                 tmp = InputManager.FourMainJoystick();
 
                 if (InputManager.FourXButton() && !creatingBomb)
-                    SetBomb(3);
+                    SetBomb();
 
                 // RemoteBombe zünden Player_Four
                 if (InputManager.FourAButton())
@@ -153,9 +153,10 @@ public class PlayerScript : MonoBehaviour
         if (transform.position.y > -1f)
         {
             Vector3 tmpVectorPos = transform.position;
-            //Debug.Log("nicht Tot");
+            
             if (transform.position != (transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime)) && alive)
             {
+                // Player Rollanimation
                 if (tmpVectorPos.x != transform.position.x && RichtungsAenderung)
                 {
                     transform.Rotate(0, 90, 0, Space.World);
@@ -171,7 +172,8 @@ public class PlayerScript : MonoBehaviour
                     transform.Rotate(7, 0, 0);
                 else if (tmpVectorPos.z > transform.position.z || tmpVectorPos.x > transform.position.x)
                     transform.Rotate(-7, 0, 0);
-
+                    
+                    // Camera Bekommt ihre Playerdaten 
                     camera.playerPosition(transform.position, playerID);
             }
             else if (transform.position.y < 0.45f && !alive)
@@ -323,12 +325,12 @@ public class PlayerScript : MonoBehaviour
 
 
     // Setzt Bombe mit überprüfung von avaibleBomb und aLife
-    void SetBomb(int id)
+    void SetBomb()
     {
-        if (playerList[id].GetComponent<PlayerScript>().getAvaibleBomb() > 0 && playerList[id].GetComponent<PlayerScript>().getALife())
+        if (avaibleBomb > 0 && alive)
         {
             creatingBomb = true;
-            FindObjectOfType<BombSpawner>().SpawnBomb(transform.position, id);
+            FindObjectOfType<BombSpawner>().SpawnBomb(transform.position, playerID);
 
         } else
         {
