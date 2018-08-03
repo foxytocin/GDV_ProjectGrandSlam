@@ -29,14 +29,16 @@ public class LevelGenerator : MonoBehaviour
     public GameObject[,] SecondaryGameObjects1;
     public GameObject[,] SecondaryGameObjects2;
     public GameObject[,] SecondaryGameObjects3;
+    public GameObject[,] DistanceLines;
 
-    private string[][] levelSectionData;
+    public string[][] levelSectionData;
     private string[][] levelBase;
     private int SectionDataOffset;
     private int rotation;
     private bool specialSection;
     private bool GenerateKisten;
     public const int tiefeLevelStartBasis = 25;
+    public GenerateDistanceLine GenerateDistanceLine;
 
     // Use this for initialization
     void Awake()
@@ -51,6 +53,7 @@ public class LevelGenerator : MonoBehaviour
         SecondaryGameObjects1 = new GameObject[33, 2000];
         SecondaryGameObjects2 = new GameObject[33, 2000];
         SecondaryGameObjects3 = new GameObject[33, 2000];
+        DistanceLines = new GameObject[4, 3000];
         levelSectionData = readFile(LevelTextdatei0);
         createStartBasis(tiefeLevelStartBasis);
     }
@@ -211,6 +214,13 @@ public class LevelGenerator : MonoBehaviour
                         fc.fallDown();
                 }
             }
+
+            //Loescht den DistanceBogen aus der Spielwelt.
+            if (CameraPosition > 10 && DistanceLines[0, CameraPosition - 10] != null) {
+                Destroy(DistanceLines[0, CameraPosition - 10].gameObject);
+                Destroy(DistanceLines[1, CameraPosition - 10].gameObject);
+                Destroy(DistanceLines[2, CameraPosition - 10].gameObject);
+            }
         }
 
         yield return null;
@@ -235,6 +245,11 @@ public class LevelGenerator : MonoBehaviour
                     break;
             }
         }
+
+        if(CameraPosition > 20 && CameraPosition % 20 == 0 )
+            {
+                GenerateDistanceLine.createDistanceLine(CameraPosition);
+            }
     }
 
 
@@ -259,7 +274,7 @@ public class LevelGenerator : MonoBehaviour
         int RandomValue = (int)Random.Range(0f, 21f); //Zahl zwischen 0 und 20
         int xPos = (int)pos.x;
         int zPos = (int)pos.z - SectionDataOffset;
-        bool makeBogen = true;
+        bool createBogen = true;
         
         if(RandomValue == 0) {
             
@@ -267,7 +282,7 @@ public class LevelGenerator : MonoBehaviour
             GameObject Wand = Instantiate(WandPrefab, pos, Quaternion.identity, transform);
             SecondaryGameObjects1[(int)pos.x, (int)pos.z] = Instantiate(WandPrefab, pos + new Vector3(0, 1, 0), Quaternion.identity, transform);
             Wand.tag = "Wand";
-            makeBogen = false;
+            createBogen = false;
 
             AllGameObjects[(int)pos.x, (int)pos.z] = Wand;
 
@@ -283,7 +298,7 @@ public class LevelGenerator : MonoBehaviour
         //Erzeug einen Bogen.
         //Überprüft das in alle möglich Richtungen eine Wandstück ist zu welchem der Bogen erstellt werden kann.
         //Stellt sicher dass das Array das die levelSectionData nicht überschritten werden kann.
-        if ((RandomValue % 10 == 0) && makeBogen && (zPos < levelSectionData.Length - 3) && (xPos < levelSectionData[0].Length - 5) &&
+        if ((RandomValue % 10 == 0) && createBogen && (zPos < levelSectionData.Length - 3) && (xPos < levelSectionData[0].Length - 5) &&
             (levelSectionData[zPos][xPos + 2] == levelWand) &&
             (levelSectionData[zPos + 2][xPos] == levelWand) &&
             (levelSectionData[zPos][xPos + 1] != levelWand) &&
@@ -307,6 +322,7 @@ public class LevelGenerator : MonoBehaviour
 
         AllGameObjects[(int)pos.x, (int)pos.z] = Kiste;
     }
+
 
     //Einlesen der LevelTextDatei. Wandelt diese in ein Array um
     string[][] readFile(TextAsset file)

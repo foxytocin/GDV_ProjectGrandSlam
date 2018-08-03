@@ -142,6 +142,7 @@ Transform:
   - {fileID: 594464647}
   - {fileID: 799907531}
   - {fileID: 958779248}
+  - {fileID: 461965568}
   - {fileID: 1930916333}
   m_Father: {fileID: 1620339721}
   m_RootOrder: 1
@@ -211,6 +212,51 @@ Transform:
   m_Father: {fileID: 1125787158}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 20, y: 45, z: 0}
+--- !u!1 &461965567
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 461965568}
+  - component: {fileID: 461965569}
+  m_Layer: 0
+  m_Name: DistanceLine
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &461965568
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 461965567}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 4.1514606, y: -0.021609306, z: -10.4518175}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 197551104}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &461965569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 461965567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c556a21eac0014593b079b258f148069, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LevelGenerator: {fileID: 958779247}
+  StangePrefab: {fileID: 1270315348215570, guid: b987ff33a4b2847ee82f04e4732cc270,
+    type: 2}
+  QuerstrebePrefab: {fileID: 1268663063143754, guid: f4a72e47b0a934b2c8d4372398631cbc,
+    type: 2}
 --- !u!1 &594464646
 GameObject:
   m_ObjectHideFlags: 0
@@ -627,6 +673,7 @@ MonoBehaviour:
   LevelTextdatei6: {fileID: 4900000, guid: 198c48b1379684e3eb9cb2270799e698, type: 3}
   LevelTextdatei7: {fileID: 4900000, guid: 8c227cfb359f148288a423cf4e7b98e7, type: 3}
   LevelTextdatei8: {fileID: 4900000, guid: a5c3d5f00a8ff47539fbc7f156ecf9fa, type: 3}
+  GenerateDistanceLine: {fileID: 461965569}
 --- !u!4 &958779248
 Transform:
   m_ObjectHideFlags: 0
@@ -1273,7 +1320,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 197551104}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2023082693
 GameObject:
