@@ -157,14 +157,10 @@ public class PlayerScript : MonoBehaviour
         if (transform.position.y > -1f)
         {
             Vector3 tmpVectorPos = transform.position;
-<<<<<<< HEAD
-            
-=======
 
             calcTravelDistance();
 
             //Debug.Log("nicht Tot");
->>>>>>> Andi
             if (transform.position != (transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime)) && alive)
             {
                 // Player Rollanimation
@@ -182,14 +178,8 @@ public class PlayerScript : MonoBehaviour
                 if (tmpVectorPos.z < transform.position.z || tmpVectorPos.x < transform.position.x)
                     transform.Rotate(8, 0, 0);
                 else if (tmpVectorPos.z > transform.position.z || tmpVectorPos.x > transform.position.x)
-<<<<<<< HEAD
-                    transform.Rotate(-7, 0, 0);
-                    
-                    // Camera Bekommt ihre Playerdaten 
-=======
                     transform.Rotate(-8, 0, 0);
 
->>>>>>> Andi
                     camera.playerPosition(transform.position, playerID);
             }
             else if (transform.position.y < 0.45f && !alive)
