@@ -790,27 +790,27 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4000010002477438, guid: 5ca4c580b3888314581688fa46fb142d, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -18.841002
+      value: -14
       objectReference: {fileID: 0}
     - target: {fileID: 4000010002477438, guid: 5ca4c580b3888314581688fa46fb142d, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -7.9610944
+      value: -22
       objectReference: {fileID: 0}
     - target: {fileID: 4000010002477438, guid: 5ca4c580b3888314581688fa46fb142d, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 2.380001
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4000010002477438, guid: 5ca4c580b3888314581688fa46fb142d, type: 2}
       propertyPath: m_LocalRotation.x
-      value: -0.7071068
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 4000010002477438, guid: 5ca4c580b3888314581688fa46fb142d, type: 2}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4000010002477438, guid: 5ca4c580b3888314581688fa46fb142d, type: 2}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4000010002477438, guid: 5ca4c580b3888314581688fa46fb142d, type: 2}
       propertyPath: m_LocalRotation.w
@@ -848,7 +848,7 @@ Prefab:
     - target: {fileID: 198000011337858710, guid: 5ca4c580b3888314581688fa46fb142d,
         type: 2}
       propertyPath: ShapeModule.m_Scale.x
-      value: 40
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 198000011337858710, guid: 5ca4c580b3888314581688fa46fb142d,
         type: 2}
@@ -887,6 +887,10 @@ Prefab:
         type: 2}
       propertyPath: InitialModule.maxNumParticles
       value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000010002477438, guid: 5ca4c580b3888314581688fa46fb142d, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 90
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5ca4c580b3888314581688fa46fb142d, type: 2}
