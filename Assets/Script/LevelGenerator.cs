@@ -246,7 +246,8 @@ public class LevelGenerator : MonoBehaviour
             }
         }
 
-        if(CameraPosition > 20 && CameraPosition % 20 == 0 )
+        //Generiert alle X Meter die DistanceLine
+        if(CameraPosition > 10 && CameraPosition % 25 == 0 )
             {
                 GenerateDistanceLine.createDistanceLine(CameraPosition);
             }
