@@ -7,6 +7,7 @@ public class GenerateDistanceLine : MonoBehaviour {
 public LevelGenerator LevelGenerator;
 public GameObject StangePrefab;
 public GameObject QuerstrebePrefab;
+public GameObject MeterSchildPrefab;
 private int startPoint;
 private int endPoint;
 private int centerPoint;
@@ -57,14 +58,16 @@ private int scaleQuerstrebe;
 		scaleQuerstrebe = endPoint - startPoint - 1;
 
 		//Generierung der GameObjecte mit richtiger Rotation und Scalierung entsprechend dem Abstand der Pfosten
-		GameObject StartStange = Instantiate(StangePrefab, new Vector3(startPoint, 1f, row), Quaternion.Euler(0f, -90f, 0f), transform);
-		GameObject EndStange = Instantiate(StangePrefab, new Vector3(endPoint, 1f, row), Quaternion.Euler(0f, 90f, 0f), transform);
-		GameObject Querstrebe = Instantiate(QuerstrebePrefab, new Vector3(centerPoint, 4f, row), Quaternion.Euler(0f, 90f, 0f), transform);
+		GameObject StartStange = Instantiate(StangePrefab, new Vector3(startPoint, 0.5f, row), Quaternion.Euler(0f, -90f, 0f), transform);
+		GameObject EndStange = Instantiate(StangePrefab, new Vector3(endPoint, 0.5f, row), Quaternion.Euler(0f, 90f, 0f), transform);
+		GameObject Querstrebe = Instantiate(QuerstrebePrefab, new Vector3(centerPoint, 3.5f, row), Quaternion.Euler(0f, 90f, 0f), transform);
+		GameObject MeterSchild = Instantiate(MeterSchildPrefab, new Vector3(centerPoint, 3.5f, row), Quaternion.Euler(20f, 0f, 0f), transform);
 		Querstrebe.transform.localScale = new Vector3(1f, 1f, scaleQuerstrebe);
 
 		//Eintragung der GameObjecte in das DistanceLines-Array damit sie später geloescht werden koennen
 		LevelGenerator.DistanceLines[0, row] = StartStange;
 		LevelGenerator.DistanceLines[1, row] = EndStange;
 		LevelGenerator.DistanceLines[2, row] = Querstrebe;
+		LevelGenerator.DistanceLines[3, row] = MeterSchild;
 	}
 }

@@ -220,6 +220,7 @@ public class LevelGenerator : MonoBehaviour
                 Destroy(DistanceLines[0, CameraPosition - 10].gameObject);
                 Destroy(DistanceLines[1, CameraPosition - 10].gameObject);
                 Destroy(DistanceLines[2, CameraPosition - 10].gameObject);
+                Destroy(DistanceLines[3, CameraPosition - 10].gameObject);
             }
         }
 
@@ -247,7 +248,7 @@ public class LevelGenerator : MonoBehaviour
         }
 
         //Generiert alle X Meter die DistanceLine
-        if(CameraPosition > 10 && CameraPosition % 25 == 0 )
+        if(CameraPosition > 10 && CameraPosition % 10 == 0 )
             {
                 GenerateDistanceLine.createDistanceLine(CameraPosition);
             }

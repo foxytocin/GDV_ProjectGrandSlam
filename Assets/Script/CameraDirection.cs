@@ -28,8 +28,10 @@ public class CameraDirection : MonoBehaviour {
         pp.bloom.enabled = true;
         
         depthSettings = pp.depthOfField.settings;
-        depthSettings.focalLength = 220;
-        depthSettings.aperture = 8.4f;
+        // depthSettings.focalLength = 220;
+        // depthSettings.aperture = 8.4f;
+        depthSettings.focalLength = 120;
+        depthSettings.aperture = 8f;
     }
 
     // Update is called once per frame
