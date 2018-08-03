@@ -12,6 +12,8 @@ public class PlayerScript : MonoBehaviour
     public int range;
     public bool alive;
     public bool remoteBomb;
+    public int travelDistance;
+    private int travelDistanceStart;
 
     public List<GameObject> playerList;
     public bool creatingBomb;
@@ -30,6 +32,8 @@ public class PlayerScript : MonoBehaviour
 
     void Start()
     {
+        travelDistanceStart = (int)transform.position.z;
+        travelDistance = 0;
         life = 3;
         avaibleBomb = 3;
         speed = 5f;
@@ -153,6 +157,9 @@ public class PlayerScript : MonoBehaviour
         if (transform.position.y > -1f)
         {
             Vector3 tmpVectorPos = transform.position;
+
+            calcTravelDistance();
+
             //Debug.Log("nicht Tot");
             if (transform.position != (transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime)) && alive)
             {
@@ -168,9 +175,9 @@ public class PlayerScript : MonoBehaviour
                 }
 
                 if (tmpVectorPos.z < transform.position.z || tmpVectorPos.x < transform.position.x)
-                    transform.Rotate(7, 0, 0);
+                    transform.Rotate(8, 0, 0);
                 else if (tmpVectorPos.z > transform.position.z || tmpVectorPos.x > transform.position.x)
-                    transform.Rotate(-7, 0, 0);
+                    transform.Rotate(-8, 0, 0);
 
                     camera.playerPosition(transform.position, playerID);
             }
@@ -320,6 +327,13 @@ public class PlayerScript : MonoBehaviour
         bombTimer = tmp;
     }
 
+    //Weiteste zurueck gelegte Strecke wird gespeicher
+    void calcTravelDistance() {
+        if(transform.position.z > travelDistance + travelDistanceStart)
+        {
+            travelDistance = (int)transform.position.z - travelDistanceStart;
+        }
+    }
 
 
     // Setzt Bombe mit überprüfung von avaibleBomb und aLife
