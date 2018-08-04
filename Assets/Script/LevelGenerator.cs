@@ -8,7 +8,7 @@ public class LevelGenerator : MonoBehaviour
     public GameObject WandPrefab;
     public GameObject KistePrefab;
 
-    private int KistenMenge;
+    private float KistenMenge;
 
     public float LevelSpeed;
     public TextAsset LevelTextdatei0;
@@ -45,7 +45,7 @@ public class LevelGenerator : MonoBehaviour
     {
         GenerateKisten = true;
         LevelSpeed = 0.5f;
-        KistenMenge = 3;
+        KistenMenge = 10f;
         SectionDataOffset = 0;
         rotation = 0;
         specialSection = false;
@@ -62,27 +62,27 @@ public class LevelGenerator : MonoBehaviour
     {
         if(Input.GetKeyDown("5")) {
             GenerateKisten = true;
-            KistenMenge = 9;
+            KistenMenge = 20f;
         }
         if (Input.GetKeyDown("6"))
         {
             GenerateKisten = true;
-            KistenMenge = 7;
+            KistenMenge = 40f;
         }
         if (Input.GetKeyDown("7"))
         {
             GenerateKisten = true;
-            KistenMenge = 5;
+            KistenMenge = 60f;
         }
         if (Input.GetKeyDown("8"))
         {
             GenerateKisten = true;
-            KistenMenge = 3;
+            KistenMenge = 80f;
         }
         if (Input.GetKeyDown("9"))
         {
             GenerateKisten = true;
-            KistenMenge = 1;
+            KistenMenge = 100f;
         }
         if (Input.GetKeyDown("0"))
         {
@@ -100,6 +100,8 @@ public class LevelGenerator : MonoBehaviour
 
     public void createWorld(int CameraPosition)
     {
+        setDifficulty(CameraPosition);
+
         if(CameraPosition - SectionDataOffset < levelSectionData.Length) {
             drawLevelLine(CameraPosition);
 
@@ -156,6 +158,9 @@ public class LevelGenerator : MonoBehaviour
                         levelSectionData = readFile(LevelTextdatei8);
                         specialSection = false;
                         break;
+                    default:
+                        Debug.Log("Switch-ERROR in createWorld()");
+                        break;
                 }
 
             } else {
@@ -165,6 +170,58 @@ public class LevelGenerator : MonoBehaviour
             drawLevelLine(CameraPosition);
         }
         StartCoroutine(cleanLine((CameraPosition - (10 + tiefeLevelStartBasis))));
+    }
+
+    //Abhängig von der CameraPosition wird die Menge der Kisten verändert
+    //Je weiter der Spieler im Level, desto mehr Kisten werden generiert
+    // Kisten Menge wird auf einer RandomValue 0 - 20 % KistenMenge errechnet.
+    void setDifficulty(int row)
+    {
+        switch(row)
+        {
+            case 50:
+                KistenMenge = 10f; //10% Kisten
+                Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
+                break;
+            case 100:
+                KistenMenge = 20f; //20% Kisten
+                Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
+                break;
+            case 150:
+                KistenMenge = 30f; //30% Kisten
+                Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
+                break;
+            case 200:
+                KistenMenge = 40f; //40% Kisten
+                Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
+                break;
+            case 250:
+                KistenMenge = 50f; //50% Kisten
+                Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
+                break;
+            case 300:
+                KistenMenge = 60f; //60% Kisten
+                Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
+                break;
+            case 350:
+                KistenMenge = 70f; //70% Kisten
+                Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
+                break;
+            case 400:
+                KistenMenge = 80f; //80% Kisten
+                Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
+                break;
+            case 450:
+                KistenMenge = 90f; //90% Kisten
+                Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
+                break;
+            case 500:
+                KistenMenge = 100f; //100% Kisten
+                Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
+                break;
+            default:
+                break;
+        }
     }
 
 
@@ -194,7 +251,6 @@ public class LevelGenerator : MonoBehaviour
                     }
                 }
 
-                //Object 1 beinhaltet: Boden
                 if (SecondaryGameObjects1[i, CameraPosition] != null)
                 {
                     FallScript fc = SecondaryGameObjects1[i, CameraPosition].gameObject.GetComponent<FallScript>();
@@ -215,7 +271,7 @@ public class LevelGenerator : MonoBehaviour
                 }
             }
 
-            //Loescht den DistanceBogen aus der Spielwelt.
+            //Loescht die DistanceLine aus der Spielwelt wenn diese 10 Felder hinter der Camnera ist
             if (CameraPosition > 10 && DistanceLines[0, CameraPosition - 10] != null) {
                 Destroy(DistanceLines[0, CameraPosition - 10].gameObject);
                 Destroy(DistanceLines[1, CameraPosition - 10].gameObject);
@@ -228,7 +284,7 @@ public class LevelGenerator : MonoBehaviour
     }
 
 
-    //Zeichnet die Linien der LevelSectionData zeilenweise
+    //Zeichnet die Linien der LevelSectionData zeilenweise. Abhängig vom Symbol der aktuellen Stelle (Gang, Wand, Kiste)
     void drawLevelLine(int CameraPosition) {
         
         for (int i = 0; i < levelSectionData[0].Length - 1; i++)
@@ -248,7 +304,7 @@ public class LevelGenerator : MonoBehaviour
         }
 
         //Generiert alle X Meter die DistanceLine
-        if(CameraPosition > 10 && CameraPosition % 10 == 0 )
+        if(CameraPosition > 10 && CameraPosition % 20 == 0 )
             {
                 GenerateDistanceLine.createDistanceLine(CameraPosition);
             }
@@ -260,7 +316,7 @@ public class LevelGenerator : MonoBehaviour
         
         SecondaryGameObjects1[(int)pos.x, (int)pos.z] = Instantiate(BodenPrefab, pos - new Vector3(0, 0.1f, 0), Quaternion.identity, transform);
 
-        if(((int)Random.Range(0f, 21f)) % KistenMenge == 0 && CameraPosition > 11 && GenerateKisten) {
+        if((Random.value <= (KistenMenge / 100f)) && CameraPosition > 11 && GenerateKisten) {
             GameObject Kiste = Instantiate(KistePrefab, pos + new Vector3(0f, 0.5f, 0f), Quaternion.Euler(0, rotation, 0), transform);
             Kiste.tag = "Kiste";
             rotation += 90;
@@ -280,7 +336,7 @@ public class LevelGenerator : MonoBehaviour
         
         if(RandomValue == 0) {
             
-            //Macht einen Turm und deaktiviert das ein Bogen erzeugt werden kann
+            //Erzeugt einen Turm und deaktiviert das ein Bogen erzeugt werden kann
             GameObject Wand = Instantiate(WandPrefab, pos, Quaternion.identity, transform);
             SecondaryGameObjects1[(int)pos.x, (int)pos.z] = Instantiate(WandPrefab, pos + new Vector3(0, 1, 0), Quaternion.identity, transform);
             Wand.tag = "Wand";
@@ -288,7 +344,7 @@ public class LevelGenerator : MonoBehaviour
 
             AllGameObjects[(int)pos.x, (int)pos.z] = Wand;
 
-        //Mach ein normales Stück Wand (ein Cube)
+        //Erzeugt ein normales Stück Wand
         } else {
             GameObject Wand = Instantiate(WandPrefab, pos, Quaternion.identity, transform);
             Wand.tag = "Wand";
@@ -297,7 +353,7 @@ public class LevelGenerator : MonoBehaviour
             AllGameObjects[(int)pos.x, (int)pos.z] = Wand;
         }
 
-        //Erzeug einen Bogen.
+        //Erzeug einen Bogen. Wenn RandomValue 10 oder 20 ist.
         //Überprüft das in alle möglich Richtungen eine Wandstück ist zu welchem der Bogen erstellt werden kann.
         //Stellt sicher dass das Array das die levelSectionData nicht überschritten werden kann.
         if ((RandomValue % 10 == 0) && createBogen && (zPos < levelSectionData.Length - 3) && (xPos < levelSectionData[0].Length - 5) &&
@@ -306,8 +362,13 @@ public class LevelGenerator : MonoBehaviour
             (levelSectionData[zPos][xPos + 1] != levelWand) &&
             (levelSectionData[zPos + 1][xPos] != levelWand))
         {
+            //Ereugt die erste Saule des Bogens
             SecondaryGameObjects1[(int)pos.x, (int)pos.z] = Instantiate(WandPrefab, pos + new Vector3(0, 1, 0), Quaternion.identity, transform);
             SecondaryGameObjects2[(int)pos.x, (int)pos.z] = Instantiate(WandPrefab, pos + new Vector3(0, 2, 0), Quaternion.identity, transform);
+            
+            //Erzeugt den Rest des Bogen horiznal oder um 90 Grad gedreht vertikal.
+            //Ternärer-Operator um die Richtung zu bestimmten.
+            //Da hier nur 10 oder 20 von RandomValue auftreten kann, und die Bedingung RandomValue == 20 ist, wird zu 50% ein gedrehter Bogen erzeugt
             SecondaryGameObjects3[(int)pos.x, (int)pos.z] = Instantiate(WandPrefab, pos + ((RandomValue == 20) ? new Vector3(1, 2, 0) : new Vector3(0, 2, 1)), Quaternion.identity, transform);
             SecondaryGameObjects2[(int)pos.x + 1, (int)pos.z] = Instantiate(WandPrefab, pos + ((RandomValue == 20) ? new Vector3(2, 2, 0) : new Vector3(0, 2, 2)), Quaternion.identity, transform);
             SecondaryGameObjects3[(int)pos.x + 1, (int)pos.z] = Instantiate(WandPrefab, pos + ((RandomValue == 20) ? new Vector3(2, 1, 0) : new Vector3(0, 1, 2)), Quaternion.identity, transform);
