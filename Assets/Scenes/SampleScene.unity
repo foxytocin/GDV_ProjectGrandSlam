@@ -253,7 +253,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LevelGenerator: {fileID: 958779247}
-  StangePrefab: {fileID: 1270315348215570, guid: b987ff33a4b2847ee82f04e4732cc270,
+  StangePrefab: {fileID: 1509512803967250, guid: b987ff33a4b2847ee82f04e4732cc270,
     type: 2}
   QuerstrebePrefab: {fileID: 1268663063143754, guid: f4a72e47b0a934b2c8d4372398631cbc,
     type: 2}
