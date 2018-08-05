@@ -92,7 +92,7 @@ ________________________________________________________________________________
   
 #### Kamera
   * Depth of Field Effekt der automatisch auf die Anzahl und Position der Spieler angepasst wird
-  * Fokus: Alle Player sind im Scharf
+  * Fokus: Alle Player sind scharf
   * Colorgrading, Antialiasing, Fog, Bloom
   
 #### Player
