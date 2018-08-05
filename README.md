@@ -74,3 +74,61 @@ ________________________________________________________________________________
   * Scipt zur Player-Verfolgung implementiert (Josh)
   * Aktuell aber wegen dem CameraScroller nicht funktionsfähig
   * Muss an die neue Art der LevelGenerierung und Interatkion angepasst werden
+  _____________________________________________________________________________________________________________________________
+
+### 05.08.2018 ALPHA 1
+#### Levelgenerierung / -zerstörung erweitert (DistanceLine + FallScript):
+  * Alle X Meter wird ein Bogen über das Spielfeld gespannt der die aktuelle Entfernung auf einem Schild anzeigt
+  * Dieser Bogen passt sich procedural an den aktuellen Levelabschnitt an (Stützpfeiler und Breite, Schild immer mittig)
+  * Levelelemente (Boden, Wand, Kisten, Player, Bomben) beginnen zu wackelen bevor das Level in sich zusammenbricht
+  * Player kann während er wackelt von der Bodenplatte zurück in den sicheren Bereich laufen (hört auf zu wackeln)
+  * Levelelemente (Boden, Wand, Kisten, Player) stürzen procedural Animiert in die Tiefe (Player stirbt)
+  * Player kann nicht mehr aus dem Level laufen ohne in die Tiefe zu stürzen (Player stirbt)
+  * Levelbreite erhöht
+
+#### Sound & Musik
+  * Erste Effekte und Musik implementiert um ein besseres Spielgefühl zu bekommen
+  * Individueller Sound pro Spieler welcher dynamisch zugeteilt wird
+  
+#### Kamera
+  * Depth of Field Effekt der automatisch auf die Anzahl und Position der Spieler angepasst wird
+  * Fokus: Alle Player sind im Scharf
+  * Colorgrading, Antialiasing, Fog, Bloom
+  
+#### Player
+  * 4 Player implementiert + automatische Farb- und Soundzuordnung
+  * Kugel (Spielfigur) hat nun eine Oberflächenstruktur und eine Rollanimation um das Spielgefühl zu verbessern
+  * Dummy für Ghost-Animation wenn der Player stirbt implementiert
+  
+#### Bombe
+  * Bomben drehen sich in zufälliger Richtung
+  * Remote-Bomben erhalten automatisch die Farbe des Players der sie gelegt hat
+  * Remote-Bomben zünden in der Reihenfolge in der sie gelegt wurde (können aber auch Kettenreaktionen auslösen)
+  * Explosions- und Zündschnurranimation mit Particel-Systemen + Lichteffekte
+  
+#### Kisten
+  * Explodierende Kisten werden durch eine Animation und Explosion ersetzt
+  * Kisten explodieren per Unity-Physik-Engine
+  
+#### Sonstiges
+  * Sämtliche Kollisionsabfragen selbst programmiert (Spieler, Bomben, Kisten, Welt)
+  * Postprozessing
+  * Particel-System unter dem Spielfeld um Bewegung und Tiefe zu vermitteln
+  * Neue Texturen und Lichtstimmung
+  * Performance-Verbesserungen in allen Bereichen: Code + Mesh
+  
+#### Steuerung PS4-Controller:
+  * PS4:
+  * Quadrat = Bombe
+  * X =  RemoteBombe zünden
+  * Steuerkreuz = Bewegen
+  * Option = Restart
+  * R1 = Playeranzahl +1 erhöhen
+  * L1 = Playeranzahl -1 vermindern
+
+#### Steuerung Tastatur:
+  * w,s,a,d = Bewegen
+  * e = Bombe
+  * q = RemoteBombe zünden
+  * ESC = Restart
+  * 1-4 Playeranzahl
