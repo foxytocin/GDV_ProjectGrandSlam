@@ -1,37 +1,46 @@
-xxooxoxoxoxoxoxoxoxox
- xxooooooooooooooooox
-  xxooxoxoxoxoxoxoxox
-   xxooooooooooooooox
-    xxooxoxoxoxoxoxox
-     xxooooooooooooox
-      xxooxoxoxoxoxox
-       xxooooooooooox
-        xxooxoxoxoxox
-         xxooooooooox
-          xxooxoxoxox
-           xxooooooox
-            xoxoxoxox
-            xooooooox
-            xoxoxoxox
-            xooooooox
-            xoxoxoxox
-            xooooooox
-            xoxoxoxox
-            xooooooox
-            xoxoxoxox
-            xooooooox
-xxxxxxxxxxxxxoxoxoxox
-xooooooooooooooooooox
-xooooooooooooooooooox
-xoxoxoxoxxxxxxxxxxxxx
-xooooooox            
-xoxoxoxox            
-xooooooox            
-xoxoxoxox            
-xooooooox            
-xoxoxoxox            
-xooooooox            
-xoxoxoxox            
-xooooooox            
-xoxoxoxoxxxxxxxxxxxxx
-xooooooooooooooooooox
+xxxxxoxoxoxoxoxoxoxoxoxoxoxox
+    xooooooooooooooooooooooox
+    xoxoxoxoxoxoxoxoxoxoxoxox
+    xooooooooooooooooooooooox
+    xxxxxoxoxoxoxoxoxoxoxoxox
+        xooooooooooooooooooox
+        xoxoxoxoxoxoxoxoxoxox
+        xooooooooooooooooooox
+        xxxxxoxoxoxoxoxoxoxox
+            xooooooooooooooox
+            xoxoxoxoxoxoxoxox
+            xooooooooooooooox
+            xxxxxoxoxoxoxoxox
+                xooooooooooox
+                xoxoxoxoxoxox
+                xooooooooooox
+                xxxxxoxoxoxox
+                    xooooooox
+                    xoxoxoxox
+                    xooooooox
+                    xoxoxoxox
+                    xooooooox
+                    xoxoxoxox
+                    xooooooox
+                    xoxoxoxox
+                    xooooooox
+                    xoxoxoxox
+                    xooooooox
+xxxxxxxxxxxxxxxxxxxxxoxoxoxox
+xooooooooooooooooooooooooooox
+xooooooooooooooooooooooooooox
+xooooooooooooooooooooooooooox
+xoxoxoxoxxxxxxxxxxxxxxxxxxxxx
+xooooooox                    
+xoxoxoxox                    
+xooooooox                    
+xoxoxoxox                    
+xooooooox                    
+xoxoxoxox                    
+xooooooox                    
+xoxoxoxox                    
+xooooooox                    
+xoxoxoxox                    
+xooooooox                    
+xoxoxoxoxxxxxxxxxxxxxxxxxxxxx
+xooooooooooooooooooooooooooox

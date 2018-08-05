@@ -665,16 +665,20 @@ MonoBehaviour:
   WandPrefab: {fileID: 1752548113676288, guid: 003ae408beb774f1db89ee2398ed91e8, type: 2}
   KistePrefab: {fileID: 1968458687304108, guid: a742c7a8826264c8fa7d619f4d1ee624,
     type: 2}
+  KistenMenge: 0
   LevelSpeed: 0
   LevelTextdatei0: {fileID: 4900000, guid: e1d3aaea6ffb7475fa3597124ee1c6d2, type: 3}
   LevelTextdatei1: {fileID: 4900000, guid: aa9ab9f64860a4684814e727a5edf8ed, type: 3}
   LevelTextdatei2: {fileID: 4900000, guid: a5c3d5f00a8ff47539fbc7f156ecf9fa, type: 3}
   LevelTextdatei3: {fileID: 4900000, guid: 198c48b1379684e3eb9cb2270799e698, type: 3}
-  LevelTextdatei4: {fileID: 4900000, guid: a5c3d5f00a8ff47539fbc7f156ecf9fa, type: 3}
-  LevelTextdatei5: {fileID: 4900000, guid: 198c48b1379684e3eb9cb2270799e698, type: 3}
+  LevelTextdatei4: {fileID: 4900000, guid: d921864d89c404027b10bbb231f065af, type: 3}
+  LevelTextdatei5: {fileID: 4900000, guid: f90db79180b5b4ee28d08391e6fd8896, type: 3}
   LevelTextdatei6: {fileID: 4900000, guid: 8349bbfe30a764eecb40ca26dece465e, type: 3}
   LevelTextdatei7: {fileID: 4900000, guid: 8c227cfb359f148288a423cf4e7b98e7, type: 3}
-  LevelTextdatei8: {fileID: 4900000, guid: 8349bbfe30a764eecb40ca26dece465e, type: 3}
+  LevelTextdatei8: {fileID: 4900000, guid: 70380121cd4f5440f802305e67ae3ab1, type: 3}
+  LevelTextdatei9: {fileID: 4900000, guid: 3b8ab15b0979746c58be4824da9219e3, type: 3}
+  LevelTextdatei10: {fileID: 4900000, guid: 1348aba0a0dc641a88e2caa85bf1f0b8, type: 3}
+  LevelTextdatei11: {fileID: 4900000, guid: b9775b53ce00146e6aff6679a5a22e92, type: 3}
   GenerateDistanceLine: {fileID: 461965569}
 --- !u!4 &958779248
 Transform:

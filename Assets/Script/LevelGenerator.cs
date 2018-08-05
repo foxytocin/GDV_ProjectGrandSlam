@@ -20,6 +20,9 @@ public class LevelGenerator : MonoBehaviour
     public TextAsset LevelTextdatei6;
     public TextAsset LevelTextdatei7;
     public TextAsset LevelTextdatei8;
+    public TextAsset LevelTextdatei9;
+    public TextAsset LevelTextdatei10;
+    public TextAsset LevelTextdatei11;
 
     private const string levelGang = "o";
     private const string levelWand = "x";
@@ -36,14 +39,14 @@ public class LevelGenerator : MonoBehaviour
     private int SectionDataOffset;
     private int rotation;
     private bool specialSection;
-    private bool GenerateKisten;
+    private bool generateKisten;
     public const int tiefeLevelStartBasis = 25;
     public GenerateDistanceLine GenerateDistanceLine;
 
     // Use this for initialization
     void Awake()
     {
-        GenerateKisten = true;
+        generateKisten = true;
         LevelSpeed = 0.5f;
         KistenMenge = 10f;
         SectionDataOffset = 0;
@@ -57,39 +60,6 @@ public class LevelGenerator : MonoBehaviour
         levelSectionData = readFile(LevelTextdatei0);
         createStartBasis(tiefeLevelStartBasis);
     }
-
-    private void Update()
-    {
-        if(Input.GetKeyDown("5")) {
-            GenerateKisten = true;
-            KistenMenge = 20f;
-        }
-        if (Input.GetKeyDown("6"))
-        {
-            GenerateKisten = true;
-            KistenMenge = 40f;
-        }
-        if (Input.GetKeyDown("7"))
-        {
-            GenerateKisten = true;
-            KistenMenge = 60f;
-        }
-        if (Input.GetKeyDown("8"))
-        {
-            GenerateKisten = true;
-            KistenMenge = 80f;
-        }
-        if (Input.GetKeyDown("9"))
-        {
-            GenerateKisten = true;
-            KistenMenge = 100f;
-        }
-        if (Input.GetKeyDown("0"))
-        {
-            GenerateKisten = false;
-        }
-    }
-
 
     public void createStartBasis(int tiefe)
     {
@@ -108,7 +78,7 @@ public class LevelGenerator : MonoBehaviour
         } else {
             SectionDataOffset = CameraPosition;
 
-            int RandomValue = (int)(Random.Range(0, 11f));
+            int RandomValue = (int)(Random.Range(0, 13f));
 
             if(specialSection) {
 
@@ -117,46 +87,72 @@ public class LevelGenerator : MonoBehaviour
                     case 0:
                         levelSectionData = readFile(LevelTextdatei1);
                         specialSection = true;
+                        generateKisten = true;
                         break;
                     case 1:
                         levelSectionData = readFile(LevelTextdatei1);
                         specialSection = true;
+                        generateKisten = true;
                         break;
                     case 2:
                         levelSectionData = readFile(LevelTextdatei1);
                         specialSection = true;
+                        generateKisten = true;
                         break;
                     case 3:
                         levelSectionData = readFile(LevelTextdatei1);
                         specialSection = true;
+                        generateKisten = true;
                         break;
                     case 4:
                         levelSectionData = readFile(LevelTextdatei2);
                         specialSection = false;
+                        generateKisten = true;
                         break;
                     case 5:
                         levelSectionData = readFile(LevelTextdatei3);
                         specialSection = false;
+                        generateKisten = true;
                         break;
                     case 6:
                         levelSectionData = readFile(LevelTextdatei4);
                         specialSection = false;
+                        generateKisten = true;
                         break;
                     case 7:
                         levelSectionData = readFile(LevelTextdatei5);
                         specialSection = false;
+                        generateKisten = true;
                         break;
                     case 8:
                         levelSectionData = readFile(LevelTextdatei6);
                         specialSection = false;
+                        generateKisten = true;
                         break;
                     case 9:
                         levelSectionData = readFile(LevelTextdatei7);
                         specialSection = false;
+                        generateKisten = true;
                         break;
                     case 10:
                         levelSectionData = readFile(LevelTextdatei8);
                         specialSection = false;
+                        generateKisten = true;
+                        break;
+                    case 11:
+                        levelSectionData = readFile(LevelTextdatei9);
+                        specialSection = false;
+                        generateKisten = true;
+                        break;
+                    case 12:
+                        levelSectionData = readFile(LevelTextdatei10);
+                        specialSection = false;
+                        generateKisten = false;
+                        break;
+                    case 13:
+                        levelSectionData = readFile(LevelTextdatei11);
+                        specialSection = false;
+                        generateKisten = false;
                         break;
                     default:
                         Debug.Log("Switch-ERROR in createWorld()");
@@ -318,7 +314,7 @@ public class LevelGenerator : MonoBehaviour
         
         SecondaryGameObjects1[(int)pos.x, (int)pos.z] = Instantiate(BodenPrefab, pos - new Vector3(0, 0.1f, 0), Quaternion.identity, transform);
 
-        if((Random.value <= (KistenMenge / 100f)) && CameraPosition > 11 && GenerateKisten) {
+        if((Random.value <= (KistenMenge / 100f)) && CameraPosition > 11 && generateKisten) {
             GameObject Kiste = Instantiate(KistePrefab, pos + new Vector3(0f, 0.5f, 0f), Quaternion.Euler(0, rotation, 0), transform);
             Kiste.tag = "Kiste";
             rotation += 90;
