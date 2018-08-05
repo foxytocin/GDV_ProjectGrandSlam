@@ -8,7 +8,7 @@ public class LevelGenerator : MonoBehaviour
     public GameObject WandPrefab;
     public GameObject KistePrefab;
 
-    private float KistenMenge;
+    public float KistenMenge;
 
     public float LevelSpeed;
     public TextAsset LevelTextdatei0;
@@ -53,7 +53,7 @@ public class LevelGenerator : MonoBehaviour
         SecondaryGameObjects1 = new GameObject[33, 2000];
         SecondaryGameObjects2 = new GameObject[33, 2000];
         SecondaryGameObjects3 = new GameObject[33, 2000];
-        DistanceLines = new GameObject[4, 3000];
+        DistanceLines = new GameObject[6, 3000];
         levelSectionData = readFile(LevelTextdatei0);
         createStartBasis(tiefeLevelStartBasis);
     }
@@ -184,39 +184,39 @@ public class LevelGenerator : MonoBehaviour
                 Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
                 break;
             case 100:
-                KistenMenge = 20f; //20% Kisten
+                KistenMenge = 15f; //20% Kisten
                 Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
                 break;
             case 150:
-                KistenMenge = 30f; //30% Kisten
+                KistenMenge = 20f; //25% Kisten
                 Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
                 break;
             case 200:
-                KistenMenge = 40f; //40% Kisten
+                KistenMenge = 25f; //30% Kisten
                 Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
                 break;
             case 250:
-                KistenMenge = 50f; //50% Kisten
+                KistenMenge = 30f; //35% Kisten
                 Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
                 break;
             case 300:
-                KistenMenge = 60f; //60% Kisten
+                KistenMenge = 35f; //40% Kisten
                 Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
                 break;
             case 350:
-                KistenMenge = 70f; //70% Kisten
+                KistenMenge = 40f; //45% Kisten
                 Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
                 break;
             case 400:
-                KistenMenge = 80f; //80% Kisten
+                KistenMenge = 45f; //50% Kisten
                 Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
                 break;
             case 450:
-                KistenMenge = 90f; //90% Kisten
+                KistenMenge = 50f; //60% Kisten
                 Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
                 break;
             case 500:
-                KistenMenge = 100f; //100% Kisten
+                KistenMenge = 70f; //70% Kisten
                 Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
                 break;
             default:
@@ -277,6 +277,8 @@ public class LevelGenerator : MonoBehaviour
                 Destroy(DistanceLines[1, CameraPosition - 10].gameObject);
                 Destroy(DistanceLines[2, CameraPosition - 10].gameObject);
                 Destroy(DistanceLines[3, CameraPosition - 10].gameObject);
+                Destroy(DistanceLines[4, CameraPosition - 10].gameObject);
+                Destroy(DistanceLines[5, CameraPosition - 10].gameObject);
             }
         }
 

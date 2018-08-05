@@ -257,7 +257,7 @@ MonoBehaviour:
     type: 2}
   QuerstrebePrefab: {fileID: 1268663063143754, guid: f4a72e47b0a934b2c8d4372398631cbc,
     type: 2}
-  MeterSchildPrefab: {fileID: 1351653240152834, guid: 765a1a43ccdae402f838e41265c51afe,
+  MeterSchildPrefab: {fileID: 1510929197513478, guid: 765a1a43ccdae402f838e41265c51afe,
     type: 2}
 --- !u!1 &594464646
 GameObject:
