@@ -47,7 +47,7 @@ MonoBehaviour:
       sampleCount: 10
       downsampling: 1
       forceForwardCompatibility: 0
-      ambientOnly: 0
+      ambientOnly: 1
       highPrecision: 0
   screenSpaceReflection:
     m_Enabled: 0
@@ -71,9 +71,9 @@ MonoBehaviour:
   depthOfField:
     m_Enabled: 1
     m_Settings:
-      focusDistance: 13
-      aperture: 11
-      focalLength: 220
+      focusDistance: 8.355395
+      aperture: 8
+      focalLength: 120
       useCameraFov: 0
       kernelSize: 1
   motionBlur:
@@ -100,11 +100,11 @@ MonoBehaviour:
     m_Enabled: 1
     m_Settings:
       bloom:
-        intensity: 0.3
-        threshold: 1.1
+        intensity: 0.2
+        threshold: 2.2
         softKnee: 0.5
         radius: 3
-        antiFlicker: 0
+        antiFlicker: 1
       lensDirt:
         texture: {fileID: 0}
         intensity: 3
