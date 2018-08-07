@@ -26,7 +26,9 @@ public class GameManager : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-		
+
+       
+
         if (Input.GetKeyDown(KeyCode.Escape) || InputManager.OneStartButton())
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -34,6 +36,7 @@ public class GameManager : MonoBehaviour {
 
         if(InputManager.OneR1Button() && player < 4) {
             player += 1;
+            Debug.Log(player);
         }
 
         if (InputManager.OneL1Button() && player > 1)
@@ -46,7 +49,9 @@ public class GameManager : MonoBehaviour {
             playerSpawner.setPlayers(player);
             playerSpawner.createPlayers();
 
-            switch(player)
+            
+
+            switch (player)
             {
                 case 2: audioSource.PlayOneShot(audioTwoPlayer, 0.5f); break;
                 case 3: audioSource.PlayOneShot(audioThreePlayer, 0.5f); break;

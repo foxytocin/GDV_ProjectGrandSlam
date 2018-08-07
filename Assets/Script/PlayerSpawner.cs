@@ -90,6 +90,7 @@ public class PlayerSpawner : MonoBehaviour
             playerList.Add(tmpPlayer);
 
         }
+        Debug.Log(playerList.Count);
     }
   
     // Anzahl der Player, kann dann durch das Menue uebergeben werden durch aufruf der Methode 
