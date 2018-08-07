@@ -14,6 +14,8 @@ public class CameraDirection : MonoBehaviour {
     public float distance = 5.0F;
     private float yVelocity = 0.0F;
 
+    private float degreesPerSecond = 300f;
+
     DepthOfFieldModel.Settings depthSettings;
 
     void Start()
@@ -28,8 +30,6 @@ public class CameraDirection : MonoBehaviour {
         pp.bloom.enabled = true;
         
         depthSettings = pp.depthOfField.settings;
-        // depthSettings.focalLength = 220;
-        // depthSettings.aperture = 8.4f;
         depthSettings.focalLength = 120;
         depthSettings.aperture = 8f;
     }
@@ -39,11 +39,24 @@ public class CameraDirection : MonoBehaviour {
     {
         // Working but trying to smooth it        
         target = cm.centerPoint;
-        Vector3 targetPostition = Vector3.Lerp(transform.position, new Vector3(this.transform.position.x, 0, target.z), 4f * Time.deltaTime);
-        this.transform.LookAt(targetPostition);
+        //Vector3 targetPosition = Vector3.Lerp(transform.position, new Vector3(this.transform.position.x, 0, target.z), 4f * Time.deltaTime);
 
-        //Limit lookAt Rotation
-        Camera.main.transform.localEulerAngles = new Vector3(Mathf.Clamp(Camera.main.transform.localEulerAngles.x, 40f, 80f), 0, 0);
+        //Debug.Log(target);
+
+
+        Vector3 dirFromMeToTarget = target - transform.position;
+        //dirFromMeToTarget.x = 0f;
+        //dirFromMeToTarget.y = 0f;
+        //Debug.Log(dirFromMeToTarget);
+        Quaternion lookRot = Quaternion.LookRotation(dirFromMeToTarget);
+        transform.rotation = Quaternion.Lerp(transform.rotation, lookRot, Time.deltaTime * (degreesPerSecond / 360f));
+
+        //transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(transform.position - targetPosition), Time.deltaTime * 2f);
+        //transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(targetPosition), 2f * Time.deltaTime);
+        //this.transform.LookAt(targetPosition);
+
+        // Limit lookAt Rotation
+        Camera.main.transform.localEulerAngles = new Vector3(Mathf.Clamp(Camera.main.transform.localEulerAngles.x, 40f, 80f), Camera.main.transform.localEulerAngles.y, 0);
 
         // Smooth Try
         /*

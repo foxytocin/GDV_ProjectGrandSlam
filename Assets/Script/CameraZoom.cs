@@ -36,10 +36,10 @@ public class CameraZoom : MonoBehaviour {
         //LookAt, SmoothFollow SmoothDirection
         //3fach verschachtelte Kamera, getrennt voneinander 
 
-        Debug.Log(zoom);
+        //Debug.Log(zoom);
 
         // BUG Irgendwie zuckt hier was...
-        float dist = Mathf.Lerp(transform.localPosition.y, zoom, 4f * Time.deltaTime);
+        float dist = Mathf.Lerp(transform.localPosition.y, zoom, 0.5f * Time.deltaTime);
         //Debug.Log("dist: " + dist);
         //Debug.Log("t.pos.y: " + transform.position.y);
         Vector3 offset = new Vector3(0, dist, 0);
