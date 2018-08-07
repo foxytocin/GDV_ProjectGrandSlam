@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraZoom : MonoBehaviour {
 
     //private CameraMovement cameraMovement;
-    private List<GameObject> players;
+    private Vector3[] players;
     private CameraMovement cm;
 
     private float fieldWidth;
@@ -23,7 +23,7 @@ public class CameraZoom : MonoBehaviour {
     {
         //Debug.Log(fieldWidth);
         //players = playerSpawner.playerList;
-        players = cm.livingPlayers;
+        players = cm.positions;
 
         //Debug.Log("verticalAxis world and local pos: " + transform.position + transform.localPosition);
         CameraMoving();
@@ -32,9 +32,11 @@ public class CameraZoom : MonoBehaviour {
     void CameraMoving()
     {
         //float zoom = Mathf.Lerp(fieldWidth/6f, fieldWidth/2f, GetGreatestDistance() / (fieldWidth + 5f));
-        float zoom = Mathf.Lerp(3f, 20f, GetGreatestDistance() / (fieldWidth + 5f));
+        float zoom = Mathf.Lerp(3f, 20f, GetGreatestDistance() / 50f);
         //LookAt, SmoothFollow SmoothDirection
         //3fach verschachtelte Kamera, getrennt voneinander 
+
+        Debug.Log(zoom);
 
         // BUG Irgendwie zuckt hier was...
         float dist = Mathf.Lerp(transform.localPosition.y, zoom, 4f * Time.deltaTime);
@@ -47,22 +49,31 @@ public class CameraZoom : MonoBehaviour {
 
     float GetGreatestDistance()
     {
-        if (players.Count == 1 || players.Count == 0)
-        {
-            return 0;
-        }
+        int numPlayers = cm.numPlayers;
         float maxDist = 0f;
-        for (int i = 0; i < players.Count; i++)
+        switch (numPlayers)
         {
-            for (int j = i + 1; j < players.Count; j++)
-            {
-                float dist = Vector3.Distance(players[i].transform.position, players[j].transform.position);
-                if (dist > maxDist)
+            case 1:
+                return maxDist;
+            case 2:                
+            case 3:
+            case 4:                
+                for (int i = 0; i < players.Length; i++)
                 {
-                    maxDist = dist;
+                    for (int j = i + 1; j < players.Length; j++)
+                    {
+                        if(players[i].y == 0.45f && players[j].y == 0.45f)
+                        {
+                            float dist = Vector3.Distance(players[i], players[j]);
+                            if (dist > maxDist)
+                            {
+                                maxDist = dist;
+                            }
+                        }                        
+                    }
                 }
-            }
-        }
-        return maxDist;
+                return maxDist;
+            default: return maxDist;
+        }        
     }
 }

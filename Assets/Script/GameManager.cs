@@ -25,9 +25,7 @@ public class GameManager : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update () {
-
-       
+    void Update () {      
 
         if (Input.GetKeyDown(KeyCode.Escape) || InputManager.OneStartButton())
         {
@@ -36,7 +34,6 @@ public class GameManager : MonoBehaviour {
 
         if(InputManager.OneR1Button() && player < 4) {
             player += 1;
-            Debug.Log(player);
         }
 
         if (InputManager.OneL1Button() && player > 1)
@@ -47,9 +44,7 @@ public class GameManager : MonoBehaviour {
         if(player != playertmp) {
             playertmp = player;
             playerSpawner.setPlayers(player);
-            playerSpawner.createPlayers();
-
-            
+            playerSpawner.createPlayers();            
 
             switch (player)
             {

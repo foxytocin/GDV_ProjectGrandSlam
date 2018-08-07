@@ -62,7 +62,7 @@ public class CameraMovement : MonoBehaviour {
 
     public Vector3 CalcCenterPoint()
     {
-        int numPlayers = playerSpawner.playerList.Count;
+        numPlayers = playerSpawner.playerList.Count;
         Vector3 center = Vector3.zero;
 
         switch(numPlayers)
@@ -78,7 +78,6 @@ public class CameraMovement : MonoBehaviour {
 
                 for (int i = 0; i < numPlayers; i++)
                 {
-                    Debug.Log(positions[i]);
                     if (positions[i].y == 0.45f)
                     {
                         xPos.Add(positions[i].x);
@@ -103,7 +102,6 @@ public class CameraMovement : MonoBehaviour {
 
                 foreach (Vector3 player in positions)
                 {
-                    Debug.Log(player);
                     if (player.y == 0.45f)
                     {
                         xPos.Add(player.x);
@@ -125,11 +123,17 @@ public class CameraMovement : MonoBehaviour {
         }
     }
 
+    public void PlayerPosition(Vector3 pos, int iD)
+    {
+        positions[iD] = pos;
+    }
+
+    /*
     public Vector3 CalcCenterPointOld()
     {
         //int numPlayers = livingPlayers.Count;
         Vector3 center = Vector3.zero;
-        
+
         if (numPlayers == 1)
         {
             return livingPlayers[0].transform.position;
@@ -186,14 +190,5 @@ public class CameraMovement : MonoBehaviour {
             return center;
         }
     }
-
-
-    // Prototyp der Position übergaben 
-    // Joshua bitte dann noch fertig schreiben!
-    // DU bekommst ein Vector und eine ID von mir. 
-    // ID ist dafue das du den Vector an die richtige stelle im Array oder der Liste Speichern kannst
-    public void PlayerPosition(Vector3 pos, int iD)
-    {
-        positions[iD] = pos;
-    }
+    */
 }
