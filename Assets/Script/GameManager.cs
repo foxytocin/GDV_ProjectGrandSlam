@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour {
     public AudioClip audioBackgoundMusic;
     public AudioClip audioStart;
     //public AudioClip audioOnePlayer;
+    public AudioClip audioOnePlayer;
     public AudioClip audioTwoPlayer;
     public AudioClip audioThreePlayer;
     public AudioClip audioFourPlayer;
@@ -48,6 +49,7 @@ public class GameManager : MonoBehaviour {
 
             switch(player)
             {
+                case 1: audioSource.PlayOneShot(audioOnePlayer, 0.5f); break;
                 case 2: audioSource.PlayOneShot(audioTwoPlayer, 0.5f); break;
                 case 3: audioSource.PlayOneShot(audioThreePlayer, 0.5f); break;
                 case 4: audioSource.PlayOneShot(audioFourPlayer, 0.5f); break;
@@ -55,29 +57,21 @@ public class GameManager : MonoBehaviour {
             }
         }
 
-        if (Input.GetKeyDown("1"))
+        if (Input.GetKeyDown("1") && player != 1)
         {
-            playerSpawner.setPlayers(1);
-            playerSpawner.createPlayers();
-            //audioSource.PlayOneShot(audioOnePlayer, 0.5f);
+            player = 1;
         }
-        if (Input.GetKeyDown("2"))
+        if (Input.GetKeyDown("2") && player != 2)
         {
-            playerSpawner.setPlayers(2);
-            playerSpawner.createPlayers();
-            audioSource.PlayOneShot(audioTwoPlayer, 0.5f);
+            player = 2;
         }
-        if (Input.GetKeyDown("3"))
+        if (Input.GetKeyDown("3") && player != 3)
         {
-            playerSpawner.setPlayers(3);
-            playerSpawner.createPlayers();
-            audioSource.PlayOneShot(audioThreePlayer, 0.5f);
+            player = 3;
         }
-        if (Input.GetKeyDown("4"))
+        if (Input.GetKeyDown("4") && player != 4)
         {
-            playerSpawner.setPlayers(4);
-            playerSpawner.createPlayers();
-            audioSource.PlayOneShot(audioFourPlayer, 0.5f);
+            player = 4;
         }
     }
 }
