@@ -162,6 +162,7 @@ public class LevelGenerator : MonoBehaviour
             } else {
                 levelSectionData = readFile(LevelTextdatei1);
                 specialSection = true;
+                generateKisten = true;
             }
             drawLevelLine(CameraPosition);
         }

@@ -12,6 +12,7 @@ public class PlayerScript : MonoBehaviour
     public int range;
     public bool alive;
     public bool remoteBomb;
+    public bool houdini;
     public int travelDistance;
     private int travelDistanceStart;
 
@@ -366,6 +367,13 @@ public class PlayerScript : MonoBehaviour
                 if (levelGenerator.AllGameObjects[Mathf.RoundToInt(target.x + tmp.x), Mathf.RoundToInt(target.z + tmp.z)] == null)
                 {
                     myTime = 0f;
+
+                    //Hat der Player das Houdini-Item, werden automatisch alle Kisten um ihn herum zerstört
+                    if(houdini)
+                    {
+                        FindObjectOfType<Houdini>().callHoudini(Mathf.RoundToInt(target.x + tmp.x), Mathf.RoundToInt(target.z + tmp.z));
+                    }
+
                     return true;
                 }
                 else

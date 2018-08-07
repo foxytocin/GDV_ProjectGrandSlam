@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class destroykistenteile : MonoBehaviour {
+public class DestroyKistenteile : MonoBehaviour {
 
     // Use this for initialization
     void Start()
