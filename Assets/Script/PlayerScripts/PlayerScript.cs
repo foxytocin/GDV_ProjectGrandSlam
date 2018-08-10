@@ -24,7 +24,8 @@ public class PlayerScript : MonoBehaviour
     public List<GameObject> remoteBombList;
     public LevelGenerator levelGenerator;
     public GhostSpawnerScript ghostSpawner;
-    public CameraMovement camera;
+    public CameraMovement cam;
+    public PlayerSpawner playerSpawner;
     bool RichtungsAenderung; //true == z; false == x 
     bool fall = false;
     float gravity;
@@ -47,7 +48,7 @@ public class PlayerScript : MonoBehaviour
         myTime = 0f;
         gravity = 0f;
         levelGenerator.AllGameObjects[(int)transform.position.x, (int)transform.position.z] = playerList[playerID];
-        camera.PlayerPosition(transform.position, playerID);
+        cam.PlayerPosition(transform.position, playerID);
         transform.Rotate(0, 90, 0, Space.World);
     }
 
@@ -181,12 +182,12 @@ public class PlayerScript : MonoBehaviour
                 else if (tmpVectorPos.z > transform.position.z || tmpVectorPos.x > transform.position.x)
                     transform.Rotate(-8, 0, 0);
 
-                    camera.PlayerPosition(transform.position, playerID);
+                    cam.PlayerPosition(transform.position, playerID);
             }
             else if (transform.position.y < 0.45f && !alive)
             {
                 transform.position.Set(transform.position.x, -1, transform.position.z);
-                camera.PlayerPosition(transform.position, playerID);
+                cam.PlayerPosition(transform.position, playerID);
             }
         }
         
@@ -241,7 +242,7 @@ public class PlayerScript : MonoBehaviour
     {
         Debug.Log("Player_" + playerID.ToString() + " is Dead");
         transform.Translate(0f, -2f, 0f);
-        camera.PlayerPosition(transform.position, playerID);
+        cam.PlayerPosition(transform.position, playerID);
         setLife(-1);
         setALife(false);
         this.gameObject.SetActive(false);

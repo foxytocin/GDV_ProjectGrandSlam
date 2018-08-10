@@ -5,15 +5,11 @@ using UnityEngine;
 public class CameraZoom : MonoBehaviour {
     
     private Vector3[] players;
-    private CameraMovement cm;
-
-    private float fieldWidth;
-    
+    private CameraMovement cm;    
 
     private void Start()
     {
         cm = GameObject.Find("HorizontalAxis").GetComponent<CameraMovement>();
-        fieldWidth = GameObject.Find("LevelGenerator").GetComponent<LevelGenerator>().AllGameObjects.GetLength(0) - 4;
     }
 
     void LateUpdate()

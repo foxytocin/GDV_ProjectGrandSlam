@@ -16,7 +16,7 @@ public class PlayerSpawner : MonoBehaviour
     public GhostSpawnerScript ghostSpawner;
     List<Vector3> spawnList;
     List<Color> playerColorList;
-    public CameraMovement camera;
+    public CameraMovement cam;
 
     public Material playerOne;
 
@@ -84,7 +84,7 @@ public class PlayerSpawner : MonoBehaviour
             // Player bekommt den GhostSpawner Uebergeben, damit beim Tod ein Geist Spawnen kann
             tmpPlayerScript.ghostSpawner = ghostSpawner;
             // Player bekommt das CameraScript movement 
-            tmpPlayerScript.camera = camera;
+            tmpPlayerScript.cam = cam;
 
             // Player wird in die PlayerListe angefuegt
             playerList.Add(tmpPlayer);
