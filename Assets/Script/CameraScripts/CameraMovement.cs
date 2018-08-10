@@ -62,7 +62,9 @@ public class CameraMovement : MonoBehaviour {
 
         switch(numPlayers)
         {
-            case 1: return positions[0];
+            case 1:
+                Debug.Log("NOW");
+                return positions[0];
             case 2:
                 for (int i = 0; i < numPlayers; i++)
                 {
@@ -72,14 +74,12 @@ public class CameraMovement : MonoBehaviour {
                         iDLastAlive = i;
                     }
                 }
-                Debug.Log(j);
                 if(j == 2)
                 {
                     center = positions[1] - positions[0];
                     return positions[0] + 0.5f * center;
                 } else
                 {
-                    Debug.Log("k: " + iDLastAlive);
                     return positions[iDLastAlive];
                 }
                               
@@ -97,7 +97,6 @@ public class CameraMovement : MonoBehaviour {
                         zPos.Add(positions[i].z);
                     }
                 }
-                Debug.Log(j);
                 maxX = Mathf.Max(xPos.ToArray());
                 maxZ = Mathf.Max(zPos.ToArray());
                 minX = Mathf.Min(xPos.ToArray());
