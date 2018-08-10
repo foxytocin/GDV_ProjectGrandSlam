@@ -42,7 +42,6 @@ public class CameraDirection : MonoBehaviour {
         transform.rotation = Quaternion.Lerp(transform.rotation, lookRot, Time.deltaTime * (degreesPerSecond / 360f));
 
         // Limit lookAt Rotation
-        Debug.Log(Camera.main.transform.localEulerAngles.y);
         if(Camera.main.transform.localEulerAngles.y < 10)
         {
             Camera.main.transform.localEulerAngles = new Vector3(Mathf.Clamp(Camera.main.transform.localEulerAngles.x, 40f, 80f), Mathf.Clamp(Camera.main.transform.localEulerAngles.y, 0f, 9f), 0);

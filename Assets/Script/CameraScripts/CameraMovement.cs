@@ -63,7 +63,6 @@ public class CameraMovement : MonoBehaviour {
         switch(numPlayers)
         {
             case 1:
-                Debug.Log("NOW");
                 return positions[0];
             case 2:
                 for (int i = 0; i < numPlayers; i++)
