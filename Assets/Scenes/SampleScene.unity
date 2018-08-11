@@ -172,7 +172,7 @@ Light:
   serializedVersion: 8
   m_Type: 1
   m_Color: {r: 1, g: 0.9642474, b: 0.8632076, a: 1}
-  m_Intensity: 1.5
+  m_Intensity: 1.2
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -1067,8 +1067,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1de60bbf67cd00a4ca0fac4480aee9d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  smooth: 0.3
-  distance: 5
 --- !u!114 &1471981545
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1185,7 +1183,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 7a6c0d174aa324df0b17a46263fce4c0, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 1a11ebb2628c949dcb58df7fd62c01e1, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.5
   m_Pitch: 1
@@ -1348,7 +1346,7 @@ MonoBehaviour:
   playerList: []
   levelGenerator: {fileID: 958779247}
   ghostSpawner: {fileID: 772635015}
-  camera: {fileID: 2023082695}
+  cam: {fileID: 2023082695}
   playerOne: {fileID: 2100000, guid: f3887e91451b14946a111b6a14f4957b, type: 2}
 --- !u!4 &1847533653
 Transform:
