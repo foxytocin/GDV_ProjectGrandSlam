@@ -40,7 +40,7 @@ public class LevelGenerator : MonoBehaviour
     private int rotation;
     private bool specialSection;
     private bool generateKisten;
-    public const int tiefeLevelStartBasis = 25;
+    public const int tiefeLevelStartBasis = 60;
     public GenerateDistanceLine GenerateDistanceLine;
 
     // Use this for initialization
