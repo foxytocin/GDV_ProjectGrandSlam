@@ -50,7 +50,7 @@ public class CameraMovement : MonoBehaviour {
         //Dynamischer Levelspeed
         cameraScroller.LevelGenerator.setLevelSpeed(((z + z + 5f) / 4f) + 0.5f);        
 
-        transform.localPosition = Vector3.Lerp(transform.localPosition, new Vector3(centerPoint.x, 0f, z), 4f * Time.deltaTime);
+        transform.localPosition = Vector3.Lerp(transform.localPosition, new Vector3(centerPoint.x-12f, 0f, z), 4f * Time.deltaTime);
     }
 
     public Vector3 CalcCenterPoint()

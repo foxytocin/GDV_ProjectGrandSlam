@@ -4,28 +4,17 @@ using UnityEngine;
 using UnityEngine.PostProcessing;
 
 public class CameraDirection : MonoBehaviour {
-    private Vector3 target;
+    public Vector3 target;
     private CameraMovement cm;   
 
     private float degreesPerSecond = 300f;
 
-    private PostProcessingProfile pp;
-    DepthOfFieldModel.Settings depthSettings;
-
     void Start()
     {
-        //Offset at Beginning, currently random -> make dynamic
-        transform.position = new Vector3(0f, 4f, -10f);        
+        //Offset Camera
+        transform.localPosition = new Vector3(-1f, -1f, -11f);        
 
-        cm = GameObject.Find("HorizontalAxis").GetComponent<CameraMovement>();
-        
-        //Change PostProcessing Settings
-        pp = GetComponent<PostProcessingBehaviour>().profile;
-        pp.bloom.enabled = true;
-        
-        depthSettings = pp.depthOfField.settings;
-        depthSettings.focalLength = 110;
-        depthSettings.aperture = 7f;
+        cm = GameObject.Find("HorizontalAxis").GetComponent<CameraMovement>();        
     }
 
     // Update is called once per frame
@@ -44,21 +33,12 @@ public class CameraDirection : MonoBehaviour {
         // Limit lookAt Rotation
         if(Camera.main.transform.localEulerAngles.y < 10)
         {
-            Camera.main.transform.localEulerAngles = new Vector3(Mathf.Clamp(Camera.main.transform.localEulerAngles.x, 40f, 80f), Mathf.Clamp(Camera.main.transform.localEulerAngles.y, 0f, 9f), 0);
+            Camera.main.transform.localEulerAngles = new Vector3(Mathf.Clamp(Camera.main.transform.localEulerAngles.x, 30f, 80f), Mathf.Clamp(Camera.main.transform.localEulerAngles.y, 0f, 9f), 0);
         } else if (Camera.main.transform.localEulerAngles.y > 11)
         {
-            Camera.main.transform.localEulerAngles = new Vector3(Mathf.Clamp(Camera.main.transform.localEulerAngles.x, 40f, 80f), Mathf.Clamp(Camera.main.transform.localEulerAngles.y, 350f, 361f), 0);
+            Camera.main.transform.localEulerAngles = new Vector3(Mathf.Clamp(Camera.main.transform.localEulerAngles.x, 30f, 80f), Mathf.Clamp(Camera.main.transform.localEulerAngles.y, 350f, 361f), 0);
         }
         //Camera.main.transform.localEulerAngles = new Vector3(Mathf.Clamp(Camera.main.transform.localEulerAngles.x, 40f, 80f), Mathf.Clamp(Camera.main.transform.localEulerAngles.y, maxRotation.x, maxRotation.y), 0);
         //Camera.main.transform.rotation.q
-
-        setFocusPoint();
-    }
-
-    void setFocusPoint()
-    {
-        float distance = Vector3.Distance(this.transform.position, target);        
-        depthSettings.focusDistance = distance;
-        pp.depthOfField.settings = depthSettings;
-    }
+    }    
 }
