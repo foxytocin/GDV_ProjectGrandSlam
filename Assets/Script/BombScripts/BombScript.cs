@@ -17,10 +17,14 @@ public class BombScript : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip audioZischen;
     public AudioClip audioPlopp;
+    private CameraShake cameraShake;
+    private MapDestroyer mapDestroyer;
 
     void Awake()
     {
         audioSource = GetComponent<AudioSource>();
+        cameraShake = FindObjectOfType<CameraShake>();
+        mapDestroyer = FindObjectOfType<MapDestroyer>();
     }
 
     void Start()
@@ -55,8 +59,9 @@ public class BombScript : MonoBehaviour
 
     void explode() {
 
+        cameraShake.StartCoroutine(cameraShake.Shake(0.15f, 0.15f));
+
         //Explode() im MapDestroyer wird aufgerufen um von der bombPosition und mit deren bombPower zu pruefen welche weiteren Felder um die Bombe herum explodieren muessen.
-        MapDestroyer mapDestroyer = FindObjectOfType<MapDestroyer>();
         mapDestroyer.StartCoroutine(mapDestroyer.explode(bombPosition, bombPower, bombOwnerPlayerID));
 
         //Bombe selber wird zerstört.
