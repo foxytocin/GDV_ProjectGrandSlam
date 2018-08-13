@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.PostProcessing;
 
-public class PostProcessing : MonoBehaviour {
+public class PostProcessingEditing : MonoBehaviour {
 
     private PostProcessingProfile pp;
     private DepthOfFieldModel.Settings depthSettings;
@@ -21,6 +21,12 @@ public class PostProcessing : MonoBehaviour {
         depthSettings = pp.depthOfField.settings;
         depthSettings.focalLength = 110;
         depthSettings.aperture = 7f;
+
+        //Initialize Fog
+        RenderSettings.fog = true;
+        RenderSettings.fogMode = FogMode.Linear;
+        RenderSettings.fogStartDistance = 23f;
+        RenderSettings.fogEndDistance = 31f;
     }
 
     // Update is called once per frame
