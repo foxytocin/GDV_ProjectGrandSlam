@@ -192,28 +192,28 @@ public class LevelGenerator : MonoBehaviour
                 KistenMenge = 25f; //30% Kisten
                 Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
                 break;
-            case 250:
+            case 300:
                 KistenMenge = 30f; //35% Kisten
                 Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
                 break;
-            case 300:
+            case 400:
                 KistenMenge = 35f; //40% Kisten
                 Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
                 break;
-            case 350:
+            case 500:
                 KistenMenge = 40f; //45% Kisten
                 Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
                 break;
-            case 400:
+            case 600:
                 KistenMenge = 45f; //50% Kisten
                 Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
                 break;
-            case 450:
+            case 700:
                 KistenMenge = 50f; //60% Kisten
                 Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
                 break;
-            case 500:
-                KistenMenge = 70f; //70% Kisten
+            case 800:
+                KistenMenge = 60f; //60% Kisten
                 Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
                 break;
             default:
@@ -303,7 +303,7 @@ public class LevelGenerator : MonoBehaviour
         }
 
         //Generiert alle X Meter die DistanceLine
-        if(CameraPosition > 10 && CameraPosition % 20 == 0 )
+        if(CameraPosition > 10 && CameraPosition % 25 == 0 )
             {
                 GenerateDistanceLine.createDistanceLine(CameraPosition);
             }

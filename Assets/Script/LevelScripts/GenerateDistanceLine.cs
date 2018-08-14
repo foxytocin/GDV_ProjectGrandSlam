@@ -116,7 +116,7 @@ private Color32 Percent100 = new Color32(170, 39, 39, 1);
 				return Percent80;
 			case 50:
 				return Percent90;
-			case 70:
+			case 60:
 				return Percent100;
 			default:
 				break;
