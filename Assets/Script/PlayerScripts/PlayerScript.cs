@@ -208,10 +208,7 @@ public class PlayerScript : MonoBehaviour
             gravity += Time.deltaTime;
             transform.position = Vector3.MoveTowards(transform.position, target, gravity * gravity);
 
-
-
-
-            if (transform.position.y == -50)
+            if (transform.position.y == -200)
             {
                 gravity = 0f;
                 setLife(-1);
@@ -437,7 +434,7 @@ public class PlayerScript : MonoBehaviour
             default: break;
         }
 
-        target.y = -50f;
+        target.y = -200f;
         fall = true;
         alive = false;
 

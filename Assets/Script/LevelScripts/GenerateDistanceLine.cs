@@ -8,10 +8,10 @@ public LevelGenerator LevelGenerator;
 public GameObject StangePrefab;
 public GameObject QuerstrebePrefab;
 public GameObject MeterSchildPrefab;
-private int startPoint;
-private int endPoint;
-private int centerPoint;
-private int scaleQuerstrebe;
+private float startPoint;
+private float endPoint;
+private float centerPoint;
+private float scaleQuerstrebe;
 
 private Color32 Percent0 = new Color32(83, 170, 39, 1);
 private Color32 Percent10 = new Color32(105, 170, 39, 1);
@@ -66,8 +66,8 @@ private Color32 Percent100 = new Color32(170, 39, 39, 1);
 		}
 
 		//Berechnung der Mitte zwischen beiden Pfosten am Spielrand
-		centerPoint = startPoint + (endPoint - startPoint) / 2;
-		scaleQuerstrebe = endPoint - startPoint - 1;
+		centerPoint = startPoint + (endPoint - startPoint) / 2f;
+		scaleQuerstrebe = endPoint - startPoint - 1f;
 
 		//Generierung der GameObjecte mit richtiger Rotation und Scalierung entsprechend dem Abstand der Pfosten
 		GameObject StartStange = Instantiate(StangePrefab, new Vector3(startPoint, 0.5f, row), Quaternion.Euler(0f, -90f, 0f), transform);
@@ -126,11 +126,11 @@ private Color32 Percent100 = new Color32(170, 39, 39, 1);
 
 
 	//Generiert abhängig von der Breite des Levelabschnittes 1, 2 oder 3 MeterSchilder
-	void createMeterSchild(int startPoint, int endPoint, int centerPoint, int row)
+	void createMeterSchild(float startPoint, float endPoint, float centerPoint, int row)
 	{
-		int distance = endPoint - startPoint;
-		int leftMiddle = startPoint + (centerPoint - startPoint) / 2;
-		int rightMiddle = centerPoint + (endPoint - centerPoint) / 2;
+		float distance = endPoint - startPoint;
+		float leftMiddle = startPoint - 1 + (centerPoint - startPoint) / 2f;
+		float rightMiddle = centerPoint + (endPoint - centerPoint) / 2f;
 
 		if(distance >= 26)
 		{
