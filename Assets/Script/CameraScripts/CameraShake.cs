@@ -26,7 +26,7 @@ public class CameraShake : MonoBehaviour {
 
 			//Intensity nimmt exponentiell ab
 			intensity = intensity * Mathf.Pow(0.4f, timeMoved);
-			postProcessingEditing.chromaticAberrationStrength = intensity * 3f;
+			postProcessingEditing.chromaticAberrationStrength = intensity * 3.5f;
 
 			//Debug.Log("ShakeTimeMoved: " +timeMoved);
 			//Debug.Log("ShakeIntensivity: " +intensity);
