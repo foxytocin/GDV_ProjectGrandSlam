@@ -14,6 +14,13 @@ public class PlayerScript : MonoBehaviour
     public bool remoteBomb;
     public bool houdini;
     public int travelDistance;
+
+    public AudioSource audioSource;
+    public AudioClip Player1falls;
+    public AudioClip Player2falls;
+    public AudioClip Player3falls;
+    public AudioClip Player4falls;
+
     private int travelDistanceStart;
 
     public List<GameObject> playerList;
@@ -31,6 +38,10 @@ public class PlayerScript : MonoBehaviour
     float gravity;
 
 
+    void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     void Start()
     {
@@ -196,6 +207,9 @@ public class PlayerScript : MonoBehaviour
         {
             gravity += Time.deltaTime;
             transform.position = Vector3.MoveTowards(transform.position, target, gravity * gravity);
+
+
+
 
             if (transform.position.y == -50)
             {
@@ -414,9 +428,19 @@ public class PlayerScript : MonoBehaviour
      
     public void playerFall()
     {
+        switch (playerID)
+        {
+            case 0: audioSource.PlayOneShot(Player1falls, 0.5f); break;
+            case 1: audioSource.PlayOneShot(Player2falls, 0.5f); break;
+            case 2: audioSource.PlayOneShot(Player3falls, 0.5f); break;
+            case 3: audioSource.PlayOneShot(Player4falls, 0.5f); break;
+            default: break;
+        }
+
         target.y = -50f;
         fall = true;
         alive = false;
+
     }
                     
 }

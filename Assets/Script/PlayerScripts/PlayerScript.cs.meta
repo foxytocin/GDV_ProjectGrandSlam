@@ -3,7 +3,16 @@ guid: dff053ec6efa548eb899bade09296d63
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - audioSource: {instanceID: 0}
+  - Player1falls: {instanceID: 0}
+  - Player2falls: {instanceID: 0}
+  - Player3falls: {instanceID: 0}
+  - Player4falls: {instanceID: 0}
+  - levelGenerator: {instanceID: 0}
+  - ghostSpawner: {instanceID: 0}
+  - cam: {instanceID: 0}
+  - playerSpawner: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
