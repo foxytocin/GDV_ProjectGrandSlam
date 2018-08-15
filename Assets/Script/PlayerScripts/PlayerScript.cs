@@ -390,6 +390,7 @@ public class PlayerScript : MonoBehaviour
             //entweder hat sich der Richungsvector nicht geändert oder das Objekt die selbe Position wie TargetVector
             if ((lastTmpVector == tmp || target == transform.position) && myTime > 0.2f)
             {
+
                 //Prueft im Array an der naechsten stelle ob dort ein objekt liegt wenn nicht dann return.true
                 if (levelGenerator.AllGameObjects[Mathf.RoundToInt(target.x + tmp.x), Mathf.RoundToInt(target.z + tmp.z)] == null)
                 {
@@ -401,6 +402,12 @@ public class PlayerScript : MonoBehaviour
                         FindObjectOfType<Houdini>().callHoudini(Mathf.RoundToInt(target.x + tmp.x), Mathf.RoundToInt(target.z + tmp.z));
                     }
 
+                    //Debug.Log("Player at: " +levelGenerator.SecondaryGameObjects1[(int)(target.x + tmp.x), (int)(target.z + tmp.z)].gameObject.tag);
+                    if (levelGenerator.SecondaryGameObjects1[(int)(target.x + tmp.x), (int)(target.z + tmp.z)].gameObject.CompareTag("KillField"))
+                    {
+                        dead();
+                    }
+
                     return true;
                 }
                 else
@@ -410,10 +417,6 @@ public class PlayerScript : MonoBehaviour
                         playerFall();
                     }
 
-                    if (levelGenerator.AllGameObjects[(int)(target.x + tmp.x), (int)(target.z + tmp.z)].gameObject.CompareTag("KillField"))
-                    {
-                        dead();
-                    }
                     return false;
                 }
             }

@@ -6,7 +6,6 @@ public class MapDestroyer : MonoBehaviour
     public LevelGenerator levelGenerator;
     public PlayerSpawner PlayerSpawner;
     public GameObject ExplosionPrefab;
-    public GameObject KillFieldPrefab;
     public GameObject KistenPartsPrefab;
     private IEnumerator coroutinexPositiv;
     private IEnumerator coroutinexNegativ;
@@ -22,7 +21,6 @@ public class MapDestroyer : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
     }
-
 
     //Wird beim explodieren der Bombe durch das BombeScript aufgerufen.
     //Empfaengt die Position, die bombPower der Bombe und die ID des Spielers welche sie gelegt hat.
@@ -43,7 +41,7 @@ public class MapDestroyer : MonoBehaviour
         //Explosions-Animation an der Stelle der Bombe wird abgespielt.
         Instantiate(ExplosionPrefab, explosionPosition, Quaternion.identity, transform);
         audioSource.PlayOneShot(audioClip);
-        levelGenerator.AllGameObjects[(int)explosionPosition.x, (int)explosionPosition.z] = Instantiate(KillFieldPrefab, new Vector3(explosionPosition.x, 0.1f, explosionPosition.z), Quaternion.Euler(90f, 0, 0), transform);
+        StartCoroutine(KillField((int)position.x, (int)position.z));
 
         //Es werden 4 Coroutinen angelegt und gestartet, welche gleichzeitig in alle Himmelsrichtung (x, -x, z, -z) die Fehler durchlaufen.
         //Die bombPower gibt an wieviele Felder in jede Richtung erreicht und geprueft werden muessen.
@@ -122,10 +120,12 @@ public class MapDestroyer : MonoBehaviour
 
         GameObject thisGameObject = levelGenerator.AllGameObjects[x, z];
 
+        //if == null bedeute an dieser Stelle ist ein GANG
         if (thisGameObject == null)
         {
             Instantiate(ExplosionPrefab, new Vector3(x, 0.5f, z), Quaternion.identity, transform);
-            levelGenerator.AllGameObjects[x, z] = Instantiate(KillFieldPrefab, new Vector3(x, 0.1f, z), Quaternion.Euler(90f, 0, 0), transform);
+            //levelGenerator.AllGameObjects[x, z] = Instantiate(KillFieldPrefab, new Vector3(x, 0.1f, z), Quaternion.Euler(90f, 0, 0), transform);
+            StartCoroutine(KillField(x, z));
             return true;
         }
         else
@@ -144,7 +144,8 @@ public class MapDestroyer : MonoBehaviour
                 case "Kiste":
                     Instantiate(ExplosionPrefab, new Vector3(x, 0.5f, z), Quaternion.identity, transform);
                     Destroy(thisGameObject);
-                    levelGenerator.AllGameObjects[x, z] = Instantiate(KillFieldPrefab, new Vector3(x, 0.1f, z), Quaternion.Euler(90f, 0, 0), transform);
+                    StartCoroutine(KillField(x, z));
+                    //levelGenerator.AllGameObjects[x, z] = Instantiate(KillFieldPrefab, new Vector3(x, 0.1f, z), Quaternion.Euler(90f, 0, 0), transform);
 
                     //Ersetzt die Kiste durch Kiste_destroyed Prefab
                     Instantiate(KistenPartsPrefab, new Vector3(x, 0.5f, z), Quaternion.identity, transform);
@@ -157,14 +158,15 @@ public class MapDestroyer : MonoBehaviour
                 case "Item":
                     Instantiate(ExplosionPrefab, new Vector3(x, 0.5f, z), Quaternion.identity, transform);
                     Destroy(thisGameObject);
-                    levelGenerator.AllGameObjects[x, z] = Instantiate(KillFieldPrefab, new Vector3(x, 0.1f, z), Quaternion.Euler(90f, 0, 0), transform);
+                    StartCoroutine(KillField(x, z));
                     return true;
 
                 case "Player":
                     Instantiate(ExplosionPrefab, new Vector3(x, 0.5f, z), Quaternion.identity, transform);
                     thisGameObject.GetComponent<PlayerScript>().dead();
                     levelGenerator.AllGameObjects[x, z] = null;
-                    levelGenerator.AllGameObjects[x, z] = Instantiate(KillFieldPrefab, new Vector3(x, 0.1f, z), Quaternion.Euler(90f, 0, 0), transform);
+                    StartCoroutine(KillField(x, z));
+                    //levelGenerator.AllGameObjects[x, z] = Instantiate(KillFieldPrefab, new Vector3(x, 0.1f, z), Quaternion.Euler(90f, 0, 0), transform);
                     return true;
 
                 default:
@@ -173,4 +175,25 @@ public class MapDestroyer : MonoBehaviour
         }
         return false;
     }
+
+        //private Color oldColor;
+        private IEnumerator KillField(int x, int z)
+        {
+
+        if(levelGenerator.SecondaryGameObjects1[x, z] != null)
+        {
+            levelGenerator.SecondaryGameObjects1[x, z].gameObject.tag = "KillField";
+            //oldColor = levelGenerator.SecondaryGameObjects1[x, z].gameObject.GetComponent<Renderer>().material.color;
+            //levelGenerator.SecondaryGameObjects1[x, z].gameObject.GetComponent<Renderer>().material.color = Color.red;
+        }
+
+        yield return new WaitForSeconds(0.2f);
+
+            if(levelGenerator.SecondaryGameObjects1[x, z] != null)
+            {
+                levelGenerator.SecondaryGameObjects1[x, z].gameObject.tag = "Boden";
+                //levelGenerator.SecondaryGameObjects1[x, z].gameObject.GetComponent<Renderer>().material.color = oldColor;
+            }
+        }
+    
 }
