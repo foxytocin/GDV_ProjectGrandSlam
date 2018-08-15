@@ -184,7 +184,7 @@ public class PlayerScript : MonoBehaviour
                 }
                 else if (tmpVectorPos.z != transform.position.z && !RichtungsAenderung)
                 {
-                    transform.Rotate(0, -90, 0,Space.World);
+                    transform.Rotate(0, -90, 0, Space.World);
                     RichtungsAenderung = true;
                 }
 
@@ -201,7 +201,9 @@ public class PlayerScript : MonoBehaviour
                 cam.PlayerPosition(transform.position, playerID);
             }
         }
-        
+
+        // ROTATION DER BODENPLATTE ZUR ROTATION DES PLAYERS ADDIEREN, DAMIT DIESER WACKELT WENN ER AUF EINER WACKENDEN BODENPLATTE STEHT
+        //transform.localEulerAngles = levelGenerator.SecondaryGameObjects1[(int)transform.position.x, (int)transform.position.z].gameObject.transform.localEulerAngles;
 
         if(fall)
         {

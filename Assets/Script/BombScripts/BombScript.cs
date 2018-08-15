@@ -19,12 +19,14 @@ public class BombScript : MonoBehaviour
     public AudioClip audioPlopp;
     private CameraShake cameraShake;
     private MapDestroyer mapDestroyer;
+    private LevelGenerator levelGenerator;
 
     void Awake()
     {
         audioSource = GetComponent<AudioSource>();
         cameraShake = FindObjectOfType<CameraShake>();
         mapDestroyer = FindObjectOfType<MapDestroyer>();
+        levelGenerator = FindObjectOfType<LevelGenerator>();
     }
 
     void Start()
@@ -47,11 +49,19 @@ public class BombScript : MonoBehaviour
 
     IEnumerator bombAnimation()
     {
+        //Bombe uebernimmt die Rotation der Bodenplatte auf der sie liegt. Faengt der Boden an zu wackeln, wird so diese Wackelbewegung uebernommen
+        //Um die Wackelbewegung deutlicher zu mache, werden die Winkel mit dem Faktor 3 multipliziet
+        Vector3 anglesBode;
+        Vector3 anglesRotation = transform.localEulerAngles;
+
         while (countDown >= 0 || remoteBomb)
         {
-            transform.eulerAngles += new Vector3(0, 80f * (Time.deltaTime * bombRotation), 0);
+            anglesBode = levelGenerator.SecondaryGameObjects1[(int)transform.position.x, (int)transform.position.z].gameObject.transform.localEulerAngles * 3f;
+            anglesRotation += new Vector3(0, 80f * (Time.deltaTime * bombRotation), 0);
+
+            transform.localEulerAngles = anglesBode + anglesRotation;
             countDown -= Time.deltaTime;
-            yield return new WaitForEndOfFrame();
+            yield return null;
         }
 
          explode();
