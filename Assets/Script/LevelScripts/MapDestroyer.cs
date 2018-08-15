@@ -145,7 +145,6 @@ public class MapDestroyer : MonoBehaviour
                     Instantiate(ExplosionPrefab, new Vector3(x, 0.5f, z), Quaternion.identity, transform);
                     Destroy(thisGameObject);
                     StartCoroutine(KillField(x, z));
-                    //levelGenerator.AllGameObjects[x, z] = Instantiate(KillFieldPrefab, new Vector3(x, 0.1f, z), Quaternion.Euler(90f, 0, 0), transform);
 
                     //Ersetzt die Kiste durch Kiste_destroyed Prefab
                     Instantiate(KistenPartsPrefab, new Vector3(x, 0.5f, z), Quaternion.identity, transform);
@@ -166,7 +165,6 @@ public class MapDestroyer : MonoBehaviour
                     thisGameObject.GetComponent<PlayerScript>().dead();
                     levelGenerator.AllGameObjects[x, z] = null;
                     StartCoroutine(KillField(x, z));
-                    //levelGenerator.AllGameObjects[x, z] = Instantiate(KillFieldPrefab, new Vector3(x, 0.1f, z), Quaternion.Euler(90f, 0, 0), transform);
                     return true;
 
                 default:
@@ -177,10 +175,13 @@ public class MapDestroyer : MonoBehaviour
     }
 
         //private Color oldColor;
+        //Markiert die Bodenplatte auf der eine Explosion stattfindet als "KillField" in dem der Tag von "Boden" auf "KillField" geaendert wird
+        //Lauft der Player auf eine so markierte Bodenplatte stirbt er
+        //Nach X Sekunden wird der Tag-Switch rueckgangig gemacht
         private IEnumerator KillField(int x, int z)
         {
 
-        if(levelGenerator.SecondaryGameObjects1[x, z] != null)
+        if(levelGenerator.SecondaryGameObjects1[x, z].gameObject.CompareTag("Boden"))
         {
             levelGenerator.SecondaryGameObjects1[x, z].gameObject.tag = "KillField";
             //oldColor = levelGenerator.SecondaryGameObjects1[x, z].gameObject.GetComponent<Renderer>().material.color;
@@ -189,7 +190,7 @@ public class MapDestroyer : MonoBehaviour
 
         yield return new WaitForSeconds(0.2f);
 
-            if(levelGenerator.SecondaryGameObjects1[x, z] != null)
+            if(levelGenerator.SecondaryGameObjects1[x, z].gameObject.CompareTag("KillField"))
             {
                 levelGenerator.SecondaryGameObjects1[x, z].gameObject.tag = "Boden";
                 //levelGenerator.SecondaryGameObjects1[x, z].gameObject.GetComponent<Renderer>().material.color = oldColor;
