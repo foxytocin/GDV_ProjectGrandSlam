@@ -271,15 +271,13 @@ public class LevelGenerator : MonoBehaviour
 
             //Loescht die DistanceLine aus der Spielwelt wenn diese 10 Felder hinter der Camnera ist
             if (CameraPosition > 10 && DistanceLines[0, CameraPosition - 10] != null) {
-                Destroy(DistanceLines[0, CameraPosition - 10].gameObject);
-                Destroy(DistanceLines[1, CameraPosition - 10].gameObject);
-                Destroy(DistanceLines[2, CameraPosition - 10].gameObject);
-                Destroy(DistanceLines[3, CameraPosition - 10].gameObject);
-                Destroy(DistanceLines[4, CameraPosition - 10].gameObject);
-                Destroy(DistanceLines[5, CameraPosition - 10].gameObject);
+
+                for(int i = 0; i < 6; i++)
+                {
+                    Destroy(DistanceLines[i, CameraPosition - 10].gameObject);
+                }
             }
         }
-
         yield return null;
     }
 

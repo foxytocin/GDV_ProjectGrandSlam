@@ -7,11 +7,8 @@ public class MapDestroyer : MonoBehaviour
     public GameObject KistenPartsPrefab;
     public LevelGenerator levelGenerator;
     public PlayerSpawner PlayerSpawner;
-    private IEnumerator coroutinexPositiv;
-    private IEnumerator coroutinexNegativ;
-    private IEnumerator coroutinezPositiv;
-    private IEnumerator coroutinezNegativ;
-    private Vector3 explosionPosition;
+    private int xPos;
+    private int zPos;
     public AudioSource audioSource;
     public AudioClip audioClip;
 
@@ -26,11 +23,12 @@ public class MapDestroyer : MonoBehaviour
     //Empfaengt die Position, die bombPower der Bombe und die ID des Spielers welche sie gelegt hat.
     public IEnumerator explode(Vector3 position, int bombPower, int id)
     {
-        explosionPosition = position;
+        xPos = (int)position.x;
+        zPos = (int)position.z;
 
         //Ueberprüft ob der Spieler, der die Bombe gelegt hat, exakt an der gleichen Stelle (in der Bombe) stehen geblieben ist.
         //Sollte dies zutreffen, wird der Spieler getoetet.
-        if ((int) PlayerSpawner.playerList[id].gameObject.transform.position.x == (int)explosionPosition.x && (int) PlayerSpawner.playerList[id].gameObject.transform.position.z == (int)explosionPosition.z)
+        if ((int) PlayerSpawner.playerList[id].gameObject.transform.position.x == xPos && (int)PlayerSpawner.playerList[id].gameObject.transform.position.z == zPos)
         {
              PlayerSpawner.playerList[id].GetComponent<PlayerScript>().dead();
         }
@@ -39,72 +37,62 @@ public class MapDestroyer : MonoBehaviour
         PlayerSpawner.playerList[id].GetComponent<PlayerScript>().setAvaibleBomb(1);
 
         //Explosions-Animation an der Stelle der Bombe wird abgespielt.
-        objectPooler.SpawnFromPool("Explosion", new Vector3(explosionPosition.x, 0.5f, explosionPosition.z), Quaternion.identity);
+        objectPooler.SpawnFromPool("Explosion", new Vector3(xPos, 0.5f, zPos), Quaternion.identity);
         audioSource.PlayOneShot(audioClip);
         StartCoroutine(KillField((int)position.x, (int)position.z));
 
         //Es werden 4 Coroutinen angelegt und gestartet, welche gleichzeitig in alle Himmelsrichtung (x, -x, z, -z) die Fehler durchlaufen.
         //Die bombPower gibt an wieviele Felder in jede Richtung erreicht und geprueft werden muessen.
         //Die Player ID der Bombe (= ID vom Player der sie gelegt hat) wird durchgereicht, falls diese spaeter noch benoetigt wird.
-        coroutinexPositiv = xPositiv(bombPower, 0.06f, id);
-        coroutinexNegativ = xNegativ(bombPower, 0.06f, id);
-        coroutinezPositiv = zPositiv(bombPower, 0.06f, id);
-        coroutinezNegativ = zNegativ(bombPower, 0.06f, id);
-
-        StartCoroutine(coroutinexPositiv);
-        StartCoroutine(coroutinexNegativ);
-        StartCoroutine(coroutinezPositiv);
-        StartCoroutine(coroutinezNegativ);
+        StartCoroutine(CellWalker(bombPower, 0.06f, id, xPos, zPos, 0));
+        StartCoroutine(CellWalker(bombPower, 0.06f, id, xPos, zPos, 1));
+        StartCoroutine(CellWalker(bombPower, 0.06f, id, xPos, zPos, 2));
+        StartCoroutine(CellWalker(bombPower, 0.06f, id, xPos, zPos, 3));
 
         yield return null;
     }
 
     //Jeder der 4 Coroutinen laeuft solange der Rueckgabewert von ExplodeCell = true ist.
-    private IEnumerator xPositiv(int bombPower, float waitTime, int id)
+    private IEnumerator CellWalker(int bombPower, float waitTime, int id, int xPos, int zPos, int direction)
     {
-        yield return new WaitForSeconds(waitTime);
 
-        int distanz = 1;
-        while (distanz <= bombPower && ExplodeCell((int)explosionPosition.x + distanz, (int)explosionPosition.z, id))
+        switch(direction)
         {
-            yield return new WaitForSeconds(waitTime);
-            distanz++;
-        }
-    }
+            case 0:
+                int distanz = 1;
+                while (distanz <= bombPower && ExplodeCell(xPos + distanz, zPos, id))
+                {
+                    yield return new WaitForSeconds(waitTime);
+                    distanz++;
+                }
+                break;
+                
+            case 1:
+                distanz = 1;
+                while (distanz <= bombPower && ExplodeCell(xPos - distanz, zPos, id))
+                {
+                    yield return new WaitForSeconds(waitTime);
+                    distanz++;
+                }
+                break;
 
-    private IEnumerator xNegativ(int bombPower, float waitTime, int id)
-    {
-        yield return new WaitForSeconds(waitTime);
+            case 2:
+                distanz = 1;
+                while (distanz <= bombPower && ExplodeCell(xPos, zPos + distanz, id))
+                {
+                    yield return new WaitForSeconds(waitTime);
+                    distanz++;
+                }
+                break;
 
-        int distanz = 1;
-        while (distanz <= bombPower && ExplodeCell((int)explosionPosition.x - distanz, (int)explosionPosition.z, id))
-        {
-            yield return new WaitForSeconds(waitTime);
-            distanz++;
-        }
-    }
-
-    private IEnumerator zPositiv(int bombPower, float waitTime, int id)
-    {
-        yield return new WaitForSeconds(waitTime);
-
-        int distanz = 1;
-        while (distanz <= bombPower && ExplodeCell((int)explosionPosition.x, (int)explosionPosition.z + distanz, id))
-        {
-            yield return new WaitForSeconds(waitTime);
-            distanz++;
-        }
-    }
-
-    private IEnumerator zNegativ(int bombPower, float waitTime, int id)
-    {
-        yield return new WaitForSeconds(waitTime);
-
-        int distanz = 1;
-        while (distanz <= bombPower && ExplodeCell((int)explosionPosition.x, (int)explosionPosition.z - distanz, id))
-        {
-            yield return new WaitForSeconds(waitTime);
-            distanz++;
+            case 3:
+                distanz = 1;
+                while (distanz <= bombPower && ExplodeCell(xPos, zPos - distanz, id))
+                {
+                    yield return new WaitForSeconds(waitTime);
+                    distanz++;
+                }
+                break;
         }
     }
 
@@ -177,34 +165,30 @@ public class MapDestroyer : MonoBehaviour
         return false;
     }
 
-        //private Color oldColor;
-        //Markiert die Bodenplatte auf der eine Explosion stattfindet als "KillField" in dem der Tag von "Boden" auf "KillField" geaendert wird
-        //Lauft der Player auf eine so markierte Bodenplatte stirbt er
-        //Nach X Sekunden wird der Tag-Switch rueckgangig gemacht
-        IEnumerator KillField(int x, int z)
+    //Markiert die Bodenplatte auf der eine Explosion stattfindet als "KillField" in dem der Tag von "Boden" auf "KillField" geaendert wird
+    //Lauft der Player auf eine so markierte Bodenplatte stirbt er
+    //Nach X Sekunden wird der Tag-Switch rueckgangig gemacht
+    IEnumerator KillField(int x, int z)
+    {
+
+        if(levelGenerator.SecondaryGameObjects1[x, z] != null)
         {
-
-            if(levelGenerator.SecondaryGameObjects1[x, z] != null)
+            if(levelGenerator.SecondaryGameObjects1[x, z].gameObject.CompareTag("Boden"))
             {
-                if(levelGenerator.SecondaryGameObjects1[x, z].gameObject.CompareTag("Boden"))
-                {
-                    levelGenerator.SecondaryGameObjects1[x, z].gameObject.tag = "KillField";
-                    //oldColor = levelGenerator.SecondaryGameObjects1[x, z].gameObject.GetComponent<Renderer>().material.color;
-                    //levelGenerator.SecondaryGameObjects1[x, z].gameObject.GetComponent<Renderer>().material.color = Color.red;
-                }
+                levelGenerator.SecondaryGameObjects1[x, z].gameObject.tag = "KillField";
             }
-            
-            yield return new WaitForSeconds(0.2f);
-
-            if(levelGenerator.SecondaryGameObjects1[x, z] != null)
-            {
-                if(levelGenerator.SecondaryGameObjects1[x, z].gameObject.CompareTag("KillField"))
-                {
-                    levelGenerator.SecondaryGameObjects1[x, z].gameObject.tag = "Boden";
-                    //levelGenerator.SecondaryGameObjects1[x, z].gameObject.GetComponent<Renderer>().material.color = oldColor;
-                }
-            }
-
-            yield return null;
         }
+        
+        yield return new WaitForSeconds(0.2f);
+
+        if(levelGenerator.SecondaryGameObjects1[x, z] != null)
+        {
+            if(levelGenerator.SecondaryGameObjects1[x, z].gameObject.CompareTag("KillField"))
+            {
+                levelGenerator.SecondaryGameObjects1[x, z].gameObject.tag = "Boden";
+            }
+        }
+
+        yield return null;
+    }
 }
