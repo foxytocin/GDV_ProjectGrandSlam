@@ -3,7 +3,10 @@ guid: 59d2f1d78f7d44d8abc653c57fe972eb
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - LevelGenerator: {instanceID: 0}
+  - KistenteilePrefab: {fileID: 1724026369652452, guid: 64f748d2e2239264dba8c28eb7627d11,
+      type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

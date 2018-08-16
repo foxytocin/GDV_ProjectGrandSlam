@@ -21,7 +21,8 @@ public class Houdini : MonoBehaviour {
 			{
 				LevelGenerator.AllGameObjects[xPos, zPos + 1].SetActive(false);
 				LevelGenerator.AllGameObjects[xPos, zPos + 1] = null;
-				objectPooler.SpawnFromPool("Kiste_Destroyed", new Vector3(xPos, 0.5f, zPos + 1), Quaternion.identity);
+				Instantiate(KistenteilePrefab, new Vector3(xPos, 0.5f, zPos + 1), Quaternion.identity, transform);
+				//objectPooler.SpawnFromPool("Kiste_Destroyed", new Vector3(xPos, 0.5f, zPos + 1), Quaternion.identity);
 			}
 		}
 
@@ -31,7 +32,8 @@ public class Houdini : MonoBehaviour {
 			{
 				LevelGenerator.AllGameObjects[xPos, zPos - 1].SetActive(false);
 				LevelGenerator.AllGameObjects[xPos, zPos - 1] = null;
-				objectPooler.SpawnFromPool("Kiste_Destroyed", new Vector3(xPos, 0.5f, zPos - 1), Quaternion.identity);
+				Instantiate(KistenteilePrefab, new Vector3(xPos, 0.5f, zPos - 1), Quaternion.identity, transform);
+				//objectPooler.SpawnFromPool("Kiste_Destroyed", new Vector3(xPos, 0.5f, zPos - 1), Quaternion.identity);
 			}
 		}
 
@@ -41,7 +43,8 @@ public class Houdini : MonoBehaviour {
 			{
 				LevelGenerator.AllGameObjects[xPos + 1, zPos].SetActive(false);
 				LevelGenerator.AllGameObjects[xPos + 1, zPos] = null;
-				objectPooler.SpawnFromPool("Kiste_Destroyed", new Vector3(xPos + 1, 0.5f, zPos), Quaternion.identity);
+				Instantiate(KistenteilePrefab, new Vector3(xPos + 1, 0.5f, zPos), Quaternion.identity, transform);
+				//objectPooler.SpawnFromPool("Kiste_Destroyed", new Vector3(xPos + 1, 0.5f, zPos), Quaternion.identity);
 			}
 		}
 
@@ -51,7 +54,8 @@ public class Houdini : MonoBehaviour {
 			{
 				LevelGenerator.AllGameObjects[xPos - 1, zPos].SetActive(false);
 				LevelGenerator.AllGameObjects[xPos - 1, zPos] = null;
-				objectPooler.SpawnFromPool("Kiste_Destroyed", new Vector3(xPos - 1, 0.5f, zPos), Quaternion.identity);
+				Instantiate(KistenteilePrefab, new Vector3(xPos - 1, 0.5f, zPos), Quaternion.identity, transform);
+				//objectPooler.SpawnFromPool("Kiste_Destroyed", new Vector3(xPos - 1, 0.5f, zPos), Quaternion.identity);
 			}
 		}
 	}

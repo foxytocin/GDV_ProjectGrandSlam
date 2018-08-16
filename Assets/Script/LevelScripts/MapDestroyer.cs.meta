@@ -3,7 +3,13 @@ guid: e1319954220ad498a91fbd964cc494f0
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - KistenPartsPrefab: {fileID: 1724026369652452, guid: 64f748d2e2239264dba8c28eb7627d11,
+      type: 2}
+  - levelGenerator: {instanceID: 0}
+  - PlayerSpawner: {instanceID: 0}
+  - audioSource: {instanceID: 0}
+  - audioClip: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
