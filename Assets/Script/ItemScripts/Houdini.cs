@@ -6,12 +6,12 @@ public class Houdini : MonoBehaviour {
 
 	public LevelGenerator LevelGenerator;
 	public GameObject KistenteilePrefab;
-	ObjectPooler objectPooler;
+	//ObjectPooler objectPooler;
 
-	void Start()
-	{
-		objectPooler = ObjectPooler.Instance;
-	}
+	// void Start()
+	// {
+	// 	objectPooler = ObjectPooler.Instance;
+	// }
 
 	public void callHoudini(int xPos, int zPos)
 	{
