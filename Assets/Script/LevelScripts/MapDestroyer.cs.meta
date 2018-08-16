@@ -6,6 +6,8 @@ MonoImporter:
   defaultReferences:
   - KistenPartsPrefab: {fileID: 1724026369652452, guid: 64f748d2e2239264dba8c28eb7627d11,
       type: 2}
+  - Item_Prefab: {fileID: 1500225669781296, guid: 10537c8c9c0de3243bbb9d9865278e71,
+      type: 2}
   - levelGenerator: {instanceID: 0}
   - PlayerSpawner: {instanceID: 0}
   - audioSource: {instanceID: 0}
