@@ -143,6 +143,7 @@ Transform:
   - {fileID: 958779248}
   - {fileID: 461965568}
   - {fileID: 1930916333}
+  - {fileID: 545030886}
   m_Father: {fileID: 1620339721}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -258,6 +259,62 @@ MonoBehaviour:
     type: 2}
   MeterSchildPrefab: {fileID: 1510929197513478, guid: 765a1a43ccdae402f838e41265c51afe,
     type: 2}
+--- !u!1 &545030885
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 545030886}
+  - component: {fileID: 545030887}
+  m_Layer: 0
+  m_Name: ObjectPooler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &545030886
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 545030885}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 197551104}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &545030887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 545030885}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21a03e0fe32d2439d9ad6311666e46e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pools:
+  - tag: Kiste
+    prefab: {fileID: 1968458687304108, guid: a742c7a8826264c8fa7d619f4d1ee624, type: 2}
+    size: 2000
+  - tag: Kiste_Destroyed
+    prefab: {fileID: 1724026369652452, guid: 64f748d2e2239264dba8c28eb7627d11, type: 2}
+    size: 100
+  - tag: Wand
+    prefab: {fileID: 1752548113676288, guid: 003ae408beb774f1db89ee2398ed91e8, type: 2}
+    size: 2000
+  - tag: Boden
+    prefab: {fileID: 1706533549810468, guid: fabeec65a6ae14912869fb9650bd9d14, type: 2}
+    size: 2000
+  - tag: Explosion
+    prefab: {fileID: 159918, guid: a0040bf7072bc2f4e82d887d50a9c5e2, type: 2}
+    size: 200
 --- !u!1 &564822495
 GameObject:
   m_ObjectHideFlags: 0
@@ -345,10 +402,6 @@ MonoBehaviour:
   levelGenerator: {fileID: 958779247}
   PlayerSpawner: {fileID: 1847533652}
   ExplosionPrefab: {fileID: 159918, guid: a0040bf7072bc2f4e82d887d50a9c5e2, type: 2}
-  KillFieldPrefab: {fileID: 1206288029528642, guid: d91cc400b4f5845eb83f69994d35df9c,
-    type: 2}
-  KistenPartsPrefab: {fileID: 1724026369652452, guid: 64f748d2e2239264dba8c28eb7627d11,
-    type: 2}
   audioSource: {fileID: 594464649}
   audioClip: {fileID: 8300000, guid: 5d9fc9860d27f448fac35521fe6caf6b, type: 3}
 --- !u!82 &594464649
@@ -702,11 +755,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9da519e23e8da4f4b86c0843007cf72a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BodenPrefab: {fileID: 1706533549810468, guid: fabeec65a6ae14912869fb9650bd9d14,
-    type: 2}
-  WandPrefab: {fileID: 1752548113676288, guid: 003ae408beb774f1db89ee2398ed91e8, type: 2}
-  KistePrefab: {fileID: 1968458687304108, guid: a742c7a8826264c8fa7d619f4d1ee624,
-    type: 2}
   KistenMenge: 0
   LevelSpeed: 0
   LevelTextdatei0: {fileID: 4900000, guid: e1d3aaea6ffb7475fa3597124ee1c6d2, type: 3}

@@ -4,12 +4,8 @@ using System.Text.RegularExpressions;
 
 public class LevelGenerator : MonoBehaviour
 {
-    public GameObject BodenPrefab;
-    public GameObject WandPrefab;
-    public GameObject KistePrefab;
-
+    ObjectPooler objectPooler;
     public float KistenMenge;
-
     public float LevelSpeed;
     public TextAsset LevelTextdatei0;
     public TextAsset LevelTextdatei1;
@@ -57,6 +53,11 @@ public class LevelGenerator : MonoBehaviour
         SecondaryGameObjects2 = new GameObject[33, 2000];
         SecondaryGameObjects3 = new GameObject[33, 2000];
         DistanceLines = new GameObject[6, 3000];
+    }
+
+    void Start()
+    {
+        objectPooler = ObjectPooler.Instance;
         levelSectionData = readFile(LevelTextdatei0);
         createStartBasis(tiefeLevelStartBasis);
     }
@@ -313,14 +314,11 @@ public class LevelGenerator : MonoBehaviour
     //Erzeugt eine Bodenplatte und zufällig eine Kiste
     void createGang(Vector3 pos, int CameraPosition) {
         
-        SecondaryGameObjects1[(int)pos.x, (int)pos.z] = Instantiate(BodenPrefab, pos - new Vector3(0, 0.1f, 0), Quaternion.identity, transform);
+        SecondaryGameObjects1[(int)pos.x, (int)pos.z] = objectPooler.SpawnFromPool("Boden", pos - new Vector3(0, 0.1f, 0), Quaternion.identity);
 
         if((Random.value <= (KistenMenge / 100f)) && CameraPosition > 11 && generateKisten) {
-            GameObject Kiste = Instantiate(KistePrefab, pos + new Vector3(0f, 0.5f, 0f), Quaternion.Euler(0, rotation, 0), transform);
-            Kiste.tag = "Kiste";
+            AllGameObjects[(int)pos.x, (int)pos.z] = objectPooler.SpawnFromPool("Kiste", pos + new Vector3(0f, 0.5f, 0f), Quaternion.Euler(0, rotation, 0));
             rotation += 90;
-
-            AllGameObjects[(int)pos.x, (int)pos.z] = Kiste;
         }
     }
 
@@ -336,20 +334,16 @@ public class LevelGenerator : MonoBehaviour
         if(RandomValue == 0) {
             
             //Erzeugt einen Turm und deaktiviert das ein Bogen erzeugt werden kann
-            GameObject Wand = Instantiate(WandPrefab, pos, Quaternion.identity, transform);
-            SecondaryGameObjects1[(int)pos.x, (int)pos.z] = Instantiate(WandPrefab, pos + new Vector3(0, 1, 0), Quaternion.identity, transform);
-            Wand.tag = "Wand";
+            AllGameObjects[(int)pos.x, (int)pos.z] = objectPooler.SpawnFromPool("Wand", pos, Quaternion.identity);
+            SecondaryGameObjects1[(int)pos.x, (int)pos.z] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(0, 1, 0), Quaternion.identity);
             createBogen = false;
-
-            AllGameObjects[(int)pos.x, (int)pos.z] = Wand;
 
         //Erzeugt ein normales Stück Wand
         } else {
-            GameObject Wand = Instantiate(WandPrefab, pos, Quaternion.identity, transform);
-            Wand.tag = "Wand";
+            //GameObject Wand = objectPooler.SpawnFromPool("Wand", pos, Quaternion.identity);
+            //Wand.tag = "Wand";
+            AllGameObjects[(int)pos.x, (int)pos.z] = objectPooler.SpawnFromPool("Wand", pos, Quaternion.identity);
             rotation += 90;
-
-            AllGameObjects[(int)pos.x, (int)pos.z] = Wand;
         }
 
         //Erzeug einen Bogen. Wenn RandomValue 10 oder 20 ist.
@@ -362,27 +356,24 @@ public class LevelGenerator : MonoBehaviour
             (levelSectionData[zPos + 1][xPos] != levelWand))
         {
             //Ereugt die erste Saule des Bogens
-            SecondaryGameObjects1[(int)pos.x, (int)pos.z] = Instantiate(WandPrefab, pos + new Vector3(0, 1, 0), Quaternion.identity, transform);
-            SecondaryGameObjects2[(int)pos.x, (int)pos.z] = Instantiate(WandPrefab, pos + new Vector3(0, 2, 0), Quaternion.identity, transform);
+            SecondaryGameObjects1[(int)pos.x, (int)pos.z] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(0, 1, 0), Quaternion.identity);
+            SecondaryGameObjects2[(int)pos.x, (int)pos.z] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(0, 2, 0), Quaternion.identity);
             
             //Erzeugt den Rest des Bogen horiznal oder um 90 Grad gedreht vertikal.
             //Ternärer-Operator um die Richtung zu bestimmten.
             //Da hier nur 10 oder 20 von RandomValue auftreten kann, und die Bedingung RandomValue == 20 ist, wird zu 50% ein gedrehter Bogen erzeugt
-            SecondaryGameObjects3[(int)pos.x, (int)pos.z] = Instantiate(WandPrefab, pos + ((RandomValue == 20) ? new Vector3(1, 2, 0) : new Vector3(0, 2, 1)), Quaternion.identity, transform);
-            SecondaryGameObjects2[(int)pos.x + 1, (int)pos.z] = Instantiate(WandPrefab, pos + ((RandomValue == 20) ? new Vector3(2, 2, 0) : new Vector3(0, 2, 2)), Quaternion.identity, transform);
-            SecondaryGameObjects3[(int)pos.x + 1, (int)pos.z] = Instantiate(WandPrefab, pos + ((RandomValue == 20) ? new Vector3(2, 1, 0) : new Vector3(0, 1, 2)), Quaternion.identity, transform);
+            SecondaryGameObjects3[(int)pos.x, (int)pos.z] = objectPooler.SpawnFromPool("Wand", pos + ((RandomValue == 20) ? new Vector3(1, 2, 0) : new Vector3(0, 2, 1)), Quaternion.identity);
+            SecondaryGameObjects2[(int)pos.x + 1, (int)pos.z] = objectPooler.SpawnFromPool("Wand", pos + ((RandomValue == 20) ? new Vector3(2, 2, 0) : new Vector3(0, 2, 2)), Quaternion.identity);
+            SecondaryGameObjects3[(int)pos.x + 1, (int)pos.z] = objectPooler.SpawnFromPool("Wand", pos + ((RandomValue == 20) ? new Vector3(2, 1, 0) : new Vector3(0, 1, 2)), Quaternion.identity);
         }
     }
 
     //Erzeugt eine Kiste und Boden unter ihr
     void createKiste(Vector3 pos) {
         
-        SecondaryGameObjects1[(int)pos.x, (int)pos.z] = Instantiate(BodenPrefab, pos - new Vector3(0, 0.1f, 0), Quaternion.identity, transform);
-        GameObject Kiste = Instantiate(KistePrefab, pos + new Vector3(0f, 0.5f, 0f), Quaternion.Euler(0, rotation, 0), transform);
-        Kiste.tag = "Kiste";
+        SecondaryGameObjects1[(int)pos.x, (int)pos.z] = objectPooler.SpawnFromPool("Boden", pos - new Vector3(0, 0.1f, 0), Quaternion.identity);
+        AllGameObjects[(int)pos.x, (int)pos.z] = objectPooler.SpawnFromPool("Kiste", pos + new Vector3(0f, 0.5f, 0f), Quaternion.Euler(0, rotation, 0));
         rotation += 90;
-
-        AllGameObjects[(int)pos.x, (int)pos.z] = Kiste;
     }
 
 

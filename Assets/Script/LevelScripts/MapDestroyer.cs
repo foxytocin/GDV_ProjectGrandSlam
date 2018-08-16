@@ -3,16 +3,14 @@ using UnityEngine;
 
 public class MapDestroyer : MonoBehaviour
 {
+    ObjectPooler objectPooler;
     public LevelGenerator levelGenerator;
     public PlayerSpawner PlayerSpawner;
-    public GameObject ExplosionPrefab;
-    public GameObject KistenPartsPrefab;
     private IEnumerator coroutinexPositiv;
     private IEnumerator coroutinexNegativ;
     private IEnumerator coroutinezPositiv;
     private IEnumerator coroutinezNegativ;
     private Vector3 explosionPosition;
-
     public AudioSource audioSource;
     public AudioClip audioClip;
 
@@ -20,6 +18,7 @@ public class MapDestroyer : MonoBehaviour
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
+        objectPooler = ObjectPooler.Instance;
     }
 
     //Wird beim explodieren der Bombe durch das BombeScript aufgerufen.
@@ -39,7 +38,7 @@ public class MapDestroyer : MonoBehaviour
         PlayerSpawner.playerList[id].GetComponent<PlayerScript>().setAvaibleBomb(1);
 
         //Explosions-Animation an der Stelle der Bombe wird abgespielt.
-        Instantiate(ExplosionPrefab, explosionPosition, Quaternion.identity, transform);
+        objectPooler.SpawnFromPool("Explosion", new Vector3(explosionPosition.x, 0.5f, explosionPosition.z), Quaternion.identity);
         audioSource.PlayOneShot(audioClip);
         StartCoroutine(KillField((int)position.x, (int)position.z));
 
@@ -123,7 +122,7 @@ public class MapDestroyer : MonoBehaviour
         //if == null bedeute an dieser Stelle ist ein GANG
         if (thisGameObject == null)
         {
-            Instantiate(ExplosionPrefab, new Vector3(x, 0.5f, z), Quaternion.identity, transform);
+            objectPooler.SpawnFromPool("Explosion", new Vector3(x, 0.5f, z), Quaternion.identity);
             //levelGenerator.AllGameObjects[x, z] = Instantiate(KillFieldPrefab, new Vector3(x, 0.1f, z), Quaternion.Euler(90f, 0, 0), transform);
             StartCoroutine(KillField(x, z));
             return true;
@@ -142,26 +141,28 @@ public class MapDestroyer : MonoBehaviour
                     return false;
 
                 case "Kiste":
-                    Instantiate(ExplosionPrefab, new Vector3(x, 0.5f, z), Quaternion.identity, transform);
-                    Destroy(thisGameObject);
+                    objectPooler.SpawnFromPool("Explosion", new Vector3(x, 0.5f, z), Quaternion.identity);
+                    levelGenerator.AllGameObjects[x, z] = null;
+                    thisGameObject.SetActive(false);
                     StartCoroutine(KillField(x, z));
 
                     //Ersetzt die Kiste durch Kiste_destroyed Prefab
-                    Instantiate(KistenPartsPrefab, new Vector3(x, 0.5f, z), Quaternion.identity, transform);
+                    objectPooler.SpawnFromPool("Kiste_Destroyed", new Vector3(x, 0.5f, z), Quaternion.identity);
                     return false;
 
                 case "FreeFall":
-                    Instantiate(ExplosionPrefab, new Vector3(x, 0.5f, z), Quaternion.identity, transform);
+                    objectPooler.SpawnFromPool("Explosion", new Vector3(x, 0.5f, z), Quaternion.identity);
                     return true;
 
                 case "Item":
-                    Instantiate(ExplosionPrefab, new Vector3(x, 0.5f, z), Quaternion.identity, transform);
-                    Destroy(thisGameObject);
+                    objectPooler.SpawnFromPool("Explosion", new Vector3(x, 0.5f, z), Quaternion.identity);
+                    levelGenerator.AllGameObjects[x, z] = null;
+                    thisGameObject.SetActive(false);
                     StartCoroutine(KillField(x, z));
                     return true;
 
                 case "Player":
-                    Instantiate(ExplosionPrefab, new Vector3(x, 0.5f, z), Quaternion.identity, transform);
+                    objectPooler.SpawnFromPool("Explosion", new Vector3(x, 0.5f, z), Quaternion.identity);
                     thisGameObject.GetComponent<PlayerScript>().dead();
                     levelGenerator.AllGameObjects[x, z] = null;
                     StartCoroutine(KillField(x, z));

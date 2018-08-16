@@ -6,18 +6,22 @@ public class Houdini : MonoBehaviour {
 
 	public LevelGenerator LevelGenerator;
 	public GameObject KistenteilePrefab;
+	ObjectPooler objectPooler;
+
+	void Start()
+	{
+		objectPooler = ObjectPooler.Instance;
+	}
 
 	public void callHoudini(int xPos, int zPos)
 	{
-		// int xPos = Mathf.RoundToInt(positon.x);
-		// int zPos = Mathf.RoundToInt(positon.z);
-
 		if(LevelGenerator.AllGameObjects[xPos, zPos + 1] != null)
 		{
 			if(LevelGenerator.AllGameObjects[xPos, zPos + 1].gameObject.CompareTag("Kiste"))
 			{
-				Destroy(LevelGenerator.AllGameObjects[xPos, zPos + 1]);
-				Instantiate(KistenteilePrefab, new Vector3(xPos, 0.5f, zPos + 1), Quaternion.identity, transform);
+				LevelGenerator.AllGameObjects[xPos, zPos + 1].SetActive(false);
+				LevelGenerator.AllGameObjects[xPos, zPos + 1] = null;
+				objectPooler.SpawnFromPool("Kiste_Destroyed", new Vector3(xPos, 0.5f, zPos + 1), Quaternion.identity);
 			}
 		}
 
@@ -25,8 +29,9 @@ public class Houdini : MonoBehaviour {
 		{
 			if(LevelGenerator.AllGameObjects[xPos, zPos - 1].gameObject.CompareTag("Kiste"))
 			{
-				Destroy(LevelGenerator.AllGameObjects[xPos, zPos - 1]);
-				Instantiate(KistenteilePrefab, new Vector3(xPos, 0.5f, zPos - 1), Quaternion.identity, transform);
+				LevelGenerator.AllGameObjects[xPos, zPos - 1].SetActive(false);
+				LevelGenerator.AllGameObjects[xPos, zPos - 1] = null;
+				objectPooler.SpawnFromPool("Kiste_Destroyed", new Vector3(xPos, 0.5f, zPos - 1), Quaternion.identity);
 			}
 		}
 
@@ -34,8 +39,9 @@ public class Houdini : MonoBehaviour {
 		{
 			if(LevelGenerator.AllGameObjects[xPos + 1, zPos].gameObject.CompareTag("Kiste"))
 			{
-				Destroy(LevelGenerator.AllGameObjects[xPos + 1, zPos]);
-				Instantiate(KistenteilePrefab, new Vector3(xPos + 1, 0.5f, zPos), Quaternion.identity, transform);
+				LevelGenerator.AllGameObjects[xPos + 1, zPos].SetActive(false);
+				LevelGenerator.AllGameObjects[xPos + 1, zPos] = null;
+				objectPooler.SpawnFromPool("Kiste_Destroyed", new Vector3(xPos + 1, 0.5f, zPos), Quaternion.identity);
 			}
 		}
 
@@ -43,8 +49,9 @@ public class Houdini : MonoBehaviour {
 		{
 			if(LevelGenerator.AllGameObjects[xPos - 1, zPos].gameObject.CompareTag("Kiste"))
 			{
-				Destroy(LevelGenerator.AllGameObjects[xPos - 1, zPos]);
-				Instantiate(KistenteilePrefab, new Vector3(xPos - 1, 0.5f, zPos), Quaternion.identity, transform);
+				LevelGenerator.AllGameObjects[xPos - 1, zPos].SetActive(false);
+				LevelGenerator.AllGameObjects[xPos - 1, zPos] = null;
+				objectPooler.SpawnFromPool("Kiste_Destroyed", new Vector3(xPos - 1, 0.5f, zPos), Quaternion.identity);
 			}
 		}
 	}

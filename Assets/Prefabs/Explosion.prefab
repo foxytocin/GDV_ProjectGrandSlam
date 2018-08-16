@@ -39,7 +39,7 @@ ParticleSystem:
   serializedVersion: 5
   lengthInSec: 1
   simulationSpeed: 0.9
-  stopAction: 2
+  stopAction: 1
   looping: 0
   prewarm: 0
   playOnAwake: 1

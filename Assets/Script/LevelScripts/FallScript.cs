@@ -59,7 +59,7 @@ public class FallScript : MonoBehaviour {
             yield return null;
         }
 
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 
     public void fallDown() {
