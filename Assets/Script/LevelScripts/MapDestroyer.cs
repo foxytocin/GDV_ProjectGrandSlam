@@ -5,6 +5,7 @@ public class MapDestroyer : MonoBehaviour
 {
     ObjectPooler objectPooler;
     public GameObject KistenPartsPrefab;
+    public GameObject Item_Prefab;
     public LevelGenerator levelGenerator;
     public PlayerSpawner PlayerSpawner;
     private int xPos;
@@ -138,6 +139,10 @@ public class MapDestroyer : MonoBehaviour
                     //Ersetzt die Kiste durch Kiste_destroyed Prefab
                     //objectPooler.SpawnFromPool("Kiste_Destroyed", new Vector3(x, 0.5f, z), Quaternion.identity);
                     Instantiate(KistenPartsPrefab, new Vector3(x, 0.5f, z), Quaternion.identity, transform);
+
+                    //Spawnt Item
+                    //Instantiate(Item_Prefab, new Vector3(x, 0.5f, z), Quaternion.identity, transform);
+
                     return false;
 
                 case "FreeFall":
