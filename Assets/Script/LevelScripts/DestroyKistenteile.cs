@@ -9,9 +9,10 @@ public class DestroyKistenteile : MonoBehaviour {
         StartCoroutine(destroyKistenteile());
     }
 
-    private IEnumerator destroyKistenteile()
+    IEnumerator destroyKistenteile()
     {
         yield return new WaitForSeconds(1f);
-        gameObject.SetActive(false);
+        this.gameObject.SetActive(false);
+        StopAllCoroutines();
     }
 }

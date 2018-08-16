@@ -302,16 +302,16 @@ MonoBehaviour:
   pools:
   - tag: Kiste
     prefab: {fileID: 1968458687304108, guid: a742c7a8826264c8fa7d619f4d1ee624, type: 2}
-    size: 2000
+    size: 1300
   - tag: Kiste_Destroyed
     prefab: {fileID: 1724026369652452, guid: 64f748d2e2239264dba8c28eb7627d11, type: 2}
-    size: 100
+    size: 200
   - tag: Wand
     prefab: {fileID: 1752548113676288, guid: 003ae408beb774f1db89ee2398ed91e8, type: 2}
-    size: 2000
+    size: 1000
   - tag: Boden
     prefab: {fileID: 1706533549810468, guid: fabeec65a6ae14912869fb9650bd9d14, type: 2}
-    size: 2000
+    size: 1600
   - tag: Explosion
     prefab: {fileID: 159918, guid: a0040bf7072bc2f4e82d887d50a9c5e2, type: 2}
     size: 200
@@ -401,7 +401,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelGenerator: {fileID: 958779247}
   PlayerSpawner: {fileID: 1847533652}
-  ExplosionPrefab: {fileID: 159918, guid: a0040bf7072bc2f4e82d887d50a9c5e2, type: 2}
   audioSource: {fileID: 594464649}
   audioClip: {fileID: 8300000, guid: 5d9fc9860d27f448fac35521fe6caf6b, type: 3}
 --- !u!82 &594464649

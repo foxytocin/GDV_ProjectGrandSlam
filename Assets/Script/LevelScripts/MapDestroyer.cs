@@ -179,23 +179,30 @@ public class MapDestroyer : MonoBehaviour
         //Markiert die Bodenplatte auf der eine Explosion stattfindet als "KillField" in dem der Tag von "Boden" auf "KillField" geaendert wird
         //Lauft der Player auf eine so markierte Bodenplatte stirbt er
         //Nach X Sekunden wird der Tag-Switch rueckgangig gemacht
-        private IEnumerator KillField(int x, int z)
+        IEnumerator KillField(int x, int z)
         {
 
-        if(levelGenerator.SecondaryGameObjects1[x, z].gameObject.CompareTag("Boden"))
-        {
-            levelGenerator.SecondaryGameObjects1[x, z].gameObject.tag = "KillField";
-            //oldColor = levelGenerator.SecondaryGameObjects1[x, z].gameObject.GetComponent<Renderer>().material.color;
-            //levelGenerator.SecondaryGameObjects1[x, z].gameObject.GetComponent<Renderer>().material.color = Color.red;
-        }
-
-        yield return new WaitForSeconds(0.2f);
-
-            if(levelGenerator.SecondaryGameObjects1[x, z].gameObject.CompareTag("KillField"))
+            if(levelGenerator.SecondaryGameObjects1[x, z] != null)
             {
-                levelGenerator.SecondaryGameObjects1[x, z].gameObject.tag = "Boden";
-                //levelGenerator.SecondaryGameObjects1[x, z].gameObject.GetComponent<Renderer>().material.color = oldColor;
+                if(levelGenerator.SecondaryGameObjects1[x, z].gameObject.CompareTag("Boden"))
+                {
+                    levelGenerator.SecondaryGameObjects1[x, z].gameObject.tag = "KillField";
+                    //oldColor = levelGenerator.SecondaryGameObjects1[x, z].gameObject.GetComponent<Renderer>().material.color;
+                    //levelGenerator.SecondaryGameObjects1[x, z].gameObject.GetComponent<Renderer>().material.color = Color.red;
+                }
             }
+            
+            yield return new WaitForSeconds(0.2f);
+
+            if(levelGenerator.SecondaryGameObjects1[x, z] != null)
+            {
+                if(levelGenerator.SecondaryGameObjects1[x, z].gameObject.CompareTag("KillField"))
+                {
+                    levelGenerator.SecondaryGameObjects1[x, z].gameObject.tag = "Boden";
+                    //levelGenerator.SecondaryGameObjects1[x, z].gameObject.GetComponent<Renderer>().material.color = oldColor;
+                }
+            }
+
+            yield return null;
         }
-    
 }
