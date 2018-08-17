@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour {
 
         if (Input.GetKey(KeyCode.Escape) || InputManager.OneStartButton())
         {
-            if(counter > 20)
+            if(counter > 30)
             {
                 Application.Quit();
                 Debug.Log("Programm beendet");

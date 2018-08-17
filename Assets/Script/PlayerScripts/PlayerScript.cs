@@ -207,7 +207,7 @@ public class PlayerScript : MonoBehaviour
 
         if(fall)
         {
-            gravity += Time.deltaTime;
+            gravity += Time.deltaTime * 0.8f;
             transform.position = Vector3.MoveTowards(transform.position, target, gravity * gravity);
 
             if (transform.position.y == -200)
