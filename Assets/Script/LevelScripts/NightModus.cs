@@ -28,7 +28,7 @@ public class NightModus : MonoBehaviour {
 
 	void Start()
 	{
-		duration = Random.value * 100f;
+		duration = Random.value * 50f;
 		pastTime = 0f;
 		isDay = true;
 		update = true;
@@ -178,7 +178,7 @@ public class NightModus : MonoBehaviour {
 	{
 		while(worldLight.intensity > value)
 		{
-			worldLight.transform.Rotate(-Time.deltaTime * 4f, 0f, 0f);
+			//worldLight.transform.Rotate(-Time.deltaTime * 4f, 0f, 0f);
 			worldLight.intensity -= Time.deltaTime * 0.2f;
 			yield return new WaitForEndOfFrame();
 		}
@@ -188,7 +188,7 @@ public class NightModus : MonoBehaviour {
 	{
 		while(worldLight.intensity < value)
 		{
-			worldLight.transform.Rotate(Time.deltaTime * 4f, 0f, 0f);
+			//worldLight.transform.Rotate(Time.deltaTime * 4f, 0f, 0f);
 			worldLight.intensity += Time.deltaTime * 0.2f;
 			yield return new WaitForEndOfFrame();
 		}
