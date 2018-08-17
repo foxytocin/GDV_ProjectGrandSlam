@@ -49,7 +49,7 @@ PlayerSettings:
   m_StereoRenderingPath: 0
   m_ActiveColorSpace: 0
   m_MTRendering: 1
-  m_StackTraceTypes: 010000000100000001000000010000000100000001000000
+  m_StackTraceTypes: 000000000000000000000000000000000000000001000000
   iosShowActivityIndicatorOnLoading: -1
   androidShowActivityIndicatorOnLoading: -1
   tizenShowActivityIndicatorOnLoading: -1
@@ -76,7 +76,7 @@ PlayerSettings:
   hideHomeButton: 0
   submitAnalytics: 1
   usePlayerLog: 1
-  bakeCollisionMeshes: 0
+  bakeCollisionMeshes: 1
   forceSingleInstance: 0
   resizableWindow: 0
   useMacAppStoreValidation: 0
@@ -113,12 +113,24 @@ PlayerSettings:
   psp2AcquireBGM: 1
   m_SupportedAspectRatios:
     4:3: 1
-    5:4: 1
+    5:4: 0
     16:10: 1
     16:9: 1
-    Others: 1
+    Others: 0
   bundleVersion: 0.1
-  preloadedAssets: []
+  preloadedAssets:
+  - {fileID: 1706533549810468, guid: fabeec65a6ae14912869fb9650bd9d14, type: 2}
+  - {fileID: 1200906370282642, guid: 2effe9be9ab3148b1a0a368568848eb9, type: 2}
+  - {fileID: 159918, guid: a0040bf7072bc2f4e82d887d50a9c5e2, type: 2}
+  - {fileID: 1555264746771418, guid: 2f3c6f1b975d9421a97cb266ed5d2a33, type: 2}
+  - {fileID: 1356645802074468, guid: c60b860bb33237b45b3bc2438d253c56, type: 2}
+  - {fileID: 1968458687304108, guid: a742c7a8826264c8fa7d619f4d1ee624, type: 2}
+  - {fileID: 1724026369652452, guid: 64f748d2e2239264dba8c28eb7627d11, type: 2}
+  - {fileID: 1510929197513478, guid: 765a1a43ccdae402f838e41265c51afe, type: 2}
+  - {fileID: 1667059198137356, guid: 40df6da08bb85fd499b60a58476303fa, type: 2}
+  - {fileID: 1268663063143754, guid: f4a72e47b0a934b2c8d4372398631cbc, type: 2}
+  - {fileID: 1509512803967250, guid: b987ff33a4b2847ee82f04e4732cc270, type: 2}
+  - {fileID: 1752548113676288, guid: 003ae408beb774f1db89ee2398ed91e8, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -163,7 +175,7 @@ PlayerSettings:
   ForceSDCardPermission: 0
   CreateWallpaper: 0
   APKExpansionFiles: 0
-  keepLoadedShadersAlive: 0
+  keepLoadedShadersAlive: 1
   StripUnusedMeshComponents: 1
   VertexChannelCompressionMask: 4054
   iPhoneSdkVersion: 988
@@ -268,8 +280,8 @@ PlayerSettings:
     m_StaticBatching: 1
     m_DynamicBatching: 0
   - m_BuildTarget: WebGL
-    m_StaticBatching: 0
-    m_DynamicBatching: 0
+    m_StaticBatching: 1
+    m_DynamicBatching: 1
   m_BuildTargetGraphicsAPIs:
   - m_BuildTarget: AndroidPlayer
     m_APIs: 0b00000015000000
@@ -557,7 +569,7 @@ PlayerSettings:
   webGLDebugSymbols: 0
   webGLEmscriptenArgs: 
   webGLModulesDirectory: 
-  webGLTemplate: APPLICATION:Default
+  webGLTemplate: PROJECT:Kong Preloader
   webGLAnalyzeBuildSize: 0
   webGLUseEmbeddedResources: 0
   webGLCompressionFormat: 1
