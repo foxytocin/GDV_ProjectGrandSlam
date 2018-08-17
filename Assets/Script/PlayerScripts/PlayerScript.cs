@@ -220,19 +220,19 @@ public class PlayerScript : MonoBehaviour
         }
 
         //Aktiviert EMISSION und LIGHT beim Player um anzuzugen das der Player das Houdini-Item hat
-        if(houdini)
-        {
-            float emission = 0.2f + Mathf.PingPong(Time.time * 2f, 2f - 0.2f);
-            Color baseColor = GetComponent<Renderer>().material.color;
-            Color finalColor = baseColor * Mathf.LinearToGammaSpace (emission);
-            GetComponent<Renderer>().material.SetColor("_EmissionColor", finalColor);
-            GetComponent<Renderer>().material.EnableKeyword("_EMISSION");
-            GetComponent<Light>().enabled = true;
-            GetComponent<Light>().intensity = emission;
-        } else {
-            GetComponent<Renderer>().material.DisableKeyword("_EMISSION");
-            GetComponent<Light>().enabled = false;
-        }
+        // if(houdini)
+        // {
+        //     float emission = 0.2f + Mathf.PingPong(Time.time * 2f, 2f - 0.2f);
+        //     Color baseColor = GetComponent<Renderer>().material.color;
+        //     Color finalColor = baseColor * Mathf.LinearToGammaSpace (emission);
+        //     GetComponent<Renderer>().material.SetColor("_EmissionColor", finalColor);
+        //     GetComponent<Renderer>().material.EnableKeyword("_EMISSION");
+        //     GetComponent<Light>().enabled = true;
+        //     GetComponent<Light>().intensity = emission;
+        // } else {
+        //     GetComponent<Renderer>().material.DisableKeyword("_EMISSION");
+        //     GetComponent<Light>().enabled = false;
+        // }
     }
 
 

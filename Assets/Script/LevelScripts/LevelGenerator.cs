@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 public class LevelGenerator : MonoBehaviour
 {
     ObjectPooler objectPooler;
+    public GameObject GlowBallPrefab;
     public float KistenMenge;
     public float LevelSpeed;
     public TextAsset LevelTextdatei0;
@@ -36,12 +37,15 @@ public class LevelGenerator : MonoBehaviour
     private int rotation;
     private bool specialSection;
     private bool generateKisten;
-    public const int tiefeLevelStartBasis = 60;
+    public bool generateGlowBalls;
+    public int tiefeLevelStartBasis = 60;
     public GenerateDistanceLine GenerateDistanceLine;
+    private NightModus nightModus;
 
     // Use this for initialization
     void Awake()
     {
+        generateGlowBalls = false;
         generateKisten = true;
         LevelSpeed = 0.5f;
         KistenMenge = 10f;
@@ -53,6 +57,7 @@ public class LevelGenerator : MonoBehaviour
         SecondaryGameObjects2 = new GameObject[33, 2000];
         SecondaryGameObjects3 = new GameObject[33, 2000];
         DistanceLines = new GameObject[6, 3000];
+        nightModus = FindObjectOfType<NightModus>();
     }
 
     void Start()
@@ -341,7 +346,7 @@ public class LevelGenerator : MonoBehaviour
             //GameObject Wand = objectPooler.SpawnFromPool("Wand", pos, Quaternion.identity);
             //Wand.tag = "Wand";
             AllGameObjects[(int)pos.x, (int)pos.z] = objectPooler.SpawnFromPool("Wand", pos, Quaternion.identity);
-            rotation += 90;
+            createGlowBall(pos);
         }
 
         //Erzeug einen Bogen. Wenn RandomValue 10 oder 20 ist.
@@ -367,11 +372,17 @@ public class LevelGenerator : MonoBehaviour
     }
 
     //Erzeugt eine Kiste und Boden unter ihr
-    void createKiste(Vector3 pos) {
-        
+    void createKiste(Vector3 pos)
+    {
         SecondaryGameObjects1[(int)pos.x, (int)pos.z] = objectPooler.SpawnFromPool("Boden", pos - new Vector3(0, 0.1f, 0), Quaternion.identity);
         AllGameObjects[(int)pos.x, (int)pos.z] = objectPooler.SpawnFromPool("Kiste", pos + new Vector3(0f, 0.5f, 0f), Quaternion.Euler(0, rotation, 0));
         rotation += 90;
+    }
+
+    void createGlowBall(Vector3 pos)
+    {
+        if(Random.value > 0.97f && generateGlowBalls)
+            AllGameObjects[(int)pos.x, (int)pos.z] = objectPooler.SpawnFromPool("GlowBall", pos + new Vector3(0, 1, 0), Quaternion.identity);
     }
 
 
