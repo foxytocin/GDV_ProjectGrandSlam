@@ -38,8 +38,9 @@ public class LevelGenerator : MonoBehaviour
     private bool specialSection;
     private bool generateKisten;
     public bool generateGlowBalls;
-    public const int tiefeLevelStartBasis = 60;
+    public int tiefeLevelStartBasis = 60;
     public GenerateDistanceLine GenerateDistanceLine;
+    private NightModus nightModus;
 
     // Use this for initialization
     void Awake()
@@ -56,6 +57,7 @@ public class LevelGenerator : MonoBehaviour
         SecondaryGameObjects2 = new GameObject[33, 2000];
         SecondaryGameObjects3 = new GameObject[33, 2000];
         DistanceLines = new GameObject[6, 3000];
+        nightModus = FindObjectOfType<NightModus>();
     }
 
     void Start()
@@ -379,8 +381,8 @@ public class LevelGenerator : MonoBehaviour
 
     void createGlowBall(Vector3 pos)
     {
-        if(Random.value > 0.98f && generateGlowBalls)
-            AllGameObjects[(int)pos.x, (int)pos.z] = Instantiate(GlowBallPrefab, pos + new Vector3(0, 1, 0), Quaternion.identity);
+        if(Random.value > 0.97f && generateGlowBalls)
+            AllGameObjects[(int)pos.x, (int)pos.z] = objectPooler.SpawnFromPool("GlowBall", pos + new Vector3(0, 1, 0), Quaternion.identity);
     }
 
 

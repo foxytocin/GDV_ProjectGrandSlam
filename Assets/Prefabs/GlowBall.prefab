@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4540801238947050}
   - component: {fileID: 33366671951240258}
   - component: {fileID: 23571319016203258}
+  - component: {fileID: 114995898743581808}
   m_Layer: 0
   m_Name: GlowBall
   m_TagString: Untagged
@@ -51,7 +52,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1669709393519648}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4540801238947050}
@@ -123,7 +124,7 @@ Light:
   serializedVersion: 8
   m_Type: 2
   m_Color: {r: 1, g: 0.6627451, b: 0, a: 1}
-  m_Intensity: 1.5
+  m_Intensity: 1.6
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -149,3 +150,17 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &114995898743581808
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1478917875165280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6751fe27b8b0943bfb802ade72caaedf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FreeFallPrefab: {fileID: 1555264746771418, guid: 2f3c6f1b975d9421a97cb266ed5d2a33,
+    type: 2}
+  LevelGenerator: {fileID: 0}

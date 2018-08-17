@@ -173,7 +173,7 @@ Light:
   serializedVersion: 8
   m_Type: 1
   m_Color: {r: 1, g: 0.9642474, b: 0.8632076, a: 1}
-  m_Intensity: 1.2
+  m_Intensity: 0.9
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -205,13 +205,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 430263688}
-  m_LocalRotation: {x: 0.16042995, y: 0.37686962, z: -0.06645226, w: 0.9098438}
+  m_LocalRotation: {x: 0.27781588, y: 0.36497167, z: -0.1150751, w: 0.8811196}
   m_LocalPosition: {x: 0, y: 10, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1125787158}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 20, y: 45, z: 0}
+  m_LocalEulerAnglesHint: {x: 35, y: 45, z: 0}
 --- !u!1 &461965567
 GameObject:
   m_ObjectHideFlags: 0
@@ -312,6 +312,9 @@ MonoBehaviour:
   - tag: Boden
     prefab: {fileID: 1706533549810468, guid: fabeec65a6ae14912869fb9650bd9d14, type: 2}
     size: 1800
+  - tag: GlowBall
+    prefab: {fileID: 1478917875165280, guid: 32ddefbfb48cf46a9be44f226e191432, type: 2}
+    size: 50
 --- !u!1 &564822495
 GameObject:
   m_ObjectHideFlags: 0
@@ -770,6 +773,7 @@ MonoBehaviour:
   LevelTextdatei10: {fileID: 4900000, guid: 1348aba0a0dc641a88e2caa85bf1f0b8, type: 3}
   LevelTextdatei11: {fileID: 4900000, guid: b9775b53ce00146e6aff6679a5a22e92, type: 3}
   generateGlowBalls: 0
+  tiefeLevelStartBasis: 60
   GenerateDistanceLine: {fileID: 461965569}
 --- !u!4 &958779248
 Transform:
