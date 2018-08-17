@@ -15,9 +15,11 @@ public class GameManager : MonoBehaviour {
     public PlayerSpawner playerSpawner;
     private int player;
     private int playertmp;
+    int counter;
 
     private void Awake()
     {
+        counter = 0;
         player = 1;
         playertmp = player;
         audioSource = GetComponent<AudioSource>();
@@ -26,11 +28,24 @@ public class GameManager : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update () {      
+    void Update () {   
 
-        if (Input.GetKeyDown(KeyCode.Escape) || InputManager.OneStartButton())
+        if (Input.GetKey(KeyCode.Escape) || InputManager.OneStartButton())
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            if(counter > 20)
+            {
+                Application.Quit();
+                Debug.Log("Programm beendet");
+            } else {
+                counter++;
+                Debug.Log("KeyDown " +counter);
+            }
+        }   
+
+        if (Input.GetKeyUp(KeyCode.Escape) || InputManager.OneStartButton())
+        {
+            counter = 0;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);   
         }
 
         if(InputManager.OneR1Button() && player < 4) {
