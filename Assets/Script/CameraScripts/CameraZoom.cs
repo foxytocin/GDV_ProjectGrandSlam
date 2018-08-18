@@ -24,9 +24,9 @@ public class CameraZoom : MonoBehaviour {
         //LookAt, SmoothFollow SmoothDirection
         //3fach verschachtelte Kamera, getrennt voneinander 
 
-        float dist = Mathf.Lerp(transform.localPosition.y, zoom + (cm.MaxZDistancePlayers() * cm.MaxZDistancePlayers() / 20f), 0.5f * Time.deltaTime);
+        float dist = Mathf.Lerp(transform.localPosition.y, zoom + cm.OffsetAccordingToMaxDistance()/3, 0.5f * Time.deltaTime);
         //offset = new Vector3(0, dist, cameraScroller.transform.position.z);
-        transform.localPosition = new Vector3(0, dist, 0);
+        transform.localPosition = new Vector3(0, Mathf.Clamp(dist, 0f, 12f), 0);
     }
 
     float GetGreatestDistance()

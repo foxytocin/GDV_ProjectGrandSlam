@@ -44,9 +44,8 @@ public class CameraMovement : MonoBehaviour {
         float z = Mathf.Clamp(local.z / 2f, -4f, 4f);
 
         //Dynamischer Levelspeed
-        cameraScroller.LevelGenerator.setLevelSpeed(((z + z + 5f) / 4f) + 0.5f);        
-
-        transform.localPosition = Vector3.Lerp(transform.localPosition, new Vector3(centerPoint.x-12f, 0f, z-(MaxZDistancePlayers()*MaxZDistancePlayers()/20f)), 4f * Time.deltaTime);
+        cameraScroller.LevelGenerator.setLevelSpeed(((z + z + 5f - OffsetAccordingToMaxDistance()*0.9f) / 4f) + 0.5f);
+        transform.localPosition = Vector3.Lerp(transform.localPosition, new Vector3(centerPoint.x-12f, 0f, z-OffsetAccordingToMaxDistance()), 4f * Time.deltaTime);
     }
 
     public Vector3 CalcCenterPoint()
@@ -140,6 +139,10 @@ public class CameraMovement : MonoBehaviour {
     public float MaxZDistancePlayers()
     {
         return maxZ - minZ;
+    }
+    public float OffsetAccordingToMaxDistance()
+    {
+        return Mathf.Clamp(MaxZDistancePlayers() * MaxZDistancePlayers() / 15f, 0f, 8f);
     }
 
     public void PlayerPosition(Vector3 pos, int iD)
