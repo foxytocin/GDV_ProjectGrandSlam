@@ -313,7 +313,7 @@ MonoBehaviour:
     prefab: {fileID: 1706533549810468, guid: fabeec65a6ae14912869fb9650bd9d14, type: 2}
     size: 1800
   - tag: GlowBall
-    prefab: {fileID: 1478917875165280, guid: 32ddefbfb48cf46a9be44f226e191432, type: 2}
+    prefab: {fileID: 1396633617921852, guid: 32ddefbfb48cf46a9be44f226e191432, type: 2}
     size: 50
 --- !u!1 &564822495
 GameObject:
@@ -401,6 +401,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   KistenPartsPrefab: {fileID: 1724026369652452, guid: 64f748d2e2239264dba8c28eb7627d11,
     type: 2}
+  Item_Prefab: {fileID: 0}
   levelGenerator: {fileID: 958779247}
   PlayerSpawner: {fileID: 1847533652}
   audioSource: {fileID: 594464649}
@@ -1457,7 +1458,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c0c907d999164b4bb6810dd6bf7bcfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 1667059198137356, guid: 40df6da08bb85fd499b60a58476303fa,
+  playerPrefab: {fileID: 1712524121732004, guid: bf2d0ac4f5d984230a53bc2d5d29522b,
     type: 2}
   players: 0
   playerList: []
