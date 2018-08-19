@@ -5,10 +5,11 @@ using UnityEngine;
 public class NightModus : MonoBehaviour {
 
 	public bool nightModus;
-	private bool isDay;
+	public bool isDay;
 	private LevelGenerator levelGenerator;
 	private PlayerSpawner playerSpawner;
 	private CameraScroller cameraScroller;
+	private GenerateDistanceLine generateDistanceLine;
 	private int worldOffest;
 	private int startRowPos;
 	private bool update;
@@ -20,18 +21,19 @@ public class NightModus : MonoBehaviour {
 
 	void Awake()
 	{
+		isDay = true;
+		update = true;
 		levelGenerator = FindObjectOfType<LevelGenerator>();
 		cameraScroller = FindObjectOfType<CameraScroller>();
 		playerSpawner = FindObjectOfType<PlayerSpawner>();
 		worldLight = FindObjectOfType<Light>();
+		generateDistanceLine = FindObjectOfType<GenerateDistanceLine>();
 	}
 
 	void Start()
 	{
 		duration = Random.value * 50f;
 		pastTime = 0f;
-		isDay = true;
-		update = true;
 		worldOffest = levelGenerator.tiefeLevelStartBasis;
 		worldLightOriginal = worldLight.intensity;
 		worldAmbientOriginal = RenderSettings.ambientIntensity;
@@ -76,9 +78,13 @@ public class NightModus : MonoBehaviour {
 				update = true;
 				switchToNight();
 				playerLightOn();
+
+				generateDistanceLine.generateGlowStangen = true;
+				checkGlowStangen();
 				//Debug.Log("Switch to Night");
 			}
 		}
+
 
 		if(!nightModus && !isDay)
 		{
@@ -95,9 +101,22 @@ public class NightModus : MonoBehaviour {
 				update = true;
 				switchToDay();
 				playerLightOff();
+
+				generateDistanceLine.generateGlowStangen = false;
+				checkGlowStangen();
 				//Debug.Log("Switch to Day");
 			}
 		} 
+	}
+
+	public void checkGlowStangen()
+	{
+		if(isDay)
+		{
+			glowBallDimmOff();
+		} else {
+			glowBallDimmOn();
+		}
 	}
 
 	private void playerLightOn()
@@ -106,6 +125,34 @@ public class NightModus : MonoBehaviour {
 		{
 			GameObject player = playerSpawner.playerList[i].gameObject;
 			StartCoroutine(playerGlowOn(player));
+		}
+	}
+
+	private void glowBallDimmOn()
+	{
+		foreach(GameObject go in levelGenerator.DistanceLines)
+		{
+			if(go != null)
+			{
+				if(go.CompareTag("GlowMaterial"))
+				{
+					go.GetComponent<GlowScript>().glowDimmOn();
+				}
+			}
+		}
+	}
+
+	private void glowBallDimmOff()
+	{
+		foreach(GameObject go in levelGenerator.DistanceLines)
+		{
+			if(go != null)
+			{
+				if(go.CompareTag("GlowMaterial"))
+				{
+					go.GetComponent<GlowScript>().glowDimmOff();
+				}
+			}
 		}
 	}
 

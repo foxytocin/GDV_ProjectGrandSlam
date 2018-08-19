@@ -404,7 +404,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   KistenPartsPrefab: {fileID: 1724026369652452, guid: 64f748d2e2239264dba8c28eb7627d11,
     type: 2}
-  Item_Prefab: {fileID: 0}
+  Item_Prefab: {fileID: 1563282454536840, guid: 10537c8c9c0de3243bbb9d9865278e71,
+    type: 2}
   levelGenerator: {fileID: 958779247}
   PlayerSpawner: {fileID: 1847533652}
   audioSource: {fileID: 594464649}
@@ -1436,6 +1437,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rowPosition: 0
   LevelGenerator: {fileID: 958779247}
+  camMove: {fileID: 0}
 --- !u!1 &1847533651
 GameObject:
   m_ObjectHideFlags: 0
@@ -1570,3 +1572,4 @@ MonoBehaviour:
   positions: []
   numPlayers: 0
   centerPoint: {x: 0, y: 0, z: 0}
+  dummy: {fileID: 0}

@@ -12,6 +12,7 @@ TagManager:
   - KillField
   - Boden
   - FreeFall
+  - GlowMaterial
   layers:
   - Default
   - TransparentFX

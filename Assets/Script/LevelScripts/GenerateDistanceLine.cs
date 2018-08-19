@@ -12,6 +12,7 @@ private float startPoint;
 private float endPoint;
 private float centerPoint;
 private float scaleQuerstrebe;
+public bool generateGlowStangen;
 
 private Color32 Percent0 = new Color32(83, 170, 39, 1);
 private Color32 Percent10 = new Color32(105, 170, 39, 1);
@@ -25,8 +26,10 @@ private Color32 Percent80 = new Color32(170, 83, 39, 1);
 private Color32 Percent90 = new Color32(170, 61, 39, 1);
 private Color32 Percent100 = new Color32(170, 39, 39, 1);
 
+
 	void Start()
 	{
+		generateGlowStangen = false;
 		startPoint = 0;
 		endPoint = 0;
 	}
@@ -74,11 +77,11 @@ private Color32 Percent100 = new Color32(170, 39, 39, 1);
 		GameObject EndStange = Instantiate(StangePrefab, new Vector3(endPoint, 0.5f, row), Quaternion.Euler(0f, 90f, 0f), transform);
 		GameObject Querstrebe = Instantiate(QuerstrebePrefab, new Vector3(centerPoint, 3.5f, row), Quaternion.Euler(0f, 90f, 0f), transform);
 		Querstrebe.transform.localScale = new Vector3(1f, 1f, scaleQuerstrebe);
-
+		
 		//Zuweisung der Farbe passend zum Schwierigkeitsgrad (KisteMenge)
-		StartStange.GetComponent<Renderer>().material.color = setColor();
-		EndStange.GetComponent<Renderer>().material.color = setColor();
-		Querstrebe.GetComponent<Renderer>().material.color = setColor();
+		setEmissionAndColor(StartStange);
+		setEmissionAndColor(EndStange);
+		setEmissionAndColor(Querstrebe);
 
 		//Eintragung der GameObjecte in das DistanceLines-Array damit sie später geloescht werden koennen
 		LevelGenerator.DistanceLines[0, row] = StartStange;
@@ -86,11 +89,30 @@ private Color32 Percent100 = new Color32(170, 39, 39, 1);
 		LevelGenerator.DistanceLines[2, row] = Querstrebe;
 
 		createMeterSchild(startPoint, endPoint, centerPoint, row);
+
+	}
+
+	private void setEmissionAndColor(GameObject go)
+	{
+			Material material = go.GetComponent<Renderer>().material;
+			Color baseColor = setMaterialColor();
+			Color emissionColor = baseColor * Mathf.LinearToGammaSpace(1.6f);
+
+			if(generateGlowStangen)
+			{
+				material.color = baseColor;
+				material.SetColor("_EmissionColor", emissionColor);
+				material.EnableKeyword("_EMISSION");
+			} else {
+				material.DisableKeyword("_EMISSION");
+				material.color = baseColor;
+			}
+
 	}
 
 
 	//Setzt die Farbe DistanceLine passend zum aktuellen Schwierigkeitsgrad (KistenMenge)
-	public Color32 setColor()
+	public Color32 setMaterialColor()
 	{
 		int Difficulty = (int)LevelGenerator.KistenMenge;
 

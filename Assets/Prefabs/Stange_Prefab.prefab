@@ -21,9 +21,10 @@ GameObject:
   - component: {fileID: 4890357631643654}
   - component: {fileID: 33736132228224720}
   - component: {fileID: 23950389541731636}
+  - component: {fileID: 114772311943927554}
   m_Layer: 0
   m_Name: Stange_Prefab
-  m_TagString: Untagged
+  m_TagString: GlowMaterial
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -83,3 +84,14 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1509512803967250}
   m_Mesh: {fileID: 4300000, guid: 2ed4bfa7a8355407dbfcf8381243e331, type: 3}
+--- !u!114 &114772311943927554
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1509512803967250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 399c0041563f8474abc8ed2644ad3898, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

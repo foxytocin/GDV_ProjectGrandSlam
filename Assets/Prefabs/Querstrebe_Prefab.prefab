@@ -21,9 +21,10 @@ GameObject:
   - component: {fileID: 4823076940980794}
   - component: {fileID: 33190954894692754}
   - component: {fileID: 23006817397410114}
+  - component: {fileID: 114790529724718932}
   m_Layer: 0
   m_Name: Querstrebe_Prefab
-  m_TagString: Untagged
+  m_TagString: GlowMaterial
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -83,3 +84,14 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1268663063143754}
   m_Mesh: {fileID: 4300000, guid: 928e331a0cbb34448ba3d34ca677172f, type: 3}
+--- !u!114 &114790529724718932
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1268663063143754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 399c0041563f8474abc8ed2644ad3898, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
