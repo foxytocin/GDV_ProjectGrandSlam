@@ -9,13 +9,13 @@ public class Houdini : MonoBehaviour {
 
 	public void callHoudini(int xPos, int zPos)
 	{
-		StartCoroutine(explode(xPos, zPos + 1));
-		StartCoroutine(explode(xPos, zPos - 1));
-		StartCoroutine(explode(xPos + 1, zPos));
-		StartCoroutine(explode(xPos - 1, zPos));
+		explode(xPos, zPos + 1);
+		explode(xPos, zPos - 1);
+		explode(xPos + 1, zPos);
+		explode(xPos - 1, zPos);
 	}
 
-	IEnumerator explode(int xPos, int zPos)
+	void explode(int xPos, int zPos)
 	{
 		if(LevelGenerator.AllGameObjects[xPos, zPos] != null)
 		{
@@ -26,6 +26,5 @@ public class Houdini : MonoBehaviour {
 				Instantiate(KistenteilePrefab, new Vector3(xPos, 0.5f, zPos), Quaternion.identity, transform);
 			}
 		}
-		yield return null;
 	}
 }

@@ -156,6 +156,7 @@ public class NightModus : MonoBehaviour {
 
 			yield return new WaitForEndOfFrame();
 		}
+
 		playerMaterial.DisableKeyword("_EMISSION");
 		playerLight.enabled = false;
 	}
@@ -180,7 +181,7 @@ public class NightModus : MonoBehaviour {
 		{
 			//worldLight.transform.Rotate(-Time.deltaTime * 4f, 0f, 0f);
 			worldLight.intensity -= Time.deltaTime * 0.2f;
-			yield return new WaitForEndOfFrame();
+			yield return null;
 		}
 	}
 
@@ -190,8 +191,9 @@ public class NightModus : MonoBehaviour {
 		{
 			//worldLight.transform.Rotate(Time.deltaTime * 4f, 0f, 0f);
 			worldLight.intensity += Time.deltaTime * 0.2f;
-			yield return new WaitForEndOfFrame();
+			yield return null;
 		}
+
 		worldLight.intensity = value;
 	}
 
@@ -200,7 +202,7 @@ public class NightModus : MonoBehaviour {
 		while(RenderSettings.ambientIntensity > value)
 		{
 			RenderSettings.ambientIntensity -= Time.deltaTime * 0.2f;
-			yield return new WaitForEndOfFrame();
+			yield return null;
 		}
 	}
 
@@ -209,8 +211,9 @@ public class NightModus : MonoBehaviour {
 		while(RenderSettings.ambientIntensity < value)
 		{
 			RenderSettings.ambientIntensity += Time.deltaTime * 0.2f;
-			yield return new WaitForEndOfFrame();
+			yield return null;
 		}
+
 		RenderSettings.ambientIntensity = worldAmbientOriginal;
 	}
 }
