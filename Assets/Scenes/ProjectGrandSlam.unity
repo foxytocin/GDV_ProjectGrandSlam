@@ -347,22 +347,22 @@ MonoBehaviour:
   pools:
   - tag: Kiste
     prefab: {fileID: 1968458687304108, guid: a742c7a8826264c8fa7d619f4d1ee624, type: 2}
-    size: 1300
+    size: 1500
   - tag: Explosion
     prefab: {fileID: 159918, guid: a0040bf7072bc2f4e82d887d50a9c5e2, type: 2}
     size: 200
   - tag: Wand
     prefab: {fileID: 1752548113676288, guid: 003ae408beb774f1db89ee2398ed91e8, type: 2}
-    size: 1000
+    size: 1200
   - tag: Boden
     prefab: {fileID: 1706533549810468, guid: fabeec65a6ae14912869fb9650bd9d14, type: 2}
-    size: 1800
+    size: 2000
   - tag: GlowBall
     prefab: {fileID: 1396633617921852, guid: 32ddefbfb48cf46a9be44f226e191432, type: 2}
     size: 50
   - tag: FreeFall
     prefab: {fileID: 1555264746771418, guid: 2f3c6f1b975d9421a97cb266ed5d2a33, type: 2}
-    size: 80
+    size: 200
 --- !u!1 &564822495
 GameObject:
   m_ObjectHideFlags: 0
