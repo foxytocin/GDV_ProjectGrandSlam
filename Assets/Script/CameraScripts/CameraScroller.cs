@@ -26,8 +26,8 @@ public class CameraScroller : MonoBehaviour
         dummyPos = (int)camMove.dummy.transform.position.z;
 
         //Prüft ob die Camera genau EINE Zeile weitergescrollt ist um die createWorld() für genau diese 1 Zeile aufzurufen.
-        //if (rowPosition > altePosition)
         if (dummyPos > oldDummy)
+        //if (rowPosition > altePosition)
         {
             altePosition = rowPosition;
             oldDummy = dummyPos;
@@ -35,7 +35,7 @@ public class CameraScroller : MonoBehaviour
             //LevelGenerator.tiefeLevelStartBasis ist ein definierter Startwert, der x Zeilen des Levels direkt zum Start erstellt. 
             //LevelGenerator.createWorld(rowPosition + LevelGenerator.tiefeLevelStartBasis);
             //LevelGenerator.createWorld(((Mathf.RoundToInt(camMove.dummy.transform.position.z))+ 15 + LevelGenerator.tiefeLevelStartBasis));
-            LevelGenerator.createWorld((dummyPos + 10 + LevelGenerator.tiefeLevelStartBasis));
+            LevelGenerator.createWorld((dummyPos + 8 + LevelGenerator.tiefeLevelStartBasis));
         }
     }
 }

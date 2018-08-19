@@ -30,7 +30,7 @@ public class CameraMovement : MonoBehaviour {
         playerSpawner = GameObject.Find("PlayerSpawner").GetComponent<PlayerSpawner>();
         levelGenerator = GameObject.Find("LevelGenerator").GetComponent<LevelGenerator>();
         dummy = new GameObject("dummy");
-        dummy.transform.position = new Vector3(15, 0, -10f);
+        dummy.transform.position = new Vector3(15, 0, 0f);
     }
     void LateUpdate()
     {
@@ -147,7 +147,6 @@ public class CameraMovement : MonoBehaviour {
 
     public float MaxZDistancePlayers()
     {
-        Debug.Log(maxZ - minZ);
         return maxZ - minZ;
     }
     public float OffsetAccordingToMaxDistance()
@@ -162,7 +161,7 @@ public class CameraMovement : MonoBehaviour {
 
     private void moveDummy(Vector3 target)
     {
-        Vector3 pos = Vector3.Lerp(dummy.transform.position, new Vector3(15f, 0f, target.z+2f), 0.05f * Time.deltaTime);
+        Vector3 pos = Vector3.Lerp(dummy.transform.position, new Vector3(15f, 0f, target.z+3f), 0.04f * Time.deltaTime);
         dummy.transform.position = pos;
     }
 }
