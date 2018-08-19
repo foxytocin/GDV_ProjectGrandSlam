@@ -21,9 +21,16 @@ public class CameraDirection : MonoBehaviour {
     void LateUpdate()
     {
         // Working but trying to smooth it        
-        target = cm.centerPoint;
+        //target = cm.centerPoint;
         //Vector3 targetPosition = Vector3.Lerp(transform.position, new Vector3(this.transform.position.x, 0, target.z), 4f * Time.deltaTime);
-
+        if(cm.MaxZDistancePlayers() < 15)
+        {
+            target = cm.centerPoint;
+        } else
+        {
+            Debug.Log("NOW");
+            target = cm.centerPoint - new Vector3(0, 0, (cm.MaxZDistancePlayers()-14f)*0.4f);
+        }
         Vector3 dirFromMeToTarget = target - transform.position;
         //dirFromMeToTarget.x = 0f;
         //dirFromMeToTarget.y = 0f;

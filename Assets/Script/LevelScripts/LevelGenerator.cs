@@ -171,6 +171,8 @@ public class LevelGenerator : MonoBehaviour
             drawLevelLine(CameraPosition);
         }
         StartCoroutine(cleanLine((CameraPosition - (10 + tiefeLevelStartBasis))));
+        //StartCoroutine(cleanLine((Mathf.RoundToInt(camMove.dummy.transform.position.z))+2));
+        
     }
 
     //Abhängig von der CameraPosition wird die Menge der Kisten verändert
@@ -226,7 +228,7 @@ public class LevelGenerator : MonoBehaviour
     }
 
 
-    IEnumerator cleanLine(int CameraPosition) {
+    public IEnumerator cleanLine(int CameraPosition) {
         
         if(CameraPosition >= 0) {
 

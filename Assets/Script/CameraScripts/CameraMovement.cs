@@ -10,6 +10,7 @@ public class CameraMovement : MonoBehaviour {
     private PlayerSpawner playerSpawner;
     public int numPlayers;
     public Vector3 centerPoint;
+    private LevelGenerator levelGenerator;
 
     private List<float> xPos;
     private List<float> zPos;
@@ -19,6 +20,7 @@ public class CameraMovement : MonoBehaviour {
     private float minZ;
     private Vector3 minPos;
     private Vector3 maxPos;
+    public GameObject dummy;
 
 
     private void Awake()
@@ -26,6 +28,9 @@ public class CameraMovement : MonoBehaviour {
         positions = new Vector3[4];
         cameraScroller = GameObject.Find("CameraScroller").GetComponent<CameraScroller>();
         playerSpawner = GameObject.Find("PlayerSpawner").GetComponent<PlayerSpawner>();
+        levelGenerator = GameObject.Find("LevelGenerator").GetComponent<LevelGenerator>();
+        dummy = new GameObject("dummy");
+        dummy.transform.position = new Vector3(15, 0, -10f);
     }
     void LateUpdate()
     {
@@ -40,6 +45,10 @@ public class CameraMovement : MonoBehaviour {
 
         }
         */
+
+        moveDummy(centerPoint);
+        levelGenerator.cleanLine(Mathf.RoundToInt(dummy.transform.position.z));
+
         Vector3 local = transform.InverseTransformPoint(centerPoint);
         float z = Mathf.Clamp(local.z / 2f, -4f, 4f);
 
@@ -138,6 +147,7 @@ public class CameraMovement : MonoBehaviour {
 
     public float MaxZDistancePlayers()
     {
+        Debug.Log(maxZ - minZ);
         return maxZ - minZ;
     }
     public float OffsetAccordingToMaxDistance()
@@ -148,5 +158,11 @@ public class CameraMovement : MonoBehaviour {
     public void PlayerPosition(Vector3 pos, int iD)
     {
         positions[iD] = pos;
+    }
+
+    private void moveDummy(Vector3 target)
+    {
+        Vector3 pos = Vector3.Lerp(dummy.transform.position, new Vector3(15f, 0f, target.z+2f), 0.05f * Time.deltaTime);
+        dummy.transform.position = pos;
     }
 }
