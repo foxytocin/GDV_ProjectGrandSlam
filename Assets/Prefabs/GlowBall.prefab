@@ -161,6 +161,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6751fe27b8b0943bfb802ade72caaedf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FreeFallPrefab: {fileID: 1555264746771418, guid: 2f3c6f1b975d9421a97cb266ed5d2a33,
-    type: 2}
   LevelGenerator: {fileID: 0}

@@ -4,17 +4,8 @@ using UnityEngine;
 
 public class RemoteBomb : MonoBehaviour {
 
-    public LevelGenerator levelGenerator;
-    public int playerID;
-
     public void remoteBomb(int playerID)
-    {
-        this.playerID = playerID;
-        StartCoroutine(Remote());
-    }
-
-    public IEnumerator Remote()
-    {
+    {   
         GameObject[] bombArray = GameObject.FindGameObjectsWithTag("Bombe");
 
         foreach (GameObject go in bombArray)
@@ -27,7 +18,6 @@ public class RemoteBomb : MonoBehaviour {
                 {
                     bombScript.countDown = 0f;
                     bombScript.remoteBomb = false;
-                    yield return new WaitForSeconds(bombScript.bombPower * 0.06f + 0.06f);
                 }
             }
         }

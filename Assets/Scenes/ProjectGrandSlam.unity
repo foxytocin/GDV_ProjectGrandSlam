@@ -315,6 +315,9 @@ MonoBehaviour:
   - tag: GlowBall
     prefab: {fileID: 1396633617921852, guid: 32ddefbfb48cf46a9be44f226e191432, type: 2}
     size: 50
+  - tag: FreeFall
+    prefab: {fileID: 1555264746771418, guid: 2f3c6f1b975d9421a97cb266ed5d2a33, type: 2}
+    size: 80
 --- !u!1 &564822495
 GameObject:
   m_ObjectHideFlags: 0
@@ -671,8 +674,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ed829af6c9a64ee5aed1d8bdff453f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelGenerator: {fileID: 958779247}
-  playerID: 0
 --- !u!4 &799907531
 Transform:
   m_ObjectHideFlags: 0
@@ -757,6 +758,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9da519e23e8da4f4b86c0843007cf72a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GlowBallPrefab: {fileID: 0}
   KistenMenge: 0
   LevelSpeed: 0
   LevelTextdatei0: {fileID: 4900000, guid: e1d3aaea6ffb7475fa3597124ee1c6d2, type: 3}
@@ -774,43 +776,6 @@ MonoBehaviour:
   generateGlowBalls: 0
   tiefeLevelStartBasis: 60
   GenerateDistanceLine: {fileID: 461965569}
-  pools:
-  - tag: 
-    prefab: {fileID: 0}
-    size: 0
-  - tag: 
-    prefab: {fileID: 0}
-    size: 0
-  - tag: 
-    prefab: {fileID: 0}
-    size: 0
-  - tag: 
-    prefab: {fileID: 0}
-    size: 0
-  - tag: 
-    prefab: {fileID: 0}
-    size: 0
-  - tag: 
-    prefab: {fileID: 0}
-    size: 0
-  - tag: 
-    prefab: {fileID: 0}
-    size: 0
-  - tag: 
-    prefab: {fileID: 0}
-    size: 0
-  - tag: 
-    prefab: {fileID: 0}
-    size: 0
-  - tag: 
-    prefab: {fileID: 0}
-    size: 0
-  - tag: 
-    prefab: {fileID: 0}
-    size: 0
-  - tag: 
-    prefab: {fileID: 0}
-    size: 0
 --- !u!4 &958779248
 Transform:
   m_ObjectHideFlags: 0
@@ -1065,7 +1030,7 @@ Prefab:
     - target: {fileID: 198000011337858710, guid: 5ca4c580b3888314581688fa46fb142d,
         type: 2}
       propertyPath: InitialModule.maxNumParticles
-      value: 750
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 4000010002477438, guid: 5ca4c580b3888314581688fa46fb142d, type: 2}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1095,6 +1060,11 @@ Prefab:
         type: 2}
       propertyPath: ShapeModule.m_Position.y
       value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000011337858710, guid: 5ca4c580b3888314581688fa46fb142d,
+        type: 2}
+      propertyPath: playOnAwake
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5ca4c580b3888314581688fa46fb142d, type: 2}
@@ -1541,8 +1511,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6751fe27b8b0943bfb802ade72caaedf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FreeFallPrefab: {fileID: 1555264746771418, guid: 2f3c6f1b975d9421a97cb266ed5d2a33,
-    type: 2}
   LevelGenerator: {fileID: 958779247}
 --- !u!4 &1930916333
 Transform:

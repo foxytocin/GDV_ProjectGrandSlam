@@ -72,7 +72,7 @@ public class BombScript : MonoBehaviour
         cameraShake.StartCoroutine(cameraShake.Shake(0.3f, 0.135f));
 
         //Explode() im MapDestroyer wird aufgerufen um von der bombPosition und mit deren bombPower zu pruefen welche weiteren Felder um die Bombe herum explodieren muessen.
-        mapDestroyer.StartCoroutine(mapDestroyer.explode(bombPosition, bombPower, bombOwnerPlayerID));
+        mapDestroyer.explode(bombPosition, bombPower, bombOwnerPlayerID);
 
         //Bombe selber wird zerstört.
         Destroy(gameObject);

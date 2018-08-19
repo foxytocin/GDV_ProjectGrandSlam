@@ -8,6 +8,7 @@ public class MapDestroyer : MonoBehaviour
     public GameObject Item_Prefab;
     public LevelGenerator levelGenerator;
     public PlayerSpawner PlayerSpawner;
+    private PlayerScript player;
     private int xPos;
     private int zPos;
     public AudioSource audioSource;
@@ -22,20 +23,21 @@ public class MapDestroyer : MonoBehaviour
 
     //Wird beim explodieren der Bombe durch das BombeScript aufgerufen.
     //Empfaengt die Position, die bombPower der Bombe und die ID des Spielers welche sie gelegt hat.
-    public IEnumerator explode(Vector3 position, int bombPower, int id)
+    public void explode(Vector3 position, int bombPower, int id)
     {
         xPos = (int)position.x;
         zPos = (int)position.z;
+        player = PlayerSpawner.playerList[id].GetComponent<PlayerScript>();
 
         //Ueberprüft ob der Spieler, der die Bombe gelegt hat, exakt an der gleichen Stelle (in der Bombe) stehen geblieben ist.
         //Sollte dies zutreffen, wird der Spieler getoetet.
-        if ((int) PlayerSpawner.playerList[id].gameObject.transform.position.x == xPos && (int)PlayerSpawner.playerList[id].gameObject.transform.position.z == zPos)
+        if ((int)player.transform.position.x == xPos && (int)player.transform.position.z == zPos)
         {
-             PlayerSpawner.playerList[id].GetComponent<PlayerScript>().dead();
+             player.dead();
         }
 
         //Die explodierte Bombe wird dem Spieler wieder gutgeschrieben.
-        PlayerSpawner.playerList[id].GetComponent<PlayerScript>().setAvaibleBomb(1);
+        player.setAvaibleBomb(1);
 
         //Explosions-Animation an der Stelle der Bombe wird abgespielt.
         objectPooler.SpawnFromPool("Explosion", new Vector3(xPos, 0.5f, zPos), Quaternion.identity);
@@ -49,8 +51,6 @@ public class MapDestroyer : MonoBehaviour
         StartCoroutine(CellWalker(bombPower, 0.06f, id, xPos, zPos, 1));
         StartCoroutine(CellWalker(bombPower, 0.06f, id, xPos, zPos, 2));
         StartCoroutine(CellWalker(bombPower, 0.06f, id, xPos, zPos, 3));
-
-        yield return null;
     }
 
     //Jeder der 4 Coroutinen laeuft solange der Rueckgabewert von ExplodeCell = true ist.
@@ -95,6 +95,7 @@ public class MapDestroyer : MonoBehaviour
                 }
                 break;
         }
+
     }
 
 
