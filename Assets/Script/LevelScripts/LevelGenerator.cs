@@ -182,43 +182,43 @@ public class LevelGenerator : MonoBehaviour
         {
             case 50:
                 KistenMenge = 10f; //10% Kisten
-                Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
+                //Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
                 break;
             case 100:
                 KistenMenge = 15f; //20% Kisten
-                Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
+                //Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
                 break;
             case 150:
                 KistenMenge = 20f; //25% Kisten
-                Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
+                //Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
                 break;
             case 200:
                 KistenMenge = 25f; //30% Kisten
-                Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
+                //Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
                 break;
             case 300:
                 KistenMenge = 30f; //35% Kisten
-                Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
+                //Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
                 break;
             case 400:
                 KistenMenge = 35f; //40% Kisten
-                Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
+                //Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
                 break;
             case 500:
                 KistenMenge = 40f; //45% Kisten
-                Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
+                //Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
                 break;
             case 600:
                 KistenMenge = 45f; //50% Kisten
-                Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
+                //Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
                 break;
             case 700:
                 KistenMenge = 50f; //60% Kisten
-                Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
+                //Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
                 break;
             case 800:
                 KistenMenge = 60f; //60% Kisten
-                Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
+                //Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
                 break;
             default:
                 break;

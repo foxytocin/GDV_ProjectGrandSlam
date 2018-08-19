@@ -76,7 +76,7 @@ public class NightModus : MonoBehaviour {
 				update = true;
 				switchToNight();
 				playerLightOn();
-				Debug.Log("Switch to Night");
+				//Debug.Log("Switch to Night");
 			}
 		}
 
@@ -95,7 +95,7 @@ public class NightModus : MonoBehaviour {
 				update = true;
 				switchToDay();
 				playerLightOff();
-				Debug.Log("Switch to Day");
+				//Debug.Log("Switch to Day");
 			}
 		} 
 	}
@@ -118,9 +118,9 @@ public class NightModus : MonoBehaviour {
 		playerLight.intensity = 0f;
 		playerLight.enabled = true;
 
-		while(emission < 2f)
+		while(emission < 2.3f)
 		{
-			emission += Time.deltaTime * 0.1f;
+			emission += Time.deltaTime * 0.2f;
 			Color finalColor = baseColor * Mathf.LinearToGammaSpace (emission);
 			playerMaterial.SetColor("_EmissionColor", finalColor);
 			playerMaterial.EnableKeyword("_EMISSION");
@@ -141,7 +141,7 @@ public class NightModus : MonoBehaviour {
 
 	private IEnumerator playerGlowOff(GameObject player)
 	{
-		float emission = 2f;
+		float emission = 2.3f;
 		Color baseColor = player.GetComponent<Renderer>().material.color;
 		Material playerMaterial = player.GetComponent<Renderer>().material;
 		Light playerLight = player.GetComponent<Light>();
@@ -149,7 +149,7 @@ public class NightModus : MonoBehaviour {
 
 		while(emission > 0f)
 		{
-			emission -= Time.deltaTime * 0.3f;
+			emission -= Time.deltaTime * 0.4f;
 			Color finalColor = baseColor * Mathf.LinearToGammaSpace (emission);
 			playerMaterial.SetColor("_EmissionColor", finalColor);
 			playerLight.intensity = emission;

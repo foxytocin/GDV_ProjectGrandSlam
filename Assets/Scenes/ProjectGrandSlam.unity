@@ -757,8 +757,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9da519e23e8da4f4b86c0843007cf72a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlowBallPrefab: {fileID: 1478917875165280, guid: 32ddefbfb48cf46a9be44f226e191432,
-    type: 2}
   KistenMenge: 0
   LevelSpeed: 0
   LevelTextdatei0: {fileID: 4900000, guid: e1d3aaea6ffb7475fa3597124ee1c6d2, type: 3}
@@ -776,6 +774,43 @@ MonoBehaviour:
   generateGlowBalls: 0
   tiefeLevelStartBasis: 60
   GenerateDistanceLine: {fileID: 461965569}
+  pools:
+  - tag: 
+    prefab: {fileID: 0}
+    size: 0
+  - tag: 
+    prefab: {fileID: 0}
+    size: 0
+  - tag: 
+    prefab: {fileID: 0}
+    size: 0
+  - tag: 
+    prefab: {fileID: 0}
+    size: 0
+  - tag: 
+    prefab: {fileID: 0}
+    size: 0
+  - tag: 
+    prefab: {fileID: 0}
+    size: 0
+  - tag: 
+    prefab: {fileID: 0}
+    size: 0
+  - tag: 
+    prefab: {fileID: 0}
+    size: 0
+  - tag: 
+    prefab: {fileID: 0}
+    size: 0
+  - tag: 
+    prefab: {fileID: 0}
+    size: 0
+  - tag: 
+    prefab: {fileID: 0}
+    size: 0
+  - tag: 
+    prefab: {fileID: 0}
+    size: 0
 --- !u!4 &958779248
 Transform:
   m_ObjectHideFlags: 0
