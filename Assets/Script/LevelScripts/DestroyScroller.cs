@@ -2,8 +2,6 @@
 
 public class DestroyScroller : MonoBehaviour
 {
-    public int rowPosition;
-    private int altePosition;
     private int oldDummy;
     private int dummyPos;
     public LevelGenerator LevelGenerator;
@@ -15,7 +13,6 @@ public class DestroyScroller : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        altePosition = -1;
         oldDummy = -1;
         dummy = new GameObject("dummy");
         dummy.transform.position = new Vector3(15, 0, -10f);
@@ -34,9 +31,7 @@ public class DestroyScroller : MonoBehaviour
 
         //Prüft ob die Camera genau EINE Zeile weitergescrollt ist um die createWorld() für genau diese 1 Zeile aufzurufen.
         if (dummyPos > oldDummy)
-        //if (rowPosition > altePosition)
         {
-            altePosition = rowPosition;
             oldDummy = dummyPos;
             StartCoroutine(levelGenerator.cleanLine(dummyPos));
             //LevelGenerator.createWorld(((Mathf.RoundToInt(camMove.dummy.transform.position.z))+ 15 + LevelGenerator.tiefeLevelStartBasis));

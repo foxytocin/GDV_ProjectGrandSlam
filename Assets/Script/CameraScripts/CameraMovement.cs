@@ -43,8 +43,7 @@ public class CameraMovement : MonoBehaviour {
             Debug.Log("CP: " + centerPoint);
 
         }
-        */
-        
+        */        
 
         Vector3 local = transform.InverseTransformPoint(centerPoint);
         float z = Mathf.Clamp(local.z / 2f, -4f, 4f);
@@ -154,7 +153,5 @@ public class CameraMovement : MonoBehaviour {
     public void PlayerPosition(Vector3 pos, int iD)
     {
         positions[iD] = pos;
-    }
-
-    
+    }    
 }
