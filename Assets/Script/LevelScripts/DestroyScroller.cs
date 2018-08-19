@@ -17,8 +17,10 @@ public class DestroyScroller : MonoBehaviour
         dummy = new GameObject("dummy");
         dummy.transform.position = new Vector3(15, 0, -10f);
 
-        camMove = GameObject.Find("HorizontalAxis").GetComponent<CameraMovement>();
-        levelGenerator = GameObject.Find("LevelGenerator").GetComponent<LevelGenerator>();
+        // camMove = GameObject.Find("HorizontalAxis").GetComponent<CameraMovement>();
+        // levelGenerator = GameObject.Find("LevelGenerator").GetComponent<LevelGenerator>();
+        camMove = FindObjectOfType<CameraMovement>();
+        levelGenerator = FindObjectOfType<LevelGenerator>();
     }
 
     // Update is called once per frame
@@ -29,7 +31,7 @@ public class DestroyScroller : MonoBehaviour
 
         moveDummy(target);
 
-        //Prüft ob die Camera genau EINE Zeile weitergescrollt ist um die createWorld() für genau diese 1 Zeile aufzurufen.
+        //Prüft ob die Camera genau EINE Zeile weitergescrollt ist um die cleanLine() für genau diese 1 Zeile aufzurufen.
         if (dummyPos > oldDummy)
         {
             oldDummy = dummyPos;

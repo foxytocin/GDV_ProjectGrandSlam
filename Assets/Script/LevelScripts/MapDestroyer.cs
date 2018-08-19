@@ -142,8 +142,8 @@ public class MapDestroyer : MonoBehaviour
                     Instantiate(KistenPartsPrefab, new Vector3(x, 0.5f, z), Quaternion.identity, transform);
 
                     //Spawnt Item
-                    
-                    levelGenerator.AllGameObjects[x, z] = Instantiate(Item_Prefab, new Vector3(x, 1f, z), Quaternion.identity, transform);
+                    if(Random.value > 0.5f)
+                        levelGenerator.AllGameObjects[x, z] = Instantiate(Item_Prefab, new Vector3(x, 0.7f, z), Quaternion.identity, transform);
 
                     return false;
 

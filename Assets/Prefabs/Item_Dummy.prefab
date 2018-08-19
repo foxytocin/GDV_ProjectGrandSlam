@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 23028743311601106}
   - component: {fileID: 114060145426688682}
   - component: {fileID: 108582794322440914}
+  - component: {fileID: 114538885995864260}
   m_Layer: 0
   m_Name: Item_Dummy
   m_TagString: Item
@@ -94,13 +95,13 @@ Light:
   m_Enabled: 1
   serializedVersion: 8
   m_Type: 2
-  m_Color: {r: 1, g: 0, b: 0.03137255, a: 1}
-  m_Intensity: 1.5
-  m_Range: 5
+  m_Color: {r: 0, g: 0.6378155, b: 1, a: 1}
+  m_Intensity: 1.2
+  m_Range: 3
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 2
+    m_Type: 0
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -132,3 +133,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc8e4051870be4340a07103ac20003ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114538885995864260
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1084199969612006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6751fe27b8b0943bfb802ade72caaedf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LevelGenerator: {fileID: 0}

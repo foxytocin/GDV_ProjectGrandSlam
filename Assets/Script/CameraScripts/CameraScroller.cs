@@ -4,8 +4,7 @@ public class CameraScroller : MonoBehaviour
 {
     public int rowPosition;
     private int altePosition;
-    private int oldDummy;
-    private int dummyPos;
+    
     public LevelGenerator LevelGenerator;
 
     // Use this for initialization
