@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class lookatcamera : MonoBehaviour {
+public class LookAtCamera : MonoBehaviour {
 
     Vector3 targetPosition;
 
     GameObject target;
 
 	void Start () {
-        target = GameObject.Find("Main Camera");
+        target = GameObject.FindWithTag("MainCamera");
 	}
 	
 
