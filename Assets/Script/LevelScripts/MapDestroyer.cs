@@ -143,7 +143,7 @@ public class MapDestroyer : MonoBehaviour
 
                     //Spawnt Item
                     
-                    levelGenerator.AllGameObjects[x, z] = Instantiate(Item_Prefab, new Vector3(x, 0.5f, z), Quaternion.identity, transform);
+                    levelGenerator.AllGameObjects[x, z] = Instantiate(Item_Prefab, new Vector3(x, 1f, z), Quaternion.identity, transform);
 
                     return false;
 

@@ -154,7 +154,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d18db00a51d2274a8da3925e57691da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rowPosition: 0
   LevelGenerator: {fileID: 0}
   camMove: {fileID: 0}
   dummy: {fileID: 0}
@@ -450,7 +449,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   KistenPartsPrefab: {fileID: 1724026369652452, guid: 64f748d2e2239264dba8c28eb7627d11,
     type: 2}
-  Item_Prefab: {fileID: 1563282454536840, guid: 10537c8c9c0de3243bbb9d9865278e71,
+  Item_Prefab: {fileID: 1084199969612006, guid: af4eab0e7bec44963ae895cb3b66eb2f,
     type: 2}
   levelGenerator: {fileID: 958779247}
   PlayerSpawner: {fileID: 1847533652}
