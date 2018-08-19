@@ -6,6 +6,11 @@ MonoImporter:
   defaultReferences:
   - Ghost_Prefab: {fileID: 1356645802074468, guid: c60b860bb33237b45b3bc2438d253c56,
       type: 2}
+  - audioSource: {instanceID: 0}
+  - audioScream0: {fileID: 8300000, guid: ba6f062bbc4e6415ab2743261d74561a, type: 3}
+  - audioScream1: {fileID: 8300000, guid: 1608490bfcaf644b2bbf85e26f23fc81, type: 3}
+  - audioScream2: {fileID: 8300000, guid: 6681b230feef44374aaaefb810e846aa, type: 3}
+  - audioScream3: {fileID: 8300000, guid: 38417b80d817242b39a1f18afbbe48c6, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

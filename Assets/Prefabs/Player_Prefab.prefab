@@ -239,10 +239,10 @@ MonoBehaviour:
   houdini: 0
   travelDistance: 0
   audioSource: {fileID: 0}
-  Player1falls: {fileID: 0}
-  Player2falls: {fileID: 0}
-  Player3falls: {fileID: 0}
-  Player4falls: {fileID: 0}
+  Player1falls: {fileID: 8300000, guid: 3d4c07fb5c223af41b36d996450a0eaf, type: 3}
+  Player2falls: {fileID: 8300000, guid: c8314cb3c7e317346ab260109ad1cedf, type: 3}
+  Player3falls: {fileID: 8300000, guid: 5ebe54b1dac4edf4ca307268895551b9, type: 3}
+  Player4falls: {fileID: 8300000, guid: 5a3349b790c1d484ba124abb31c334e1, type: 3}
   playerList: []
   creatingBomb: 0
   target: {x: 0, y: 0, z: 0}

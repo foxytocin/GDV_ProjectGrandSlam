@@ -110,7 +110,7 @@ MonoBehaviour:
   m_MinSize: {x: 713, y: 492}
   m_MaxSize: {x: 18008, y: 14042}
   vertical: 0
-  controlID: 22
+  controlID: 9
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -134,7 +134,7 @@ MonoBehaviour:
   m_MinSize: {x: 202, y: 342}
   m_MaxSize: {x: 4002, y: 8042}
   vertical: 1
-  controlID: 84
+  controlID: 118
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -230,8 +230,8 @@ MonoBehaviour:
     y: 0
     width: 234
     height: 221
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 204, y: 221}
+  m_MaxSize: {x: 4004, y: 4021}
   m_ActualView: {fileID: 18}
   m_Panes:
   - {fileID: 18}
@@ -545,7 +545,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 0ef2ffffd0f2ffff16f4fffff0fbffff00000000
+    m_ExpandedIDs: 3ef0fefffcf0feff42f2fefffef8feffc4f9feff0efbfeffeafbffff00000000f4110000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -606,7 +606,7 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/Prefabs
+    - Assets/Script/PlayerScripts
   m_ViewMode: 0
   m_StartGridSize: 64
   m_LastFolders: []
@@ -618,7 +618,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: f6340000
     m_LastClickedID: 13558
-    m_ExpandedIDs: 00000000fe090000ba0a0000bc0a0000d60a0000b80d00004a10000016340000183400001a3400001c3400001e34000020340000223400002434000026340000283400002a340000
+    m_ExpandedIDs: 000000004a0a0000060b0000080b0000220b0000040e000096100000383400003a3400003c3400003e34000040340000423400004434000046340000483400004a3400004c340000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -646,21 +646,21 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000fe090000ba0a0000bc0a0000d60a0000b80d00004a10000016340000183400001a3400001c3400001e34000020340000223400002434000026340000283400002a340000
+    m_ExpandedIDs: 000000004a0a0000060b0000080b0000220b0000fc0b0000040e000096100000383400003a3400003c3400003e34000040340000423400004434000046340000483400004a3400004c340000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: 
-      m_OriginalName: 
+      m_Name: GhostSpawnerScript
+      m_OriginalName: GhostSpawnerScript
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 0
+      m_UserData: 1680
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 11
+      m_OriginalEventType: 0
       m_IsRenamingFilename: 1
       m_ClientGUIView: {fileID: 11}
     m_SearchString: 
