@@ -173,7 +173,7 @@ Light:
   serializedVersion: 8
   m_Type: 1
   m_Color: {r: 1, g: 0.9642474, b: 0.8632076, a: 1}
-  m_Intensity: 1.2
+  m_Intensity: 0.9
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -205,13 +205,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 430263688}
-  m_LocalRotation: {x: 0.16042995, y: 0.37686962, z: -0.06645226, w: 0.9098438}
+  m_LocalRotation: {x: 0.27781588, y: 0.36497167, z: -0.1150751, w: 0.8811196}
   m_LocalPosition: {x: 0, y: 10, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1125787158}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 20, y: 45, z: 0}
+  m_LocalEulerAnglesHint: {x: 35, y: 45, z: 0}
 --- !u!1 &461965567
 GameObject:
   m_ObjectHideFlags: 0
@@ -312,6 +312,12 @@ MonoBehaviour:
   - tag: Boden
     prefab: {fileID: 1706533549810468, guid: fabeec65a6ae14912869fb9650bd9d14, type: 2}
     size: 1800
+  - tag: GlowBall
+    prefab: {fileID: 1396633617921852, guid: 32ddefbfb48cf46a9be44f226e191432, type: 2}
+    size: 50
+  - tag: FreeFall
+    prefab: {fileID: 1555264746771418, guid: 2f3c6f1b975d9421a97cb266ed5d2a33, type: 2}
+    size: 80
 --- !u!1 &564822495
 GameObject:
   m_ObjectHideFlags: 0
@@ -398,6 +404,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   KistenPartsPrefab: {fileID: 1724026369652452, guid: 64f748d2e2239264dba8c28eb7627d11,
     type: 2}
+  Item_Prefab: {fileID: 0}
   levelGenerator: {fileID: 958779247}
   PlayerSpawner: {fileID: 1847533652}
   audioSource: {fileID: 594464649}
@@ -667,8 +674,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ed829af6c9a64ee5aed1d8bdff453f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelGenerator: {fileID: 958779247}
-  playerID: 0
 --- !u!4 &799907531
 Transform:
   m_ObjectHideFlags: 0
@@ -753,6 +758,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9da519e23e8da4f4b86c0843007cf72a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GlowBallPrefab: {fileID: 0}
   KistenMenge: 0
   LevelSpeed: 0
   LevelTextdatei0: {fileID: 4900000, guid: e1d3aaea6ffb7475fa3597124ee1c6d2, type: 3}
@@ -767,6 +773,8 @@ MonoBehaviour:
   LevelTextdatei9: {fileID: 4900000, guid: 3b8ab15b0979746c58be4824da9219e3, type: 3}
   LevelTextdatei10: {fileID: 4900000, guid: 1348aba0a0dc641a88e2caa85bf1f0b8, type: 3}
   LevelTextdatei11: {fileID: 4900000, guid: b9775b53ce00146e6aff6679a5a22e92, type: 3}
+  generateGlowBalls: 0
+  tiefeLevelStartBasis: 60
   GenerateDistanceLine: {fileID: 461965569}
 --- !u!4 &958779248
 Transform:
@@ -969,7 +977,7 @@ Prefab:
     - target: {fileID: 198000011337858710, guid: 5ca4c580b3888314581688fa46fb142d,
         type: 2}
       propertyPath: InitialModule.startSize.scalar
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 198000011337858710, guid: 5ca4c580b3888314581688fa46fb142d,
         type: 2}
@@ -1022,7 +1030,7 @@ Prefab:
     - target: {fileID: 198000011337858710, guid: 5ca4c580b3888314581688fa46fb142d,
         type: 2}
       propertyPath: InitialModule.maxNumParticles
-      value: 1000
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 4000010002477438, guid: 5ca4c580b3888314581688fa46fb142d, type: 2}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1052,6 +1060,11 @@ Prefab:
         type: 2}
       propertyPath: ShapeModule.m_Position.y
       value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000011337858710, guid: 5ca4c580b3888314581688fa46fb142d,
+        type: 2}
+      propertyPath: playOnAwake
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5ca4c580b3888314581688fa46fb142d, type: 2}
@@ -1227,6 +1240,7 @@ GameObject:
   - component: {fileID: 1620339721}
   - component: {fileID: 1620339722}
   - component: {fileID: 1620339723}
+  - component: {fileID: 1620339724}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1366,6 +1380,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1620339724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1620339720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8efa3371288984e74a7681569d1912c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nightModus: 0
 --- !u!1 &1754055004
 GameObject:
   m_ObjectHideFlags: 0
@@ -1437,7 +1463,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c0c907d999164b4bb6810dd6bf7bcfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 1667059198137356, guid: 40df6da08bb85fd499b60a58476303fa,
+  playerPrefab: {fileID: 1712524121732004, guid: bf2d0ac4f5d984230a53bc2d5d29522b,
     type: 2}
   players: 0
   playerList: []
@@ -1485,8 +1511,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6751fe27b8b0943bfb802ade72caaedf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FreeFallPrefab: {fileID: 1555264746771418, guid: 2f3c6f1b975d9421a97cb266ed5d2a33,
-    type: 2}
   LevelGenerator: {fileID: 958779247}
 --- !u!4 &1930916333
 Transform:

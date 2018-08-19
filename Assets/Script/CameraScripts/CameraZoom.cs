@@ -20,15 +20,13 @@ public class CameraZoom : MonoBehaviour {
 
     void CameraMoving()
     {
-        float zoom = Mathf.Lerp(3f, 20f, GetGreatestDistance() / 50f);
+        float zoom = Mathf.Lerp(3f, 20f, GetGreatestDistance() / 30f);
         //LookAt, SmoothFollow SmoothDirection
         //3fach verschachtelte Kamera, getrennt voneinander 
 
-        // BUG Irgendwie zuckt hier was...
-        float dist = Mathf.Lerp(transform.localPosition.y, zoom, 0.5f * Time.deltaTime);
-        Vector3 offset = new Vector3(0, dist, 0);
+        float dist = Mathf.Lerp(transform.localPosition.y, zoom + cm.OffsetAccordingToMaxDistance()/3, 0.5f * Time.deltaTime);
         //offset = new Vector3(0, dist, cameraScroller.transform.position.z);
-        transform.localPosition = offset;
+        transform.localPosition = new Vector3(0, Mathf.Clamp(dist, 0f, 12f), 0);
     }
 
     float GetGreatestDistance()

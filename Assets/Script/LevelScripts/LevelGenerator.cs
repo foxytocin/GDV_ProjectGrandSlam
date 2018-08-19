@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 public class LevelGenerator : MonoBehaviour
 {
     ObjectPooler objectPooler;
+    public GameObject GlowBallPrefab;
     public float KistenMenge;
     public float LevelSpeed;
     public TextAsset LevelTextdatei0;
@@ -36,12 +37,14 @@ public class LevelGenerator : MonoBehaviour
     private int rotation;
     private bool specialSection;
     private bool generateKisten;
-    public const int tiefeLevelStartBasis = 60;
+    public bool generateGlowBalls;
+    public int tiefeLevelStartBasis = 60;
     public GenerateDistanceLine GenerateDistanceLine;
-
+   
     // Use this for initialization
     void Awake()
     {
+        generateGlowBalls = false;
         generateKisten = true;
         LevelSpeed = 0.5f;
         KistenMenge = 10f;
@@ -167,7 +170,7 @@ public class LevelGenerator : MonoBehaviour
             }
             drawLevelLine(CameraPosition);
         }
-        StartCoroutine(cleanLine((CameraPosition - (10 + tiefeLevelStartBasis))));
+        cleanLine((CameraPosition - (10 + tiefeLevelStartBasis)));
     }
 
     //Abhängig von der CameraPosition wird die Menge der Kisten verändert
@@ -179,43 +182,43 @@ public class LevelGenerator : MonoBehaviour
         {
             case 50:
                 KistenMenge = 10f; //10% Kisten
-                Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
+                //Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
                 break;
             case 100:
                 KistenMenge = 15f; //20% Kisten
-                Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
+                //Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
                 break;
             case 150:
                 KistenMenge = 20f; //25% Kisten
-                Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
+                //Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
                 break;
             case 200:
                 KistenMenge = 25f; //30% Kisten
-                Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
+                //Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
                 break;
             case 300:
                 KistenMenge = 30f; //35% Kisten
-                Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
+                //Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
                 break;
             case 400:
                 KistenMenge = 35f; //40% Kisten
-                Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
+                //Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
                 break;
             case 500:
                 KistenMenge = 40f; //45% Kisten
-                Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
+                //Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
                 break;
             case 600:
                 KistenMenge = 45f; //50% Kisten
-                Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
+                //Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
                 break;
             case 700:
                 KistenMenge = 50f; //60% Kisten
-                Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
+                //Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
                 break;
             case 800:
                 KistenMenge = 60f; //60% Kisten
-                Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
+                //Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
                 break;
             default:
                 break;
@@ -223,7 +226,7 @@ public class LevelGenerator : MonoBehaviour
     }
 
 
-    IEnumerator cleanLine(int CameraPosition) {
+    public void cleanLine(int CameraPosition) {
         
         if(CameraPosition >= 0) {
 
@@ -278,7 +281,6 @@ public class LevelGenerator : MonoBehaviour
                 }
             }
         }
-        yield return null;
     }
 
 
@@ -341,7 +343,7 @@ public class LevelGenerator : MonoBehaviour
             //GameObject Wand = objectPooler.SpawnFromPool("Wand", pos, Quaternion.identity);
             //Wand.tag = "Wand";
             AllGameObjects[(int)pos.x, (int)pos.z] = objectPooler.SpawnFromPool("Wand", pos, Quaternion.identity);
-            rotation += 90;
+            createGlowBall(pos);
         }
 
         //Erzeug einen Bogen. Wenn RandomValue 10 oder 20 ist.
@@ -367,11 +369,17 @@ public class LevelGenerator : MonoBehaviour
     }
 
     //Erzeugt eine Kiste und Boden unter ihr
-    void createKiste(Vector3 pos) {
-        
+    void createKiste(Vector3 pos)
+    {
         SecondaryGameObjects1[(int)pos.x, (int)pos.z] = objectPooler.SpawnFromPool("Boden", pos - new Vector3(0, 0.1f, 0), Quaternion.identity);
         AllGameObjects[(int)pos.x, (int)pos.z] = objectPooler.SpawnFromPool("Kiste", pos + new Vector3(0f, 0.5f, 0f), Quaternion.Euler(0, rotation, 0));
         rotation += 90;
+    }
+
+    void createGlowBall(Vector3 pos)
+    {
+        if(Random.value > 0.97f && generateGlowBalls)
+            SecondaryGameObjects1[(int)pos.x, (int)pos.z] = objectPooler.SpawnFromPool("GlowBall", pos + new Vector3(0, 1, 0), Quaternion.identity);
     }
 
 

@@ -30,9 +30,6 @@ public class CameraMovement : MonoBehaviour {
     void LateUpdate()
     {
         centerPoint = CalcCenterPoint();
-
-        //Debug.Log(centerPoint);
-
         /*
         for(int i = 0; i < positions.Length; i++)
         {
@@ -43,14 +40,12 @@ public class CameraMovement : MonoBehaviour {
 
         }
         */
-
         Vector3 local = transform.InverseTransformPoint(centerPoint);
         float z = Mathf.Clamp(local.z / 2f, -4f, 4f);
 
         //Dynamischer Levelspeed
-        cameraScroller.LevelGenerator.setLevelSpeed(((z + z + 5f) / 4f) + 0.5f);        
-
-        transform.localPosition = Vector3.Lerp(transform.localPosition, new Vector3(centerPoint.x-12f, 0f, z), 4f * Time.deltaTime);
+        cameraScroller.LevelGenerator.setLevelSpeed(((z + z + 5f - OffsetAccordingToMaxDistance()*0.9f) / 4f) + 0.5f);
+        transform.localPosition = Vector3.Lerp(transform.localPosition, new Vector3(centerPoint.x-12f, 0f, z-OffsetAccordingToMaxDistance()), 4f * Time.deltaTime);
     }
 
     public Vector3 CalcCenterPoint()
@@ -65,23 +60,30 @@ public class CameraMovement : MonoBehaviour {
             case 1:
                 return positions[0];
             case 2:
+                //Min und Max Values
+                xPos = new List<float>();
+                zPos = new List<float>();
+
                 for (int i = 0; i < numPlayers; i++)
                 {
                     if (positions[i].y == 0.45f)
                     {
                         j++;
-                        iDLastAlive = i;
+                        xPos.Add(positions[i].x);
+                        zPos.Add(positions[i].z);
                     }
                 }
-                if(j == 2)
-                {
-                    center = positions[1] - positions[0];
-                    return positions[0] + 0.5f * center;
-                } else
-                {
-                    return positions[iDLastAlive];
-                }
-                              
+                maxX = Mathf.Max(xPos.ToArray());
+                maxZ = Mathf.Max(zPos.ToArray());
+                minX = Mathf.Min(xPos.ToArray());
+                minZ = Mathf.Min(zPos.ToArray());
+
+                minPos = new Vector3(minX, 0, minZ);
+                maxPos = new Vector3(maxX, 0, maxZ);
+
+                center = (minPos + maxPos) * 0.5f;
+                return center;
+
             case 3:
                 //Min und Max Values
                 xPos = new List<float>();
@@ -132,6 +134,15 @@ public class CameraMovement : MonoBehaviour {
                 return center;
             default: return Vector3.zero;
         }
+    }
+
+    public float MaxZDistancePlayers()
+    {
+        return maxZ - minZ;
+    }
+    public float OffsetAccordingToMaxDistance()
+    {
+        return Mathf.Clamp(MaxZDistancePlayers() * MaxZDistancePlayers() / 15f, 0f, 8f);
     }
 
     public void PlayerPosition(Vector3 pos, int iD)

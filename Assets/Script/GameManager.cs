@@ -28,17 +28,16 @@ public class GameManager : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update () {   
+    void FixedUpdate () {   
 
         if (Input.GetKey(KeyCode.Escape) || InputManager.OneStartButton())
         {
-            if(counter > 20)
+            if(counter > 30)
             {
                 Application.Quit();
                 Debug.Log("Programm beendet");
             } else {
                 counter++;
-                Debug.Log("KeyDown " +counter);
             }
         }   
 
