@@ -419,6 +419,12 @@ public class PlayerScript : MonoBehaviour
                         playerFall();
                     }
 
+                    //Item?
+                    if (levelGenerator.AllGameObjects[(int)(target.x + tmp.x), (int)(target.z + tmp.z)].gameObject.CompareTag("Item"))
+                    {
+                        Debug.Log("Item picked up");
+                    }
+
                     return false;
                 }
             }
