@@ -170,7 +170,7 @@ public class LevelGenerator : MonoBehaviour
             }
             drawLevelLine(CameraPosition);
         }
-        StartCoroutine(cleanLine((CameraPosition - (10 + tiefeLevelStartBasis))));
+        //StartCoroutine(cleanLine((CameraPosition - (10 + tiefeLevelStartBasis))));
         //StartCoroutine(cleanLine((Mathf.RoundToInt(camMove.dummy.transform.position.z))+2));
         
     }

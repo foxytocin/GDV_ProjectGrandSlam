@@ -114,6 +114,50 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &98062523
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 98062524}
+  - component: {fileID: 98062525}
+  m_Layer: 0
+  m_Name: DestroyScroller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &98062524
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 98062523}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 197551104}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &98062525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 98062523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d18db00a51d2274a8da3925e57691da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rowPosition: 0
+  LevelGenerator: {fileID: 0}
+  camMove: {fileID: 0}
+  dummy: {fileID: 0}
 --- !u!1 &197551103
 GameObject:
   m_ObjectHideFlags: 0
@@ -144,6 +188,7 @@ Transform:
   - {fileID: 461965568}
   - {fileID: 1930916333}
   - {fileID: 545030886}
+  - {fileID: 98062524}
   m_Father: {fileID: 1620339721}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -259,6 +304,7 @@ MonoBehaviour:
     type: 2}
   MeterSchildPrefab: {fileID: 1510929197513478, guid: 765a1a43ccdae402f838e41265c51afe,
     type: 2}
+  generateGlowStangen: 0
 --- !u!1 &545030885
 GameObject:
   m_ObjectHideFlags: 0
@@ -1393,6 +1439,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nightModus: 0
+  isDay: 0
 --- !u!1 &1754055004
 GameObject:
   m_ObjectHideFlags: 0
@@ -1437,7 +1484,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rowPosition: 0
   LevelGenerator: {fileID: 958779247}
-  camMove: {fileID: 0}
 --- !u!1 &1847533651
 GameObject:
   m_ObjectHideFlags: 0
@@ -1572,4 +1618,3 @@ MonoBehaviour:
   positions: []
   numPlayers: 0
   centerPoint: {x: 0, y: 0, z: 0}
-  dummy: {fileID: 0}
