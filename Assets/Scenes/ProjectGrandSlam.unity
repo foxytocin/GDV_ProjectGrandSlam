@@ -356,13 +356,16 @@ MonoBehaviour:
     size: 1200
   - tag: Boden
     prefab: {fileID: 1706533549810468, guid: fabeec65a6ae14912869fb9650bd9d14, type: 2}
-    size: 2000
+    size: 2100
   - tag: GlowBall
     prefab: {fileID: 1396633617921852, guid: 32ddefbfb48cf46a9be44f226e191432, type: 2}
     size: 50
   - tag: FreeFall
     prefab: {fileID: 1555264746771418, guid: 2f3c6f1b975d9421a97cb266ed5d2a33, type: 2}
     size: 200
+  - tag: Bombe
+    prefab: {fileID: 1200906370282642, guid: 2effe9be9ab3148b1a0a368568848eb9, type: 2}
+    size: 60
 --- !u!1 &564822495
 GameObject:
   m_ObjectHideFlags: 0

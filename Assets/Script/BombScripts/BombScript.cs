@@ -20,6 +20,7 @@ public class BombScript : MonoBehaviour
     private CameraShake cameraShake;
     private MapDestroyer mapDestroyer;
     private LevelGenerator levelGenerator;
+    Color32 bombColor;
 
     void Awake()
     {
@@ -27,32 +28,32 @@ public class BombScript : MonoBehaviour
         cameraShake = FindObjectOfType<CameraShake>();
         mapDestroyer = FindObjectOfType<MapDestroyer>();
         levelGenerator = FindObjectOfType<LevelGenerator>();
+
+        bombColor = GetComponent<Renderer>().material.color;
+        bombAngle = Random.Range(0, 36f) * 10f;
+        bombRotation = Random.value >= 0.5f ? 1 : -1;
     }
 
-    void Start()
+    public IEnumerator bombAnimation()
     {
         audioSource.PlayOneShot(audioPlopp, 1f);
         audioSource.PlayOneShot(audioZischen, 0.9f);
 
-        countDown = bombTimer;
         bombPosition = transform.position;
         transform.eulerAngles += new Vector3(0, bombAngle, 0);
-        bombAngle = Random.Range(0, 36f) * 10f;
-        bombRotation = Random.value >= 0.5f ? 1 : -1;
 
         if(remoteBomb) {
             GetComponent<Renderer>().material.color = playerColor;
+        } else {
+            GetComponent<Renderer>().material.color = bombColor;
         }
-        
-        StartCoroutine(bombAnimation());
-    }
 
-    IEnumerator bombAnimation()
-    {
         //Bombe uebernimmt die Rotation der Bodenplatte auf der sie liegt. Faengt der Boden an zu wackeln, wird so diese Wackelbewegung uebernommen
         //Um die Wackelbewegung deutlicher zu mache, werden die Winkel mit dem Faktor 3 multipliziet
         Vector3 anglesBode;
         Vector3 anglesRotation = transform.localEulerAngles;
+
+        countDown = bombTimer;
 
         while (countDown >= 0 || remoteBomb)
         {
@@ -74,7 +75,10 @@ public class BombScript : MonoBehaviour
         //Explode() im MapDestroyer wird aufgerufen um von der bombPosition und mit deren bombPower zu pruefen welche weiteren Felder um die Bombe herum explodieren muessen.
         mapDestroyer.explode(bombPosition, bombPower, bombOwnerPlayerID);
 
+        levelGenerator.AllGameObjects[(int)bombPosition.x, (int)bombPosition.z] = null;
+
+        gameObject.SetActive(false);
         //Bombe selber wird zerstört.
-        Destroy(gameObject);
+        //Destroy(gameObject);
     }
 }

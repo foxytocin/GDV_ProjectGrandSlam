@@ -23,7 +23,7 @@ public class BombSpawner : MonoBehaviour
         {
             player.setAvaibleBomb(-1);
 
-            GameObject bombeInstanz = Instantiate(Bomb_Prefab, bombPosition, Quaternion.identity, transform);
+            GameObject bombeInstanz = ObjectPooler.Instance.SpawnFromPool("Bombe", bombPosition, Quaternion.identity);
             BombScript thisBombeScript = bombeInstanz.GetComponent<BombScript>();
 
             //Uebertraegt die PlayerStats auf die gelegte Bombe, damit sie ihr individuelles Verhalten bekommt.
@@ -33,6 +33,7 @@ public class BombSpawner : MonoBehaviour
             thisBombeScript.remoteBomb = player.getRemoteBomb();
             thisBombeScript.tag = "Bombe";
             thisBombeScript.playerColor = player.GetComponent<Renderer>().material.color;
+            StartCoroutine(thisBombeScript.bombAnimation());
 
             //Traegt die gelegte Bombe im AllGameObject-Array ein, damit die Interaktion mit anderen GameObjecten moeglich ist.
             LevelGenerator.AllGameObjects[(int)bombPosition.x, (int)bombPosition.z] = bombeInstanz;
