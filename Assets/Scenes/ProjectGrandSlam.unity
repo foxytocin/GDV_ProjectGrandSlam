@@ -897,9 +897,53 @@ Transform:
   - {fileID: 772635016}
   - {fileID: 846212269}
   - {fileID: 1847533653}
+  - {fileID: 1232083008}
   m_Father: {fileID: 1620339721}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1232083007
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1232083008}
+  - component: {fileID: 1232083009}
+  m_Layer: 0
+  m_Name: Item Spwaner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1232083008
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1232083007}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -12.976711, y: -5.101205, z: -26.27795}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1223797412}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1232083009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1232083007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76f81c13dc95c424a8b25f5885786054, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LevelGenerator: {fileID: 958779247}
+  Item_Prefab: {fileID: 1084199969612006, guid: af4eab0e7bec44963ae895cb3b66eb2f,
+    type: 2}
 --- !u!1 &1259863039
 GameObject:
   m_ObjectHideFlags: 0
