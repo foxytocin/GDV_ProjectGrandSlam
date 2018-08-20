@@ -14,7 +14,7 @@ public class CameraScroller : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         transform.Translate(0, 0, LevelGenerator.LevelSpeed * Time.deltaTime);
         rowPosition = (int)transform.position.z;

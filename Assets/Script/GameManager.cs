@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void FixedUpdate () {   
+    void Update () {   
 
         if (Input.GetKey(KeyCode.Escape) || InputManager.OneStartButton())
         {

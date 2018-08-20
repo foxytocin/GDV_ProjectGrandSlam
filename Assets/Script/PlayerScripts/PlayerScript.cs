@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
@@ -11,8 +12,8 @@ public class PlayerScript : MonoBehaviour
     public float bombTimer;
     public int range;
     public bool alive;
-    public bool remoteBomb;
-    public bool houdini;
+    public bool remoteBombItem;
+    public bool houdiniItem;
     public int travelDistance;
 
     public AudioSource audioSource;
@@ -28,11 +29,14 @@ public class PlayerScript : MonoBehaviour
     public Vector3 target;
     Vector3 lastTmpVector;
     float myTime;
-    public List<GameObject> remoteBombList;
-    public LevelGenerator levelGenerator;
+    private LevelGenerator levelGenerator;
+    private BombSpawner bombSpawner;
+    private Houdini houdini;
+    private RemoteBomb remoteBomb;
     public GhostSpawnerScript ghostSpawner;
     public CameraMovement cam;
-    public PlayerSpawner playerSpawner;
+    private PlayerSpawner playerSpawner;
+    private ItemSpawner itemSpawner;
     bool RichtungsAenderung; //true == z; false == x 
     bool fall = false;
     float gravity;
@@ -41,6 +45,12 @@ public class PlayerScript : MonoBehaviour
     void Awake()
     {
         audioSource = GetComponent<AudioSource>();
+        bombSpawner = FindObjectOfType<BombSpawner>();
+        levelGenerator = FindObjectOfType<LevelGenerator>();
+        playerSpawner = FindObjectOfType<PlayerSpawner>();
+        remoteBomb = FindObjectOfType<RemoteBomb>();
+        houdini = FindObjectOfType<Houdini>();
+        itemSpawner = FindObjectOfType<ItemSpawner>();
     }
 
     void Start()
@@ -53,7 +63,8 @@ public class PlayerScript : MonoBehaviour
         bombTimer = 2f;
         range = 1;
         alive = true;
-        remoteBomb = false;
+        remoteBombItem = false;
+        houdiniItem = false;
         creatingBomb = false;
         target = transform.position;
         myTime = 0f;
@@ -81,7 +92,7 @@ public class PlayerScript : MonoBehaviour
 
                 // RemoteBombe zünden Player_One
                 if (InputManager.OneAButton())
-                    FindObjectOfType<RemoteBomb>().remoteBomb(0);
+                    remoteBomb.remoteBomb(0);
 
                 //Pause aufrufen
                 if (InputManager.OneStartButton())
@@ -99,7 +110,7 @@ public class PlayerScript : MonoBehaviour
 
                 // RemoteBombe zünden Player_Two
                 if (InputManager.TwoAButton())
-                    FindObjectOfType<RemoteBomb>().remoteBomb(1);
+                    remoteBomb.remoteBomb(1);
 
                 //Pause aufrufen
                 if (InputManager.TwoStartButton())
@@ -117,7 +128,7 @@ public class PlayerScript : MonoBehaviour
 
                 // RemoteBombe zünden Player_Three
                 if (InputManager.ThreeAButton())
-                    FindObjectOfType<RemoteBomb>().remoteBomb(2);
+                    remoteBomb.remoteBomb(2);
 
                 //Pause aufrufen
                 if (InputManager.ThreeStartButton())
@@ -135,7 +146,7 @@ public class PlayerScript : MonoBehaviour
 
                 // RemoteBombe zünden Player_Four
                 if (InputManager.FourAButton())
-                    FindObjectOfType<RemoteBomb>().remoteBomb(3);
+                    remoteBomb.remoteBomb(3);
 
                 //Pause aufrufen
                 if (InputManager.FourStartButton())
@@ -219,6 +230,7 @@ public class PlayerScript : MonoBehaviour
             }
         }
 
+        
         //Aktiviert EMISSION und LIGHT beim Player um anzuzugen das der Player das Houdini-Item hat
         // if(houdini)
         // {
@@ -341,12 +353,12 @@ public class PlayerScript : MonoBehaviour
     //remoteBomb
     public bool getRemoteBomb()
     {
-        return remoteBomb;
+        return remoteBombItem;
     }
 
     public void setRemoteBombe(bool tmp)
     {
-        remoteBomb = tmp;
+        remoteBombItem = tmp;
     }
 
     //bombTimer
@@ -368,22 +380,19 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
-
     // Setzt Bombe mit überprüfung von avaibleBomb und aLife
     void SetBomb()
     {
         if (avaibleBomb > 0 && alive)
         {
             creatingBomb = true;
-            FindObjectOfType<BombSpawner>().SpawnBomb(transform.position, playerID);
+            bombSpawner.SpawnBomb(transform.position, playerID);
 
         } else
         {
             creatingBomb = false;
         }
     }
-
-
 
     bool freeWay(Vector3 tmp)
     {
@@ -393,16 +402,15 @@ public class PlayerScript : MonoBehaviour
             //entweder hat sich der Richungsvector nicht geändert oder das Objekt die selbe Position wie TargetVector
             if ((lastTmpVector == tmp || target == transform.position) && myTime > 0.2f)
             {
-
                 //Prueft im Array an der naechsten stelle ob dort ein objekt liegt wenn nicht dann return.true
                 if (levelGenerator.AllGameObjects[Mathf.RoundToInt(target.x + tmp.x), Mathf.RoundToInt(target.z + tmp.z)] == null)
                 {
                     myTime = 0f;
 
                     //Hat der Player das Houdini-Item, werden automatisch alle Kisten um ihn herum zerstört
-                    if(houdini)
+                    if(houdiniItem)
                     {
-                        FindObjectOfType<Houdini>().callHoudini(Mathf.RoundToInt(target.x + tmp.x), Mathf.RoundToInt(target.z + tmp.z));
+                        houdini.callHoudini(Mathf.RoundToInt(target.x + tmp.x), Mathf.RoundToInt(target.z + tmp.z));
                     }
 
                     //Debug.Log("Player at: " +levelGenerator.SecondaryGameObjects1[(int)(target.x + tmp.x), (int)(target.z + tmp.z)].gameObject.tag);
@@ -423,11 +431,10 @@ public class PlayerScript : MonoBehaviour
                     //Item?
                     if (levelGenerator.AllGameObjects[(int)(target.x + tmp.x), (int)(target.z + tmp.z)].gameObject.CompareTag("Item"))
                     {
-                        FindObjectOfType<ItemSpawner>().PlayerItem(playerID);
+                        itemSpawner.PlayerItem(playerID);
                         Destroy(levelGenerator.AllGameObjects[(int)(target.x + tmp.x), (int)(target.z + tmp.z)].gameObject);
                         Debug.Log("Item picked up");
                     }
-
                     return false;
                 }
             }
@@ -435,8 +442,7 @@ public class PlayerScript : MonoBehaviour
         }
         return false;
     }
-    
-     
+
     public void playerFall()
     {
         switch (playerID)
@@ -451,7 +457,35 @@ public class PlayerScript : MonoBehaviour
         target.y = -200f;
         fall = true;
         alive = false;
-
     }
-                    
+    
+
+    // public IEnumerator playerFall()
+    // {
+    //     gravity = 0f;
+
+    //     switch (playerID)
+    //     {
+    //         case 0: audioSource.PlayOneShot(Player1falls, 0.5f); break;
+    //         case 1: audioSource.PlayOneShot(Player2falls, 0.5f); break;
+    //         case 2: audioSource.PlayOneShot(Player3falls, 0.5f); break;
+    //         case 3: audioSource.PlayOneShot(Player4falls, 0.5f); break;
+    //         default: break;
+    //     }
+
+    //     alive = false;
+    //     target.y = -200f;
+
+    //     while(transform.position.y > target.y)
+    //     {
+    //         gravity += Time.deltaTime * 0.8f;
+    //         transform.position = Vector3.MoveTowards(transform.position, target, gravity * gravity);
+    //         yield return null;
+    //     }
+
+    //     setLife(-1);
+    //     setALife(false);
+    //     this.gameObject.SetActive(false);
+    // }
+    
 }

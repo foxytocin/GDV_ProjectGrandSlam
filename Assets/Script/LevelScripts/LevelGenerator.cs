@@ -228,7 +228,7 @@ public class LevelGenerator : MonoBehaviour
     }
 
 
-    public IEnumerator cleanLine(int CameraPosition) {
+    public void cleanLine(int CameraPosition) {
         
         if(CameraPosition >= 0) {
 
@@ -283,7 +283,7 @@ public class LevelGenerator : MonoBehaviour
                 }
             }
         }
-        yield return null;
+        //yield return null;
     }
 
 
@@ -318,10 +318,10 @@ public class LevelGenerator : MonoBehaviour
     void createGang(Vector3 pos, int CameraPosition) {
         
         SecondaryGameObjects1[(int)pos.x, (int)pos.z] = objectPooler.SpawnFromPool("Boden", pos - new Vector3(0, 0.1f, 0), Quaternion.identity);
-
+        
         if((Random.value <= (KistenMenge / 100f)) && CameraPosition > 11 && generateKisten) {
+            rotation = Random.value > 0.5f ? 0 : 90;
             AllGameObjects[(int)pos.x, (int)pos.z] = objectPooler.SpawnFromPool("Kiste", pos + new Vector3(0f, 0.5f, 0f), Quaternion.Euler(0, rotation, 0));
-            rotation += 90;
         }
     }
 
@@ -374,9 +374,9 @@ public class LevelGenerator : MonoBehaviour
     //Erzeugt eine Kiste und Boden unter ihr
     void createKiste(Vector3 pos)
     {
+        rotation = Random.value > 0.5f ? 0 : 90;
         SecondaryGameObjects1[(int)pos.x, (int)pos.z] = objectPooler.SpawnFromPool("Boden", pos - new Vector3(0, 0.1f, 0), Quaternion.identity);
         AllGameObjects[(int)pos.x, (int)pos.z] = objectPooler.SpawnFromPool("Kiste", pos + new Vector3(0f, 0.5f, 0f), Quaternion.Euler(0, rotation, 0));
-        rotation += 90;
     }
 
     void createGlowBall(Vector3 pos)

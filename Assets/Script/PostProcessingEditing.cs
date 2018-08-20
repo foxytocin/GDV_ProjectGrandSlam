@@ -40,7 +40,7 @@ public class PostProcessingEditing : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void LateUpdate () {
+    void Update () {
         setFocusPoint();
         setChromaticAberrationStrength();
     }

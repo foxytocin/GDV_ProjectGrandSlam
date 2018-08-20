@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GlowScript : MonoBehaviour {
 	Material Material;
-	Color baseColor;
+	Color32 baseColor;
 	Light Light;
 	private float emissionBrigthness;
 
@@ -32,7 +32,7 @@ public class GlowScript : MonoBehaviour {
 			while(emission < emissionBrigthness)
 			{
 				emission += Time.deltaTime * 0.2f;
-				Color finalColor = baseColor * Mathf.LinearToGammaSpace(emission);
+				Color32 finalColor = (Color)baseColor * Mathf.LinearToGammaSpace(emission);
 				Material.SetColor("_EmissionColor", finalColor);
 				Material.EnableKeyword("_EMISSION");
 
@@ -46,7 +46,7 @@ public class GlowScript : MonoBehaviour {
 			while(emission > 0f)
 			{
 				emission -= Time.deltaTime * 0.2f;
-				Color finalColor = baseColor * Mathf.LinearToGammaSpace(emission);
+				Color32 finalColor = (Color)baseColor * Mathf.LinearToGammaSpace(emission);
 				Material.SetColor("_EmissionColor", finalColor);
 				Material.EnableKeyword("_EMISSION");
 

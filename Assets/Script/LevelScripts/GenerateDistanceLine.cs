@@ -95,8 +95,8 @@ private Color32 Percent100 = new Color32(170, 39, 39, 1);
 	private void setEmissionAndColor(GameObject go)
 	{
 			Material material = go.GetComponent<Renderer>().material;
-			Color baseColor = setMaterialColor();
-			Color emissionColor = baseColor * Mathf.LinearToGammaSpace(1.6f);
+			Color32 baseColor = setMaterialColor();
+			Color32 emissionColor = (Color)baseColor * Mathf.LinearToGammaSpace(1.6f);
 
 			if(generateGlowStangen)
 			{

@@ -24,7 +24,7 @@ public class DestroyScroller : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void LateUpdate()
     {
         target = camMove.centerPoint;
         dummyPos = (int) dummy.transform.position.z;
@@ -35,7 +35,7 @@ public class DestroyScroller : MonoBehaviour
         if (dummyPos > oldDummy)
         {
             oldDummy = dummyPos;
-            StartCoroutine(levelGenerator.cleanLine(dummyPos));
+            levelGenerator.cleanLine(dummyPos);
             //LevelGenerator.createWorld(((Mathf.RoundToInt(camMove.dummy.transform.position.z))+ 15 + LevelGenerator.tiefeLevelStartBasis));
             //LevelGenerator.createWorld((dummyPos + 8 + LevelGenerator.tiefeLevelStartBasis));
         }

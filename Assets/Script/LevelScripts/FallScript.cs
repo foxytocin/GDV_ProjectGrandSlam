@@ -12,12 +12,18 @@ public class FallScript : MonoBehaviour {
         LevelGenerator = FindObjectOfType<LevelGenerator>();
     }
 
+    public void fallDown() {
+        StartCoroutine(falling());
+    }
+
     private IEnumerator falling()
     {
         randomDelay = Random.Range(0.3f, 2f) / 10f;
         fallDelay = Random.Range(10f, 41f) / 10f;
         rotationY = Random.Range(-3f, 3f);
         gravity = 0;
+        int xPos = (int)transform.position.x;
+        int zPos = (int)transform.position.z;
 
         while(fallDelay >= 0)
         {
@@ -26,9 +32,9 @@ public class FallScript : MonoBehaviour {
             yield return null;
         }
 
-        if(LevelGenerator.AllGameObjects[(int)transform.position.x, (int)transform.position.z] != null) {
+        if(LevelGenerator.AllGameObjects[xPos, zPos] != null) {
 
-            GameObject currentGameObject = LevelGenerator.AllGameObjects[(int)transform.position.x, (int)transform.position.z].gameObject;
+            GameObject currentGameObject = LevelGenerator.AllGameObjects[xPos, zPos].gameObject;
 
             switch (currentGameObject.tag)
             {
@@ -45,7 +51,7 @@ public class FallScript : MonoBehaviour {
             }
         }
         
-        LevelGenerator.AllGameObjects[(int)transform.position.x, (int)transform.position.z] = ObjectPooler.Instance.SpawnFromPool("FreeFall", transform.position, Quaternion.identity);
+        LevelGenerator.AllGameObjects[xPos, zPos] = ObjectPooler.Instance.SpawnFromPool("FreeFall", transform.position, Quaternion.identity);
 
         while(transform.position.y > -50f)
         {
@@ -60,7 +66,4 @@ public class FallScript : MonoBehaviour {
         StopAllCoroutines();
     }
 
-    public void fallDown() {
-        StartCoroutine(falling());
-    }
 }

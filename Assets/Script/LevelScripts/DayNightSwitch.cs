@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NightModus : MonoBehaviour {
+public class DayNightSwitch : MonoBehaviour {
 
 	public bool nightModus;
 	public bool isDay;
@@ -80,7 +80,7 @@ public class NightModus : MonoBehaviour {
 				playerLightOn();
 
 				generateDistanceLine.generateGlowStangen = true;
-				checkGlowStangen();
+				checkGlowDistanceLines();
 				//Debug.Log("Switch to Night");
 			}
 		}
@@ -103,19 +103,19 @@ public class NightModus : MonoBehaviour {
 				playerLightOff();
 
 				generateDistanceLine.generateGlowStangen = false;
-				checkGlowStangen();
+				checkGlowDistanceLines();
 				//Debug.Log("Switch to Day");
 			}
 		} 
 	}
 
-	public void checkGlowStangen()
+	public void checkGlowDistanceLines()
 	{
 		if(isDay)
 		{
-			glowBallDimmOff();
+			glowDistanceLineDimmOff();
 		} else {
-			glowBallDimmOn();
+			glowDistanceLineDimmOn();
 		}
 	}
 
@@ -128,7 +128,7 @@ public class NightModus : MonoBehaviour {
 		}
 	}
 
-	private void glowBallDimmOn()
+	private void glowDistanceLineDimmOn()
 	{
 		foreach(GameObject go in levelGenerator.DistanceLines)
 		{
@@ -142,7 +142,7 @@ public class NightModus : MonoBehaviour {
 		}
 	}
 
-	private void glowBallDimmOff()
+	private void glowDistanceLineDimmOff()
 	{
 		foreach(GameObject go in levelGenerator.DistanceLines)
 		{
@@ -159,8 +159,8 @@ public class NightModus : MonoBehaviour {
 	private IEnumerator playerGlowOn(GameObject player)
 	{
 		float emission = 0f;
-		Color baseColor = player.GetComponent<Renderer>().material.color;
 		Material playerMaterial = player.GetComponent<Renderer>().material;
+		Color32 baseColor = playerMaterial.color;
 		Light playerLight = player.GetComponent<Light>();
 		playerLight.intensity = 0f;
 		playerLight.enabled = true;
@@ -168,12 +168,12 @@ public class NightModus : MonoBehaviour {
 		while(emission < 2.3f)
 		{
 			emission += Time.deltaTime * 0.2f;
-			Color finalColor = baseColor * Mathf.LinearToGammaSpace (emission);
+			Color32 finalColor = (Color)baseColor * Mathf.LinearToGammaSpace (emission);
 			playerMaterial.SetColor("_EmissionColor", finalColor);
 			playerMaterial.EnableKeyword("_EMISSION");
 			playerLight.intensity = emission;
 
-			yield return new WaitForEndOfFrame();
+			yield return null;
 		}
 	}
 
@@ -189,19 +189,19 @@ public class NightModus : MonoBehaviour {
 	private IEnumerator playerGlowOff(GameObject player)
 	{
 		float emission = 2.3f;
-		Color baseColor = player.GetComponent<Renderer>().material.color;
 		Material playerMaterial = player.GetComponent<Renderer>().material;
+		Color32 baseColor = playerMaterial.color;
 		Light playerLight = player.GetComponent<Light>();
 		playerLight.intensity = 0f;
 
 		while(emission > 0f)
 		{
 			emission -= Time.deltaTime * 0.4f;
-			Color finalColor = baseColor * Mathf.LinearToGammaSpace (emission);
+			Color32 finalColor = (Color)baseColor * Mathf.LinearToGammaSpace (emission);
 			playerMaterial.SetColor("_EmissionColor", finalColor);
 			playerLight.intensity = emission;
 
-			yield return new WaitForEndOfFrame();
+			yield return null;
 		}
 
 		playerMaterial.DisableKeyword("_EMISSION");
