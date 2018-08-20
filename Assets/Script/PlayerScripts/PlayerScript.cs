@@ -384,6 +384,7 @@ public class PlayerScript : MonoBehaviour
     }
 
 
+
     bool freeWay(Vector3 tmp)
     {
         // Pruefen das keine Zwei Tasten für diagonales gehen gedrückt sind 
@@ -422,6 +423,7 @@ public class PlayerScript : MonoBehaviour
                     //Item?
                     if (levelGenerator.AllGameObjects[(int)(target.x + tmp.x), (int)(target.z + tmp.z)].gameObject.CompareTag("Item"))
                     {
+                        FindObjectOfType<ItemSpawner>().PlayerItem(playerID);
                         Destroy(levelGenerator.AllGameObjects[(int)(target.x + tmp.x), (int)(target.z + tmp.z)].gameObject);
                         Debug.Log("Item picked up");
                     }

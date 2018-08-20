@@ -143,7 +143,7 @@ public class MapDestroyer : MonoBehaviour
 
                     //Spawnt Item
                     if(Random.value > 0.5f)
-                        levelGenerator.AllGameObjects[x, z] = Instantiate(Item_Prefab, new Vector3(x, 0.7f, z), Quaternion.identity, transform);
+                        FindObjectOfType<ItemSpawner>().SpawnItem(x, z);
 
                     return false;
 
