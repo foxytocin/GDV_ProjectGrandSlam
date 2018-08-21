@@ -11,6 +11,7 @@ public class MapDestroyer : MonoBehaviour
     private PlayerScript player;
     private int xPos;
     private int zPos;
+    private ItemSpawner itemSpawner;
     public AudioSource audioSource;
     public AudioClip audioClip;
 
@@ -19,6 +20,7 @@ public class MapDestroyer : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
         objectPooler = ObjectPooler.Instance;
+        itemSpawner = FindObjectOfType<ItemSpawner>();
     }
 
     //Wird beim explodieren der Bombe durch das BombeScript aufgerufen.
@@ -142,8 +144,8 @@ public class MapDestroyer : MonoBehaviour
                     Instantiate(KistenPartsPrefab, new Vector3(x, 0.5f, z), Quaternion.identity, transform);
 
                     //Spawnt Item
-                    if(Random.value > 0.5f)
-                        FindObjectOfType<ItemSpawner>().SpawnItem(x, z);
+                    //if(Random.value > 0.5f)
+                        itemSpawner.SpawnItem(x, z);
 
                     return false;
 

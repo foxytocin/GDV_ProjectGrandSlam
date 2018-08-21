@@ -36,7 +36,7 @@ public class PlayerScript : MonoBehaviour
     public GhostSpawnerScript ghostSpawner;
     public CameraMovement cam;
     private PlayerSpawner playerSpawner;
-    private ItemSpawner itemSpawner;
+    //private PowerUp powerUp;
     bool RichtungsAenderung; //true == z; false == x 
     bool fall = false;
     float gravity;
@@ -50,7 +50,7 @@ public class PlayerScript : MonoBehaviour
         playerSpawner = FindObjectOfType<PlayerSpawner>();
         remoteBomb = FindObjectOfType<RemoteBomb>();
         houdini = FindObjectOfType<Houdini>();
-        itemSpawner = FindObjectOfType<ItemSpawner>();
+        //powerUp = FindObjectOfType<PowerUp>();
     }
 
     void Start()
@@ -428,12 +428,13 @@ public class PlayerScript : MonoBehaviour
                         playerFall();
                     }
 
-                    //Item?
+                    //Item Kollision
                     if (levelGenerator.AllGameObjects[(int)(target.x + tmp.x), (int)(target.z + tmp.z)].gameObject.CompareTag("Item"))
                     {
-                        itemSpawner.PlayerItem(playerID);
-                        Destroy(levelGenerator.AllGameObjects[(int)(target.x + tmp.x), (int)(target.z + tmp.z)].gameObject);
-                        Debug.Log("Item picked up");
+                        FindObjectOfType<PowerUp>().PlayerItem(playerID);
+                        levelGenerator.AllGameObjects[(int)(target.x + tmp.x), (int)(target.z + tmp.z)] = null;
+                        
+                        //Debug.Log("Item picked up");
                     }
                     return false;
                 }
