@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 public class LevelGenerator : MonoBehaviour
 {
     ObjectPooler objectPooler;
-    public GameObject GlowBallPrefab;
     public float KistenMenge;
     public float LevelSpeed;
     public TextAsset LevelTextdatei0;
@@ -20,6 +20,8 @@ public class LevelGenerator : MonoBehaviour
     public TextAsset LevelTextdatei9;
     public TextAsset LevelTextdatei10;
     public TextAsset LevelTextdatei11;
+    public List<string[][]> levelPool;
+    public string[][] levelSectionData;
 
     private const string levelGang = "o";
     private const string levelWand = "x";
@@ -31,7 +33,6 @@ public class LevelGenerator : MonoBehaviour
     public GameObject[,] SecondaryGameObjects3;
     public GameObject[,] DistanceLines;
 
-    public string[][] levelSectionData;
     private string[][] levelBase;
     private int SectionDataOffset;
     private int rotation;
@@ -56,12 +57,13 @@ public class LevelGenerator : MonoBehaviour
         SecondaryGameObjects2 = new GameObject[33, 2000];
         SecondaryGameObjects3 = new GameObject[33, 2000];
         DistanceLines = new GameObject[6, 3000];
+        levelPool = new List<string[][]>();
     }
 
     void Start()
     {
         objectPooler = ObjectPooler.Instance;
-        levelSectionData = readFile(LevelTextdatei0);
+        createLevelData();
         createStartBasis(tiefeLevelStartBasis);
     }
 
@@ -89,72 +91,72 @@ public class LevelGenerator : MonoBehaviour
                 switch (RandomValue)
                 {
                     case 0:
-                        levelSectionData = readFile(LevelTextdatei1);
+                        levelSectionData = levelPool[1];
                         specialSection = true;
                         generateKisten = true;
                         break;
                     case 1:
-                        levelSectionData = readFile(LevelTextdatei1);
+                        levelSectionData = levelPool[1];
                         specialSection = true;
                         generateKisten = true;
                         break;
                     case 2:
-                        levelSectionData = readFile(LevelTextdatei1);
+                        levelSectionData = levelPool[1];
                         specialSection = true;
                         generateKisten = true;
                         break;
                     case 3:
-                        levelSectionData = readFile(LevelTextdatei1);
+                        levelSectionData = levelPool[1];
                         specialSection = true;
                         generateKisten = true;
                         break;
                     case 4:
-                        levelSectionData = readFile(LevelTextdatei2);
+                        levelSectionData = levelPool[2];
                         specialSection = false;
                         generateKisten = true;
                         break;
                     case 5:
-                        levelSectionData = readFile(LevelTextdatei3);
+                        levelSectionData = levelPool[3];
                         specialSection = false;
                         generateKisten = true;
                         break;
                     case 6:
-                        levelSectionData = readFile(LevelTextdatei4);
+                        levelSectionData = levelPool[4];
                         specialSection = false;
                         generateKisten = true;
                         break;
                     case 7:
-                        levelSectionData = readFile(LevelTextdatei5);
+                        levelSectionData = levelPool[5];
                         specialSection = false;
                         generateKisten = true;
                         break;
                     case 8:
-                        levelSectionData = readFile(LevelTextdatei6);
+                        levelSectionData = levelPool[6];
                         specialSection = false;
                         generateKisten = true;
                         break;
                     case 9:
-                        levelSectionData = readFile(LevelTextdatei7);
+                        levelSectionData = levelPool[7];
                         specialSection = false;
                         generateKisten = true;
                         break;
                     case 10:
-                        levelSectionData = readFile(LevelTextdatei8);
+                        levelSectionData = levelPool[8];
                         specialSection = false;
                         generateKisten = true;
                         break;
                     case 11:
-                        levelSectionData = readFile(LevelTextdatei9);
+                        levelSectionData = levelPool[9];
                         specialSection = false;
                         generateKisten = true;
                         break;
                     case 12:
-                        levelSectionData = readFile(LevelTextdatei10);
+                        levelSectionData = levelPool[10];
                         specialSection = false;
                         generateKisten = false;
                         break;
                     case 13:
-                        levelSectionData = readFile(LevelTextdatei11);
+                        levelSectionData = levelPool[11];
                         specialSection = false;
                         generateKisten = false;
                         break;
@@ -164,7 +166,7 @@ public class LevelGenerator : MonoBehaviour
                 }
 
             } else {
-                levelSectionData = readFile(LevelTextdatei1);
+                levelSectionData = levelPool[1];
                 specialSection = true;
                 generateKisten = true;
             }
@@ -383,6 +385,25 @@ public class LevelGenerator : MonoBehaviour
     {
         if(Random.value > 0.97f && generateGlowBalls)
             SecondaryGameObjects1[(int)pos.x, (int)pos.z] = objectPooler.SpawnFromPool("GlowBall", pos + new Vector3(0, 1, 0), Quaternion.identity);
+    }
+
+
+    void createLevelData()
+    {
+        levelPool.Add(readFile(LevelTextdatei0));
+        levelPool.Add(readFile(LevelTextdatei1));
+        levelPool.Add(readFile(LevelTextdatei2));
+        levelPool.Add(readFile(LevelTextdatei3));
+        levelPool.Add(readFile(LevelTextdatei4));
+        levelPool.Add(readFile(LevelTextdatei5));
+        levelPool.Add(readFile(LevelTextdatei6));
+        levelPool.Add(readFile(LevelTextdatei7));
+        levelPool.Add(readFile(LevelTextdatei8));
+        levelPool.Add(readFile(LevelTextdatei9));
+        levelPool.Add(readFile(LevelTextdatei10));
+        levelPool.Add(readFile(LevelTextdatei11));
+
+        levelSectionData = levelPool[0];
     }
 
 
