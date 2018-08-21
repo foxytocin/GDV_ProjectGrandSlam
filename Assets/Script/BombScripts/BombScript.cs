@@ -28,8 +28,11 @@ public class BombScript : MonoBehaviour
         cameraShake = FindObjectOfType<CameraShake>();
         mapDestroyer = FindObjectOfType<MapDestroyer>();
         levelGenerator = FindObjectOfType<LevelGenerator>();
-
         bombColor = GetComponent<Renderer>().material.color;
+    }
+
+    void Start()
+    {
         bombAngle = Random.Range(0, 36f) * 10f;
         bombRotation = Random.value >= 0.5f ? 1 : -1;
     }
@@ -65,7 +68,8 @@ public class BombScript : MonoBehaviour
             yield return null;
         }
 
-         explode();
+        StopAllCoroutines();
+        explode();
     }
 
     void explode() {

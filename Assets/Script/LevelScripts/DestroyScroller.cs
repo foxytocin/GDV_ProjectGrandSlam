@@ -24,7 +24,7 @@ public class DestroyScroller : MonoBehaviour
     }
 
     // Update is called once per frame
-    void LateUpdate()
+    void Update()
     {
         target = camMove.centerPoint;
         dummyPos = (int) dummy.transform.position.z;
