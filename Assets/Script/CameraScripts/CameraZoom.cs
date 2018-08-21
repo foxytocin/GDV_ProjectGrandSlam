@@ -12,7 +12,7 @@ public class CameraZoom : MonoBehaviour {
         cm = GameObject.Find("HorizontalAxis").GetComponent<CameraMovement>();
     }
 
-    void LateUpdate()
+    void Update()
     {
         players = cm.positions;
         CameraMoving();

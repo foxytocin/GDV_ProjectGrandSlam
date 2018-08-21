@@ -6,17 +6,54 @@ public class FallScript : MonoBehaviour {
     float gravity;
     float randomDelay;
     float fallDelay;
-    public LevelGenerator LevelGenerator;
+    private LevelGenerator LevelGenerator;
 
-    private void Awake(){
+    private void Awake()
+    {
         LevelGenerator = FindObjectOfType<LevelGenerator>();
     }
 
     public void fallDown() {
-        StartCoroutine(falling());
+
+        if(GetComponent<Renderer>().isVisible)
+        {
+            StartCoroutine(fallingVisible());
+        } else {
+
+            fallingInvisible();
+        }
     }
 
-    private IEnumerator falling()
+    private void fallingInvisible()
+    {
+        int xPos = (int)transform.position.x;
+        int zPos = (int)transform.position.z;
+
+        if(LevelGenerator.AllGameObjects[xPos, zPos] != null) {
+
+            GameObject currentGameObject = LevelGenerator.AllGameObjects[xPos, zPos].gameObject;
+
+            switch (currentGameObject.tag)
+            {
+                case "Bombe":
+                    currentGameObject.GetComponent<BombScript>().remoteBomb = false;
+                    currentGameObject.GetComponent<BombScript>().countDown = 0f;
+                    break;
+
+                case "Player":
+                    currentGameObject.GetComponent<PlayerScript>().playerFall();
+                    break;
+                default:
+                    break;
+            }
+        }
+        
+        LevelGenerator.AllGameObjects[xPos, zPos] = ObjectPooler.Instance.SpawnFromPool("FreeFall", transform.position, Quaternion.identity);
+        gameObject.SetActive(false);
+    }
+
+
+    private IEnumerator fallingVisible()
     {
         randomDelay = Random.Range(0.3f, 2f) / 10f;
         fallDelay = Random.Range(10f, 41f) / 10f;
@@ -62,7 +99,6 @@ public class FallScript : MonoBehaviour {
         }
 
         gameObject.SetActive(false);
-        
         StopAllCoroutines();
     }
 

@@ -35,7 +35,6 @@ public class PlayerScript : MonoBehaviour
     private RemoteBomb remoteBomb;
     public GhostSpawnerScript ghostSpawner;
     public CameraMovement cam;
-    private PlayerSpawner playerSpawner;
     //private PowerUp powerUp;
     bool RichtungsAenderung; //true == z; false == x 
     bool fall = false;
@@ -47,7 +46,6 @@ public class PlayerScript : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         bombSpawner = FindObjectOfType<BombSpawner>();
         levelGenerator = FindObjectOfType<LevelGenerator>();
-        playerSpawner = FindObjectOfType<PlayerSpawner>();
         remoteBomb = FindObjectOfType<RemoteBomb>();
         houdini = FindObjectOfType<Houdini>();
         //powerUp = FindObjectOfType<PowerUp>();
@@ -402,19 +400,22 @@ public class PlayerScript : MonoBehaviour
             //entweder hat sich der Richungsvector nicht geändert oder das Objekt die selbe Position wie TargetVector
             if ((lastTmpVector == tmp || target == transform.position) && myTime > 0.2f)
             {
+                int xPos = (int)(target.x + tmp.x);
+                int zPos = (int)(target.z + tmp.z);
+
                 //Prueft im Array an der naechsten stelle ob dort ein objekt liegt wenn nicht dann return.true
-                if (levelGenerator.AllGameObjects[Mathf.RoundToInt(target.x + tmp.x), Mathf.RoundToInt(target.z + tmp.z)] == null)
+                if (levelGenerator.AllGameObjects[xPos, zPos] == null)
                 {
                     myTime = 0f;
 
                     //Hat der Player das Houdini-Item, werden automatisch alle Kisten um ihn herum zerstört
                     if(houdiniItem)
                     {
-                        houdini.callHoudini(Mathf.RoundToInt(target.x + tmp.x), Mathf.RoundToInt(target.z + tmp.z));
+                        houdini.callHoudini(xPos, zPos);
                     }
 
                     //Debug.Log("Player at: " +levelGenerator.SecondaryGameObjects1[(int)(target.x + tmp.x), (int)(target.z + tmp.z)].gameObject.tag);
-                    if (levelGenerator.SecondaryGameObjects1[(int)(target.x + tmp.x), (int)(target.z + tmp.z)].gameObject.CompareTag("KillField"))
+                    if (levelGenerator.SecondaryGameObjects1[xPos, zPos].gameObject.CompareTag("KillField"))
                     {
                         dead();
                     }
@@ -423,17 +424,20 @@ public class PlayerScript : MonoBehaviour
                 }
                 else
                 {
-                    if (levelGenerator.AllGameObjects[(int)(target.x + tmp.x), (int)(target.z + tmp.z)].gameObject.CompareTag("FreeFall"))
+                    GameObject go = levelGenerator.AllGameObjects[xPos, zPos].gameObject;
+
+                    if (go.CompareTag("FreeFall"))
                     {
                         playerFall();
                     }
 
                     //Item Kollision
-                    if (levelGenerator.AllGameObjects[(int)(target.x + tmp.x), (int)(target.z + tmp.z)].gameObject.CompareTag("Item"))
+                    if (go.CompareTag("Item"))
                     {
-                        FindObjectOfType<PowerUp>().PlayerItem(playerID);
-                        levelGenerator.AllGameObjects[(int)(target.x + tmp.x), (int)(target.z + tmp.z)] = null;
+                        go.GetComponent<PowerUp>().PlayerItem(playerID);
+                        levelGenerator.AllGameObjects[xPos, zPos] = null;
                         
+                        //FindObjectOfType<PowerUp>().PlayerItem(playerID);
                         //Debug.Log("Item picked up");
                     }
                     return false;

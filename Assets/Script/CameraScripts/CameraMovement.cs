@@ -31,7 +31,7 @@ public class CameraMovement : MonoBehaviour {
         //levelGenerator = GameObject.Find("LevelGenerator").GetComponent<LevelGenerator>();
         
     }
-    void LateUpdate()
+    void Update()
     {
         centerPoint = CalcCenterPoint();
         /*

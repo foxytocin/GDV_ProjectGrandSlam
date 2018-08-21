@@ -8,20 +8,21 @@ public class PowerUp : MonoBehaviour {
     public void PlayerItem(int id)
     {
         GetComponent<MeshRenderer>().enabled = false;
+        GetComponent<Light>().enabled = false;
 
-        int RandomValue = (int)(Random.Range(0, 1f));
+        int RandomValue = (int)(Random.Range(0, 2f));
         {
 
             switch (RandomValue)
             {
                 case 0:
+
                     Item1(id);
                     break;
 
                 case 1:
                     Item2(id);
                     break;
-
             }
         }
     }
