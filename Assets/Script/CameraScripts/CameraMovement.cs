@@ -28,7 +28,7 @@ public class CameraMovement : MonoBehaviour {
         positions = new Vector3[4];
         cameraScroller = GameObject.Find("CameraScroller").GetComponent<CameraScroller>();
         playerSpawner = GameObject.Find("PlayerSpawner").GetComponent<PlayerSpawner>();
-        levelGenerator = GameObject.Find("LevelGenerator").GetComponent<LevelGenerator>();
+        //levelGenerator = GameObject.Find("LevelGenerator").GetComponent<LevelGenerator>();
         
     }
     void LateUpdate()
@@ -56,9 +56,7 @@ public class CameraMovement : MonoBehaviour {
     public Vector3 CalcCenterPoint()
     {
         numPlayers = playerSpawner.playerList.Count;
-        Vector3 center = Vector3.zero;
-        int j = 0;
-        int iDLastAlive = 0;        
+        Vector3 center = Vector3.zero;   
 
         switch(numPlayers)
         {
@@ -73,7 +71,6 @@ public class CameraMovement : MonoBehaviour {
                 {
                     if (positions[i].y == 0.45f)
                     {
-                        j++;
                         xPos.Add(positions[i].x);
                         zPos.Add(positions[i].z);
                     }
@@ -98,7 +95,6 @@ public class CameraMovement : MonoBehaviour {
                 {
                     if (positions[i].y == 0.45f)
                     {
-                        j++;
                         xPos.Add(positions[i].x);
                         zPos.Add(positions[i].z);
                     }

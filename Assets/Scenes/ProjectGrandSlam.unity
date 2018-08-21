@@ -946,6 +946,7 @@ MonoBehaviour:
   LevelGenerator: {fileID: 958779247}
   Item_Prefab: {fileID: 1084199969612006, guid: af4eab0e7bec44963ae895cb3b66eb2f,
     type: 2}
+  ItemObjekt: {fileID: 0}
 --- !u!1 &1259863039
 GameObject:
   m_ObjectHideFlags: 0
@@ -1342,7 +1343,6 @@ GameObject:
   - component: {fileID: 1620339721}
   - component: {fileID: 1620339722}
   - component: {fileID: 1620339723}
-  - component: {fileID: 1620339724}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1482,19 +1482,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1620339724
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1620339720}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8efa3371288984e74a7681569d1912c1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nightModus: 0
-  isDay: 0
 --- !u!1 &1754055004
 GameObject:
   m_ObjectHideFlags: 0
