@@ -7,9 +7,8 @@ public class MeterSchild : MonoBehaviour {
 	public string meterWert;
 	public Text myText;
 
-	// Use this for initialization
-	void Start () {
-		meterWert = transform.position.z.ToString();
+	public void setMeter (int row) {
+		meterWert = row.ToString();
 		myText.text = meterWert + " Meter";
 	}
 }

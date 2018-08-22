@@ -291,11 +291,15 @@ public class LevelGenerator : MonoBehaviour
             }
 
             //Loescht die DistanceLine aus der Spielwelt wenn diese 10 Felder hinter der Camnera ist
-            if (CameraPosition > 10 && DistanceLines[0, CameraPosition - 10] != null) {
+            if (CameraPosition > 10) {
 
                 for(int i = 0; i < 6; i++)
                 {
-                    Destroy(DistanceLines[i, CameraPosition - 10].gameObject);
+                    if(DistanceLines[i, CameraPosition - 10] != null)
+                    {
+                        DistanceLines[i, CameraPosition - 10].gameObject.SetActive(false);
+                    }
+                    
                 }
             }
         }

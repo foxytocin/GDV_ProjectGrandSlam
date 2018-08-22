@@ -132,7 +132,7 @@ public class DayNightSwitch : MonoBehaviour {
 	{
 		foreach(GameObject go in levelGenerator.DistanceLines)
 		{
-			if(go != null)
+			if(go != null && go.activeSelf)
 			{
 				if(go.CompareTag("GlowMaterial"))
 				{
@@ -146,7 +146,7 @@ public class DayNightSwitch : MonoBehaviour {
 	{
 		foreach(GameObject go in levelGenerator.DistanceLines)
 		{
-			if(go != null)
+			if(go != null && go.activeSelf)
 			{
 				if(go.CompareTag("GlowMaterial"))
 				{
@@ -160,7 +160,7 @@ public class DayNightSwitch : MonoBehaviour {
 	{
 		float emission = 0f;
 		Material playerMaterial = player.GetComponent<Renderer>().material;
-		Color32 baseColor = playerMaterial.color;
+		Color baseColor = playerMaterial.color;
 		Light playerLight = player.GetComponent<Light>();
 		playerLight.intensity = 0f;
 		playerLight.enabled = true;
@@ -168,7 +168,7 @@ public class DayNightSwitch : MonoBehaviour {
 		while(emission < 2.3f)
 		{
 			emission += Time.deltaTime * 0.2f;
-			Color32 finalColor = (Color)baseColor * Mathf.LinearToGammaSpace (emission);
+			Color finalColor = baseColor * Mathf.LinearToGammaSpace (emission);
 			playerMaterial.SetColor("_EmissionColor", finalColor);
 			playerMaterial.EnableKeyword("_EMISSION");
 			playerLight.intensity = emission;
@@ -190,14 +190,14 @@ public class DayNightSwitch : MonoBehaviour {
 	{
 		float emission = 2.3f;
 		Material playerMaterial = player.GetComponent<Renderer>().material;
-		Color32 baseColor = playerMaterial.color;
+		Color baseColor = playerMaterial.color;
 		Light playerLight = player.GetComponent<Light>();
 		playerLight.intensity = 0f;
 
 		while(emission > 0f)
 		{
-			emission -= Time.deltaTime * 0.4f;
-			Color32 finalColor = (Color)baseColor * Mathf.LinearToGammaSpace (emission);
+			emission -= Time.deltaTime * 0.3f;
+			Color finalColor = baseColor * Mathf.LinearToGammaSpace (emission);
 			playerMaterial.SetColor("_EmissionColor", finalColor);
 			playerLight.intensity = emission;
 

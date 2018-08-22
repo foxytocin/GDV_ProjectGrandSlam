@@ -5,30 +5,29 @@ using UnityEngine;
 public class GenerateDistanceLine : MonoBehaviour {
 
 public LevelGenerator LevelGenerator;
-public GameObject StangePrefab;
-public GameObject QuerstrebePrefab;
-public GameObject MeterSchildPrefab;
+ObjectPooler objectPooler;
 private float startPoint;
 private float endPoint;
 private float centerPoint;
 private float scaleQuerstrebe;
 public bool generateGlowStangen;
 
-private Color32 Percent0 = new Color32(83, 170, 39, 1);
-private Color32 Percent10 = new Color32(105, 170, 39, 1);
-private Color32 Percent20 = new Color32(127, 170, 39, 1);
-private Color32 Percent30 = new Color32(148, 170, 39, 1);
-private Color32 Percent40 = new Color32(170, 170, 39, 1);
-private Color32 Percent50 = new Color32(170, 148, 39, 1);
-private Color32 Percent60 = new Color32(170, 127, 39, 1);
-private Color32 Percent70 = new Color32(170, 105, 39, 1);
-private Color32 Percent80 = new Color32(170, 83, 39, 1);
-private Color32 Percent90 = new Color32(170, 61, 39, 1);
-private Color32 Percent100 = new Color32(170, 39, 39, 1);
+private Color Percent0 = new Color32(83, 170, 39, 1);
+private Color Percent10 = new Color32(105, 170, 39, 1);
+private Color Percent20 = new Color32(127, 170, 39, 1);
+private Color Percent30 = new Color32(148, 170, 39, 1);
+private Color Percent40 = new Color32(170, 170, 39, 1);
+private Color Percent50 = new Color32(170, 148, 39, 1);
+private Color Percent60 = new Color32(170, 127, 39, 1);
+private Color Percent70 = new Color32(170, 105, 39, 1);
+private Color Percent80 = new Color32(170, 83, 39, 1);
+private Color Percent90 = new Color32(170, 61, 39, 1);
+private Color Percent100 = new Color32(170, 39, 39, 1);
 
 
 	void Start()
 	{
+		objectPooler = ObjectPooler.Instance;
 		generateGlowStangen = false;
 		startPoint = 0;
 		endPoint = 0;
@@ -73,9 +72,9 @@ private Color32 Percent100 = new Color32(170, 39, 39, 1);
 		scaleQuerstrebe = endPoint - startPoint - 1f;
 
 		//Generierung der GameObjecte mit richtiger Rotation und Scalierung entsprechend dem Abstand der Pfosten
-		GameObject StartStange = Instantiate(StangePrefab, new Vector3(startPoint, 0.5f, row), Quaternion.Euler(0f, -90f, 0f), transform);
-		GameObject EndStange = Instantiate(StangePrefab, new Vector3(endPoint, 0.5f, row), Quaternion.Euler(0f, 90f, 0f), transform);
-		GameObject Querstrebe = Instantiate(QuerstrebePrefab, new Vector3(centerPoint, 3.5f, row), Quaternion.Euler(0f, 90f, 0f), transform);
+		GameObject StartStange = objectPooler.SpawnFromPool("Stange", new Vector3(startPoint, 0.5f, row), Quaternion.Euler(0f, -90f, 0f));
+		GameObject EndStange = objectPooler.SpawnFromPool("Stange", new Vector3(endPoint, 0.5f, row), Quaternion.Euler(0f, 90f, 0f));
+		GameObject Querstrebe = objectPooler.SpawnFromPool("Querstrebe", new Vector3(centerPoint, 3.5f, row), Quaternion.Euler(0f, 90f, 0f));
 		Querstrebe.transform.localScale = new Vector3(1f, 1f, scaleQuerstrebe);
 		
 		//Zuweisung der Farbe passend zum Schwierigkeitsgrad (KisteMenge)
@@ -95,8 +94,8 @@ private Color32 Percent100 = new Color32(170, 39, 39, 1);
 	private void setEmissionAndColor(GameObject go)
 	{
 			Material material = go.GetComponent<Renderer>().material;
-			Color32 baseColor = setMaterialColor();
-			Color32 emissionColor = (Color)baseColor * Mathf.LinearToGammaSpace(1.6f);
+			Color baseColor = setMaterialColor();
+			Color emissionColor = baseColor * Mathf.LinearToGammaSpace(1.6f);
 
 			if(generateGlowStangen)
 			{
@@ -112,7 +111,7 @@ private Color32 Percent100 = new Color32(170, 39, 39, 1);
 
 
 	//Setzt die Farbe DistanceLine passend zum aktuellen Schwierigkeitsgrad (KistenMenge)
-	public Color32 setMaterialColor()
+	public Color setMaterialColor()
 	{
 		int Difficulty = (int)LevelGenerator.KistenMenge;
 
@@ -156,36 +155,33 @@ private Color32 Percent100 = new Color32(170, 39, 39, 1);
 
 		if(distance >= 26)
 		{
-			GameObject MeterSchild1 = Instantiate(MeterSchildPrefab, new Vector3(centerPoint, 3.5f, row), Quaternion.Euler(20f, 0f, 0f), transform);
+			GameObject MeterSchild1 = objectPooler.SpawnFromPool("MeterSchild", new Vector3(centerPoint, 3.5f, row), Quaternion.Euler(20f, 0f, 0f));
+			MeterSchild1.GetComponent<MeterSchild>().setMeter(row);
 			LevelGenerator.DistanceLines[3, row] = MeterSchild1;
 
-			GameObject MeterSchild2 = Instantiate(MeterSchildPrefab, new Vector3(leftMiddle - 1, 3.5f, row), Quaternion.Euler(20f, 0f, 0f), transform);
+			GameObject MeterSchild2 = objectPooler.SpawnFromPool("MeterSchild", new Vector3(leftMiddle - 1, 3.5f, row), Quaternion.Euler(20f, 0f, 0f));
+			MeterSchild2.GetComponent<MeterSchild>().setMeter(row);
 			LevelGenerator.DistanceLines[4, row] = MeterSchild2;
 
-			GameObject MeterSchild3 = Instantiate(MeterSchildPrefab, new Vector3(rightMiddle + 2, 3.5f, row), Quaternion.Euler(20f, 0f, 0f), transform);
+			GameObject MeterSchild3 = objectPooler.SpawnFromPool("MeterSchild", new Vector3(rightMiddle + 2, 3.5f, row), Quaternion.Euler(20f, 0f, 0f));
+			MeterSchild3.GetComponent<MeterSchild>().setMeter(row);
 			LevelGenerator.DistanceLines[5, row] = MeterSchild3;
 		}
 		else if(distance >= 13)
 		{
-			GameObject MeterSchild1 = Instantiate(MeterSchildPrefab, new Vector3(leftMiddle, 3.5f, row), Quaternion.Euler(20f, 0f, 0f), transform);
+			GameObject MeterSchild1 = objectPooler.SpawnFromPool("MeterSchild", new Vector3(leftMiddle, 3.5f, row), Quaternion.Euler(20f, 0f, 0f));
+			MeterSchild1.GetComponent<MeterSchild>().setMeter(row);
 			LevelGenerator.DistanceLines[3, row] = MeterSchild1;
 
-			GameObject MeterSchild2 = Instantiate(MeterSchildPrefab, new Vector3(rightMiddle, 3.5f, row), Quaternion.Euler(20f, 0f, 0f), transform);
+			GameObject MeterSchild2 = objectPooler.SpawnFromPool("MeterSchild", new Vector3(rightMiddle, 3.5f, row), Quaternion.Euler(20f, 0f, 0f));
+			MeterSchild2.GetComponent<MeterSchild>().setMeter(row);
 			LevelGenerator.DistanceLines[4, row] = MeterSchild2;
-
-			GameObject MeterSchild3 = new GameObject();
-			LevelGenerator.DistanceLines[5, row] = MeterSchild3;
 		}
 		else
 		{
-			GameObject MeterSchild1 = Instantiate(MeterSchildPrefab, new Vector3(centerPoint, 3.5f, row), Quaternion.Euler(20f, 0f, 0f), transform);
+			GameObject MeterSchild1 = objectPooler.SpawnFromPool("MeterSchild", new Vector3(centerPoint, 3.5f, row), Quaternion.Euler(20f, 0f, 0f));
+			MeterSchild1.GetComponent<MeterSchild>().setMeter(row);
 			LevelGenerator.DistanceLines[3, row] = MeterSchild1;
-
-			GameObject MeterSchild2 = new GameObject();
-			LevelGenerator.DistanceLines[4, row] = MeterSchild2;
-
-			GameObject MeterSchild3 = new GameObject();
-			LevelGenerator.DistanceLines[5, row] = MeterSchild3;
 		}
 	}
 }
