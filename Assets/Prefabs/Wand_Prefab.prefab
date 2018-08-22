@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33965937045616984}
   - component: {fileID: 23084049879185794}
   - component: {fileID: 114192080727711240}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wand_Prefab
   m_TagString: Wand
   m_Icon: {fileID: 0}
@@ -95,4 +95,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6751fe27b8b0943bfb802ade72caaedf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LevelGenerator: {fileID: 0}

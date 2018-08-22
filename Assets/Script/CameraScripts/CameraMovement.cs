@@ -5,6 +5,7 @@ using UnityEngine;
 public class CameraMovement : MonoBehaviour {
 
     private CameraScroller cameraScroller;
+    private MiniMapCam miniMapCam;
     public List<GameObject> livingPlayers;
     public Vector3[] positions;
     private PlayerSpawner playerSpawner;
@@ -26,14 +27,16 @@ public class CameraMovement : MonoBehaviour {
     private void Awake()
     {
         positions = new Vector3[4];
-        cameraScroller = GameObject.Find("CameraScroller").GetComponent<CameraScroller>();
-        playerSpawner = GameObject.Find("PlayerSpawner").GetComponent<PlayerSpawner>();
+        cameraScroller = FindObjectOfType<CameraScroller>();
+        playerSpawner = FindObjectOfType<PlayerSpawner>();
+        miniMapCam = FindObjectOfType<MiniMapCam>();
         //levelGenerator = GameObject.Find("LevelGenerator").GetComponent<LevelGenerator>();
         
     }
     void Update()
     {
         centerPoint = CalcCenterPoint();
+        miniMapCam.positon(centerPoint);
         /*
         for(int i = 0; i < positions.Length; i++)
         {

@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33631982866323300}
   - component: {fileID: 23747200043490536}
   - component: {fileID: 114905847008918858}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Boden_Prefab
   m_TagString: Boden
   m_Icon: {fileID: 0}

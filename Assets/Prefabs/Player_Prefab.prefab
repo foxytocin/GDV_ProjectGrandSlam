@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 108418717509296198}
   - component: {fileID: 82499367223984352}
   - component: {fileID: 114875133659551614}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Player_Prefab
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -235,8 +235,8 @@ MonoBehaviour:
   bombTimer: 0
   range: 0
   alive: 0
-  remoteBomb: 0
-  houdini: 0
+  remoteBombItem: 0
+  houdiniItem: 0
   travelDistance: 0
   audioSource: {fileID: 0}
   Player1falls: {fileID: 8300000, guid: 3d4c07fb5c223af41b36d996450a0eaf, type: 3}
@@ -246,8 +246,5 @@ MonoBehaviour:
   playerList: []
   creatingBomb: 0
   target: {x: 0, y: 0, z: 0}
-  remoteBombList: []
-  levelGenerator: {fileID: 0}
   ghostSpawner: {fileID: 0}
   cam: {fileID: 0}
-  playerSpawner: {fileID: 0}
