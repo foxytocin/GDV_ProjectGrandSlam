@@ -12,12 +12,15 @@ public class GameManager : MonoBehaviour {
     public AudioClip audioThreePlayer;
     public AudioClip audioFourPlayer;
 
-    public PlayerSpawner playerSpawner;
+    private PlayerSpawner playerSpawner;
+    private Camera miniMapCam;
+    private Canvas miniMapCanvas;
+    private bool showMiniMap;
     private int player;
     private int playertmp;
     int counter;
 
-    private void Awake()
+    void Awake()
     {
         counter = 0;
         player = 1;
@@ -25,10 +28,38 @@ public class GameManager : MonoBehaviour {
         audioSource = GetComponent<AudioSource>();
         audioSource.PlayOneShot(audioStart, 0.8f);
         //audioSource.PlayOneShot(audioBackgoundMusic, 0.15f);
+        playerSpawner = FindObjectOfType<PlayerSpawner>();
+        miniMapCam = GameObject.Find("MiniMapCam").GetComponent<Camera>();
+        miniMapCanvas = GameObject.Find("MiniMapCanvas").GetComponent<Canvas>();
+    }
+
+    void Start()
+    {
+        showMiniMap = false;
+        miniMapCam.enabled = false;
+        miniMapCanvas.enabled = false;
     }
 
     // Update is called once per frame
-    void Update () {   
+    void Update ()
+    {
+
+        if(Input.GetKeyDown("c"))
+        {
+            if(showMiniMap)
+            {
+                miniMapCanvas.enabled = false;
+                miniMapCam.enabled = false;
+                showMiniMap = false;
+                Debug.Log("MiniMap OFF");
+            } else {
+                Debug.Log("MiniMap ON");
+                miniMapCam.enabled = true;
+                miniMapCanvas.enabled = true;
+                showMiniMap = true;
+                Debug.Log("MiniMap ON");
+            }
+        }
 
         if (Input.GetKey(KeyCode.Escape) || InputManager.OneStartButton())
         {
