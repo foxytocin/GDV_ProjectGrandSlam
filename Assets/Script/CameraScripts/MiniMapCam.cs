@@ -7,7 +7,7 @@ public class MiniMapCam : MonoBehaviour {
 	public void positon(Vector3 center)
 	{
 		Vector3 newPos = transform.position;
-		newPos.z = center.z;
+		newPos.z = center.z + 3f;
 		transform.position = newPos;
 	}
 

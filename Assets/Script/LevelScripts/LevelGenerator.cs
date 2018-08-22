@@ -20,6 +20,8 @@ public class LevelGenerator : MonoBehaviour
     public TextAsset LevelTextdatei9;
     public TextAsset LevelTextdatei10;
     public TextAsset LevelTextdatei11;
+    public TextAsset LevelTextdatei12;
+    public TextAsset LevelTextdatei13;
     public List<string[][]> levelPool;
     public string[][] levelSectionData;
 
@@ -69,6 +71,8 @@ public class LevelGenerator : MonoBehaviour
 
     public void createStartBasis(int tiefe)
     {
+        generateKisten = false;
+
         for (int i = 0; i < tiefe; i++) {
             createWorld(i);
         }
@@ -84,7 +88,7 @@ public class LevelGenerator : MonoBehaviour
         } else {
             SectionDataOffset = CameraPosition;
 
-            int RandomValue = (int)(Random.Range(0, 13f));
+            int RandomValue = (int)(Random.Range(0, 16f));
 
             if(specialSection) {
 
@@ -159,6 +163,16 @@ public class LevelGenerator : MonoBehaviour
                         levelSectionData = levelPool[11];
                         specialSection = false;
                         generateKisten = false;
+                        break;
+                    case 14:
+                        levelSectionData = levelPool[12];
+                        specialSection = false;
+                        generateKisten = true;
+                        break;
+                    case 15:
+                        levelSectionData = levelPool[13];
+                        specialSection = false;
+                        generateKisten = true;
                         break;
                     default:
                         Debug.Log("Switch-ERROR in createWorld()");
@@ -321,7 +335,7 @@ public class LevelGenerator : MonoBehaviour
         
         SecondaryGameObjects1[(int)pos.x, (int)pos.z] = objectPooler.SpawnFromPool("Boden", pos - new Vector3(0, 0.1f, 0), Quaternion.identity);
         
-        if((Random.value <= (KistenMenge / 100f)) && CameraPosition > 11 && generateKisten) {
+        if((Random.value <= (KistenMenge / 100f)) && generateKisten) {
             rotation = Random.value > 0.5f ? 0 : 90;
             AllGameObjects[(int)pos.x, (int)pos.z] = objectPooler.SpawnFromPool("Kiste", pos + new Vector3(0f, 0.5f, 0f), Quaternion.Euler(0, rotation, 0));
         }
@@ -402,6 +416,8 @@ public class LevelGenerator : MonoBehaviour
         levelPool.Add(readFile(LevelTextdatei9));
         levelPool.Add(readFile(LevelTextdatei10));
         levelPool.Add(readFile(LevelTextdatei11));
+        levelPool.Add(readFile(LevelTextdatei12));
+        levelPool.Add(readFile(LevelTextdatei13));
 
         levelSectionData = levelPool[0];
     }
