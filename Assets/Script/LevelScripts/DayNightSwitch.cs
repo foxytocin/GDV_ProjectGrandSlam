@@ -196,7 +196,7 @@ public class DayNightSwitch : MonoBehaviour {
 
 		while(emission > 0f)
 		{
-			emission -= Time.deltaTime * 0.3f;
+			emission -= Time.deltaTime * 0.4f;
 			Color finalColor = baseColor * Mathf.LinearToGammaSpace (emission);
 			playerMaterial.SetColor("_EmissionColor", finalColor);
 			playerLight.intensity = emission;

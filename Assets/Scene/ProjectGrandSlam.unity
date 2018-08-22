@@ -743,13 +743,13 @@ MonoBehaviour:
     size: 60
   - tag: Stange
     prefab: {fileID: 1509512803967250, guid: b987ff33a4b2847ee82f04e4732cc270, type: 2}
-    size: 12
+    size: 10
   - tag: Querstrebe
     prefab: {fileID: 1268663063143754, guid: f4a72e47b0a934b2c8d4372398631cbc, type: 2}
-    size: 6
+    size: 5
   - tag: MeterSchild
     prefab: {fileID: 1510929197513478, guid: 765a1a43ccdae402f838e41265c51afe, type: 2}
-    size: 20
+    size: 15
 --- !u!1 &556494747
 GameObject:
   m_ObjectHideFlags: 0

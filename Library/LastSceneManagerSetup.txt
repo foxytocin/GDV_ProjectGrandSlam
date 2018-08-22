@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scene/ProjectGrandSlam.unity
+- path: Assets/Scene/Menue.unity
   isLoaded: 1
   isActive: 1

@@ -51,13 +51,10 @@ public class GameManager : MonoBehaviour {
                 miniMapCanvas.enabled = false;
                 miniMapCam.enabled = false;
                 showMiniMap = false;
-                Debug.Log("MiniMap OFF");
             } else {
-                Debug.Log("MiniMap ON");
                 miniMapCam.enabled = true;
                 miniMapCanvas.enabled = true;
                 showMiniMap = true;
-                Debug.Log("MiniMap ON");
             }
         }
 
@@ -66,7 +63,6 @@ public class GameManager : MonoBehaviour {
             if(counter > 30)
             {
                 Application.Quit();
-                Debug.Log("Programm beendet");
             } else {
                 counter++;
             }
