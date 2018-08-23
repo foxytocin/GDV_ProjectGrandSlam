@@ -19,9 +19,11 @@ public class LightningScript : MonoBehaviour
     private List<int> faces;
     private int offset = 1;
 
+    private float maxXStep = 1.0f;
+    private float maxYStep = 2.0f;
 
     
-    /*
+    
     void Start()
     {
         // Listen initialisieren
@@ -37,11 +39,11 @@ public class LightningScript : MonoBehaviour
         turtle = new GameObject("Turtle");
         Vector3 P = turtle.transform.position;
         verts.Add(P);
-        verts.Add(P + new Vector3(0, 0, offset));
+        verts.Add(P + new Vector3(offset, 0, 0));
 
         // Kochkurve ausfuehren
         //kochkurve(l, depth);
-
+        GenerateLightning();
 
         // Mesh Vertices hinzufuegen
         meinMesh.vertices = verts.ToArray();
@@ -74,7 +76,7 @@ public class LightningScript : MonoBehaviour
             Debug.DrawRay(vert, norm * 0.3f, Color.red);
         }
     }
-    */
+    
 
 
 
@@ -125,12 +127,15 @@ public class LightningScript : MonoBehaviour
 
     // Kochkurve
 
-    void move(float length)
+    void move(float length, int secondStep)
     {
         turtle.transform.Translate(length, 0, 0);
         Vector3 P = turtle.transform.position;
-        verts.Add(P);
-        verts.Add(P + new Vector3(0, 0, offset));
+        if(secondStep == 1)
+        {
+            verts.Add(P);
+            verts.Add(P + new Vector3(offset, 0, 0));
+        }
     }
 
     void turn(float deg)
@@ -139,26 +144,30 @@ public class LightningScript : MonoBehaviour
     }
 
     public void GenerateLightning()
-    {
-        turtle = new GameObject("Turtle");
-        Vector3 P = turtle.transform.position;
-        verts.Add(P);
-        verts.Add(P + new Vector3(0, 0, offset));
-        move(Random.Range(0.0f, 3.0f));
+    {        
+        move(Random.Range(0.0f, maxXStep), 0);
         turn(-90f);
-        move(Random.Range(0.0f, 5.0f));
-        //Vertice erstellen, nur jedes zweiteMal! function move aendern
-        if (Random.value < 0.5f) {
-            turn(90f);
-            move(Random.Range(0.0f, 3.0f));
-            turn(-90f);
-        } else {
-            turn(-90f);
-            move(Random.Range(0.0f, 5.0f));
-            turn(90f);
+        move(Random.Range(0.0f, maxYStep), 1);
+
+        for(int i = 0; i < 20; i++)
+        {
+            if (Random.value < 0.5f)
+            {
+                turn(90f);
+                move(Random.Range(0.0f, maxXStep), 0);
+                turn(-90f);
+                move(Random.Range(0.0f, maxYStep), 1);
+            }
+            else
+            {
+                turn(-90f);
+                move(Random.Range(0.0f, maxXStep), 0);
+                turn(90f);
+                move(Random.Range(0.0f, maxYStep), 1);
+            }
         }
     }
-
+    /*
     void kochkurve(float length, int depth)
     {
         if (depth == 0)
@@ -176,7 +185,7 @@ public class LightningScript : MonoBehaviour
             kochkurve(length / 3, depth - 1);
         }
     }
-
+    */
 
 
     // Debug Methods
