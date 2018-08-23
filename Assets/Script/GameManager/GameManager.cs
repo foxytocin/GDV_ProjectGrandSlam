@@ -71,7 +71,7 @@ public class GameManager : MonoBehaviour {
         if (Input.GetKeyUp(KeyCode.Escape) || InputManager.OneStartButton())
         {
             counter = 0;
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
         if(InputManager.OneR1Button() && player < 4) {
