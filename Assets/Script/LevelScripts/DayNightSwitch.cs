@@ -192,11 +192,10 @@ public class DayNightSwitch : MonoBehaviour {
 		Material playerMaterial = player.GetComponent<Renderer>().material;
 		Color baseColor = playerMaterial.color;
 		Light playerLight = player.GetComponent<Light>();
-		playerLight.intensity = 0f;
 
 		while(emission > 0f)
 		{
-			emission -= Time.deltaTime * 0.4f;
+			emission -= Time.deltaTime * 0.3f;
 			Color finalColor = baseColor * Mathf.LinearToGammaSpace (emission);
 			playerMaterial.SetColor("_EmissionColor", finalColor);
 			playerLight.intensity = emission;
@@ -206,12 +205,13 @@ public class DayNightSwitch : MonoBehaviour {
 
 		playerMaterial.DisableKeyword("_EMISSION");
 		playerLight.enabled = false;
+		playerLight.intensity = 0f;
 	}
 
 	private void switchToNight()
 	{
 		StopAllCoroutines();
-		StartCoroutine(dawnWorldAmbient(0.5f));
+		StartCoroutine(dawnWorldAmbient(0.3f));
 		StartCoroutine(dawnWorldLight(0f));
 	}
 
@@ -227,7 +227,7 @@ public class DayNightSwitch : MonoBehaviour {
 		while(worldLight.intensity > value)
 		{
 			//worldLight.transform.Rotate(-Time.deltaTime * 4f, 0f, 0f);
-			worldLight.intensity -= Time.deltaTime * 0.2f;
+			worldLight.intensity -= Time.deltaTime * 0.1f;
 			yield return null;
 		}
 	}
@@ -237,7 +237,7 @@ public class DayNightSwitch : MonoBehaviour {
 		while(worldLight.intensity < value)
 		{
 			//worldLight.transform.Rotate(Time.deltaTime * 4f, 0f, 0f);
-			worldLight.intensity += Time.deltaTime * 0.2f;
+			worldLight.intensity += Time.deltaTime * 0.1f;
 			yield return null;
 		}
 
@@ -257,7 +257,7 @@ public class DayNightSwitch : MonoBehaviour {
 	{
 		while(RenderSettings.ambientIntensity < value)
 		{
-			RenderSettings.ambientIntensity += Time.deltaTime * 0.2f;
+			RenderSettings.ambientIntensity += Time.deltaTime * 0.1f;
 			yield return null;
 		}
 

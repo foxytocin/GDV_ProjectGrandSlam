@@ -31,7 +31,7 @@ public class GlowScript : MonoBehaviour {
 			float emission = 0;
 			while(emission < emissionBrigthness)
 			{
-				emission += Time.deltaTime * 0.2f;
+				emission += Time.deltaTime * 0.1f;
 				Color finalColor = baseColor * Mathf.LinearToGammaSpace(emission);
 				material.SetColor("_EmissionColor", finalColor);
 				material.EnableKeyword("_EMISSION");

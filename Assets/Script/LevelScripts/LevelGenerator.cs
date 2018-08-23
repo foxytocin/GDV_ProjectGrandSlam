@@ -366,7 +366,9 @@ public class LevelGenerator : MonoBehaviour
             //GameObject Wand = objectPooler.SpawnFromPool("Wand", pos, Quaternion.identity);
             //Wand.tag = "Wand";
             AllGameObjects[(int)pos.x, (int)pos.z] = objectPooler.SpawnFromPool("Wand", pos, Quaternion.identity);
-            createGlowBall(pos);
+            
+            if(generateGlowBalls)
+                createGlowBall(pos);
         }
 
         //Erzeug einen Bogen. Wenn RandomValue 10 oder 20 ist.
@@ -399,10 +401,11 @@ public class LevelGenerator : MonoBehaviour
         AllGameObjects[(int)pos.x, (int)pos.z] = objectPooler.SpawnFromPool("Kiste", pos + new Vector3(0f, 0.5f, 0f), Quaternion.Euler(0, rotation, 0));
     }
 
+
     void createGlowBall(Vector3 pos)
     {
-        if(Random.value > 0.97f && generateGlowBalls)
-            SecondaryGameObjects1[(int)pos.x, (int)pos.z] = objectPooler.SpawnFromPool("GlowBall", pos + new Vector3(0, 1, 0), Quaternion.identity);
+        if(Random.value > 0.97f)
+            SecondaryGameObjects1[(int)pos.x, (int)pos.z] = objectPooler.SpawnFromPool("GlowBall", pos + new Vector3(0f, 1f, 0f), Quaternion.identity);
     }
 
 
