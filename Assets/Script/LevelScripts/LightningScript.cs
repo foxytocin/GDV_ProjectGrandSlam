@@ -40,9 +40,8 @@ public class LightningScript : MonoBehaviour
         Vector3 P = turtle.transform.position;
         verts.Add(P);
         verts.Add(P + new Vector3(offset, 0, 0));
-
-        // Kochkurve ausfuehren
-        //kochkurve(l, depth);
+        
+        //Blitz erzeugen
         GenerateLightning();
 
         // Mesh Vertices hinzufuegen
@@ -143,6 +142,7 @@ public class LightningScript : MonoBehaviour
         turtle.transform.Rotate(0, 0, deg);
     }
 
+    //Rekursiv?
     public void GenerateLightning()
     {        
         move(Random.Range(0.0f, maxXStep), 0);
@@ -167,25 +167,6 @@ public class LightningScript : MonoBehaviour
             }
         }
     }
-    /*
-    void kochkurve(float length, int depth)
-    {
-        if (depth == 0)
-        {
-            move(length);
-        }
-        else
-        {
-            kochkurve(length / 3, depth - 1);
-            turn(60f);
-            kochkurve(length / 3, depth - 1);
-            turn(-120f);
-            kochkurve(length / 3, depth - 1);
-            turn(60f);
-            kochkurve(length / 3, depth - 1);
-        }
-    }
-    */
 
 
     // Debug Methods
