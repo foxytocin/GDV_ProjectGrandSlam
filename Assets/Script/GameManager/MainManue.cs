@@ -5,9 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class MainManue : MonoBehaviour {
 
-	public void PlayGame()
+    public void Start()
+    {
+
+    }
+
+    public void PlayGame()
 	{
-		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+
 	}
 
 	public void QuitGame()
