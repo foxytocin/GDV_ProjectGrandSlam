@@ -8,8 +8,7 @@ using UnityEngine;
 public class LightningScript : MonoBehaviour
 {
     GameObject turtle;
-
-    private float l = 3f;
+    
     public int depth = 1;
 
     private Mesh meinMesh;
@@ -17,13 +16,16 @@ public class LightningScript : MonoBehaviour
     private List<Vector3> faceNormals;
     private List<Vector3> vertexNormals;
     private List<int> faces;
-    private int offset = 1;
+    //private int offset = 1;
 
     private float maxXStep = 1.0f;
     private float maxYStep = 2.0f;
 
-    
-    
+    Material mat;
+    float emission;
+
+
+
     void Start()
     {
         // Listen initialisieren
@@ -33,16 +35,16 @@ public class LightningScript : MonoBehaviour
         vertexNormals = new List<Vector3>();
 
         GetComponent<MeshFilter>().mesh = meinMesh = new Mesh();        //Gleiche Instanz Zuweisung
-        Material mat = GetComponent<MeshRenderer>().material;
+        mat = GetComponent<MeshRenderer>().material;
 
-        // GameObject initialisieren
-        turtle = new GameObject("Turtle");
-        Vector3 P = turtle.transform.position;
-        verts.Add(P);
-        verts.Add(P + new Vector3(offset, 0, 0));
+        
+
+        
         
         //Blitz erzeugen
-        GenerateLightning();
+        //GenerateLightning(new Vector3(0f, 15f, -20f));
+        GenerateLightning(new Vector3(0f, 15f, 0f));
+
 
         // Mesh Vertices hinzufuegen
         meinMesh.vertices = verts.ToArray();
@@ -67,7 +69,12 @@ public class LightningScript : MonoBehaviour
 
     private void Update()
     {
-        Vector3[] fnA = faceNormals.ToArray();
+        emission = Mathf.PingPong(Time.time, 1f);
+        Color finalColor = Color.white * Mathf.LinearToGammaSpace(emission);
+        mat.SetColor("_EmissionColor", finalColor);
+        mat.EnableKeyword("_EMISSION");
+
+        //Vector3[] fnA = faceNormals.ToArray();
         for (int i = 0; i < meinMesh.vertices.Length; i++)
         {
             Vector3 norm = transform.TransformDirection(meinMesh.normals[i]);
@@ -126,7 +133,7 @@ public class LightningScript : MonoBehaviour
 
     // Kochkurve
 
-    void move(float length, int secondStep)
+    void move(float length, int secondStep, float offset)
     {
         turtle.transform.Translate(length, 0, 0);
         Vector3 P = turtle.transform.position;
@@ -143,27 +150,34 @@ public class LightningScript : MonoBehaviour
     }
 
     //Rekursiv?
-    public void GenerateLightning()
-    {        
-        move(Random.Range(0.0f, maxXStep), 0);
-        turn(-90f);
-        move(Random.Range(0.0f, maxYStep), 1);
+    public void GenerateLightning(Vector3 pos)
+    {
+        // GameObject initialisieren
+        turtle = new GameObject("Turtle");
+        turtle.transform.Translate(pos);
+        Vector3 P = turtle.transform.position;
+        verts.Add(P);
+        verts.Add(P + new Vector3(1, 0, 0));
 
-        for(int i = 0; i < 20; i++)
+        move(Random.Range(0.0f, maxXStep), 0, 1f);
+        turn(-90f);
+        move(Random.Range(0.0f, maxYStep), 1, 1f);
+
+        for(int i = 20; i > 0; i--)
         {
             if (Random.value < 0.5f)
             {
                 turn(90f);
-                move(Random.Range(0.0f, maxXStep), 0);
+                move(Random.Range(0.0f, maxXStep), 0, i/20f);
                 turn(-90f);
-                move(Random.Range(0.0f, maxYStep), 1);
+                move(Random.Range(0.0f, maxYStep), 1, i/20f);
             }
             else
             {
                 turn(-90f);
-                move(Random.Range(0.0f, maxXStep), 0);
+                move(Random.Range(0.0f, maxXStep), 0, i/20f);
                 turn(90f);
-                move(Random.Range(0.0f, maxYStep), 1);
+                move(Random.Range(0.0f, maxYStep), 1, i/20f);
             }
         }
     }
