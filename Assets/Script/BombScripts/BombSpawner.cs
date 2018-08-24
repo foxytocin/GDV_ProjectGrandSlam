@@ -1,44 +1,22 @@
 ﻿using UnityEngine;
 
 public class BombSpawner : MonoBehaviour
-
 {
-    public LevelGenerator LevelGenerator;
-    public GameObject Bomb_Prefab;
-    public PlayerSpawner PlayerSpawner;
-    private Vector3 bombPosition;
-
-    public void SpawnBomb(Vector3 position, int id)
+    public GameObject SpawnBomb(int bombXPos, int bombZPos, int playerId, int bombPower, float bombTimer, bool remoteBomb, Color playerColor)
     {
-        //Position der Bombe = Position des Spielers. Damit die Bombe direkt in die Mitte einer Zelle snappt, werden die x- und z-Achsen gerundet.
-        bombPosition = position;
-        bombPosition.x = Mathf.RoundToInt(bombPosition.x);
-        //bombPosition.y -= 0.1f;
-        bombPosition.z = Mathf.RoundToInt(bombPosition.z);
+        // Erlaubt das Legen einer Bombe, wenn das Feld frei (null) ist, oder der Spieler ("Player") selbst sich auf diesem befindet.
+        GameObject bombeInstanz = ObjectPooler.Instance.SpawnFromPool("Bombe", new Vector3(bombXPos, 0.5f, bombZPos), Quaternion.identity);
+        BombScript thisBombeScript = bombeInstanz.GetComponent<BombScript>();
 
-        PlayerScript player = PlayerSpawner.playerList[id].gameObject.GetComponent<PlayerScript>();
+        // PlayerStats werden auf die gelegte Bombe uebertragen, damit sie ihr individuelles Verhalten bekommt.
+        thisBombeScript.bombTimer = bombTimer;
+        thisBombeScript.bombOwnerPlayerID = playerId;
+        thisBombeScript.bombPower = bombPower;
+        thisBombeScript.remoteBomb = remoteBomb;
+        thisBombeScript.playerColor = playerColor;
 
-        //Erlaubt das Legen einer Bombe, wenn das Feld frei (null) ist, oder der Spieler ("Player") selbst sich auf diesem befindet.
-        if (LevelGenerator.AllGameObjects[(int)bombPosition.x, (int)bombPosition.z] == null || LevelGenerator.AllGameObjects[(int)bombPosition.x, (int)bombPosition.z].gameObject.tag == "Player")
-        {
-            player.setAvaibleBomb(-1);
+        StartCoroutine(thisBombeScript.bombAnimation());
 
-            GameObject bombeInstanz = ObjectPooler.Instance.SpawnFromPool("Bombe", bombPosition, Quaternion.identity);
-            BombScript thisBombeScript = bombeInstanz.GetComponent<BombScript>();
-
-            //Uebertraegt die PlayerStats auf die gelegte Bombe, damit sie ihr individuelles Verhalten bekommt.
-            thisBombeScript.bombTimer = player.getbombTimer();
-            thisBombeScript.bombOwnerPlayerID = id;
-            thisBombeScript.bombPower = player.getRange();
-            thisBombeScript.remoteBomb = player.getRemoteBomb();
-            thisBombeScript.tag = "Bombe";
-            thisBombeScript.playerColor = player.GetComponent<Renderer>().material.color;
-            StartCoroutine(thisBombeScript.bombAnimation());
-
-            //Traegt die gelegte Bombe im AllGameObject-Array ein, damit die Interaktion mit anderen GameObjecten moeglich ist.
-            LevelGenerator.AllGameObjects[(int)bombPosition.x, (int)bombPosition.z] = bombeInstanz;
-        }
-        //Zum Abschluss der Pruefung ob eine Bombe gelegt werden darf oder nach erfolgreichem Legen der Bombe, wird das erneute bombemlegen wieder erlaubt.
-        player.creatingBomb = false;
+        return bombeInstanz;
     }
 }
