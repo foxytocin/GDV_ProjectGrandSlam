@@ -41,6 +41,7 @@ public class PlayerScript : MonoBehaviour
     bool RichtungsAenderung; //true == z; false == x 
     bool fall = false;
     float gravity;
+    Vector3 lastDirection;
 
 
     void Awake()
@@ -162,8 +163,9 @@ public class PlayerScript : MonoBehaviour
                     break;
             }
 
+
             //Target bewegen
-            if (freeWay(tmp))
+            if (freeWay(checkSingleDirection(tmp)))
             {
                 //Im Array aktuelle position loeschen wenn das objekt auch wirklich ein Player ist 
                 if (levelGenerator.AllGameObjects[(int)target.x, (int)target.z] != null && levelGenerator.AllGameObjects[(int)target.x, (int)target.z].gameObject.CompareTag("Player"))
@@ -219,6 +221,7 @@ public class PlayerScript : MonoBehaviour
             //transform.localEulerAngles = levelGenerator.SecondaryGameObjects1[(int)transform.position.x, (int)transform.position.z].gameObject.transform.localEulerAngles;
         }
 
+
         if(fall)
         {
             gravity += Time.deltaTime * 0.8f;
@@ -232,6 +235,74 @@ public class PlayerScript : MonoBehaviour
                 this.gameObject.SetActive(false);
             }
         }
+    }
+
+
+    //Funktion erlaubt das Druecken von 2 Richtungstasten zur gleichen Zeit
+    //Die zuletzt gedrückte Taste bestimmt dann die aktuelle Richtung
+    Vector3 checkSingleDirection(Vector3 tmp)
+    {
+        if(tmp != new Vector3(0f, 0f, 0f))
+        {   
+            //Ist das Produkt != 0 werden 2 Tasten gedruckt
+            //Um zu bestimmen welche Taste zusätzlich gedrueckt wurde wird die aktuelle Richtung mit dem Produkt beider Tasten verglichen
+            //Daraus kann errechnet werden welcher der neue Richtungvector ist
+            if(tmp.x * tmp.z != 0)
+            {
+                //Bewegung nach Rechts und Hoch wird gedrueckt
+                if(lastDirection.x == 1 && tmp.x * tmp.z == 1) {
+                    this.tmp = new Vector3(0, 0, 1);
+                    return this.tmp;
+                }
+                
+                //Bewegung nach Rechts und Runter wird gedrueckt
+                if(lastDirection.x == 1 && tmp.x * tmp.z == -1) {
+                    this.tmp = new Vector3(0, 0, -1);
+                    return this.tmp;
+                }
+
+                //Bewegung nach Linkt und Hoch wird gedrueckt
+                if(lastDirection.x == -1 && tmp.x * tmp.z == -1) {
+                    this.tmp = new Vector3(0, 0, 1);
+                    return this.tmp;
+                }
+
+                //Bewegung nach Links und Runter wird gedrueckt
+                if(lastDirection.x == -1 && tmp.x * tmp.z == 1) {
+                    this.tmp = new Vector3(0, 0, -1);
+                    return this.tmp;
+                }
+
+                //Bewegung nach Oben und Rechts wird gedrueckt
+                if(lastDirection.z == 1 && tmp.x * tmp.z == 1) {
+                    this.tmp = new Vector3(1, 0, 0);
+                    return this.tmp;
+                }
+
+                //Bewegung nach Oben und Links wird gedrueckt
+                if(lastDirection.z == 1 && tmp.x * tmp.z == -1) {
+                    this.tmp = new Vector3(-1, 0, 0);
+                    return this.tmp;
+                }
+
+                //Bewegung nach Unten und Rechts wird gedrueckt
+                if(lastDirection.z == -1 && tmp.x * tmp.z == -1) {
+                    this.tmp = new Vector3(1, 0, 0);
+                    return this.tmp;
+                }
+
+                //Bewegung nach Unten und Links wird gedrueckt
+                if(lastDirection.z == -1 && tmp.x * tmp.z == 1) {
+                    this.tmp = new Vector3(-1, 0, 0);
+                    return this.tmp;
+                }
+            } else {
+
+                lastDirection = tmp;
+            }
+            return tmp;
+        }
+        return new Vector3(0, 0, 0);
     }
 
 
@@ -384,8 +455,8 @@ public class PlayerScript : MonoBehaviour
     bool freeWay(Vector3 tmp)
     {
         // Pruefen das keine Zwei Tasten für diagonales gehen gedrückt sind 
-        if (tmp == new Vector3(-1, 0, 0) || tmp == new Vector3(1, 0, 0) || tmp == new Vector3(0, 0, -1) || tmp == new Vector3(0, 0, 1))
-        {
+        // if (tmp == new Vector3(-1, 0, 0) || tmp == new Vector3(1, 0, 0) || tmp == new Vector3(0, 0, -1) || tmp == new Vector3(0, 0, 1))
+        // {
             //entweder hat sich der Richungsvector nicht geändert oder das Objekt die selbe Position wie TargetVector
             if ((lastTmpVector == tmp || target == transform.position) && myTime > 0.19f)
             {
@@ -430,8 +501,6 @@ public class PlayerScript : MonoBehaviour
                 }
             }
             return false;
-        }
-        return false;
     }
 
     public void playerFall()
