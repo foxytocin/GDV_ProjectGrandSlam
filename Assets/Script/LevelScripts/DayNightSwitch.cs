@@ -32,7 +32,7 @@ public class DayNightSwitch : MonoBehaviour {
 
 	void Start()
 	{
-		duration = Random.value * 5f;
+		duration = Random.value * 50f;
 		pastTime = 0f;
 		worldOffest = levelGenerator.tiefeLevelStartBasis;
 		worldLightOriginal = worldLight.intensity;
@@ -221,7 +221,7 @@ public class DayNightSwitch : MonoBehaviour {
 	private void switchToNight()
 	{
 		StopAllCoroutines();
-		StartCoroutine(dawnWorldAmbient(0.3f));
+		StartCoroutine(dawnWorldAmbient(0.4f));
 		StartCoroutine(dawnWorldLight(0f));
 	}
 

@@ -144,7 +144,7 @@ public class MapDestroyer : MonoBehaviour
                     Instantiate(KistenPartsPrefab, new Vector3(x, 0.5f, z), Quaternion.identity, transform);
 
                     //Spawnt Item
-                    //if(Random.value > 0.5f)
+                    if(Random.value > 0.5f)
                         itemSpawner.SpawnItem(x, z);
 
                     return false;

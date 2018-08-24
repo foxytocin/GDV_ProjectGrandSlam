@@ -72,7 +72,7 @@ public class LightningScript : MonoBehaviour
     private void Update()
     {
         emission = Mathf.PingPong(Time.time, 1f);
-        Color finalColor = Color.white * Mathf.LinearToGammaSpace(emission * 2f);
+        Color finalColor = Color.white * Mathf.LinearToGammaSpace(emission * 3f);
         mat.SetColor("_EmissionColor", finalColor);
         mat.EnableKeyword("_EMISSION");
 
