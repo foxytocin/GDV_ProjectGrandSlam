@@ -8,15 +8,15 @@ Prefab:
     m_TransformParent: {fileID: 0}
     m_Modifications: []
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 0}
+  m_SourcePrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1712524121732004}
-  m_IsPrefabParent: 1
+  m_IsPrefabAsset: 1
 --- !u!1 &1712524121732004
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
+  serializedVersion: 6
   m_Component:
   - component: {fileID: 4013381824461544}
   - component: {fileID: 33915029312630692}
@@ -34,7 +34,7 @@ GameObject:
 --- !u!4 &4013381824461544
 Transform:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1712524121732004}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
@@ -47,7 +47,7 @@ Transform:
 --- !u!23 &23496237484671858
 MeshRenderer:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1712524121732004}
   m_Enabled: 1
@@ -82,14 +82,14 @@ MeshRenderer:
 --- !u!33 &33915029312630692
 MeshFilter:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1712524121732004}
   m_Mesh: {fileID: 4300000, guid: 7c0101e3257ef4f10a6ca353771137cf, type: 3}
 --- !u!82 &82499367223984352
 AudioSource:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1712524121732004}
   m_Enabled: 1
@@ -184,7 +184,7 @@ AudioSource:
 --- !u!108 &108418717509296198
 Light:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1712524121732004}
   m_Enabled: 0
@@ -211,6 +211,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_Lightmapping: 4
+  m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
@@ -220,7 +221,7 @@ Light:
 --- !u!114 &114875133659551614
 MonoBehaviour:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1712524121732004}
   m_Enabled: 1
@@ -233,12 +234,13 @@ MonoBehaviour:
   avaibleBomb: 0
   speed: 0
   bombTimer: 0
-  range: 0
+  bombPower: 0
   alive: 0
   remoteBombItem: 0
   houdiniItem: 0
   travelDistance: 0
   audioSource: {fileID: 0}
+  GrabItem: {fileID: 8300000, guid: 7c2bc8349dd488b428e35a895cb2de1c, type: 3}
   Player1falls: {fileID: 8300000, guid: 3d4c07fb5c223af41b36d996450a0eaf, type: 3}
   Player2falls: {fileID: 8300000, guid: c8314cb3c7e317346ab260109ad1cedf, type: 3}
   Player3falls: {fileID: 8300000, guid: 5ebe54b1dac4edf4ca307268895551b9, type: 3}
