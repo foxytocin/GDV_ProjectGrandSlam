@@ -197,6 +197,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 539f8b9482989044aaee45afa6ee874a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lightning_prefab: {fileID: 1675689911319800, guid: 9f3d4afb5aa4bb74280e696e9b17b871,
+    type: 2}
 --- !u!1 &197551103
 GameObject:
   m_ObjectHideFlags: 0
@@ -1411,10 +1413,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40cd7f39c07b846219cfcff667625748, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LevelGenerator: {fileID: 958779247}
-  Bomb_Prefab: {fileID: 1200906370282642, guid: 2effe9be9ab3148b1a0a368568848eb9,
-    type: 2}
-  PlayerSpawner: {fileID: 1847533652}
 --- !u!4 &846212269
 Transform:
   m_ObjectHideFlags: 0
