@@ -87,6 +87,7 @@ public class PowerUp : MonoBehaviour {
     public void Item2(int id)
     {
         player.setRemoteBombe(true);
+
     }
 
 
