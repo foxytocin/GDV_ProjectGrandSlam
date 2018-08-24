@@ -14,13 +14,13 @@ public class GlowScript : MonoBehaviour {
 		material = GetComponent<Renderer>().material;
 	}
 
-	public void glowDimmOn()
+	public void glowDimmOnDistanceLine()
 	{
 		baseColor = material.color;
 		StartCoroutine(glowStart());
 	}
 
-	public void glowDimmOff()
+	public void glowDimmOffDistanceLine()
 	{
 		baseColor = material.color;
 		StartCoroutine(glowStopp());

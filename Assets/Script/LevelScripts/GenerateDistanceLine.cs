@@ -166,6 +166,13 @@ private Color Percent100 = new Color32(170, 39, 39, 1);
 			GameObject MeterSchild3 = objectPooler.SpawnFromPool("MeterSchild", new Vector3(rightMiddle + 2, 3.5f, row), Quaternion.Euler(20f, 0f, 0f));
 			MeterSchild3.GetComponent<MeterSchild>().setMeter(row);
 			LevelGenerator.DistanceLines[5, row] = MeterSchild3;
+
+			if(generateGlowStangen)
+			{
+				MeterSchild1.transform.GetChild(0).GetComponent<Renderer>().material.EnableKeyword("_EMISSION");
+				MeterSchild2.transform.GetChild(0).GetComponent<Renderer>().material.EnableKeyword("_EMISSION");
+				MeterSchild3.transform.GetChild(0).GetComponent<Renderer>().material.EnableKeyword("_EMISSION");
+			}
 		}
 		else if(distance >= 13)
 		{
@@ -176,12 +183,23 @@ private Color Percent100 = new Color32(170, 39, 39, 1);
 			GameObject MeterSchild2 = objectPooler.SpawnFromPool("MeterSchild", new Vector3(rightMiddle, 3.5f, row), Quaternion.Euler(20f, 0f, 0f));
 			MeterSchild2.GetComponent<MeterSchild>().setMeter(row);
 			LevelGenerator.DistanceLines[4, row] = MeterSchild2;
+
+			if(generateGlowStangen)
+			{
+				MeterSchild1.transform.GetChild(0).GetComponent<Renderer>().material.EnableKeyword("_EMISSION");
+				MeterSchild2.transform.GetChild(0).GetComponent<Renderer>().material.EnableKeyword("_EMISSION");
+			}
 		}
 		else
 		{
 			GameObject MeterSchild1 = objectPooler.SpawnFromPool("MeterSchild", new Vector3(centerPoint, 3.5f, row), Quaternion.Euler(20f, 0f, 0f));
 			MeterSchild1.GetComponent<MeterSchild>().setMeter(row);
 			LevelGenerator.DistanceLines[3, row] = MeterSchild1;
+
+			if(generateGlowStangen)
+			{
+				MeterSchild1.transform.GetChild(0).GetComponent<Renderer>().material.EnableKeyword("_EMISSION");
+			}
 		}
 	}
 }

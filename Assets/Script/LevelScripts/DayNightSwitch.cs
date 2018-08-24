@@ -32,7 +32,7 @@ public class DayNightSwitch : MonoBehaviour {
 
 	void Start()
 	{
-		duration = Random.value * 50f;
+		duration = Random.value * 5f;
 		pastTime = 0f;
 		worldOffest = levelGenerator.tiefeLevelStartBasis;
 		worldLightOriginal = worldLight.intensity;
@@ -136,7 +136,12 @@ public class DayNightSwitch : MonoBehaviour {
 			{
 				if(go.CompareTag("GlowMaterial"))
 				{
-					go.GetComponent<GlowScript>().glowDimmOn();
+					go.GetComponent<GlowScript>().glowDimmOnDistanceLine();
+				}
+
+				if(go.CompareTag("MeterSchild"))
+				{
+					go.transform.GetChild(0).GetComponent<Renderer>().material.EnableKeyword("_EMISSION");
 				}
 			}
 		}
@@ -150,7 +155,12 @@ public class DayNightSwitch : MonoBehaviour {
 			{
 				if(go.CompareTag("GlowMaterial"))
 				{
-					go.GetComponent<GlowScript>().glowDimmOff();
+					go.GetComponent<GlowScript>().glowDimmOffDistanceLine();
+				}
+
+				if(go.CompareTag("MeterSchild"))
+				{
+					go.transform.GetChild(0).GetComponent<Renderer>().material.DisableKeyword("_EMISSION");
 				}
 			}
 		}
@@ -248,7 +258,7 @@ public class DayNightSwitch : MonoBehaviour {
 	{
 		while(RenderSettings.ambientIntensity > value)
 		{
-			RenderSettings.ambientIntensity -= Time.deltaTime * 0.2f;
+			RenderSettings.ambientIntensity -= Time.deltaTime * 0.3f;
 			yield return null;
 		}
 	}

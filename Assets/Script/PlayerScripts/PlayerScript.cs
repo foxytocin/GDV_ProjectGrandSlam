@@ -458,7 +458,7 @@ public class PlayerScript : MonoBehaviour
         // if (tmp == new Vector3(-1, 0, 0) || tmp == new Vector3(1, 0, 0) || tmp == new Vector3(0, 0, -1) || tmp == new Vector3(0, 0, 1))
         // {
             //entweder hat sich der Richungsvector nicht geändert oder das Objekt die selbe Position wie TargetVector
-            if ((lastTmpVector == tmp || target == transform.position) && myTime > 0.19f)
+            if ((lastTmpVector == tmp || target == transform.position) && myTime > 0.2f)
             {
                 int xPos = (int)(target.x + tmp.x);
                 int zPos = (int)(target.z + tmp.z);
