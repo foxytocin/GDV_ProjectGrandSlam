@@ -37,6 +37,7 @@ public class LightningScript : MonoBehaviour
         GetComponent<MeshFilter>().mesh = meinMesh = new Mesh();        //Gleiche Instanz Zuweisung
         mat = GetComponent<MeshRenderer>().material;
 
+        GetComponent<MeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
         
 
         
