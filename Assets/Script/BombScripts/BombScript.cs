@@ -3,16 +3,16 @@ using System.Collections;
 
 public class BombScript : MonoBehaviour
 {
-    public int bombOwnerPlayerID;
-    public int bombPower;
-    public float bombTimer;
-    public bool remoteBomb;
-    public Color playerColor;
+    public int bombOwnerPlayerID;       // ID des Players der die Bombe gelegt hat
+    public int bombPower;               // Staerker / Reichweite der Bombe
+    public float bombTimer;             // Zeit bis die Bombe explodiert
+    public bool remoteBomb;             // RemoteBombe wenn der Player das entsprechende Item eingesammelt hat
+    public Color playerColor;           // Farbe des Players um RemoteBomben mit dieser zu versehen
 
-    public float countDown;
-    private Vector3 bombPosition;
-    private float bombAngle;
-    private int bombRotation;
+    public float countDown;             // Überwacht die Vergangene Zeit bis zur Explosion
+    private Vector3 bombPosition;       // Position an der die Bombe erzeugt wurde
+    private float bombAngle;            // Zufaellige Y-Rotation beim Instanzieren der Bombe
+    private int bombRotation;           // Steuert ob die Bombe sich recht- oder linkherum dreht
     
     public AudioSource audioSource;
     public AudioClip audioZischen;
@@ -20,7 +20,7 @@ public class BombScript : MonoBehaviour
     private CameraShake cameraShake;
     private MapDestroyer mapDestroyer;
     private LevelGenerator levelGenerator;
-    Color32 bombColor;
+    private Color32 bombColor;
 
     void Awake()
     {
@@ -31,12 +31,16 @@ public class BombScript : MonoBehaviour
         bombColor = GetComponent<Renderer>().material.color;
     }
 
+    // Beim ersten Instanzieren aus dem ObjectPool erhält die Bombe eine zufaellige Ausrichtung und Rotationsrichtung
     void Start()
     {
         bombAngle = Random.Range(0, 36f) * 10f;
         bombRotation = Random.value >= 0.5f ? 1 : -1;
     }
 
+
+    // bombAnimation() wird vom BombSpawner nachdem Instanzieren der Bombe aufgerufen um sie "zu starten"
+    // Durch den ObjectPool werden die Bomben erneut vewendet und benoetigen bei der Wiederverwendung diesen "Reset"
     public IEnumerator bombAnimation()
     {
         audioSource.PlayOneShot(audioPlopp, 1f);
@@ -51,13 +55,14 @@ public class BombScript : MonoBehaviour
             GetComponent<Renderer>().material.color = bombColor;
         }
 
-        //Bombe uebernimmt die Rotation der Bodenplatte auf der sie liegt. Faengt der Boden an zu wackeln, wird so diese Wackelbewegung uebernommen
-        //Um die Wackelbewegung deutlicher zu mache, werden die Winkel mit dem Faktor 3 multipliziet
+        // Bombe uebernimmt die Rotation der Bodenplatte auf der sie liegt. Faengt der Boden an zu wackeln, wird so diese Wackelbewegung uebernommen
+        // Um die Wackelbewegung deutlicher zu mache, werden die Winkel mit dem Faktor 3 multipliziet
         Vector3 anglesBode;
         Vector3 anglesRotation = transform.localEulerAngles;
 
         countDown = bombTimer;
 
+        // Bombe explodiert nach Ablauf des Timers (countDown) oder durch remoteBombe (Fernzuendung durch Player)
         while (countDown >= 0 || remoteBomb)
         {
             anglesBode = levelGenerator.SecondaryGameObjects1[(int)transform.position.x, (int)transform.position.z].gameObject.transform.localEulerAngles * 3f;
@@ -72,17 +77,19 @@ public class BombScript : MonoBehaviour
         explode();
     }
 
+    // Steuert die Auswirkung der Explosion
     void explode() {
 
+        // Erschütterung der Kamera
         cameraShake.StartCoroutine(cameraShake.Shake(0.3f, 0.135f));
 
-        //Explode() im MapDestroyer wird aufgerufen um von der bombPosition und mit deren bombPower zu pruefen welche weiteren Felder um die Bombe herum explodieren muessen.
+        // MapDestroyer wird aufgerufen um von der bombPosition und mit deren bombPower zu pruefen welche weiteren Felder um die Bombe herum explodieren muessen.
         mapDestroyer.explode(bombPosition, bombPower, bombOwnerPlayerID);
 
+        // Bombe wird aus dem AllGameObject-Array "entfernt" damit Player wieder hindurchlaufen koennen
         levelGenerator.AllGameObjects[(int)bombPosition.x, (int)bombPosition.z] = null;
 
+        // Bombe wird bis zur Wiederverwendung deaktiviert und zurueck in den ObjectPool gelegt
         gameObject.SetActive(false);
-        //Bombe selber wird zerstört.
-        //Destroy(gameObject);
     }
 }

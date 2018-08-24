@@ -10,7 +10,7 @@ public class PlayerScript : MonoBehaviour
     public int avaibleBomb;
     public float speed;
     public float bombTimer;
-    public int range;
+    public int bombPower;
     public bool alive;
     public bool remoteBombItem;
     public bool houdiniItem;
@@ -37,11 +37,11 @@ public class PlayerScript : MonoBehaviour
     private RemoteBomb remoteBomb;
     public GhostSpawnerScript ghostSpawner;
     public CameraMovement cam;
-    //private PowerUp powerUp;
-    bool RichtungsAenderung; //true == z; false == x 
-    bool fall = false;
-    float gravity;
-    Vector3 lastDirection;
+    private bool RichtungsAenderung; //true == z; false == x 
+    private bool fall = false;
+    private float gravity;
+    private Color32 playerColor;
+    private Vector3 lastDirection;
 
 
     void Awake()
@@ -56,13 +56,14 @@ public class PlayerScript : MonoBehaviour
 
     void Start()
     {
+        playerColor = GetComponent<Renderer>().material.color;
         travelDistanceStart = (int)transform.position.z;
         travelDistance = 0;
         life = 3;
         avaibleBomb = 3;
         speed = 5f;
         bombTimer = 2f;
-        range = 1;
+        bombPower = 1;
         alive = true;
         remoteBombItem = false;
         houdiniItem = false;
@@ -361,15 +362,15 @@ public class PlayerScript : MonoBehaviour
     }
 
 
-    // Range
-    public void setRange(int tmp)
+    // bombPower
+    public void setPower(int tmp)
     {
-        range += tmp;
+        bombPower += tmp;
     }
 
-    public int getRange()
+    public int getPower()
     {
-        return range;
+        return bombPower;
     }
 
 
@@ -408,7 +409,7 @@ public class PlayerScript : MonoBehaviour
         alive = tmp;
     }
 
-    //remoteBomb
+    // remoteBomb
     public bool getRemoteBomb()
     {
         return remoteBombItem;
@@ -419,7 +420,7 @@ public class PlayerScript : MonoBehaviour
         remoteBombItem = tmp;
     }
 
-    //bombTimer
+    // bombTimer
     public float getbombTimer()
     {
         return bombTimer;
@@ -430,7 +431,7 @@ public class PlayerScript : MonoBehaviour
         bombTimer = tmp;
     }
 
-    //Weiteste zurueck gelegte Strecke wird gespeicher
+    // Weiteste zurueck gelegte Strecke wird gespeicher
     void calcTravelDistance() {
         if(transform.position.z > travelDistance + travelDistanceStart)
         {
@@ -441,15 +442,18 @@ public class PlayerScript : MonoBehaviour
     // Setzt Bombe mit überprüfung von avaibleBomb und aLife
     void SetBomb()
     {
-        if (avaibleBomb > 0 && alive)
-        {
-            creatingBomb = true;
-            bombSpawner.SpawnBomb(transform.position, playerID);
+        creatingBomb = true;
+        int bombXPos = Mathf.RoundToInt(transform.position.x);
+        int bombZPos = Mathf.RoundToInt(transform.position.z);
 
-        } else
+        if(avaibleBomb > 0 && (levelGenerator.AllGameObjects[bombXPos, bombZPos] == null || levelGenerator.AllGameObjects[bombXPos, bombZPos].gameObject.CompareTag("Player")))
         {
+            setAvaibleBomb(-1);
+            levelGenerator.AllGameObjects[bombXPos, bombZPos] = bombSpawner.SpawnBomb(bombXPos, bombZPos, playerID, bombPower, bombTimer, remoteBombItem, playerColor);
+        } else {
             creatingBomb = false;
         }
+        creatingBomb = false;
     }
 
     bool freeWay(Vector3 tmp)
