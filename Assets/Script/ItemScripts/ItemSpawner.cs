@@ -14,11 +14,8 @@ public class ItemSpawner : MonoBehaviour
         //Position des Items = Position der zerstörten Kiste.
         ItemObjekt = Instantiate(Item_Prefab, new Vector3(x, 0.7f, z), Quaternion.identity, transform);
         LevelGenerator.AllGameObjects[x, z] = ItemObjekt;
-
+ 
     }
-
-
-
 
 
 
