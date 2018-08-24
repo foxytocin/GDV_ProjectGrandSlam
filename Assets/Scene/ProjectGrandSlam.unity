@@ -1095,7 +1095,8 @@ MonoBehaviour:
   levelGenerator: {fileID: 958779247}
   PlayerSpawner: {fileID: 1847533652}
   audioSource: {fileID: 594464649}
-  audioClip: {fileID: 8300000, guid: 5d9fc9860d27f448fac35521fe6caf6b, type: 3}
+  soundExplosionBombe: {fileID: 8300000, guid: 225c15ea3bc1243559d5c015b1e6654a, type: 3}
+  soundItemDestroy: {fileID: 8300000, guid: cdf2c6a30542047e3a85f692b4122472, type: 3}
 --- !u!82 &594464649
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1820,7 +1821,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.85
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -2792,6 +2793,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8efa3371288984e74a7681569d1912c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nightModus: 0
+  isDay: 0
 --- !u!1 &1754055004
 GameObject:
   m_ObjectHideFlags: 0

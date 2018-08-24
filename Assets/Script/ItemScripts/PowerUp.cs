@@ -65,7 +65,7 @@ public class PowerUp : MonoBehaviour {
         GetComponent<Renderer>().material.color = Color.red;
         GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.red);
         GetComponent<Light>().color = Color.red;
-        Debug.Log("Player" + id + " hat Item 1");
+        //Debug.Log("Player" + id + " hat Item 1");
 
     }
     public void MakeItem2(int id)
@@ -73,7 +73,7 @@ public class PowerUp : MonoBehaviour {
         GetComponent<Renderer>().material.color = Color.green;
         GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.green);
         GetComponent<Light>().color = Color.green;
-        Debug.Log("Player" + id + " hat Item 2");
+        //Debug.Log("Player" + id + " hat Item 2");
     }
 
    

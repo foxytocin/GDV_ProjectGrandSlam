@@ -13,7 +13,8 @@ public class MapDestroyer : MonoBehaviour
     private int zPos;
     private ItemSpawner itemSpawner;
     public AudioSource audioSource;
-    public AudioClip audioClip;
+    public AudioClip soundExplosionBombe;
+    public AudioClip soundItemDestroy;
 
 
     private void Awake()
@@ -43,7 +44,7 @@ public class MapDestroyer : MonoBehaviour
 
         //Explosions-Animation an der Stelle der Bombe wird abgespielt.
         objectPooler.SpawnFromPool("Explosion", new Vector3(xPos, 0.5f, zPos), Quaternion.identity);
-        audioSource.PlayOneShot(audioClip);
+        audioSource.PlayOneShot(soundExplosionBombe, 1f);
         StartCoroutine(KillField((int)position.x, (int)position.z));
 
         //Es werden 4 Coroutinen angelegt und gestartet, welche gleichzeitig in alle Himmelsrichtung (x, -x, z, -z) die Fehler durchlaufen.
@@ -154,6 +155,7 @@ public class MapDestroyer : MonoBehaviour
                     return true;
 
                 case "Item":
+                    audioSource.PlayOneShot(soundItemDestroy, 0.5f);
                     objectPooler.SpawnFromPool("Explosion", new Vector3(x, 0.5f, z), Quaternion.identity);
                     levelGenerator.AllGameObjects[x, z] = null;
                     thisGameObject.SetActive(false);

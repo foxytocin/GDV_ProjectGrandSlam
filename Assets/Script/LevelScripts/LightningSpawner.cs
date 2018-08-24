@@ -12,10 +12,7 @@ public class LightningSpawner : MonoBehaviour {
     public AudioClip thunderStrike2;
     public AudioClip thunderStrike3;
     private bool thunderAndRainisPlaying;
-    private int thunderStrikeCounter;
     private float startVolume;
-
-    private int tmp = 0;
 
 	// Use this for initialization
 	void Awake()
@@ -24,7 +21,6 @@ public class LightningSpawner : MonoBehaviour {
         dayNightSwitch = FindObjectOfType<DayNightSwitch>();
         audioSource = FindObjectOfType<AudioSource>();
         thunderAndRainisPlaying = false;
-        thunderStrikeCounter = 0;
         startVolume = audioSource.volume;
     }
 	
@@ -33,7 +29,7 @@ public class LightningSpawner : MonoBehaviour {
     {
         if(Random.value > 0.99f && !dayNightSwitch.isDay)
         {
-            GameObject lightning = Instantiate(lightning_prefab, new Vector3(Random.Range(-5f, 35f), 0, cameraScroller.rowPosition + Random.Range(0f, 35f)), Quaternion.identity);
+            Instantiate(lightning_prefab, new Vector3(Random.Range(-5f, 35f), 0, cameraScroller.rowPosition + Random.Range(0f, 35f)), Quaternion.identity);
             thunderStrike();
         }
 
@@ -56,7 +52,7 @@ public class LightningSpawner : MonoBehaviour {
  
         while (audioSource.volume > 0)
         {
-            audioSource.volume -= startVolume * Time.deltaTime / 15f;
+            audioSource.volume -= startVolume * Time.deltaTime / 10f;
             yield return null;
         }
  
