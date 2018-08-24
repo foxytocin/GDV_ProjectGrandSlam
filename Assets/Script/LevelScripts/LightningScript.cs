@@ -25,7 +25,6 @@ public class LightningScript : MonoBehaviour
     float emission;
 
 
-
     void Start()
     {
         // Listen initialisieren
@@ -63,14 +62,16 @@ public class LightningScript : MonoBehaviour
         //showFaces();
         //showNormals(normalsMesh);
         //showNormals(meinMesh.normals
-        Vector3[] fnA = faceNormals.ToArray();
-        showNormals(fnA);
+        //Vector3[] fnA = faceNormals.ToArray();
+        //showNormals(fnA);
+
+        Destroy(gameObject, 0.5f);
     }
 
     private void Update()
     {
         emission = Mathf.PingPong(Time.time, 1f);
-        Color finalColor = Color.white * Mathf.LinearToGammaSpace(emission);
+        Color finalColor = Color.white * Mathf.LinearToGammaSpace(emission * 2f);
         mat.SetColor("_EmissionColor", finalColor);
         mat.EnableKeyword("_EMISSION");
 
@@ -132,7 +133,6 @@ public class LightningScript : MonoBehaviour
 
 
     // Kochkurve
-
     void move(float length, int secondStep, float offset)
     {
         turtle.transform.Translate(length, 0, 0);
@@ -184,31 +184,30 @@ public class LightningScript : MonoBehaviour
 
 
     // Debug Methods
+    // void showVerts()
+    // {
+    //     Vector3[] vertArray = verts.ToArray();
+    //     for (int i = 0; i < vertArray.Length; i++)
+    //     {
+    //         Debug.Log(vertArray[i]);
+    //     }
+    // }
 
-    void showVerts()
-    {
-        Vector3[] vertArray = verts.ToArray();
-        for (int i = 0; i < vertArray.Length; i++)
-        {
-            Debug.Log(vertArray[i]);
-        }
-    }
-
-    void showFaces()
-    {
-        int[] faceArray = faces.ToArray();
-        for (int i = 0; i < faceArray.Length; i++)
-        {
-            Debug.Log(faceArray[i]);
-        }
-    }
-    void showNormals(Vector3[] normA)
-    {
-        for (int i = 0; i < normA.Length; i++)
-        {
-            Debug.Log(normA[i]);
-        }
-    }
+    // void showFaces()
+    // {
+    //     int[] faceArray = faces.ToArray();
+    //     for (int i = 0; i < faceArray.Length; i++)
+    //     {
+    //         Debug.Log(faceArray[i]);
+    //     }
+    // }
+    // void showNormals(Vector3[] normA)
+    // {
+    //     for (int i = 0; i < normA.Length; i++)
+    //     {
+    //         Debug.Log(normA[i]);
+    //     }
+    // }
 }
 
 
