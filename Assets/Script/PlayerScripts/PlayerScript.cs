@@ -17,6 +17,7 @@ public class PlayerScript : MonoBehaviour
     public int travelDistance;
 
     public AudioSource audioSource;
+    public AudioClip GrabItem;
     public AudioClip Player1falls;
     public AudioClip Player2falls;
     public AudioClip Player3falls;
@@ -498,9 +499,10 @@ public class PlayerScript : MonoBehaviour
                     //Item Kollision
                     if (go.CompareTag("Item"))
                     {
-                        go.GetComponent<PowerUp>().PlayerItem(playerID);
+                        go.GetComponent<PowerUp>().GrabItem(playerID);
                         levelGenerator.AllGameObjects[xPos, zPos] = null;
-                    }
+                        audioSource.PlayOneShot(GrabItem, 0.5f);
+                }
                     return false;
                 }
             }
