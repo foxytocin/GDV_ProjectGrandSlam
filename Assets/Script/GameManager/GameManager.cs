@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour {
     public AudioClip audioTwoPlayer;
     public AudioClip audioThreePlayer;
     public AudioClip audioFourPlayer;
+    public AudioClip thunderAndRain;
 
     private PlayerSpawner playerSpawner;
     private Camera miniMapCam;
@@ -18,7 +19,7 @@ public class GameManager : MonoBehaviour {
     private bool showMiniMap;
     private int player;
     private int playertmp;
-    int counter;
+    private int counter;
 
     void Awake()
     {
@@ -26,8 +27,7 @@ public class GameManager : MonoBehaviour {
         player = 1;
         playertmp = player;
         audioSource = GetComponent<AudioSource>();
-        audioSource.PlayOneShot(audioStart, 0.8f);
-        //audioSource.PlayOneShot(audioBackgoundMusic, 0.15f);
+        audioSource.PlayOneShot(audioStart, 1f);
         playerSpawner = FindObjectOfType<PlayerSpawner>();
         miniMapCam = GameObject.Find("MiniMapCam").GetComponent<Camera>();
         miniMapCanvas = GameObject.Find("MiniMapCanvas").GetComponent<Canvas>();
@@ -90,10 +90,10 @@ public class GameManager : MonoBehaviour {
 
             switch (player)
             {
-                case 1: audioSource.PlayOneShot(audioOnePlayer, 0.5f); break;
-                case 2: audioSource.PlayOneShot(audioTwoPlayer, 0.5f); break;
-                case 3: audioSource.PlayOneShot(audioThreePlayer, 0.5f); break;
-                case 4: audioSource.PlayOneShot(audioFourPlayer, 0.5f); break;
+                case 1: audioSource.PlayOneShot(audioOnePlayer, 0.8f); break;
+                case 2: audioSource.PlayOneShot(audioTwoPlayer, 0.8f); break;
+                case 3: audioSource.PlayOneShot(audioThreePlayer, 0.8f); break;
+                case 4: audioSource.PlayOneShot(audioFourPlayer, 0.8f); break;
                 default: break;
             }
         }
