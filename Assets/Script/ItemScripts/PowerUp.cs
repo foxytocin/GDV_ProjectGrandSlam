@@ -6,6 +6,7 @@ public class PowerUp : MonoBehaviour {
     public int ItemID;
     private PlayerSpawner playerSpawner;
     private PlayerScript player;
+    public float timeLeft;
 
     void Awake()
     {
@@ -53,7 +54,7 @@ public class PowerUp : MonoBehaviour {
                 break;
 
             case 1:
-                Item2(ItemID);
+                StartCoroutine(Item2(ItemID));
                 break;
         }
     }
@@ -80,15 +81,29 @@ public class PowerUp : MonoBehaviour {
     //ItemFunktionen
     public void Item1(int id)
     {
+
         player.setPower(1);
-        player.setRemoteBombe(false);
+      
+        Destroy(gameObject);
     }
 
-    public void Item2(int id)
+
+    public IEnumerator Item2(int id)
     {
+        timeLeft = 10f;
         player.setRemoteBombe(true);
 
+        while (timeLeft >= 0)
+        {
+            timeLeft -= Time.deltaTime;
+             yield return null;
+        }
+        player.setRemoteBombe(false);
+        Destroy(gameObject);
+        
+        
     }
+    
 
 
 
