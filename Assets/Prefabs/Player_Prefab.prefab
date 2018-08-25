@@ -239,7 +239,8 @@ MonoBehaviour:
   remoteBombItem: 0
   houdiniItem: 0
   travelDistance: 0
-  audioSource: {fileID: 0}
+  gameStatePlay: 0
+  audioSource: {fileID: 82499367223984352}
   GrabItem: {fileID: 8300000, guid: 7c2bc8349dd488b428e35a895cb2de1c, type: 3}
   Player1falls: {fileID: 8300000, guid: 3d4c07fb5c223af41b36d996450a0eaf, type: 3}
   Player2falls: {fileID: 8300000, guid: c8314cb3c7e317346ab260109ad1cedf, type: 3}

@@ -53,7 +53,6 @@ public class PlayerScript : MonoBehaviour
         levelGenerator = FindObjectOfType<LevelGenerator>();
         remoteBomb = FindObjectOfType<RemoteBomb>();
         houdini = FindObjectOfType<Houdini>();
-        //powerUp = FindObjectOfType<PowerUp>();
     }
 
     void Start()
@@ -504,7 +503,7 @@ public class PlayerScript : MonoBehaviour
                         go.GetComponent<PowerUp>().GrabItem(playerID);
                         levelGenerator.AllGameObjects[xPos, zPos] = null;
                         audioSource.PlayOneShot(GrabItem, 0.5f);
-                }
+                    }
                     return false;
                 }
             }
