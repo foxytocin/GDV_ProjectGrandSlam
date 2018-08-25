@@ -5,14 +5,11 @@ public class GameManager : MonoBehaviour {
 
     public AudioSource audioSource;
     public AudioClip audioBackgoundMusic;
-    public AudioClip audioStart;
-    //public AudioClip audioOnePlayer;
+    public AudioClip audioLetsGo;
     public AudioClip audioOnePlayer;
     public AudioClip audioTwoPlayer;
     public AudioClip audioThreePlayer;
     public AudioClip audioFourPlayer;
-    public AudioClip thunderAndRain;
-
     private PlayerSpawner playerSpawner;
     private Camera miniMapCam;
     private Canvas miniMapCanvas;
@@ -27,10 +24,14 @@ public class GameManager : MonoBehaviour {
         player = 1;
         playertmp = player;
         audioSource = GetComponent<AudioSource>();
-        audioSource.PlayOneShot(audioStart, 1f);
         playerSpawner = FindObjectOfType<PlayerSpawner>();
         miniMapCam = GameObject.Find("MiniMapCam").GetComponent<Camera>();
         miniMapCanvas = GameObject.Find("MiniMapCanvas").GetComponent<Canvas>();
+    }
+
+    public void playLetsGo()
+    {
+        audioSource.PlayOneShot(audioLetsGo, 1f);
     }
 
     void Start()

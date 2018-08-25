@@ -15,6 +15,7 @@ public class PlayerScript : MonoBehaviour
     public bool remoteBombItem;
     public bool houdiniItem;
     public int travelDistance;
+    public bool gameStatePlay;
 
     public AudioSource audioSource;
     public AudioClip GrabItem;
@@ -57,6 +58,7 @@ public class PlayerScript : MonoBehaviour
 
     void Start()
     {
+        gameStatePlay = false;
         playerColor = GetComponent<Renderer>().material.color;
         travelDistanceStart = (int)transform.position.z;
         travelDistance = 0;
@@ -80,7 +82,7 @@ public class PlayerScript : MonoBehaviour
     void Update()
     {
         
-        if(alive)
+        if(alive && gameStatePlay)
         {
             myTime += Time.deltaTime;
 

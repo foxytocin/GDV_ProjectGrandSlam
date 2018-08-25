@@ -9,17 +9,21 @@ public class DestroyScroller : MonoBehaviour
     public GameObject dummy;
     private Vector3 target;
     private LevelGenerator levelGenerator;
+    public bool gameStatePlay;
+
+    void Awake()
+    {
+        camMove = FindObjectOfType<CameraMovement>();
+        levelGenerator = FindObjectOfType<LevelGenerator>();
+        gameStatePlay = false;
+    }
 
     // Use this for initialization
     void Start()
     {
         oldDummy = -1;
-        dummy = new GameObject("dummy");
-        dummy.transform.position = new Vector3(15, 0, -10f);
-        
-
-        camMove = FindObjectOfType<CameraMovement>();
-        levelGenerator = FindObjectOfType<LevelGenerator>();
+        dummy = new GameObject("DestroyScroller");
+        dummy.transform.position = new Vector3(15f, 0, -10f);
     }
 
     // Update is called once per frame
@@ -28,7 +32,8 @@ public class DestroyScroller : MonoBehaviour
         target = camMove.centerPoint;
         dummyPos = (int) dummy.transform.position.z;
 
-        moveDummy(target);
+        if(gameStatePlay)
+            moveDummy(target);
 
         //Prüft ob die Camera genau EINE Zeile weitergescrollt ist um die cleanLine() für genau diese 1 Zeile aufzurufen.
         if (dummyPos > oldDummy)
@@ -41,6 +46,6 @@ public class DestroyScroller : MonoBehaviour
     private void moveDummy(Vector3 target)
     {
         Vector3 pos = Vector3.Lerp(dummy.transform.position, new Vector3(15f, 0f, target.z + 3f), 0.1f * Time.deltaTime);
-        dummy.transform.position = pos;            
+        dummy.transform.position = pos;
     }
 }
