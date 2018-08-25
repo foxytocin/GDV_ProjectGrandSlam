@@ -7,6 +7,7 @@ public class GhostSpawnerScript : MonoBehaviour {
     public GameObject Ghost_Prefab;
     GameObject ghost;
     Vector3 destroyPosition;
+    byte transparent = 200;
 
     public AudioSource audioSource;
     public AudioClip audioScream0;
@@ -30,32 +31,30 @@ public class GhostSpawnerScript : MonoBehaviour {
         {
             case 0:
                 audioSource.PlayOneShot(audioScream0, 0.9f);
-                ghost.GetComponent<Renderer>().material.color = new Color32(236, 77, 19, 200);
+                ghost.GetComponent<Renderer>().material.color = new Color32(236, 77, 19, transparent);
                 ghost.GetComponent<Light>().color = new Color32(236, 77, 19, 1);
                 break;
 
             case 1:
                 audioSource.PlayOneShot(audioScream1, 0.8f);
-                ghost.GetComponent<Renderer>().material.color = new Color32(82, 203, 16, 200);
+                ghost.GetComponent<Renderer>().material.color = new Color32(82, 203, 16, transparent);
                 ghost.GetComponent<Light>().color = new Color32(82, 203, 16, 1);
                 break;
 
             case 2:
                 audioSource.PlayOneShot(audioScream2, 0.5f);
-                ghost.GetComponent<Renderer>().material.color = new Color32(17, 170, 212, 200);
+                ghost.GetComponent<Renderer>().material.color = new Color32(17, 170, 212, transparent);
                 ghost.GetComponent<Light>().color = new Color32(17, 170, 212, 1);
                 break;
 
             case 3:
                 audioSource.PlayOneShot(audioScream3, 0.5f);
-                ghost.GetComponent<Renderer>().material.color = new Color32(226, 195, 18, 200);
+                ghost.GetComponent<Renderer>().material.color = new Color32(226, 195, 18, transparent);
                 ghost.GetComponent<Light>().color = new Color32(226, 195, 18, 1);
                 break;
 
             default: break;
         }
-
-        
 
         destroyPosition = spawnposition;
         destroyPosition.y += 3;
@@ -63,7 +62,7 @@ public class GhostSpawnerScript : MonoBehaviour {
         GhostScript tmp = ghost.GetComponent<GhostScript>();
         tmp.destroyPosition = this.destroyPosition;
         tmp.spawnPosition = spawnposition;
-
+        tmp.setColor(ghost.GetComponent<Renderer>().material.color);
     }
     
         
