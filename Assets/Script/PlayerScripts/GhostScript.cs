@@ -2,42 +2,44 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GhostScript : MonoBehaviour {
-
-    public Vector3 spawnPosition;
-    public Vector3 destroyPosition;
-
-    Color32 color;
-    Material material;
-
+public class GhostScript : MonoBehaviour
+{
     private void Start()
     {
-        material = GetComponent<Renderer>().material;
         transform.Rotate(-90, 0, 0);
     }
     // Update is called once per frame
-    void Update ()
+
+    public IEnumerator animationGhost(Color32 ghostColor, Vector3 spawnPosition)
     {
+        GetComponent<Renderer>().material.color = ghostColor;
+        GetComponent<Light>().enabled = true;
 
-        if (destroyPosition.y == transform.position.y)
+        bool terminus = true;
+
+        float myTime = 0f;
+
+        while (terminus)
         {
-            Destroy(gameObject);
-        }
-        else
-        {
-            if (color.a >= 5)
-                color.a -= 5;
-            else
-                GetComponent<Light>().enabled = false;
+            myTime += Time.deltaTime*0.3f;
+            Debug.Log(myTime);
+            if (myTime > 6f)
+            {
 
-            transform.Rotate(0, 0, 2);
-            transform.position = Vector3.MoveTowards(transform.position, destroyPosition, 1 * Time.deltaTime);
-            material.color = color;
-        }
-    }
+                Debug.Log("animation");
+                if (ghostColor.a >= 0)
+                    ghostColor.a -= 4;
+                else
+                    GetComponent<Light>().enabled = false;
 
-    public void setColor (Color32 color)
-    {
-        this.color = color;
+                transform.Rotate(0, 0, 2);
+                transform.Translate(0, 0, 0.2f);
+                GetComponent<Renderer>().material.color = ghostColor;
+
+                myTime = 0.0f;
+            }
+        }
+        this.gameObject.SetActive(false);
+        yield return null;
     }
 }

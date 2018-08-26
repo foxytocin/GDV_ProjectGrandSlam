@@ -34,6 +34,10 @@ public class GameManager : MonoBehaviour {
         audioSource.PlayOneShot(audioLetsGo, 1f);
     }
 
+    public void setPlayerDropdown(int players)
+    {
+        this.player = players+1;
+    }
     void Start()
     {
         showMiniMap = false;

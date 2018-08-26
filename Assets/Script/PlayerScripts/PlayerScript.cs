@@ -330,13 +330,12 @@ public class PlayerScript : MonoBehaviour
     public void dead()
     {
         Debug.Log("Player_" + playerID.ToString() + " is Dead");
+        ghostSpawner.GetComponent<GhostSpawnerScript>().createGhost(transform.position, playerID, playerColor);
         transform.Translate(0f, -2f, 0f);
         cam.PlayerPosition(transform.position, playerID);
         setLife(-1);
         setALife(false);
         this.gameObject.SetActive(false);
-
-        ghostSpawner.GetComponent<GhostSpawnerScript>().createGhost(transform.position, playerID);
     }
 
 

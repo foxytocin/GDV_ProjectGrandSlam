@@ -61,7 +61,7 @@ public class BombScript : MonoBehaviour
         Vector3 anglesRotation = transform.localEulerAngles;
 
         countDown = bombTimer;
-
+        Debug.Log("mitten inder Bombe");
         // Bombe explodiert nach Ablauf des Timers (countDown) oder durch remoteBombe (Fernzuendung durch Player)
         while (countDown >= 0 || remoteBomb)
         {
@@ -72,6 +72,7 @@ public class BombScript : MonoBehaviour
             countDown -= Time.deltaTime;
             yield return null;
         }
+        Debug.Log("Bombe explodiert gleich");
 
         StopAllCoroutines();
         explode();

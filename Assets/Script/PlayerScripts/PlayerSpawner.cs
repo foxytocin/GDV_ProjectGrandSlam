@@ -98,4 +98,9 @@ public class PlayerSpawner : MonoBehaviour
     {
         this.players = players;
     }
+
+    public void setPlayersDropdown(int players)
+    {
+        this.players = players+1;
+    }
 }

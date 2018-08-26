@@ -15,6 +15,7 @@ public class MainMenu : MonoBehaviour {
 	private SpawnDemoItems spawnDemoItems;
 	private bool gamePaused;
 	private bool matchStartet;
+
 	private void Awake()
 	{
 		cameraScroller = FindObjectOfType<CameraScroller>();
@@ -98,5 +99,7 @@ public class MainMenu : MonoBehaviour {
 			go.GetComponent<PlayerScript>().gameStatePlay = false;
 		}
 	}
+
+
 
 }
