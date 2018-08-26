@@ -9,9 +9,16 @@ public class GhostScript : MonoBehaviour
         transform.Rotate(-90, 0, 0);
     }
     // Update is called once per frame
-
-    public IEnumerator animationGhost(Color32 ghostColor, Vector3 spawnPosition)
+   
+    public void startsAnimations(Color32 playerColor)
     {
+        StartCoroutine(animationGhost(playerColor));
+    }
+    
+    public IEnumerator animationGhost(Color32 ghostColor)
+    {
+        transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+        transform.Rotate(0, (Random.value*3)*60, 0);
         GetComponent<Renderer>().material.color = ghostColor;
         GetComponent<Light>().enabled = true;
 
@@ -21,25 +28,31 @@ public class GhostScript : MonoBehaviour
 
         while (terminus)
         {
-            myTime += Time.deltaTime*0.3f;
-            Debug.Log(myTime);
-            if (myTime > 6f)
+            myTime += Time.deltaTime + 0.3f;
+
+            if (myTime > 0.5f)
             {
 
-                Debug.Log("animation");
-                if (ghostColor.a >= 0)
+                if (ghostColor.a > 4)
+                {
                     ghostColor.a -= 4;
+                }
                 else
+                {
                     GetComponent<Light>().enabled = false;
+                    terminus = false;
+                }
 
-                transform.Rotate(0, 0, 2);
-                transform.Translate(0, 0, 0.2f);
                 GetComponent<Renderer>().material.color = ghostColor;
-
                 myTime = 0.0f;
             }
+
+            transform.localScale += new Vector3(0.1f * (Time.deltaTime + 0.3f), 0.1f * (Time.deltaTime + 0.3f), 0.1f * (Time.deltaTime + 0.3f));
+            transform.Translate(0, 0, 0.2f * (Time.deltaTime + 0.3f));
+            yield return null;
         }
         this.gameObject.SetActive(false);
-        yield return null;
+        
     }
+
 }

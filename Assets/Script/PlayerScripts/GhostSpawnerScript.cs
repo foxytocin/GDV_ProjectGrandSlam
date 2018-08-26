@@ -6,7 +6,6 @@ public class GhostSpawnerScript : MonoBehaviour {
 
     public GameObject Ghost_Prefab;
     GameObject ghost;
-    Vector3 destroyPosition;
     byte transparent = 200;
 
     public AudioSource audioSource;
@@ -24,9 +23,9 @@ public class GhostSpawnerScript : MonoBehaviour {
 
     public void createGhost(Vector3 spawnposition, int id, Color32 playerColor)
     {
-        Debug.Log("vorm Laden");
+
         ghost = ObjectPooler.Instance.SpawnFromPool("Ghost", spawnposition, Quaternion.identity);
-        Debug.Log("nachm Laden");
+
         switch (id)
         {
             case 0:
@@ -50,18 +49,11 @@ public class GhostSpawnerScript : MonoBehaviour {
 
         Color32 ghostColor = playerColor;
         ghostColor.a = transparent;
-        ghost.GetComponent<Renderer>().material.color = ghostColor;
+        ghost.GetComponent<GhostScript>().startsAnimations(ghostColor);
 
         ghostColor.a = 1;
         ghost.GetComponent<Light>().color = ghostColor;
 
-        destroyPosition = spawnposition;
-        destroyPosition.y += 5;
-
-        GhostScript tmp = ghost.GetComponent<GhostScript>();
-        StartCoroutine(tmp.animationGhost(playerColor, spawnposition));
-        
-        //tmp.setColor(ghost.GetComponent<Renderer>().material.color);
     }
     
         

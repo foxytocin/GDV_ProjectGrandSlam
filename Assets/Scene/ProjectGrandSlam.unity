@@ -3099,7 +3099,7 @@ MonoBehaviour:
     prefab: {fileID: 1510929197513478, guid: 765a1a43ccdae402f838e41265c51afe, type: 2}
     size: 15
   - tag: Ghost
-    prefab: {fileID: 1310352337250770, guid: eb126d4283348ae41a4272371665669d, type: 2}
+    prefab: {fileID: 1156983697468806, guid: eb126d4283348ae41a4272371665669d, type: 2}
     size: 4
 --- !u!1 &556494747
 GameObject:
