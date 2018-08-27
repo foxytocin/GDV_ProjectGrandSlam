@@ -1,6 +1,7 @@
 ﻿
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PausenMenuScript : MonoBehaviour
 {
@@ -34,11 +35,16 @@ public class PausenMenuScript : MonoBehaviour
         GameIsPaused = false;
     }
 
-    void pause()
+    public void pause()
     {
         pausenMenuUI.SetActive(true);
         Time.timeScale = 0f;
         GameIsPaused = true;
+    }
+
+    public void mainMenu()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void updateSoundOptions()

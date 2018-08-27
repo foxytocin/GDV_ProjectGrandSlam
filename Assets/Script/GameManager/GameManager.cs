@@ -9,11 +9,9 @@ public class GameManager : MonoBehaviour {
     private bool showMiniMap;
     private int player;
     private int playertmp;
-    private int counter;
 
     void Awake()
     {
-        counter = 0;
         player = 1;
         playertmp = player;
         playerSpawner = FindObjectOfType<PlayerSpawner>();

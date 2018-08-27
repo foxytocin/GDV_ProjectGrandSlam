@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class MazeGenerator : MonoBehaviour {
 
-	ObjectPooler objectPooler;
 	const int breite = 29;
 	const int hoehe = 18;
 	private MazeCell[,] Maze;
@@ -18,7 +17,6 @@ public class MazeGenerator : MonoBehaviour {
 	void Awake()
 	{
 		mazeCalculated = false;
-		objectPooler = ObjectPooler.Instance;
 		Maze = new MazeCell[breite, hoehe];
 		backtrack = new Stack<MazeCell>();
 	}
