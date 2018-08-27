@@ -6,10 +6,13 @@ public class MazeGenerator : MonoBehaviour {
 
 	ObjectPooler objectPooler;
 	private int breite = 29;
-	private int hoehe = 17;
+	private int hoehe = 18;
 	public MazeCell[,] Maze;
 	public MazeCell current;
+	public int[,] mazeDataMap;
+
 	private Stack<MazeCell> backtrack;
+	public string[][] mazeLevelData;
 
 	void Awake()
 	{
@@ -27,7 +30,7 @@ public class MazeGenerator : MonoBehaviour {
 	public void initializeMaze()
 	{
 		for(int j = 1; j < hoehe; j+=2)
-			for(int i = 2; i < breite; i+=2)
+			for(int i = 1; i < breite; i+=2)
 			{
 				Maze[i, j] = new MazeCell(i, j);
 			}
@@ -38,7 +41,7 @@ public class MazeGenerator : MonoBehaviour {
 	{
 		bool done = false;
 		MazeCell next = null;
-		current = Maze[16, 1];
+		current = Maze[15, 1];
 		current.visited = true;
 		
 		while(!done)
@@ -60,6 +63,9 @@ public class MazeGenerator : MonoBehaviour {
 			}
 			yield return null;
 		}
+
+		generateMazeBinaerMap();
+		generateMazeLevelData();
 		StopAllCoroutines();
 	}
 
@@ -137,19 +143,129 @@ public class MazeGenerator : MonoBehaviour {
 		}
 	}
 
+
+	public void generateMazeBinaerMap()
+	{	
+		MazeCell current;
+        mazeDataMap = new int[breite + 1, hoehe + 1];
+
+        for (int j = 0; j < hoehe; j++)
+        {
+			 for (int i = 0; i < breite; i++)
+        	{
+				current = Maze[i, j];
+
+				if(current == null)
+				{
+					mazeDataMap[i, j] = 0;
+
+				} else if(current.visited) {
+
+					mazeDataMap[i, j] = 1;
+
+					for(int w = 0; w < 4; w++)
+					{
+						if(current.wall[w])
+						{
+							// Generiere eine Wand
+							switch(w)
+							{
+								case 0: //top
+									mazeDataMap[i, j + 1] = 2;
+									break;
+								case 1: //right
+									mazeDataMap[i + 1, j] = 2;
+									break;
+								case 2: //bottom
+									mazeDataMap[i, j - 1] = 2;
+									break;
+								case 3: //left
+									mazeDataMap[i - 1, j] = 2;
+									break;
+							}
+						} else {
+
+							// Generiere einen Gang
+							switch(w)
+							{
+								case 0: //top
+									mazeDataMap[i, j + 1] = 1;
+									break;
+								case 1: //right
+									mazeDataMap[i + 1, j] = 1;
+									break;
+								case 2: //bottom
+									mazeDataMap[i, j - 1] = 1;
+									break;
+								case 3: //left
+									mazeDataMap[i - 1, j] = 1;
+									break;
+							}
+						}
+					}
+				}
+       		}
+		}
+
+		for (int j = 0; j < hoehe; j++)
+			for (int i = 0; i < breite; i++)
+				Debug.Log("mazeDataMap: Wert: " +mazeDataMap[i,j]+ " Pos : " +i+ " / " +j);
+	}
+
+
+	public void generateMazeLevelData()
+	{
+		int current;
+        mazeLevelData = new string[hoehe][];
+
+        for (int j = 0; j < hoehe; j++)
+        {
+			string[] mazeLine = new string[breite + 2];
+
+			for (int i = 0; i < breite; i++)
+        	{
+				current = mazeDataMap[i,j];
+
+				if(current == 0)
+				{
+					mazeLine[i + 1] = "x";
+				}
+
+				if(current == 1)
+				{
+					mazeLine[i + 1] = "o";
+				}
+
+				if(current == 2)
+				{
+					mazeLine[i + 1] = "x";
+				}
+       		}
+			
+			mazeLevelData[j] = mazeLine;
+        }
+
+		Debug.Log("mazeDataMap LENGTH" +mazeLevelData.Length);
+
+	}
+
+
+
+
+
 	public void drawMaze(int rowOffset)
 	{
 
 		for(int j = 0; j < hoehe + 1; j+=2)
 			for(int i = 1; i < breite + 1; i+=2)
 			{
-				objectPooler.SpawnFromPool("Wand", new Vector3(i, 0.5f, j + rowOffset), Quaternion.identity);
+				objectPooler.SpawnFromPool("Wand", new Vector3(i, 0.5f, j), Quaternion.identity);
 			}
 
 		MazeCell current;
 		for(int j = 1; j < hoehe; j+=2)
 		{
-			for(int i = 2; i < breite; i+=2)
+			for(int i = 1; i < breite; i+=2)
 			{
 				current = Maze[i, j];
 
@@ -163,16 +279,16 @@ public class MazeGenerator : MonoBehaviour {
 						switch(w)
 						{
 							case 0: //top
-								objectPooler.SpawnFromPool("Wand", new Vector3(current.x, 0.5f, current.y + 1 + rowOffset), Quaternion.identity);
+								objectPooler.SpawnFromPool("Wand", new Vector3(current.x, 0.5f, current.y + 1), Quaternion.identity);
 								break;
 							case 1: //right
-								objectPooler.SpawnFromPool("Wand", new Vector3(current.x + 1 , 0.5f, current.y + rowOffset), Quaternion.identity);
+								objectPooler.SpawnFromPool("Wand", new Vector3(current.x + 1 , 0.5f, current.y), Quaternion.identity);
 								break;
 							case 2: //bottom
-								objectPooler.SpawnFromPool("Wand", new Vector3(current.x, 0.5f, current.y - 1 + rowOffset), Quaternion.identity);
+								objectPooler.SpawnFromPool("Wand", new Vector3(current.x, 0.5f, current.y - 1), Quaternion.identity);
 								break;
 							case 3: //left
-								objectPooler.SpawnFromPool("Wand", new Vector3(current.x - 1, 0.5f, current.y + rowOffset), Quaternion.identity);
+								objectPooler.SpawnFromPool("Wand", new Vector3(current.x - 1, 0.5f, current.y), Quaternion.identity);
 								break;
 						}
 					}
@@ -187,7 +303,7 @@ public class MazeGenerator : MonoBehaviour {
 	// 	for(int j = 0; j < hoehe + 1; j+=2)
 	// 		for(int i = 1; i < breite + 1; i+=2)
 	// 		{
-	// 			objectPooler.SpawnFromPool("Wand", new Vector3(i, 0.5f, j + rowOffset), Quaternion.identity);
+	// 			objectPooler.SpawnFromPool("Wand", new Vector3(i, 0.5f, j), Quaternion.identity);
 	// 		}
 
 	// 	MazeCell current;
@@ -207,16 +323,16 @@ public class MazeGenerator : MonoBehaviour {
 	// 					switch(w)
 	// 					{
 	// 						case 0: //top
-	// 							objectPooler.SpawnFromPool("Wand", new Vector3(current.x, 0.5f, current.y + 1 + rowOffset), Quaternion.identity);
+	// 							objectPooler.SpawnFromPool("Wand", new Vector3(current.x, 0.5f, current.y + 1), Quaternion.identity);
 	// 							break;
 	// 						case 1: //right
-	// 							objectPooler.SpawnFromPool("Wand", new Vector3(current.x + 1 , 0.5f, current.y + rowOffset), Quaternion.identity);
+	// 							objectPooler.SpawnFromPool("Wand", new Vector3(current.x + 1 , 0.5f, current.y), Quaternion.identity);
 	// 							break;
 	// 						case 2: //bottom
-	// 							objectPooler.SpawnFromPool("Wand", new Vector3(current.x, 0.5f, current.y - 1 + rowOffset), Quaternion.identity);
+	// 							objectPooler.SpawnFromPool("Wand", new Vector3(current.x, 0.5f, current.y - 1), Quaternion.identity);
 	// 							break;
 	// 						case 3: //left
-	// 							objectPooler.SpawnFromPool("Wand", new Vector3(current.x - 1, 0.5f, current.y + rowOffset), Quaternion.identity);
+	// 							objectPooler.SpawnFromPool("Wand", new Vector3(current.x - 1, 0.5f, current.y), Quaternion.identity);
 	// 							break;
 	// 					}
 	// 				}
