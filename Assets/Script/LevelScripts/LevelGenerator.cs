@@ -92,15 +92,15 @@ public class LevelGenerator : MonoBehaviour
     {
         setDifficulty(CameraPosition);
 
-        if(generateMaze && dataBufferSize == 0)
-        {
+        // if(generateMaze && dataBufferSize == 0)
+        // {
 
-            Debug.Log("Writing Maze-Data");
+        //     Debug.Log("Writing Maze-Data");
 
-        } else {
+        // } else {
 
             drawLevelLinefromText(CameraPosition);
-        }
+        // }
 
         
     }
@@ -240,10 +240,22 @@ public class LevelGenerator : MonoBehaviour
 
             // Ein normaler Levelabschnitt wird in den dataBuffer geschrieben
             } else {
-                levelSectionData = levelPool[1];
-                dataBufferSize = levelSectionData.Length;
-                specialSection = true;
-                generateKisten = true;
+
+                if(generateMaze) {
+                    levelSectionData = MazeGenerator.mazeLevelData;
+                    dataBufferSize = levelSectionData.Length;
+                    specialSection = true;
+                    generateKisten = false;
+
+                } else {
+
+                    levelSectionData = levelPool[1];
+                    dataBufferSize = levelSectionData.Length;
+                    specialSection = true;
+                    generateKisten = true;
+                }
+
+                
             }
 
             // Die erste Levelzeile aus dem neu angelegten dataBuffer wird geschrieben
