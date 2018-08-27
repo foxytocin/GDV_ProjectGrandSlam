@@ -91,18 +91,7 @@ public class LevelGenerator : MonoBehaviour
     public void createWorld(int CameraPosition)
     {
         setDifficulty(CameraPosition);
-
-        // if(generateMaze && dataBufferSize == 0)
-        // {
-
-        //     Debug.Log("Writing Maze-Data");
-
-        // } else {
-
-            drawLevelLinefromText(CameraPosition);
-        // }
-
-        
+        drawLevelLinefromText(CameraPosition);
     }
 
 
@@ -118,12 +107,12 @@ public class LevelGenerator : MonoBehaviour
 
         // Ist die dataBufferSize == 0 wird ein neuer Levelabschnitt in den Buffer geladen
         } else {
-
-            Debug.Log("drawLevelLinefromText: Generating new Section");
-
+            
             SectionDataOffset = CameraPosition;
 
-            int RandomValue = (int)(Random.Range(0, 16f));
+            //ACHTUNG ZUR DEMO WERDEN NICHT ALLE RADOM LEVEL GENERIERT
+
+            int RandomValue = (int)(Random.Range(10, 17f));
 
             // Wenn eine specialSection erlaubt wird, wird diese zuaellig ausgewählt und in den dataBuffer geschrieben
             if(specialSection) {
@@ -160,7 +149,7 @@ public class LevelGenerator : MonoBehaviour
                         generateKisten = true;
                         break;
 
-                    // 4 - 15 sind Special-Levelabschnitte
+                    // 4 - 16 sind Special-Levelabschnitte
                     case 4:
                         levelSectionData = levelPool[2];
                         dataBufferSize = levelSectionData.Length;
@@ -233,29 +222,43 @@ public class LevelGenerator : MonoBehaviour
                         specialSection = false;
                         generateKisten = true;
                         break;
+                    case 16:
+                        generateMaze = true;
+                        break;
                     default:
                         Debug.Log("Switch-ERROR in createWorld()");
                         break;
                 }
 
+                // Erstellt einen Abschnitt als Maze
+                // mazeCalculated: Prueft ob das Maze komplett fertig berechnet ist
+                if(generateMaze && MazeGenerator.mazeCalculated) {
+                    levelSectionData = MazeGenerator.mazeLevelData;
+                    dataBufferSize = levelSectionData.Length;
+                    specialSection = false;
+                    generateKisten = false;
+
+                    // Der MazeGenerator wird aufgerufen um das naechste Maze zu berechnen
+                    generateMaze = false;
+                    MazeGenerator.generateNewMaze();
+
+                } else if(generateMaze && !MazeGenerator.mazeCalculated) {
+
+                // Wenn ein Maze erstellt werden sollte aber mazeCalculated != true war, dient das normale Level als fallback
+                levelSectionData = levelPool[1];
+                dataBufferSize = levelSectionData.Length;
+                specialSection = true;
+                generateKisten = true;
+                
+                }
+
             // Ein normaler Levelabschnitt wird in den dataBuffer geschrieben
             } else {
 
-                if(generateMaze) {
-                    levelSectionData = MazeGenerator.mazeLevelData;
-                    dataBufferSize = levelSectionData.Length;
-                    specialSection = true;
-                    generateKisten = false;
-
-                } else {
-
-                    levelSectionData = levelPool[1];
-                    dataBufferSize = levelSectionData.Length;
-                    specialSection = true;
-                    generateKisten = true;
-                }
-
-                
+                levelSectionData = levelPool[1];
+                dataBufferSize = levelSectionData.Length;
+                specialSection = true;
+                generateKisten = true;
             }
 
             // Die erste Levelzeile aus dem neu angelegten dataBuffer wird geschrieben
@@ -276,39 +279,39 @@ public class LevelGenerator : MonoBehaviour
                 KistenMenge = 10f; //10% Kisten
                 //Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
                 break;
-            case 100:
+            case 150:
                 KistenMenge = 15f; //20% Kisten
                 //Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
                 break;
-            case 150:
+            case 200:
                 KistenMenge = 20f; //25% Kisten
                 //Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
                 break;
-            case 200:
+            case 300:
                 KistenMenge = 25f; //30% Kisten
                 //Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
                 break;
-            case 300:
+            case 400:
                 KistenMenge = 30f; //35% Kisten
                 //Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
                 break;
-            case 400:
+            case 500:
                 KistenMenge = 35f; //40% Kisten
                 //Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
                 break;
-            case 500:
+            case 600:
                 KistenMenge = 40f; //45% Kisten
                 //Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
                 break;
-            case 600:
+            case 700:
                 KistenMenge = 45f; //50% Kisten
                 //Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
                 break;
-            case 700:
+            case 800:
                 KistenMenge = 50f; //60% Kisten
                 //Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
                 break;
-            case 800:
+            case 1000:
                 KistenMenge = 60f; //60% Kisten
                 //Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
                 break;
@@ -385,8 +388,6 @@ public class LevelGenerator : MonoBehaviour
     //Zeichnet die Linien der LevelSectionData zeilenweise. Abhängig vom Symbol der aktuellen Stelle (Gang, Wand, Kiste)
     void drawLevelLine(int CameraPosition) {
 
-        Debug.Log("drawLevelLine: DataBuffer: " +dataBufferSize);
-        
         for (int i = 0; i < levelSectionData[0].Length - 1; i++)
         {
             switch (levelSectionData[CameraPosition - SectionDataOffset][i])
