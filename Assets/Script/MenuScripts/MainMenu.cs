@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour {
 
@@ -16,7 +17,10 @@ public class MainMenu : MonoBehaviour {
 	private bool gamePaused;
 	private bool matchStartet;
 
-	private void Awake()
+    public Slider fxSlider;
+    public Slider musicSlider;
+
+    private void Awake()
 	{
 		cameraScroller = FindObjectOfType<CameraScroller>();
 		destroyScroller = FindObjectOfType<DestroyScroller>();
@@ -100,6 +104,11 @@ public class MainMenu : MonoBehaviour {
 		}
 	}
 
+    public void updateSoundOptions()
+    {
+        fxSlider.value = FindObjectOfType<AudioManager>().settingsFXVolume;
+        musicSlider.value = FindObjectOfType<AudioManager>().settingsMusicVolume;
+    }
 
 
 }

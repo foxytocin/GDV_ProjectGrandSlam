@@ -9,6 +9,7 @@ public class AudioManager : MonoBehaviour
     public Sound[] sounds;
 
     public float settingsFXVolume;
+    public float settingsMusicVolume;
 
     // Use this for initialization
     void Awake ()
@@ -23,6 +24,7 @@ public class AudioManager : MonoBehaviour
             s.source.loop = s.loop;
         }
 
+        settingsMusicVolume = 0.5f;
         settingsFXVolume = 1f;
 }
 
@@ -77,6 +79,7 @@ public class AudioManager : MonoBehaviour
 
     public void setMusicVolume(float settingsVolume)
     {
+        settingsMusicVolume = settingsVolume;
         Sound s = Array.Find(sounds, sound => sound.name == "Music");
         s.source.volume = s.groundVolume * settingsVolume;
 

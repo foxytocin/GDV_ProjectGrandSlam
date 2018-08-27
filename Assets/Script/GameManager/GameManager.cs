@@ -51,21 +51,6 @@ public class GameManager : MonoBehaviour {
             }
         }
 
-        if (Input.GetKey(KeyCode.Escape) || InputManager.OneStartButton())
-        {
-            if(counter > 30)
-            {
-                Application.Quit();
-            } else {
-                counter++;
-            }
-        }   
-
-        if (Input.GetKeyUp(KeyCode.Escape) || InputManager.OneStartButton())
-        {
-            counter = 0;
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        }
 
         if(InputManager.OneR1Button() && player < 4) {
             player += 1;
@@ -91,22 +76,6 @@ public class GameManager : MonoBehaviour {
             }
         }
 
-        if (Input.GetKeyDown("1") && player != 1)
-        {
-            player = 1;
-        }
-        if (Input.GetKeyDown("2") && player != 2)
-        {
-            player = 2;
-        }
-        if (Input.GetKeyDown("3") && player != 3)
-        {
-            player = 3;
-        }
-        if (Input.GetKeyDown("4") && player != 4)
-        {
-            player = 4;
-        }
     }
 
     public void setOnePlayer()
