@@ -25,7 +25,7 @@ public class LightningSpawner : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void Update()
+	void FixedUpdate()
     {
         if(Random.value > 0.99f && !dayNightSwitch.isDay)
         {

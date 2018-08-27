@@ -115,7 +115,7 @@ public class DayNightSwitch : MonoBehaviour {
 		{
 			glowDistanceLineDimmOff();
 		} else {
-			glowDistanceLineDimmOn();
+			StartCoroutine(glowDistanceLineDimmOn());
 		}
 	}
 
@@ -128,8 +128,10 @@ public class DayNightSwitch : MonoBehaviour {
 		}
 	}
 
-	private void glowDistanceLineDimmOn()
+	private IEnumerator glowDistanceLineDimmOn()
 	{
+		yield return new WaitForSeconds(1.5f);
+
 		foreach(GameObject go in levelGenerator.DistanceLines)
 		{
 			if(go != null && go.activeSelf)

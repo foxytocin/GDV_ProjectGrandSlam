@@ -81,7 +81,7 @@ public class LightningScript : MonoBehaviour
         {
             Vector3 norm = transform.TransformDirection(meinMesh.normals[i]);
             Vector3 vert = transform.TransformPoint(meinMesh.vertices[i]);
-            Debug.DrawRay(vert, norm * 0.3f, Color.red);
+            //Debug.DrawRay(vert, norm * 0.3f, Color.red);
         }
     }
     
