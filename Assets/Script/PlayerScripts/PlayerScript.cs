@@ -327,6 +327,7 @@ public class PlayerScript : MonoBehaviour
         transform.Translate(0f, -2f, 0f);
         cam.PlayerPosition(transform.position, playerID);
         setLife(-1);
+        FindObjectOfType<RulesScript>().playerDeath(playerID, transform.position);
         setALife(false);
         this.gameObject.SetActive(false);
     }
