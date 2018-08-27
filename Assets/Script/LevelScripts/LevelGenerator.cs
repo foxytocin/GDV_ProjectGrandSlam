@@ -34,19 +34,23 @@ public class LevelGenerator : MonoBehaviour
     public GameObject[,] SecondaryGameObjects2;
     public GameObject[,] SecondaryGameObjects3;
     public GameObject[,] DistanceLines;
-
-    private string[][] levelBase;
+    
     private int SectionDataOffset;
     private int rotation;
     private bool specialSection;
     private bool generateKisten;
     public bool generateGlowBalls;
-    public int tiefeLevelStartBasis = 60;
+    public int tiefeLevelStartBasis;
     public GenerateDistanceLine GenerateDistanceLine;
+    public MazeGenerator MazeGenerator;
+    public bool generateMaze;
+    private int dataBufferSize;
    
     // Use this for initialization
     void Awake()
     {
+        generateMaze = false;
+        tiefeLevelStartBasis = 50;
         generateGlowBalls = false;
         generateKisten = true;
         LevelSpeed = 0.5f;
@@ -60,6 +64,7 @@ public class LevelGenerator : MonoBehaviour
         SecondaryGameObjects3 = new GameObject[33, 2000];
         DistanceLines = new GameObject[6, 3000];
         levelPool = new List<string[][]>();
+        MazeGenerator = FindObjectOfType<MazeGenerator>();
     }
 
     void Start()
@@ -69,6 +74,9 @@ public class LevelGenerator : MonoBehaviour
         createStartBasis(tiefeLevelStartBasis);
     }
 
+
+    // Inizialisiert die Levelbasis die beim Start des Spiels zu sehen sein soll
+    // int tiefe definiert wie wieviele Levelzeilen dauerhaft generiert sind
     public void createStartBasis(int tiefe)
     {
         generateKisten = false;
@@ -78,99 +86,143 @@ public class LevelGenerator : MonoBehaviour
         }
     }
 
+    // Steuert die Weltgenerierung
+    // Wird durch den CameraScroller aufgerufen wenn dieser Z exakt um 1 weitergefahren ist
     public void createWorld(int CameraPosition)
     {
         setDifficulty(CameraPosition);
 
-        if(CameraPosition - SectionDataOffset < levelSectionData.Length) {
-            drawLevelLine(CameraPosition);
+        if(generateMaze && dataBufferSize == 0)
+        {
+
+            Debug.Log("Writing Maze-Data");
 
         } else {
+
+            drawLevelLinefromText(CameraPosition);
+        }
+
+        
+    }
+
+
+    // Steuert die Generierung der auf den Textdatein basierenden Levelabschnitte
+    private void drawLevelLinefromText(int CameraPosition)
+    {
+        // Es sind Levelabschnittsdaten im Buffer vorhaden. Diese werden zeilenweise geschrieben
+        // dataBufferSize wird bei jeder geschriebenen Zeile um 1 vermindert
+        if(dataBufferSize > 0)
+        {
+            dataBufferSize--;
+            drawLevelLine(CameraPosition);
+
+        // Ist die dataBufferSize == 0 wird ein neuer Levelabschnitt in den Buffer geladen
+        } else {
+
+            Debug.Log("drawLevelLinefromText: Generating new Section");
+
             SectionDataOffset = CameraPosition;
 
             int RandomValue = (int)(Random.Range(0, 16f));
 
+            // Wenn eine specialSection erlaubt wird, wird diese zuaellig ausgewählt und in den dataBuffer geschrieben
             if(specialSection) {
 
                 switch (RandomValue)
                 {
                     case 0:
                         levelSectionData = levelPool[1];
+                        dataBufferSize = levelSectionData.Length;
                         specialSection = true;
                         generateKisten = true;
                         break;
                     case 1:
                         levelSectionData = levelPool[1];
+                        dataBufferSize = levelSectionData.Length;
                         specialSection = true;
                         generateKisten = true;
                         break;
                     case 2:
                         levelSectionData = levelPool[1];
+                        dataBufferSize = levelSectionData.Length;
                         specialSection = true;
                         generateKisten = true;
                         break;
                     case 3:
                         levelSectionData = levelPool[1];
+                        dataBufferSize = levelSectionData.Length;
                         specialSection = true;
                         generateKisten = true;
                         break;
                     case 4:
                         levelSectionData = levelPool[2];
+                        dataBufferSize = levelSectionData.Length;
                         specialSection = false;
                         generateKisten = true;
                         break;
                     case 5:
                         levelSectionData = levelPool[3];
+                        dataBufferSize = levelSectionData.Length;
                         specialSection = false;
                         generateKisten = true;
                         break;
                     case 6:
                         levelSectionData = levelPool[4];
+                        dataBufferSize = levelSectionData.Length;
                         specialSection = false;
                         generateKisten = true;
                         break;
                     case 7:
                         levelSectionData = levelPool[5];
+                        dataBufferSize = levelSectionData.Length;
                         specialSection = false;
                         generateKisten = true;
                         break;
                     case 8:
                         levelSectionData = levelPool[6];
+                        dataBufferSize = levelSectionData.Length;
                         specialSection = false;
                         generateKisten = true;
                         break;
                     case 9:
                         levelSectionData = levelPool[7];
+                        dataBufferSize = levelSectionData.Length;
                         specialSection = false;
                         generateKisten = true;
                         break;
                     case 10:
                         levelSectionData = levelPool[8];
+                        dataBufferSize = levelSectionData.Length;
                         specialSection = false;
                         generateKisten = true;
                         break;
                     case 11:
                         levelSectionData = levelPool[9];
+                        dataBufferSize = levelSectionData.Length;
                         specialSection = false;
                         generateKisten = true;
                         break;
                     case 12:
                         levelSectionData = levelPool[10];
+                        dataBufferSize = levelSectionData.Length;
                         specialSection = false;
                         generateKisten = false;
                         break;
                     case 13:
                         levelSectionData = levelPool[11];
+                        dataBufferSize = levelSectionData.Length;
                         specialSection = false;
                         generateKisten = false;
                         break;
                     case 14:
                         levelSectionData = levelPool[12];
+                        dataBufferSize = levelSectionData.Length;
                         specialSection = false;
                         generateKisten = true;
                         break;
                     case 15:
                         levelSectionData = levelPool[13];
+                        dataBufferSize = levelSectionData.Length;
                         specialSection = false;
                         generateKisten = true;
                         break;
@@ -179,17 +231,20 @@ public class LevelGenerator : MonoBehaviour
                         break;
                 }
 
+            // Ein normaler Levelabschnitt wird in den dataBuffer geschrieben
             } else {
                 levelSectionData = levelPool[1];
+                dataBufferSize = levelSectionData.Length;
                 specialSection = true;
                 generateKisten = true;
             }
+
+            // Die erste Levelzeile aus dem neu angelegten dataBuffer wird geschrieben
+            dataBufferSize--;
             drawLevelLine(CameraPosition);
         }
-        //StartCoroutine(cleanLine((CameraPosition - (10 + tiefeLevelStartBasis))));
-        //StartCoroutine(cleanLine((Mathf.RoundToInt(camMove.dummy.transform.position.z))+2));
-        
     }
+
 
     //Abhängig von der CameraPosition wird die Menge der Kisten verändert
     //Je weiter der Spieler im Level, desto mehr Kisten werden generiert
@@ -244,6 +299,7 @@ public class LevelGenerator : MonoBehaviour
     }
 
 
+    // Wird durch den DestroyScroller aufgerufen wenn dieser Z exakt um 1 weitergefahren ist
     public void cleanLine(int CameraPosition) {
         
         if(CameraPosition >= 0) {
@@ -302,13 +358,15 @@ public class LevelGenerator : MonoBehaviour
                     
                 }
             }
+
         }
-        //yield return null;
     }
 
 
     //Zeichnet die Linien der LevelSectionData zeilenweise. Abhängig vom Symbol der aktuellen Stelle (Gang, Wand, Kiste)
     void drawLevelLine(int CameraPosition) {
+
+        Debug.Log("drawLevelLine: DataBuffer: " +dataBufferSize);
         
         for (int i = 0; i < levelSectionData[0].Length - 1; i++)
         {
@@ -367,6 +425,7 @@ public class LevelGenerator : MonoBehaviour
             //Wand.tag = "Wand";
             AllGameObjects[(int)pos.x, (int)pos.z] = objectPooler.SpawnFromPool("Wand", pos, Quaternion.identity);
             
+            // Ezeugt glowBalls wenn generateGlowBalls urch den DayNightSwitch.cs auf true gesetzt wurde
             if(generateGlowBalls)
                 createGlowBall(pos);
         }
@@ -401,7 +460,7 @@ public class LevelGenerator : MonoBehaviour
         AllGameObjects[(int)pos.x, (int)pos.z] = objectPooler.SpawnFromPool("Kiste", pos + new Vector3(0f, 0.5f, 0f), Quaternion.Euler(0, rotation, 0));
     }
 
-
+    // Ezeugt glowBalls wenn generateGlowBalls urch den DayNightSwitch.cs auf true gesetzt wurde
     void createGlowBall(Vector3 pos)
     {
         if(Random.value > 0.97f)
@@ -409,6 +468,8 @@ public class LevelGenerator : MonoBehaviour
     }
 
 
+    // Iniziales Einlesen der LevelTextdatein in den levelPool
+    // Aus dem levelPool werden spater zufaerllige Levelabschnitt entnommen und kombiniert
     void createLevelData()
     {
         levelPool.Add(readFile(LevelTextdatei0));
@@ -427,10 +488,11 @@ public class LevelGenerator : MonoBehaviour
         levelPool.Add(readFile(LevelTextdatei13));
 
         levelSectionData = levelPool[0];
+        dataBufferSize = levelSectionData.Length;
     }
 
 
-    //Einlesen der LevelTextDatei. Wandelt diese in ein Array um
+    // Parsen der LevelTextdatein zu einem string-Array
     string[][] readFile(TextAsset file)
     {
         string[] lines = Regex.Split(file.ToString(), "\n");
@@ -445,6 +507,7 @@ public class LevelGenerator : MonoBehaviour
         }
         return levelBase;
     }
+
 
     public void setLevelSpeed(float speed)
     {

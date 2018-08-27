@@ -181,5 +181,49 @@ public class MazeGenerator : MonoBehaviour {
 		}
 	}
 
+	// public void drawMaze(int rowOffset)
+	// {
+
+	// 	for(int j = 0; j < hoehe + 1; j+=2)
+	// 		for(int i = 1; i < breite + 1; i+=2)
+	// 		{
+	// 			objectPooler.SpawnFromPool("Wand", new Vector3(i, 0.5f, j + rowOffset), Quaternion.identity);
+	// 		}
+
+	// 	MazeCell current;
+	// 	for(int j = 1; j < hoehe; j+=2)
+	// 	{
+	// 		for(int i = 2; i < breite; i+=2)
+	// 		{
+	// 			current = Maze[i, j];
+
+	// 			// if(current.visited)
+	// 			// 	Instantiate(Visited_Prefab, new Vector3(current.x, 0, current.y), Quaternion.identity);
+
+	// 			for(int w = 0; w < 4; w++)
+	// 			{
+	// 				if(current.wall[w])
+	// 				{
+	// 					switch(w)
+	// 					{
+	// 						case 0: //top
+	// 							objectPooler.SpawnFromPool("Wand", new Vector3(current.x, 0.5f, current.y + 1 + rowOffset), Quaternion.identity);
+	// 							break;
+	// 						case 1: //right
+	// 							objectPooler.SpawnFromPool("Wand", new Vector3(current.x + 1 , 0.5f, current.y + rowOffset), Quaternion.identity);
+	// 							break;
+	// 						case 2: //bottom
+	// 							objectPooler.SpawnFromPool("Wand", new Vector3(current.x, 0.5f, current.y - 1 + rowOffset), Quaternion.identity);
+	// 							break;
+	// 						case 3: //left
+	// 							objectPooler.SpawnFromPool("Wand", new Vector3(current.x - 1, 0.5f, current.y + rowOffset), Quaternion.identity);
+	// 							break;
+	// 					}
+	// 				}
+	// 			}
+	// 		}
+	// 	}
+	// }
+
 
 }
