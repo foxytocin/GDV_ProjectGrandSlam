@@ -128,8 +128,13 @@ public class LevelGenerator : MonoBehaviour
             // Wenn eine specialSection erlaubt wird, wird diese zuaellig ausgewählt und in den dataBuffer geschrieben
             if(specialSection) {
 
+                // dataBufferSize: Zeilen bis ein neuer Abschnitt geladen werden muss
+                // specialSection: Definiert ob danacb ein specialSection folgen darf
+                // generateKisten: Definiert ob in diesem Levelabschnitt Kisten liegen dürfen
                 switch (RandomValue)
                 {
+                    // 0 - 4 sind normale Levelabschnitt um deren Anteil zu erhoehen
+                    // auch wenn ein specialSection generiert werden duerfte
                     case 0:
                         levelSectionData = levelPool[1];
                         dataBufferSize = levelSectionData.Length;
@@ -154,6 +159,8 @@ public class LevelGenerator : MonoBehaviour
                         specialSection = true;
                         generateKisten = true;
                         break;
+
+                    // 4 - 15 sind Special-Levelabschnitte
                     case 4:
                         levelSectionData = levelPool[2];
                         dataBufferSize = levelSectionData.Length;
