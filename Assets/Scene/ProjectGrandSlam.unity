@@ -2395,6 +2395,251 @@ Transform:
   m_Father: {fileID: 1125787158}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 35, y: 45, z: 0}
+--- !u!1 &436068464
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 436068465}
+  - component: {fileID: 436068466}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &436068465
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 436068464}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1620339721}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &436068466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 436068464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2feca3dbddd6d6f4aa5be4d6a20ff2ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: Bomb_zuendschnur
+    clip: {fileID: 8300000, guid: f079e9e70cf3d4db8a5033d147a22166, type: 3}
+    groundVolume: 0.9
+    volume: 0.9
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: Music
+    clip: {fileID: 8300000, guid: 1a11ebb2628c949dcb58df7fd62c01e1, type: 3}
+    groundVolume: 0.5
+    volume: 0.17
+    pitch: 1
+    source: {fileID: 0}
+    loop: 1
+  - name: woosh_2
+    clip: {fileID: 8300000, guid: 64d9524191c8a4fefa0c149811dffe01, type: 3}
+    groundVolume: 1
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: bomb_create
+    clip: {fileID: 8300000, guid: 2f9fef32f6eff49bb9ef1e5766a6081b, type: 3}
+    groundVolume: 1
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: break1
+    clip: {fileID: 8300000, guid: d1a8b11682ade49edb43a6cca9aad435, type: 3}
+    groundVolume: 1
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: break2
+    clip: {fileID: 8300000, guid: cdf2c6a30542047e3a85f692b4122472, type: 3}
+    groundVolume: 0.5
+    volume: 0.5
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: destroyed_box
+    clip: {fileID: 8300000, guid: 5d9fc9860d27f448fac35521fe6caf6b, type: 3}
+    groundVolume: 0.6
+    volume: 0.6
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: explosion_medium
+    clip: {fileID: 8300000, guid: 225c15ea3bc1243559d5c015b1e6654a, type: 3}
+    groundVolume: 1
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: four
+    clip: {fileID: 8300000, guid: 9a852a4eca7694005a020a0b218a43be, type: 3}
+    groundVolume: 0.8
+    volume: 0.8
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: ItemAppears
+    clip: {fileID: 8300000, guid: ca884b49817b9644abe7826815794ad3, type: 3}
+    groundVolume: 0.5
+    volume: 0.5
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: lets_go
+    clip: {fileID: 8300000, guid: 054e1619409914dae9b53e3e236cf741, type: 3}
+    groundVolume: 1
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: one
+    clip: {fileID: 8300000, guid: e989e5768c918455a9835bdc6eeb6e82, type: 3}
+    groundVolume: 0.8
+    volume: 0.8
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: pickupItem
+    clip: {fileID: 8300000, guid: 7c2bc8349dd488b428e35a895cb2de1c, type: 3}
+    groundVolume: 0.5
+    volume: 0.5
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: player_dead_0
+    clip: {fileID: 8300000, guid: ba6f062bbc4e6415ab2743261d74561a, type: 3}
+    groundVolume: 1
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: player_dead_1
+    clip: {fileID: 8300000, guid: 1608490bfcaf644b2bbf85e26f23fc81, type: 3}
+    groundVolume: 1
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: player_dead_2
+    clip: {fileID: 8300000, guid: 6681b230feef44374aaaefb810e846aa, type: 3}
+    groundVolume: 1
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: player_dead_3
+    clip: {fileID: 8300000, guid: 38417b80d817242b39a1f18afbbe48c6, type: 3}
+    groundVolume: 1
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: PROJECT GRAND SLAM
+    clip: {fileID: 8300000, guid: 85d8c595e91854b4e8d8f29c7f9335c8, type: 3}
+    groundVolume: 1
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: scream1
+    clip: {fileID: 8300000, guid: 3d4c07fb5c223af41b36d996450a0eaf, type: 3}
+    groundVolume: 0.5
+    volume: 0.5
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: scream2
+    clip: {fileID: 8300000, guid: c8314cb3c7e317346ab260109ad1cedf, type: 3}
+    groundVolume: 0.5
+    volume: 0.5
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: scream3
+    clip: {fileID: 8300000, guid: 5ebe54b1dac4edf4ca307268895551b9, type: 3}
+    groundVolume: 0.5
+    volume: 0.5
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: scream4
+    clip: {fileID: 8300000, guid: 5a3349b790c1d484ba124abb31c334e1, type: 3}
+    groundVolume: 0.5
+    volume: 0.5
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: three
+    clip: {fileID: 8300000, guid: a89088d5e365b400c92313799fc864f8, type: 3}
+    groundVolume: 0.8
+    volume: 0.8
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: thunderAmbient
+    clip: {fileID: 8300000, guid: aef27064e24374fa1a8d91e3c1bf20ad, type: 3}
+    groundVolume: 1
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: thunderStrike1
+    clip: {fileID: 8300000, guid: b283e9549f9cf47d182348c5053bad11, type: 3}
+    groundVolume: 1
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: thunderStrike2
+    clip: {fileID: 8300000, guid: 2f680cc6feb164af9b331543cdf0b522, type: 3}
+    groundVolume: 1
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: thunderStrike3
+    clip: {fileID: 8300000, guid: 09f3526a2cf874e3bbb9daa4d256c364, type: 3}
+    groundVolume: 1
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: two
+    clip: {fileID: 8300000, guid: 5e265ebef7a9e4a4c9f091ebb643ba32, type: 3}
+    groundVolume: 0.8
+    volume: 0.8
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: woosh_1
+    clip: {fileID: 8300000, guid: 7694b069994714d21952546ca0acf373, type: 3}
+    groundVolume: 1
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  settingsFXVolume: 0
 --- !u!1 &444575531
 GameObject:
   m_ObjectHideFlags: 0
@@ -3188,9 +3433,6 @@ MonoBehaviour:
     type: 2}
   levelGenerator: {fileID: 958779247}
   PlayerSpawner: {fileID: 1847533652}
-  audioSource: {fileID: 594464649}
-  soundExplosionBombe: {fileID: 8300000, guid: 225c15ea3bc1243559d5c015b1e6654a, type: 3}
-  soundItemDestroy: {fileID: 8300000, guid: cdf2c6a30542047e3a85f692b4122472, type: 3}
 --- !u!82 &594464649
 AudioSource:
   m_ObjectHideFlags: 0
@@ -7861,16 +8103,16 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 691558354}
   m_FillRect: {fileID: 977081765}
   m_HandleRect: {fileID: 691558353}
-  m_Direction: 1
+  m_Direction: 0
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1078843417}
-        m_MethodName: settingMusic
+      - m_Target: {fileID: 436068466}
+        m_MethodName: setMusicVolume
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8136,7 +8378,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1620339721}
   - component: {fileID: 1620339722}
-  - component: {fileID: 1620339723}
   - component: {fileID: 1620339724}
   m_Layer: 0
   m_Name: GameManager
@@ -8161,6 +8402,7 @@ Transform:
   - {fileID: 1125787158}
   - {fileID: 1294183864}
   - {fileID: 1972079374}
+  - {fileID: 436068465}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8175,108 +8417,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 281f65f5090632145b6618513cc88a4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioSource: {fileID: 1620339723}
-  audioBackgoundMusic: {fileID: 0}
-  audioLetsGo: {fileID: 8300000, guid: 054e1619409914dae9b53e3e236cf741, type: 3}
-  audioOnePlayer: {fileID: 8300000, guid: e989e5768c918455a9835bdc6eeb6e82, type: 3}
-  audioTwoPlayer: {fileID: 8300000, guid: 5e265ebef7a9e4a4c9f091ebb643ba32, type: 3}
-  audioThreePlayer: {fileID: 8300000, guid: a89088d5e365b400c92313799fc864f8, type: 3}
-  audioFourPlayer: {fileID: 8300000, guid: 9a852a4eca7694005a020a0b218a43be, type: 3}
---- !u!82 &1620339723
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1620339720}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 1a11ebb2628c949dcb58df7fd62c01e1, type: 3}
-  m_PlayOnAwake: 1
-  m_Volume: 0.17
-  m_Pitch: 1
-  Loop: 1
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!114 &1620339724
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8916,7 +9056,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 1, y: 0.75}
-  m_AnchoredPosition: {x: 5, y: 0}
+  m_AnchoredPosition: {x: -5, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1754055004
@@ -10161,16 +10301,16 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 280485125}
   m_FillRect: {fileID: 2145888197}
   m_HandleRect: {fileID: 280485124}
-  m_Direction: 1
+  m_Direction: 0
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1078843417}
-        m_MethodName: settingFX
+      - m_Target: {fileID: 436068466}
+        m_MethodName: startSetFXVolume
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -10258,7 +10398,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 1, y: 0.75}
-  m_AnchoredPosition: {x: 5, y: 0}
+  m_AnchoredPosition: {x: -5, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2061059883

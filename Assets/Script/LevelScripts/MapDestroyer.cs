@@ -12,14 +12,11 @@ public class MapDestroyer : MonoBehaviour
     private int xPos;
     private int zPos;
     private ItemSpawner itemSpawner;
-    public AudioSource audioSource;
-    public AudioClip soundExplosionBombe;
-    public AudioClip soundItemDestroy;
 
 
     private void Awake()
     {
-        audioSource = GetComponent<AudioSource>();
+
         objectPooler = ObjectPooler.Instance;
         itemSpawner = FindObjectOfType<ItemSpawner>();
     }
@@ -44,7 +41,7 @@ public class MapDestroyer : MonoBehaviour
 
         //Explosions-Animation an der Stelle der Bombe wird abgespielt.
         objectPooler.SpawnFromPool("Explosion", new Vector3(xPos, 0.5f, zPos), Quaternion.identity);
-        audioSource.PlayOneShot(soundExplosionBombe, 1f);
+        FindObjectOfType<AudioManager>().playSound("explosion_medium");
         StartCoroutine(KillField((int)position.x, (int)position.z));
 
         //Es werden 4 Coroutinen angelegt und gestartet, welche gleichzeitig in alle Himmelsrichtung (x, -x, z, -z) die Fehler durchlaufen.
@@ -155,7 +152,7 @@ public class MapDestroyer : MonoBehaviour
                     return true;
 
                 case "Item":
-                    audioSource.PlayOneShot(soundItemDestroy, 0.5f);
+                    FindObjectOfType<AudioManager>().playSound("break2");
                     objectPooler.SpawnFromPool("Explosion", new Vector3(x, 0.5f, z), Quaternion.identity);
                     levelGenerator.AllGameObjects[x, z] = null;
                     thisGameObject.SetActive(false);

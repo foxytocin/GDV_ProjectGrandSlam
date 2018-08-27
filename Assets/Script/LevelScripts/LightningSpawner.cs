@@ -13,6 +13,7 @@ public class LightningSpawner : MonoBehaviour {
     public AudioClip thunderStrike3;
     private bool thunderAndRainisPlaying;
     private float startVolume;
+    private float settinsFXVolume;
 
 	// Use this for initialization
 	void Awake()
@@ -21,6 +22,8 @@ public class LightningSpawner : MonoBehaviour {
         dayNightSwitch = FindObjectOfType<DayNightSwitch>();
         audioSource = FindObjectOfType<AudioSource>();
         thunderAndRainisPlaying = false;
+        settinsFXVolume = FindObjectOfType<AudioManager>().settingsFXVolume;
+        audioSource.volume *= settinsFXVolume;
         startVolume = audioSource.volume;
     }
 	
@@ -66,9 +69,9 @@ public class LightningSpawner : MonoBehaviour {
     {
         switch((int)Random.Range(0f, 4f))
         {
-            case 1: audioSource.PlayOneShot(thunderStrike1, 0.6f); break;
-            case 2: audioSource.PlayOneShot(thunderStrike1, 0.6f); break;
-            case 3: audioSource.PlayOneShot(thunderStrike1, 0.6f); break;
+            case 1: audioSource.PlayOneShot(thunderStrike1, 0.6f*settinsFXVolume); break;
+            case 2: audioSource.PlayOneShot(thunderStrike1, 0.6f*settinsFXVolume); break;
+            case 3: audioSource.PlayOneShot(thunderStrike1, 0.6f*settinsFXVolume); break;
         }
     }
 }

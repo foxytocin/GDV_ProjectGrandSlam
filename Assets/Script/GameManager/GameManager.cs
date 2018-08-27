@@ -3,13 +3,6 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
-    public AudioSource audioSource;
-    public AudioClip audioBackgoundMusic;
-    public AudioClip audioLetsGo;
-    public AudioClip audioOnePlayer;
-    public AudioClip audioTwoPlayer;
-    public AudioClip audioThreePlayer;
-    public AudioClip audioFourPlayer;
     private PlayerSpawner playerSpawner;
     private Camera miniMapCam;
     private Canvas miniMapCanvas;
@@ -23,7 +16,6 @@ public class GameManager : MonoBehaviour {
         counter = 0;
         player = 1;
         playertmp = player;
-        audioSource = GetComponent<AudioSource>();
         playerSpawner = FindObjectOfType<PlayerSpawner>();
         miniMapCam = GameObject.Find("MiniMapCam").GetComponent<Camera>();
         miniMapCanvas = GameObject.Find("MiniMapCanvas").GetComponent<Canvas>();
@@ -31,7 +23,7 @@ public class GameManager : MonoBehaviour {
 
     public void playLetsGo()
     {
-        audioSource.PlayOneShot(audioLetsGo, 1f);
+        FindObjectOfType<AudioManager>().playSound("lets_go");
     }
 
     void Start()
@@ -91,10 +83,10 @@ public class GameManager : MonoBehaviour {
 
             switch (player)
             {
-                case 1: audioSource.PlayOneShot(audioOnePlayer, 0.8f); break;
-                case 2: audioSource.PlayOneShot(audioTwoPlayer, 0.8f); break;
-                case 3: audioSource.PlayOneShot(audioThreePlayer, 0.8f); break;
-                case 4: audioSource.PlayOneShot(audioFourPlayer, 0.8f); break;
+                case 1: FindObjectOfType<AudioManager>().playSound("one"); break;
+                case 2: FindObjectOfType<AudioManager>().playSound("two"); break;
+                case 3: FindObjectOfType<AudioManager>().playSound("three"); break;
+                case 4: FindObjectOfType<AudioManager>().playSound("four"); break;
                 default: break;
             }
         }

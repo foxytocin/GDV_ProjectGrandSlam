@@ -126,11 +126,11 @@ public class MazeGenerator : MonoBehaviour {
 			neighbors.Add(left);
 		}
 
-		Debug.Log("NeighborsCount: " +neighbors.Count);
+		//Debug.Log("NeighborsCount: " +neighbors.Count);
 		if(neighbors.Count > 0)
 		{
 			int pick = (int)Random.Range(0f, neighbors.Count);
-			Debug.Log("NeighborsPick: " +pick);
+			//Debug.Log("NeighborsPick: " +pick);
 			return neighbors[pick];
 		} else {
 			return null;

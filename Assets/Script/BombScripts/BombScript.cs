@@ -16,7 +16,6 @@ public class BombScript : MonoBehaviour
     
     public AudioSource audioSource;
     public AudioClip audioZischen;
-    public AudioClip audioPlopp;
     private CameraShake cameraShake;
     private MapDestroyer mapDestroyer;
     private LevelGenerator levelGenerator;
@@ -43,8 +42,8 @@ public class BombScript : MonoBehaviour
     // Durch den ObjectPool werden die Bomben erneut vewendet und benoetigen bei der Wiederverwendung diesen "Reset"
     public IEnumerator bombAnimation()
     {
-        audioSource.PlayOneShot(audioPlopp, 1f);
-        audioSource.PlayOneShot(audioZischen, 0.9f);
+        FindObjectOfType<AudioManager>().playSound("woosh_2");
+        audioSource.PlayOneShot(audioZischen, (0.9f * FindObjectOfType<AudioManager>().settingsFXVolume));
 
         bombPosition = transform.position;
         transform.eulerAngles += new Vector3(0, bombAngle, 0);
@@ -71,7 +70,7 @@ public class BombScript : MonoBehaviour
             countDown -= Time.deltaTime;
             yield return null;
         }
-
+        FindObjectOfType<AudioManager>().stopSound("Bomb_zuendschnur");
         StopAllCoroutines();
         explode();
     }

@@ -17,13 +17,6 @@ public class PlayerScript : MonoBehaviour
     public int travelDistance;
     public bool gameStatePlay;
 
-    public AudioSource audioSource;
-    public AudioClip GrabItem;
-    public AudioClip Player1falls;
-    public AudioClip Player2falls;
-    public AudioClip Player3falls;
-    public AudioClip Player4falls;
-
     private int travelDistanceStart;
 
     public List<GameObject> playerList;
@@ -48,7 +41,6 @@ public class PlayerScript : MonoBehaviour
 
     void Awake()
     {
-        audioSource = GetComponent<AudioSource>();
         bombSpawner = FindObjectOfType<BombSpawner>();
         levelGenerator = FindObjectOfType<LevelGenerator>();
         remoteBomb = FindObjectOfType<RemoteBomb>();
@@ -502,7 +494,7 @@ public class PlayerScript : MonoBehaviour
                     {
                         go.GetComponent<PowerUp>().GrabItem(playerID);
                         levelGenerator.AllGameObjects[xPos, zPos] = null;
-                        audioSource.PlayOneShot(GrabItem, 0.5f);
+                        FindObjectOfType<AudioManager>().playSound("pickupItem");
                     }
                     return false;
                 }
@@ -514,10 +506,10 @@ public class PlayerScript : MonoBehaviour
     {
         switch (playerID)
         {
-            case 0: audioSource.PlayOneShot(Player1falls, 0.5f); break;
-            case 1: audioSource.PlayOneShot(Player2falls, 0.5f); break;
-            case 2: audioSource.PlayOneShot(Player3falls, 0.5f); break;
-            case 3: audioSource.PlayOneShot(Player4falls, 0.5f); break;
+            case 0: FindObjectOfType<AudioManager>().playSound("scream1"); break;
+            case 1: FindObjectOfType<AudioManager>().playSound("scream2"); break;
+            case 2: FindObjectOfType<AudioManager>().playSound("scream3"); break;
+            case 3: FindObjectOfType<AudioManager>().playSound("scream4"); break;
             default: break;
         }
 

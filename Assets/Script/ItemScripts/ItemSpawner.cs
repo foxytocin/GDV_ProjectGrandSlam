@@ -7,13 +7,7 @@ public class ItemSpawner : MonoBehaviour
     public LevelGenerator LevelGenerator;
     public GameObject Item_Prefab;
     private GameObject ItemObjekt;
-    private AudioSource audioSource;
     public AudioClip ItemAppears;
-
-    private void Awake()
-    {
-        audioSource = GetComponent<AudioSource>();
-    }
 
 
     public void SpawnItem(int x, int z)
@@ -21,7 +15,7 @@ public class ItemSpawner : MonoBehaviour
         //Position des Items = Position der zerstörten Kiste.
         ItemObjekt = Instantiate(Item_Prefab, new Vector3(x, 0.7f, z), Quaternion.identity, transform);
         LevelGenerator.AllGameObjects[x, z] = ItemObjekt;
-        audioSource.PlayOneShot(ItemAppears, 0.5f);
+        FindObjectOfType<AudioManager>().playSound("ItemAppears");
 
     }
 
