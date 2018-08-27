@@ -22,7 +22,9 @@ public class AudioManager : MonoBehaviour
             s.source.pitch = s.pitch;
             s.source.loop = s.loop;
         }
-	}
+
+        settingsFXVolume = 1f;
+}
 
     private void Start()
     {
@@ -57,11 +59,10 @@ public class AudioManager : MonoBehaviour
             if (s.name != "Music")
                 s.source.volume = s.groundVolume * settingsVolume;
 
-            Debug.Log(s.name + ":" + s.volume);
         }
         
-        playSound("woosh_2");
-        Debug.Log("played Sound");
+        playSound("explosion_medium");
+
         while (waitingB)
         {
             waiting *= Time.deltaTime + 0.2f;
@@ -70,8 +71,8 @@ public class AudioManager : MonoBehaviour
                 waitingB = false;
             yield return null;
         }
-        Debug.Log("Stopped Sound");
-        stopSound("woosh_2");
+
+        stopSound("explosion_medium");
     }
 
     public void setMusicVolume(float settingsVolume)

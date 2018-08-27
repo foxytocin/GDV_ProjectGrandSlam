@@ -29,19 +29,19 @@ public class GhostSpawnerScript : MonoBehaviour {
         switch (id)
         {
             case 0:
-                audioSource.PlayOneShot(audioScream0, 0.9f);              
+                FindObjectOfType<AudioManager>().playSound("player_dead_0");
                 break;
 
             case 1:
-                audioSource.PlayOneShot(audioScream1, 0.8f);
+                FindObjectOfType<AudioManager>().playSound("player_dead_1");
                 break;
 
             case 2:
-                audioSource.PlayOneShot(audioScream2, 0.5f);
+                FindObjectOfType<AudioManager>().playSound("player_dead_2");
                 break;
 
             case 3:
-                audioSource.PlayOneShot(audioScream3, 0.5f);
+                FindObjectOfType<AudioManager>().playSound("player_dead_3");
                 break;
 
             default: break;

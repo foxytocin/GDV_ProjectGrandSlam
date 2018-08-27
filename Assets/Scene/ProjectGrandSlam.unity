@@ -356,7 +356,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lightning_prefab: {fileID: 1035689952390638, guid: 9f3d4afb5aa4bb74280e696e9b17b871,
     type: 2}
-  audioSource: {fileID: 0}
+  audioSource: {fileID: 136782931}
   thunderStrike1: {fileID: 8300000, guid: b283e9549f9cf47d182348c5053bad11, type: 3}
   thunderStrike2: {fileID: 8300000, guid: 2f680cc6feb164af9b331543cdf0b522, type: 3}
   thunderStrike3: {fileID: 8300000, guid: 09f3526a2cf874e3bbb9daa4d256c364, type: 3}
@@ -2446,7 +2446,7 @@ MonoBehaviour:
   - name: Music
     clip: {fileID: 8300000, guid: 1a11ebb2628c949dcb58df7fd62c01e1, type: 3}
     groundVolume: 0.5
-    volume: 0.17
+    volume: 0.5
     pitch: 1
     source: {fileID: 0}
     loop: 1
@@ -2529,29 +2529,29 @@ MonoBehaviour:
     loop: 0
   - name: player_dead_0
     clip: {fileID: 8300000, guid: ba6f062bbc4e6415ab2743261d74561a, type: 3}
-    groundVolume: 1
-    volume: 1
+    groundVolume: 0.5
+    volume: 0.5
     pitch: 1
     source: {fileID: 0}
     loop: 0
   - name: player_dead_1
     clip: {fileID: 8300000, guid: 1608490bfcaf644b2bbf85e26f23fc81, type: 3}
-    groundVolume: 1
-    volume: 1
+    groundVolume: 0.5
+    volume: 0.5
     pitch: 1
     source: {fileID: 0}
     loop: 0
   - name: player_dead_2
     clip: {fileID: 8300000, guid: 6681b230feef44374aaaefb810e846aa, type: 3}
-    groundVolume: 1
-    volume: 1
+    groundVolume: 0.5
+    volume: 0.5
     pitch: 1
     source: {fileID: 0}
     loop: 0
   - name: player_dead_3
     clip: {fileID: 8300000, guid: 38417b80d817242b39a1f18afbbe48c6, type: 3}
-    groundVolume: 1
-    volume: 1
+    groundVolume: 0.5
+    volume: 0.5
     pitch: 1
     source: {fileID: 0}
     loop: 0
@@ -8107,7 +8107,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 0.5
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
