@@ -34,10 +34,6 @@ public class GameManager : MonoBehaviour {
         audioSource.PlayOneShot(audioLetsGo, 1f);
     }
 
-    public void setPlayerDropdown(int players)
-    {
-        this.player = players+1;
-    }
     void Start()
     {
         showMiniMap = false;
@@ -120,4 +116,25 @@ public class GameManager : MonoBehaviour {
             player = 4;
         }
     }
+
+    public void setOnePlayer()
+    {
+        player = 1;
+    }
+
+    public void setTwoPlayer()
+    {
+        player = 2;
+    }
+
+    public void setThreePlayer()
+    {
+        player = 3;
+    }
+
+    public void setFourPlayer()
+    {
+        player = 4;
+    }
+
 }
