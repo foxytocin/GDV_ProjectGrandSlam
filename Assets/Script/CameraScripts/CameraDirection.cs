@@ -23,12 +23,13 @@ public class CameraDirection : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if(rules.resultScreen.activeSelf)
+        //resultscreenmode
+        if(rules.resultScreen.activeSelf && transform.localPosition.y > -6.79f)
         {
-            Debug.Log("Löft");
             target = cm.centerPoint;
             //Vector3 targetPosition = Vector3.Lerp(transform.position, new Vector3(this.transform.position.x, 0, target.z), 4f * Time.deltaTime);
-            transform.position = Vector3.Lerp(transform.position, new Vector3(this.transform.position.x, 1f, target.z-3f), 0.25f * Time.deltaTime);
+            transform.position = Vector3.Lerp(transform.position, new Vector3(target.x-1.5f, 1f, target.z-3f), 0.25f * Time.deltaTime);
+            //transform.Translate(Vector3.right * Time.deltaTime);
 
             Vector3 dirFromMeToTarget = target - transform.position;
             //dirFromMeToTarget.x = 0f;
