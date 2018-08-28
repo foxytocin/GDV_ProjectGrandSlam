@@ -78,6 +78,20 @@ public class LevelGenerator : MonoBehaviour
         createStartBasis(tiefeLevelStartBasis);
     }
 
+    public void restartLevel()
+    {
+        generateMaze = false;
+        generateGlowBalls = false;
+        generateKisten = true;
+        specialSection = false;
+        KistenMenge = 10f;
+        SectionDataOffset = 0;
+        rotation = 0;
+
+        createLevelData();
+        createStartBasis(tiefeLevelStartBasis);
+    }
+
 
     // Inizialisiert die Levelbasis die beim Start des Spiels zu sehen sein soll
     // int tiefe definiert wie wieviele Levelzeilen dauerhaft generiert sind
