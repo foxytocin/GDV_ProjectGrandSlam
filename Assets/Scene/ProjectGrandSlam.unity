@@ -619,6 +619,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d18db00a51d2274a8da3925e57691da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dummyPos: 0
   LevelGenerator: {fileID: 0}
   camMove: {fileID: 0}
   dummy: {fileID: 0}
@@ -8996,6 +8997,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53be61199e91a934dada5decf13ad583, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isInGame: 0
   pausenMenuUI: {fileID: 2080367965}
   fxSlider: {fileID: 680037229}
   musicSlider: {fileID: 534672766}
@@ -11785,6 +11787,7 @@ GameObject:
   - component: {fileID: 1620339721}
   - component: {fileID: 1620339722}
   - component: {fileID: 1620339724}
+  - component: {fileID: 1620339725}
   - component: {fileID: 1620339723}
   m_Layer: 0
   m_Name: GameManager
@@ -11855,6 +11858,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nightModus: 0
   isDay: 0
+--- !u!114 &1620339725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1620339720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c0e0df8960f4446ea4cbd82b5bcb0f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1631073528
 GameObject:
   m_ObjectHideFlags: 0
@@ -12944,6 +12958,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rowPosition: 0
+  startPositon: 0
   gameStatePlay: 0
   LevelGenerator: {fileID: 958779247}
 --- !u!1 &1784365234

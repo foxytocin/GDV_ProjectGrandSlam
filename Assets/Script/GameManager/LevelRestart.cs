@@ -45,7 +45,7 @@ public class LevelRestart : MonoBehaviour {
 
 	public void recreateWorld()
 	{
-		playerSpawner.createPlayer();
+		//playerSpawner.createPlayer();
 		cameraScroller.restartCameraScroller();
 		destroyScroller.restartDestroyScroller();
 		levelGenerator.restartLevel();
