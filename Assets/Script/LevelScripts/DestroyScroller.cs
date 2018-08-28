@@ -10,12 +10,14 @@ public class DestroyScroller : MonoBehaviour
     private Vector3 target;
     private LevelGenerator levelGenerator;
     public bool gameStatePlay;
+    private RulesScript rules;
 
     void Awake()
     {
         camMove = FindObjectOfType<CameraMovement>();
         levelGenerator = FindObjectOfType<LevelGenerator>();
         gameStatePlay = false;
+        rules = FindObjectOfType<RulesScript>();
     }
 
     // Use this for initialization
@@ -38,9 +40,12 @@ public class DestroyScroller : MonoBehaviour
     {
         target = camMove.centerPoint;
         dummyPos = (int) dummy.transform.position.z;
-
-        if(gameStatePlay)
-            moveDummy(target);
+        //Erstes if nur zu testzwecken für cameraorbit
+        if(!rules.resultScreen.activeSelf)
+        {
+            if (gameStatePlay)
+                moveDummy(target);
+        }
 
         //Prüft ob die Camera genau EINE Zeile weitergescrollt ist um die cleanLine() für genau diese 1 Zeile aufzurufen.
         if (dummyPos > oldDummy)
