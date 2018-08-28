@@ -40,23 +40,21 @@ public class DestroyScroller : MonoBehaviour
     void Update()
     {
         target = camMove.centerPoint;
-<<<<<<< HEAD
         dummyPos = (int) dummy.transform.position.z;
+        
         //Erstes if nur zu testzwecken für cameraorbit
         if(!rules.resultScreen.activeSelf)
         {
             if (gameStatePlay)
                 moveDummy(target);
         }
-=======
         dummyPos = (int)dummy.transform.position.z;
 
         if(gameStatePlay)
             moveDummy(target);
->>>>>>> Andi
 
         //Prüft ob die Camera genau EINE Zeile weitergescrollt ist um die cleanLine() für genau diese 1 Zeile aufzurufen.
-        if (dummyPos > oldDummy)
+        if (dummyPos > oldDummy && gameStatePlay)
         {
             oldDummy = dummyPos;
             levelGenerator.cleanLine(dummyPos);
