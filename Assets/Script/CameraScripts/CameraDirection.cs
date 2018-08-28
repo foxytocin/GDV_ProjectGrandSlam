@@ -28,7 +28,22 @@ public class CameraDirection : MonoBehaviour {
             Debug.Log("Löft");
             target = cm.centerPoint;
             //Vector3 targetPosition = Vector3.Lerp(transform.position, new Vector3(this.transform.position.x, 0, target.z), 4f * Time.deltaTime);
-            transform.position = Vector3.Lerp(transform.position, new Vector3(this.transform.position.x, 2f, target.z-2f), 1f * Time.deltaTime);
+            transform.position = Vector3.Lerp(transform.position, new Vector3(this.transform.position.x, 1f, target.z-3f), 0.25f * Time.deltaTime);
+
+            Vector3 dirFromMeToTarget = target - transform.position;
+            //dirFromMeToTarget.x = 0f;
+            //dirFromMeToTarget.y = 0f;
+            Quaternion lookRot = Quaternion.LookRotation(dirFromMeToTarget);
+            transform.rotation = Quaternion.Lerp(transform.rotation, lookRot, Time.deltaTime * (degreesPerSecond / 360f));
+
+            if (Camera.main.transform.localEulerAngles.y < 10)
+            {
+                Camera.main.transform.localEulerAngles = new Vector3(Mathf.Clamp(Camera.main.transform.localEulerAngles.x, 10f, 80f), Mathf.Clamp(Camera.main.transform.localEulerAngles.y, 0f, 9f), 0);
+            }
+            else if (Camera.main.transform.localEulerAngles.y > 11)
+            {
+                Camera.main.transform.localEulerAngles = new Vector3(Mathf.Clamp(Camera.main.transform.localEulerAngles.x, 10f, 80f), Mathf.Clamp(Camera.main.transform.localEulerAngles.y, 350f, 361f), 0);
+            }
         }
         else
         {
