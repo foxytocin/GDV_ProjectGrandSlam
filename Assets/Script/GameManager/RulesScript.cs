@@ -82,7 +82,7 @@ public class RulesScript : MonoBehaviour
             case 1:
 
                 Time.timeScale = 0f;
-                Debug.LogWarning("Player1 ist nun auch tot und ist " + width +" weit gekommen");
+                Debug.LogWarning("Player1 ist nun auch tot und ist " + (int)width +" weit gekommen");
 
                 break;
             case 2:
@@ -104,7 +104,7 @@ public class RulesScript : MonoBehaviour
                 if (playertmp < 2)
                 {
                     roundResults[lastplayer]++;
-                    Debug.LogWarning("Es gibt ein Gewinner: " + lastplayer+1 + " und ist " + width + " weit gekommen");
+                    Debug.LogWarning("Es gibt ein Gewinner: " + lastplayer+1 + " und ist " + (int)width + " weit gekommen");
                 }
 
                 break;

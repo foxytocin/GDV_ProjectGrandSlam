@@ -38,9 +38,6 @@ public class LightningScript : MonoBehaviour
 
         GetComponent<MeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
         
-
-        
-        
         //Blitz erzeugen
         //GenerateLightning(new Vector3(0f, 15f, -20f));
         GenerateLightning(new Vector3(0f, 15f, 0f));
@@ -54,9 +51,6 @@ public class LightningScript : MonoBehaviour
 
         // Vertices Normals aus Facenormals berechnen 
         meinMesh.normals = setVertexNormals(faceNormals);
-
-
-
 
         // Debug
         //showVerts();
@@ -85,9 +79,6 @@ public class LightningScript : MonoBehaviour
         }
     }
     
-
-
-
     int[] makeFaces(Vector3[] vertArr)
     {
         for (var i = 0; i < vertArr.Length - 3; i += 2)

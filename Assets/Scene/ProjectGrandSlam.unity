@@ -509,6 +509,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 539f8b9482989044aaee45afa6ee874a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  KistenPartsPrefab: {fileID: 1724026369652452, guid: 64f748d2e2239264dba8c28eb7627d11,
+    type: 2}
   lightning_prefab: {fileID: 1035689952390638, guid: 9f3d4afb5aa4bb74280e696e9b17b871,
     type: 2}
   audioSource: {fileID: 136782931}
@@ -526,7 +528,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: aef27064e24374fa1a8d91e3c1bf20ad, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.8
+  m_Volume: 0.9
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -3090,9 +3092,9 @@ MonoBehaviour:
     source: {fileID: 0}
     loop: 0
   - name: destroyed_box
-    clip: {fileID: 8300000, guid: 5d9fc9860d27f448fac35521fe6caf6b, type: 3}
-    groundVolume: 0.6
-    volume: 0.6
+    clip: {fileID: 8300000, guid: 3ad91ead47bfd4bcc9451d1ae786f15e, type: 3}
+    groundVolume: 0.8
+    volume: 1
     pitch: 1
     source: {fileID: 0}
     loop: 0
@@ -6226,6 +6228,8 @@ MonoBehaviour:
   GenerateDistanceLine: {fileID: 461965569}
   MazeGenerator: {fileID: 0}
   generateMaze: 0
+  levelBreite: 0
+  levelTiefe: 0
 --- !u!4 &958779248
 Transform:
   m_ObjectHideFlags: 0

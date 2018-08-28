@@ -131,7 +131,8 @@ public class MapDestroyer : MonoBehaviour
                 case "Wand":
                     return false;
 
-                case "Kiste":
+                case "Kiste":    
+                    FindObjectOfType<AudioManager>().playSound("destroyed_box");
                     objectPooler.SpawnFromPool("Explosion", new Vector3(x, 0.5f, z), Quaternion.identity);
                     levelGenerator.AllGameObjects[x, z] = null;
                     thisGameObject.SetActive(false);

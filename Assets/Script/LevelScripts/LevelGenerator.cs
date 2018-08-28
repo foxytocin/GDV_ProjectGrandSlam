@@ -45,10 +45,14 @@ public class LevelGenerator : MonoBehaviour
     public MazeGenerator MazeGenerator;
     public bool generateMaze;
     private int dataBufferSize;
+    public int levelBreite;
+    public int levelTiefe;
    
     // Use this for initialization
     void Awake()
     {
+        levelBreite = 33;
+        levelTiefe = 2000;
         generateMaze = false;
         tiefeLevelStartBasis = 50;
         generateGlowBalls = false;
@@ -58,11 +62,11 @@ public class LevelGenerator : MonoBehaviour
         SectionDataOffset = 0;
         rotation = 0;
         specialSection = false;
-        AllGameObjects = new GameObject[33, 2000];
-        SecondaryGameObjects1 = new GameObject[33, 2000];
-        SecondaryGameObjects2 = new GameObject[33, 2000];
-        SecondaryGameObjects3 = new GameObject[33, 2000];
-        DistanceLines = new GameObject[6, 3000];
+        AllGameObjects = new GameObject[levelBreite, levelTiefe];
+        SecondaryGameObjects1 = new GameObject[levelBreite, levelTiefe];
+        SecondaryGameObjects2 = new GameObject[levelBreite, levelTiefe];
+        SecondaryGameObjects3 = new GameObject[levelBreite, levelTiefe];
+        DistanceLines = new GameObject[6, levelTiefe];
         levelPool = new List<string[][]>();
         MazeGenerator = FindObjectOfType<MazeGenerator>();
     }
@@ -112,7 +116,7 @@ public class LevelGenerator : MonoBehaviour
 
             //ACHTUNG ZUR DEMO WERDEN NICHT ALLE RADOM LEVEL GENERIERT
 
-            int RandomValue = (int)(Random.Range(10, 17f));
+            int RandomValue = (int)(Random.Range(8, 17));
 
             // Wenn eine specialSection erlaubt wird, wird diese zuaellig ausgewählt und in den dataBuffer geschrieben
             if(specialSection) {
@@ -291,27 +295,27 @@ public class LevelGenerator : MonoBehaviour
                 KistenMenge = 25f; //30% Kisten
                 //Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
                 break;
-            case 400:
+            case 500:
                 KistenMenge = 30f; //35% Kisten
                 //Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
                 break;
-            case 500:
+            case 700:
                 KistenMenge = 35f; //40% Kisten
                 //Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
                 break;
-            case 600:
+            case 800:
                 KistenMenge = 40f; //45% Kisten
                 //Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
                 break;
-            case 700:
+            case 900:
                 KistenMenge = 45f; //50% Kisten
                 //Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
                 break;
-            case 800:
+            case 1000:
                 KistenMenge = 50f; //60% Kisten
                 //Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
                 break;
-            case 1000:
+            case 1100:
                 KistenMenge = 60f; //60% Kisten
                 //Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
                 break;
@@ -441,8 +445,7 @@ public class LevelGenerator : MonoBehaviour
 
         //Erzeugt ein normales Stück Wand
         } else {
-            //GameObject Wand = objectPooler.SpawnFromPool("Wand", pos, Quaternion.identity);
-            //Wand.tag = "Wand";
+
             AllGameObjects[(int)pos.x, (int)pos.z] = objectPooler.SpawnFromPool("Wand", pos, Quaternion.identity);
             
             // Ezeugt glowBalls wenn generateGlowBalls urch den DayNightSwitch.cs auf true gesetzt wurde

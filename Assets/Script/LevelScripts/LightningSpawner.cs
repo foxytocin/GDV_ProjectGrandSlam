@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class LightningSpawner : MonoBehaviour {
 
+    public GameObject KistenPartsPrefab;
     private CameraScroller cameraScroller;
+    private LevelGenerator levelGenerator;
+    private ItemSpawner itemSpawner;
     private DayNightSwitch dayNightSwitch;
     public GameObject lightning_prefab;
     public AudioSource audioSource;
@@ -19,18 +22,23 @@ public class LightningSpawner : MonoBehaviour {
     {
         cameraScroller = FindObjectOfType<CameraScroller>();
         dayNightSwitch = FindObjectOfType<DayNightSwitch>();
+        levelGenerator = FindObjectOfType<LevelGenerator>();
+        itemSpawner = FindObjectOfType<ItemSpawner>();
         audioSource = FindObjectOfType<AudioSource>();
         thunderAndRainisPlaying = false;
         startVolume = audioSource.volume;
     }
 	
-	// Update is called once per frame
 	void FixedUpdate()
     {
         if(Random.value > 0.99f && !dayNightSwitch.isDay)
         {
-            Instantiate(lightning_prefab, new Vector3(Random.Range(-5f, 35f), 0, cameraScroller.rowPosition + Random.Range(0f, 35f)), Quaternion.identity);
-            thunderStrike();
+
+            Vector3Int thunderPos = new Vector3Int((int)Random.Range(-5f, 35f), 0, cameraScroller.rowPosition + (int)Random.Range(0f, 35f));
+
+            Instantiate(lightning_prefab, thunderPos, Quaternion.identity);
+            thunderStrikeSound();
+            StartCoroutine(checkWorld(thunderPos));
         }
 
         if(!dayNightSwitch.isDay && !thunderAndRainisPlaying)
@@ -44,6 +52,53 @@ public class LightningSpawner : MonoBehaviour {
             thunderAndRainisPlaying = false;
             StartCoroutine(thunderFadeOut());
         }
+    }
+
+
+    private IEnumerator checkWorld(Vector3Int thunderPos)
+    {
+        int radius = 2;
+        GameObject go;
+
+        for(int z = -radius; z <= radius; z++)
+        {
+            for(int x = -radius; x <= radius; x++)
+            {
+                if(thunderPos.x + x > 0 && thunderPos.x + x < levelGenerator.levelBreite  && thunderPos.z + z > 0 && thunderPos.z + z < levelGenerator.levelTiefe)
+                {
+                    if(levelGenerator.AllGameObjects[thunderPos.x + x, thunderPos.z + z] != null)
+                    {
+                        go = levelGenerator.AllGameObjects[thunderPos.x + x, thunderPos.z + z].gameObject;
+
+                        switch(go.tag)
+                        {
+                            case "Kiste" :
+                                FindObjectOfType<AudioManager>().playSound("destroyed_box");
+                                levelGenerator.AllGameObjects[thunderPos.x + x, thunderPos.z + z] = null;
+                                go.SetActive(false);
+
+                                //Ersetzt die Kiste durch Kiste_destroyed Prefab
+                                Instantiate(KistenPartsPrefab, new Vector3(thunderPos.x + x, 0.5f, thunderPos.z + z), Quaternion.identity, transform);
+
+                                //Spawnt Item
+                                if(Random.value > 0.5f)
+                                    itemSpawner.SpawnItem(thunderPos.x + x, thunderPos.z + z);
+                            break;
+
+                            case "Item" :
+                                FindObjectOfType<AudioManager>().playSound("break2");
+                                levelGenerator.AllGameObjects[thunderPos.x + x, thunderPos.z + z] = null;
+                                go.SetActive(false);
+                            break;
+
+                            default :
+                                break;
+                        }
+                    }
+                }
+            }
+        }
+        yield return null;    
     }
 
     private IEnumerator thunderFadeOut()
@@ -62,13 +117,13 @@ public class LightningSpawner : MonoBehaviour {
         StopAllCoroutines();
     }
 
-    void thunderStrike()
+    void thunderStrikeSound()
     {
         switch((int)Random.Range(0f, 4f))
         {
-            case 1: audioSource.PlayOneShot(thunderStrike1, 0.6f*FindObjectOfType<AudioManager>().settingsFXVolume); break;
-            case 2: audioSource.PlayOneShot(thunderStrike1, 0.6f* FindObjectOfType<AudioManager>().settingsFXVolume); break;
-            case 3: audioSource.PlayOneShot(thunderStrike1, 0.6f* FindObjectOfType<AudioManager>().settingsFXVolume); break;
+            case 1: audioSource.PlayOneShot(thunderStrike1, 0.5f * FindObjectOfType<AudioManager>().settingsFXVolume); break;
+            case 2: audioSource.PlayOneShot(thunderStrike1, 0.5f * FindObjectOfType<AudioManager>().settingsFXVolume); break;
+            case 3: audioSource.PlayOneShot(thunderStrike1, 0.5f * FindObjectOfType<AudioManager>().settingsFXVolume); break;
         }
     }
 }
