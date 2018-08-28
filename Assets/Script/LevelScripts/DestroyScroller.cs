@@ -3,7 +3,7 @@
 public class DestroyScroller : MonoBehaviour
 {
     private int oldDummy;
-    private int dummyPos;
+    public int dummyPos;
     public LevelGenerator LevelGenerator;
     public CameraMovement camMove;
     public GameObject dummy;
@@ -24,6 +24,13 @@ public class DestroyScroller : MonoBehaviour
         oldDummy = -1;
         dummy = new GameObject("DestroyScroller");
         dummy.transform.position = new Vector3(15f, 0, -10f);
+    }
+
+    public void restartDestroyScroller()
+    {
+        oldDummy = -1;
+        dummy.transform.position = new Vector3(15f, 0, -10f);
+        dummyPos = (int) dummy.transform.position.z;
     }
 
     // Update is called once per frame
