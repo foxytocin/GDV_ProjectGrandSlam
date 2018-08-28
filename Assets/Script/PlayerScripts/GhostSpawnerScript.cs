@@ -4,22 +4,15 @@ using UnityEngine;
 
 public class GhostSpawnerScript : MonoBehaviour {
 
-    public GameObject Ghost_Prefab;
     GameObject ghost;
     byte transparent = 200;
 
-    public AudioSource audioSource;
-    public AudioClip audioScream0;
-    public AudioClip audioScream1;
-    public AudioClip audioScream2;
-    public AudioClip audioScream3;
     private AudioManager audioManager;
 
     private int randomScream;
 
     void Awake()
     {
-        audioSource = GetComponent<AudioSource>();
         audioManager = FindObjectOfType<AudioManager>();
     }
 

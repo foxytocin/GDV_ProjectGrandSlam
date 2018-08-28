@@ -7,7 +7,6 @@ public class ItemSpawner : MonoBehaviour
     public LevelGenerator LevelGenerator;
     public GameObject Item_Prefab;
     private GameObject ItemObjekt;
-    public AudioClip ItemAppears;
     private AudioManager audioManager;
 
     void Awake()

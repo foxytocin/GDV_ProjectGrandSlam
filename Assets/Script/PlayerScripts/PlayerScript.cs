@@ -6,7 +6,6 @@ public class PlayerScript : MonoBehaviour
 {
     // PlayerStats
     public int playerID;
-    public int life;
     public int avaibleBomb;
     public float speed;
     public float bombTimer;
@@ -56,7 +55,6 @@ public class PlayerScript : MonoBehaviour
         playerColor = GetComponent<Renderer>().material.color;
         travelDistanceStart = (int)transform.position.z;
         travelDistance = 0;
-        life = 3;
         avaibleBomb = 3;
         speed = 5f;
         bombTimer = 2f;
@@ -228,7 +226,6 @@ public class PlayerScript : MonoBehaviour
             if (transform.position.y == -200)
             {
                 gravity = 0f;
-                setLife(-1);
                 setALife(false);
                 this.gameObject.SetActive(false);
             }
@@ -328,7 +325,6 @@ public class PlayerScript : MonoBehaviour
         ghostSpawner.createGhost(transform.position, playerID, playerColor);
         transform.Translate(0f, -2f, 0f);
         cam.PlayerPosition(transform.position, playerID);
-        setLife(-1);
         FindObjectOfType<RulesScript>().playerDeath(playerID, transform.position);
         setALife(false);
         this.gameObject.SetActive(false);
@@ -381,19 +377,6 @@ public class PlayerScript : MonoBehaviour
     {
         return avaibleBomb;
     }
-
-
-    // Lifes
-    public void setLife(int wert)
-    {
-        life += wert;
-    }
-
-    public int getLife()
-    {
-        return life;
-    }
-
 
     // aLife
     public bool getALife()

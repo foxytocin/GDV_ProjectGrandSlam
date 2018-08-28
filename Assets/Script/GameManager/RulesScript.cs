@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class RulesScript : MonoBehaviour
 {
@@ -9,6 +11,14 @@ public class RulesScript : MonoBehaviour
     int player;
 
     int[] roundResults;
+
+    public GameObject resultScreen;
+    public GameObject winner;
+    public GameObject reach;
+    public TextMeshProUGUI winnerText;
+    public TextMeshProUGUI reachText;
+    public TextMeshProUGUI extraText;
+    public GameObject nextRoundButton;
 
     private void Awake()
     {
@@ -82,6 +92,12 @@ public class RulesScript : MonoBehaviour
             case 1:
 
                 Time.timeScale = 0f;
+                int reachTextString = (int)width;
+                resultScreen.SetActive(true);
+                winnerText.SetText("Du bist im Spiel so weit gekommen:");
+                winner.SetActive(true);
+                reachText.SetText(reachTextString.ToString());
+                reach.SetActive(true);
                 Debug.LogWarning("Player1 ist nun auch tot und ist " + (int)width +" weit gekommen");
 
                 break;
@@ -104,6 +120,15 @@ public class RulesScript : MonoBehaviour
                 if (playertmp < 2)
                 {
                     roundResults[lastplayer]++;
+                    lastplayer++;
+                    Time.timeScale = 0f;
+                    resultScreen.SetActive(true);
+                    winnerText.SetText("The Winner of this Round is:");
+                    winner.SetActive(true);
+                    reachText.SetText(string.Format("{0} {1}", "player", lastplayer.ToString()));
+                    reach.SetActive(true);
+                    nextRoundButton.SetActive(true);
+
                     Debug.LogWarning("Es gibt ein Gewinner: " + lastplayer+1 + " und ist " + (int)width + " weit gekommen");
                 }
 
