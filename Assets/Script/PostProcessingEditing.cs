@@ -11,10 +11,12 @@ public class PostProcessingEditing : MonoBehaviour {
     public float chromaticAberrationStrength;
     private CameraDirection cameraDirection;
 
+    private RulesScript rules;
 
     // Use this for initialization
     void Start () {
-        cameraDirection = GameObject.Find("Main Camera").GetComponent<CameraDirection>();
+        cameraDirection = FindObjectOfType<CameraDirection>();
+        rules = FindObjectOfType<RulesScript>();
 
         //Change PostProcessing Settings
         pp = GetComponent<PostProcessingBehaviour>().profile;
@@ -47,7 +49,15 @@ public class PostProcessingEditing : MonoBehaviour {
 
     void setFocusPoint()
     {
-        float distance = Vector3.Distance(this.transform.position, cameraDirection.target);
+        float distance;
+        if (rules.resultScreen.activeSelf)
+        {
+            distance = Vector3.Distance(this.transform.position, cameraDirection.target) - 0.6f;
+        }
+        else
+        {
+            distance = Vector3.Distance(this.transform.position, cameraDirection.target);
+        }
         depthSettings.focusDistance = distance;
         pp.depthOfField.settings = depthSettings;
     }

@@ -61,6 +61,7 @@ public class LightningScript : MonoBehaviour
         //showNormals(fnA);
 
         Destroy(gameObject, 0.5f);
+        Destroy(turtle, 0.5f);
     }
 
     private void Update()
@@ -69,7 +70,7 @@ public class LightningScript : MonoBehaviour
         Color finalColor = Color.white * Mathf.LinearToGammaSpace(emission * 3f);
         mat.SetColor("_EmissionColor", finalColor);
         mat.EnableKeyword("_EMISSION");
-
+        /*
         //Vector3[] fnA = faceNormals.ToArray();
         for (int i = 0; i < meinMesh.vertices.Length; i++)
         {
@@ -77,6 +78,7 @@ public class LightningScript : MonoBehaviour
             Vector3 vert = transform.TransformPoint(meinMesh.vertices[i]);
             //Debug.DrawRay(vert, norm * 0.3f, Color.red);
         }
+        */
     }
     
     int[] makeFaces(Vector3[] vertArr)

@@ -122,7 +122,7 @@ public class RulesScript : MonoBehaviour
                 {
                     roundResults[lastplayer]++;
                     lastplayer++;
-                    Time.timeScale = 0f;
+                    //Time.timeScale = 0f;
                     FindObjectOfType<PausenMenuScript>().isInGame = false;
                     resultScreen.SetActive(true);
                     winnerText.SetText("The Winner of this Round is:");
