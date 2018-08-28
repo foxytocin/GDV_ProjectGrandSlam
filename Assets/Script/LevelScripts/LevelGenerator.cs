@@ -47,6 +47,7 @@ public class LevelGenerator : MonoBehaviour
     private int dataBufferSize;
     public int levelBreite;
     public int levelTiefe;
+    private PlayerSpawner playerSpawner;
    
     // Use this for initialization
     void Awake()
@@ -54,7 +55,7 @@ public class LevelGenerator : MonoBehaviour
         levelBreite = 33;
         levelTiefe = 2000;
         generateMaze = false;
-        tiefeLevelStartBasis = 50;
+        tiefeLevelStartBasis = 60;
         generateGlowBalls = false;
         generateKisten = true;
         LevelSpeed = 0.5f;
@@ -69,6 +70,7 @@ public class LevelGenerator : MonoBehaviour
         DistanceLines = new GameObject[6, levelTiefe];
         levelPool = new List<string[][]>();
         MazeGenerator = FindObjectOfType<MazeGenerator>();
+        playerSpawner = FindObjectOfType<PlayerSpawner>();
     }
 
     void Start()
@@ -87,11 +89,33 @@ public class LevelGenerator : MonoBehaviour
         KistenMenge = 10f;
         SectionDataOffset = 0;
         rotation = 0;
+        tiefeLevelStartBasis = 60;
 
-        createLevelData();
+        AllGameObjects = new GameObject[levelBreite, levelTiefe];
+        SecondaryGameObjects1 = new GameObject[levelBreite, levelTiefe];
+        SecondaryGameObjects2 = new GameObject[levelBreite, levelTiefe];
+        SecondaryGameObjects3 = new GameObject[levelBreite, levelTiefe];
+        DistanceLines = new GameObject[6, levelTiefe];
+
+        foreach(GameObject go in AllGameObjects)
+        {
+            int count = 1;
+
+            if(go != null)
+                if(go.CompareTag("FreeFall"))
+                {
+                    go.SetActive(false);
+                    Debug.Log("FreeFall ENTFERNT Nr: "+count);
+                    count++;
+                }
+        }
+
+        // createLevelData() komplett neu aufzubauen, wird nur der Startbereich und deren laenge neu zugeordnet
+        levelSectionData = levelPool[0];
+        dataBufferSize = levelSectionData.Length;
+
         createStartBasis(tiefeLevelStartBasis);
     }
-
 
     // Inizialisiert die Levelbasis die beim Start des Spiels zu sehen sein soll
     // int tiefe definiert wie wieviele Levelzeilen dauerhaft generiert sind
@@ -130,7 +154,7 @@ public class LevelGenerator : MonoBehaviour
 
             //ACHTUNG ZUR DEMO WERDEN NICHT ALLE RADOM LEVEL GENERIERT
 
-            int RandomValue = (int)(Random.Range(0, 17));
+            int RandomValue = (int)(Random.Range(15, 17));
 
             // Wenn eine specialSection erlaubt wird, wird diese zuaellig ausgewählt und in den dataBuffer geschrieben
             if(specialSection) {

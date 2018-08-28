@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class MazeGenerator : MonoBehaviour {
 
-	const int breite = 29;
-	const int hoehe = 18;
+	const int breite = 29; //Entspricht der Breite der LevelTextdatein. Darf nicht verarndert werden
+	const int hoehe = 18; //Nur ungerade Werte zulaessig!
 	private MazeCell[,] Maze;
 	private MazeCell current;
 	private int[,] mazeDataMap;
@@ -27,6 +27,8 @@ public class MazeGenerator : MonoBehaviour {
 		StartCoroutine(generateMaze());
 	}
 
+	// Berechnet ein neues Maze
+	// mazeCalculated wird am Ende durch generateMazeLevelData() wieder auf true gesetzt um zu signalisieren das es fertig ist
 	public void generateNewMaze()
 	{
 		mazeCalculated = false;
@@ -34,6 +36,7 @@ public class MazeGenerator : MonoBehaviour {
 		StartCoroutine(generateMaze());
 	}
 
+	// Initialisiert das Array in dem der Maze berechner wird.
 	public void initializeMaze()
 	{
 		for(int j = 1; j < hoehe; j+=2)
@@ -43,6 +46,7 @@ public class MazeGenerator : MonoBehaviour {
 			}
 	}
 
+	// Fuehrt die Wegfindung mit Backtracking durch
 	public IEnumerator generateMaze()
 	{
 		bool done = false;
@@ -75,29 +79,31 @@ public class MazeGenerator : MonoBehaviour {
 		StopAllCoroutines();
 	}
 
+	// Wird von generateMaze() aufgerufen um die Waende der einzelnen Cellen auf false zu stellen (wenn keine Wand dort sein darf)
 	private void removeWalls(MazeCell current, MazeCell next)
 	{
 		int x = current.x - next.x;
 		if(x == 2) {
-			current.wall[3] = false;
-			next.wall[1] = false;
+			current.wall[3] = false; //left
+			next.wall[1] = false; //right
 		} else if(x == -2) {
-			current.wall[1] = false;
-			next.wall[3] = false;
+			current.wall[1] = false; //right
+			next.wall[3] = false; //left
 		}
 
 		int y = current.y - next.y;
 		if(y == 2) {
-			current.wall[2] = false;
-			next.wall[0] = false;
+			current.wall[2] = false; //bottom
+			next.wall[0] = false; //top
 		} else if(y == -2) {
-			current.wall[0] = false;
-			next.wall[2] = false;
+			current.wall[0] = false; //top
+			next.wall[2] = false; //bottom
 		}
 
+		//Entfernt die Waende in der ersten und letzten Y-Reihe, damit in das Maze hinein und rausgelaufen werden kann
 		if(current.y == 1) {
 			current.wall[2] = false;
-		} else if(current.y == breite - 2) {
+		} else if(current.y == hoehe - 1) {
 			current.wall[0] = false;
 		}
 
@@ -138,11 +144,10 @@ public class MazeGenerator : MonoBehaviour {
 			neighbors.Add(left);
 		}
 
-		//Debug.Log("NeighborsCount: " +neighbors.Count);
+
 		if(neighbors.Count > 0)
 		{
 			int pick = (int)Random.Range(0f, neighbors.Count);
-			//Debug.Log("NeighborsPick: " +pick);
 			return neighbors[pick];
 		} else {
 			return null;
@@ -173,7 +178,7 @@ public class MazeGenerator : MonoBehaviour {
 					{
 						if(current.wall[w])
 						{
-							// Generiere eine Wand
+							// Generiere eine Wand wenn wall = true ergibt
 							switch(w)
 							{
 								case 0: //top
@@ -191,7 +196,7 @@ public class MazeGenerator : MonoBehaviour {
 							}
 						} else {
 
-							// Generiere einen Gang
+							// Generiere einen Gang wenn wall = false ergibt
 							switch(w)
 							{
 								case 0: //top

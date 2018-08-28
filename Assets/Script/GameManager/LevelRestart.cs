@@ -10,25 +10,12 @@ public class LevelRestart : MonoBehaviour {
 	private CameraScroller cameraScroller;
 	private PlayerSpawner playerSpawner;
 
-
 	void Awake()
 	{
 		levelGenerator = FindObjectOfType<LevelGenerator>();
 		destroyScroller = FindObjectOfType<DestroyScroller>();
 		cameraScroller = FindObjectOfType<CameraScroller>();
 		playerSpawner = FindObjectOfType<PlayerSpawner>();
-	}
-
-
-	// UPDATE KANN SPÄTER AUS DEM CODE
-	void Update () {
-
-		if(Input.GetKeyDown("r"))
-		{
-			Time.timeScale = 1f;
-			StartCoroutine( eraseCurrentWorld());
-		}
-		
 	}
 
 	public void levelRestart()
@@ -46,6 +33,7 @@ public class LevelRestart : MonoBehaviour {
 
             Destroy(playerSpawner.playerList[i]);
         }
+
         StartCoroutine(eraseCurrentWorld());
 	}
 
@@ -65,10 +53,10 @@ public class LevelRestart : MonoBehaviour {
 
 	private void recreateWorld()
 	{
-		playerSpawner.createPlayers();
 		cameraScroller.restartCameraScroller();
 		destroyScroller.restartDestroyScroller();
 		levelGenerator.restartLevel();
+		playerSpawner.createPlayers();
 	}
 
 }

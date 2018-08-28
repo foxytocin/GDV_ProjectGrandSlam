@@ -28,16 +28,17 @@ public class DestroyScroller : MonoBehaviour
 
     public void restartDestroyScroller()
     {
+        gameStatePlay = false;
         oldDummy = -1;
         dummy.transform.position = new Vector3(15f, 0, -10f);
-        dummyPos = (int) dummy.transform.position.z;
+        dummyPos = (int)dummy.transform.position.z;
     }
 
     // Update is called once per frame
     void Update()
     {
         target = camMove.centerPoint;
-        dummyPos = (int) dummy.transform.position.z;
+        dummyPos = (int)dummy.transform.position.z;
 
         if(gameStatePlay)
             moveDummy(target);

@@ -3,26 +3,26 @@
 public class CameraScroller : MonoBehaviour
 {
     public int rowPosition;
-    public int startPositon;
     private int altePosition;
     public bool gameStatePlay;
     
     public LevelGenerator LevelGenerator;
 
     // Use this for initialization
-    void Start()
+    void Awake()
     {
         gameStatePlay = false;
-        startPositon = (int)transform.position.z;
         altePosition = -1;
     }
 
     public void restartCameraScroller()
     {
+        gameStatePlay = false;
         altePosition = -1;
-        rowPosition = startPositon;
-        transform.position = Vector3.Lerp(transform.position, new Vector3 (0f, 0f, startPositon), 0.7f);
+        rowPosition = -26;
+        transform.localPosition = new Vector3(0f, 0f, -26f);
     }
+
 
     // Update is called once per frame
     void Update()
@@ -34,7 +34,7 @@ public class CameraScroller : MonoBehaviour
         rowPosition = (int)transform.position.z;
 
         //Prüft ob die Camera genau EINE Zeile weitergescrollt ist um die createWorld() für genau diese 1 Zeile aufzurufen.
-        if (rowPosition > altePosition)
+        if (rowPosition > altePosition && gameStatePlay)
         {
             altePosition = rowPosition;
 

@@ -14,6 +14,6 @@ public class MazeCell
 	{
 		this.x = x;
 		this.y = y;
-		this.wall = new List<bool>() {true, true, true, true};
+		this.wall = new List<bool>() {true, true, true, true}; // Reihenfolge: top, right, bottom, left
 	}
 }
