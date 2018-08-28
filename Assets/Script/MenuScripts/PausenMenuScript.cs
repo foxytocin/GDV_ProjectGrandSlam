@@ -8,6 +8,8 @@ public class PausenMenuScript : MonoBehaviour
 
     public static bool GameIsPaused = false;
 
+    public bool isInGame = false;
+
     public GameObject pausenMenuUI;
 
     public Slider fxSlider;
@@ -15,7 +17,7 @@ public class PausenMenuScript : MonoBehaviour
 
 	void Update ()
     {
-		if(InputManager.OneStartButton() || InputManager.ThreeStartButton() || InputManager.FourStartButton() || InputManager.TwoStartButton() || Input.GetKeyDown(KeyCode.Escape))
+		if(InputManager.OneStartButton() || InputManager.ThreeStartButton() || InputManager.FourStartButton() || InputManager.TwoStartButton() || Input.GetKeyDown(KeyCode.Escape) && isInGame)
         {
             if(GameIsPaused)
             {
@@ -33,6 +35,7 @@ public class PausenMenuScript : MonoBehaviour
         pausenMenuUI.SetActive(false);
         Time.timeScale = 1f;
         GameIsPaused = false;
+        isInGame = true;
     }
 
     public void pause()

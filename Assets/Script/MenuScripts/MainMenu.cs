@@ -64,6 +64,7 @@ public class MainMenu : MonoBehaviour {
 		{
 			gameManager.playLetsGo();
 			matchStartet = true;
+            FindObjectOfType<PausenMenuScript>().isInGame = true;
 		}
 	}
 
