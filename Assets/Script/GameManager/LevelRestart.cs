@@ -20,17 +20,24 @@ public class LevelRestart : MonoBehaviour {
 	}
 
 
-	// Update is called once per frame
+	// UPDATE KANN SPÄTER AUS DEM CODE
 	void Update () {
 
 		if(Input.GetKeyDown("r"))
 		{
+			Time.timeScale = 1f;
 			StartCoroutine( eraseCurrentWorld());
 		}
 		
 	}
 
-	public IEnumerator eraseCurrentWorld()
+	public void levelRestart()
+	{
+		Time.timeScale = 1f;
+		StartCoroutine(eraseCurrentWorld());
+	}
+
+	private IEnumerator eraseCurrentWorld()
 	{
 		int destroyScrollerPos = destroyScroller.dummyPos;
 
@@ -40,10 +47,11 @@ public class LevelRestart : MonoBehaviour {
 		}
 
 		yield return new WaitForSecondsRealtime(4f);
+		StopAllCoroutines();
 		recreateWorld();
 	}
 
-	public void recreateWorld()
+	private void recreateWorld()
 	{
 		//playerSpawner.createPlayer();
 		cameraScroller.restartCameraScroller();

@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class PausenMenuScript : MonoBehaviour
 {
 
+    private LevelRestart levelRestart;
     public static bool GameIsPaused = false;
 
     public bool isInGame = false;
@@ -14,6 +15,12 @@ public class PausenMenuScript : MonoBehaviour
 
     public Slider fxSlider;
     public Slider musicSlider;
+
+    
+    void Awake()
+    {
+        levelRestart = FindObjectOfType<LevelRestart>();
+    }
 
 	void Update ()
     {
@@ -47,7 +54,7 @@ public class PausenMenuScript : MonoBehaviour
 
     public void mainMenu()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        levelRestart.levelRestart();
     }
 
     public void updateSoundOptions()
