@@ -33,8 +33,20 @@ public class LevelRestart : MonoBehaviour {
 
 	public void levelRestart()
 	{
-		Time.timeScale = 1f;
-		StartCoroutine(eraseCurrentWorld());
+        Time.timeScale = 1f;
+
+        for (int i = playerSpawner.players - 1; i >= 0; i--)
+        {
+            Color32 tmpPlayerColor = playerSpawner.playerList[i].GetComponent<Renderer>().material.color;
+
+            for (int j = tmpPlayerColor.a; j > 0; j--)
+            {
+                tmpPlayerColor.a--;
+            }
+
+            Destroy(playerSpawner.playerList[i]);
+        }
+        StartCoroutine(eraseCurrentWorld());
 	}
 
 	private IEnumerator eraseCurrentWorld()
@@ -53,7 +65,7 @@ public class LevelRestart : MonoBehaviour {
 
 	private void recreateWorld()
 	{
-		//playerSpawner.createPlayer();
+		playerSpawner.createPlayers();
 		cameraScroller.restartCameraScroller();
 		destroyScroller.restartDestroyScroller();
 		levelGenerator.restartLevel();

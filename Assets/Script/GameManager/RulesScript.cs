@@ -152,15 +152,8 @@ public class RulesScript : MonoBehaviour
                 Debug.LogWarning("Drei Runden wurden gewonnen von: Player " + i + 1 + " !");
                 Time.timeScale = 0f;
             }
-            else
-                nextRound();
+            
         }
     }
-
-    void nextRound()
-    {
-
-    }
-
 
 }

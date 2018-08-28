@@ -12,6 +12,7 @@ public class PausenMenuScript : MonoBehaviour
     public bool isInGame = false;
 
     public GameObject pausenMenuUI;
+    public MainMenu MainMenu;
 
     public Slider fxSlider;
     public Slider musicSlider;
@@ -55,11 +56,17 @@ public class PausenMenuScript : MonoBehaviour
     public void mainMenu()
     {
         levelRestart.levelRestart();
+        MainMenu.PauseGame();
     }
 
     public void updateSoundOptions()
     {
         fxSlider.value = FindObjectOfType<AudioManager>().settingsFXVolume;
         musicSlider.value = FindObjectOfType<AudioManager>().settingsMusicVolume;
+    }
+
+    public void nextRound()
+    {
+        isInGame = true;
     }
 }

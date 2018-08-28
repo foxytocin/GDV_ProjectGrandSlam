@@ -89,7 +89,6 @@ public class PlayerSpawner : MonoBehaviour
 
             // Player wird in die PlayerListe angefuegt
             playerList.Add(tmpPlayer);
-
         }
     }
   
