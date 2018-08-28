@@ -37,6 +37,7 @@ public class PlayerScript : MonoBehaviour
     private float gravity;
     private Color32 playerColor;
     private Vector3 lastDirection;
+    private AudioManager audioManager;
 
 
     void Awake()
@@ -46,6 +47,7 @@ public class PlayerScript : MonoBehaviour
         remoteBomb = FindObjectOfType<RemoteBomb>();
         houdini = FindObjectOfType<Houdini>();
         ghostSpawner = FindObjectOfType<GhostSpawnerScript>();
+        audioManager = FindObjectOfType<AudioManager>();
     }
 
     void Start()
@@ -495,7 +497,7 @@ public class PlayerScript : MonoBehaviour
                     {
                         go.GetComponent<PowerUp>().GrabItem(playerID);
                         levelGenerator.AllGameObjects[xPos, zPos] = null;
-                        FindObjectOfType<AudioManager>().playSound("pickupItem");
+                        audioManager.playSound("pickupItem");
                     }
                     return false;
                 }
@@ -507,10 +509,10 @@ public class PlayerScript : MonoBehaviour
     {
         switch (playerID)
         {
-            case 0: FindObjectOfType<AudioManager>().playSound("scream1"); break;
-            case 1: FindObjectOfType<AudioManager>().playSound("scream2"); break;
-            case 2: FindObjectOfType<AudioManager>().playSound("scream3"); break;
-            case 3: FindObjectOfType<AudioManager>().playSound("scream4"); break;
+            case 0: audioManager.playSound("scream1"); break;
+            case 1: audioManager.playSound("scream2"); break;
+            case 2: audioManager.playSound("scream3"); break;
+            case 3: audioManager.playSound("scream4"); break;
             default: break;
         }
 

@@ -20,6 +20,7 @@ public class BombScript : MonoBehaviour
     private MapDestroyer mapDestroyer;
     private LevelGenerator levelGenerator;
     private Color32 bombColor;
+    private AudioManager audioManager;
 
     void Awake()
     {
@@ -27,6 +28,7 @@ public class BombScript : MonoBehaviour
         cameraShake = FindObjectOfType<CameraShake>();
         mapDestroyer = FindObjectOfType<MapDestroyer>();
         levelGenerator = FindObjectOfType<LevelGenerator>();
+        audioManager = FindObjectOfType<AudioManager>();
         bombColor = GetComponent<Renderer>().material.color;
     }
 
@@ -42,8 +44,8 @@ public class BombScript : MonoBehaviour
     // Durch den ObjectPool werden die Bomben erneut vewendet und benoetigen bei der Wiederverwendung diesen "Reset"
     public IEnumerator bombAnimation()
     {
-        FindObjectOfType<AudioManager>().playSound("woosh_2");
-        audioSource.PlayOneShot(audioZischen, (0.9f * FindObjectOfType<AudioManager>().settingsFXVolume));
+        audioManager.playSound("woosh_2");
+        audioSource.PlayOneShot(audioZischen, (0.9f * audioManager.settingsFXVolume));
 
         bombPosition = transform.position;
         transform.eulerAngles += new Vector3(0, bombAngle, 0);
@@ -70,7 +72,8 @@ public class BombScript : MonoBehaviour
             countDown -= Time.deltaTime;
             yield return null;
         }
-        FindObjectOfType<AudioManager>().stopSound("Bomb_zuendschnur");
+        audioManager.stopSound("Bomb_zuendschnur");
+        
         StopAllCoroutines();
         explode();
     }

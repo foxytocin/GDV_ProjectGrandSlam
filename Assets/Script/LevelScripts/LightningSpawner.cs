@@ -10,6 +10,7 @@ public class LightningSpawner : MonoBehaviour {
     private ItemSpawner itemSpawner;
     private DayNightSwitch dayNightSwitch;
     public GameObject lightning_prefab;
+    private AudioManager audioManager;
     public AudioSource audioSource;
     public AudioClip thunderStrike1;
     public AudioClip thunderStrike2;
@@ -25,6 +26,7 @@ public class LightningSpawner : MonoBehaviour {
         levelGenerator = FindObjectOfType<LevelGenerator>();
         itemSpawner = FindObjectOfType<ItemSpawner>();
         audioSource = FindObjectOfType<AudioSource>();
+        audioManager = FindObjectOfType<AudioManager>();
         thunderAndRainisPlaying = false;
         startVolume = audioSource.volume;
     }
@@ -43,7 +45,7 @@ public class LightningSpawner : MonoBehaviour {
 
         if(!dayNightSwitch.isDay && !thunderAndRainisPlaying)
         {
-            audioSource.volume = startVolume* FindObjectOfType<AudioManager>().settingsFXVolume;
+            audioSource.volume = startVolume * audioManager.settingsFXVolume;
             audioSource.PlayDelayed(1f);
             thunderAndRainisPlaying = true;
 
@@ -73,7 +75,7 @@ public class LightningSpawner : MonoBehaviour {
                         switch(go.tag)
                         {
                             case "Kiste" :
-                                FindObjectOfType<AudioManager>().playSound("destroyed_box");
+                                audioManager.playSound("destroyed_box");
                                 levelGenerator.AllGameObjects[thunderPos.x + x, thunderPos.z + z] = null;
                                 go.SetActive(false);
 
@@ -86,7 +88,7 @@ public class LightningSpawner : MonoBehaviour {
                             break;
 
                             case "Item" :
-                                FindObjectOfType<AudioManager>().playSound("break2");
+                                audioManager.playSound("break2");
                                 levelGenerator.AllGameObjects[thunderPos.x + x, thunderPos.z + z] = null;
                                 go.SetActive(false);
                             break;
@@ -103,7 +105,7 @@ public class LightningSpawner : MonoBehaviour {
 
     private IEnumerator thunderFadeOut()
     {
-        float startVolume = audioSource.volume* FindObjectOfType<AudioManager>().settingsFXVolume;
+        float startVolume = audioSource.volume * audioManager.settingsFXVolume;
  
         while (audioSource.volume > 0)
         {
@@ -121,9 +123,9 @@ public class LightningSpawner : MonoBehaviour {
     {
         switch((int)Random.Range(0f, 4f))
         {
-            case 1: audioSource.PlayOneShot(thunderStrike1, 0.5f * FindObjectOfType<AudioManager>().settingsFXVolume); break;
-            case 2: audioSource.PlayOneShot(thunderStrike1, 0.5f * FindObjectOfType<AudioManager>().settingsFXVolume); break;
-            case 3: audioSource.PlayOneShot(thunderStrike1, 0.5f * FindObjectOfType<AudioManager>().settingsFXVolume); break;
+            case 1: audioSource.PlayOneShot(thunderStrike1, 0.5f * audioManager.settingsFXVolume); break;
+            case 2: audioSource.PlayOneShot(thunderStrike1, 0.5f * audioManager.settingsFXVolume); break;
+            case 3: audioSource.PlayOneShot(thunderStrike1, 0.5f * audioManager.settingsFXVolume); break;
         }
     }
 }

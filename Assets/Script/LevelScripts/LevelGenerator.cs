@@ -116,7 +116,7 @@ public class LevelGenerator : MonoBehaviour
 
             //ACHTUNG ZUR DEMO WERDEN NICHT ALLE RADOM LEVEL GENERIERT
 
-            int RandomValue = (int)(Random.Range(8, 17));
+            int RandomValue = (int)(Random.Range(0, 17));
 
             // Wenn eine specialSection erlaubt wird, wird diese zuaellig ausgewählt und in den dataBuffer geschrieben
             if(specialSection) {

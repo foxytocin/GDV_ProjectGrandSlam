@@ -12,6 +12,7 @@ public class MapDestroyer : MonoBehaviour
     private int xPos;
     private int zPos;
     private ItemSpawner itemSpawner;
+    private AudioManager audioManager;
 
 
     private void Awake()
@@ -19,6 +20,7 @@ public class MapDestroyer : MonoBehaviour
 
         objectPooler = ObjectPooler.Instance;
         itemSpawner = FindObjectOfType<ItemSpawner>();
+        audioManager = FindObjectOfType<AudioManager>();
     }
 
     //Wird beim explodieren der Bombe durch das BombeScript aufgerufen.
@@ -41,7 +43,7 @@ public class MapDestroyer : MonoBehaviour
 
         //Explosions-Animation an der Stelle der Bombe wird abgespielt.
         objectPooler.SpawnFromPool("Explosion", new Vector3(xPos, 0.5f, zPos), Quaternion.identity);
-        FindObjectOfType<AudioManager>().playSound("explosion_medium");
+        audioManager.playSound("explosion_medium");
         StartCoroutine(KillField((int)position.x, (int)position.z));
 
         //Es werden 4 Coroutinen angelegt und gestartet, welche gleichzeitig in alle Himmelsrichtung (x, -x, z, -z) die Fehler durchlaufen.
@@ -114,7 +116,6 @@ public class MapDestroyer : MonoBehaviour
         if (thisGameObject == null)
         {
             objectPooler.SpawnFromPool("Explosion", new Vector3(x, 0.5f, z), Quaternion.identity);
-            //levelGenerator.AllGameObjects[x, z] = Instantiate(KillFieldPrefab, new Vector3(x, 0.1f, z), Quaternion.Euler(90f, 0, 0), transform);
             StartCoroutine(KillField(x, z));
             return true;
         }
@@ -131,8 +132,7 @@ public class MapDestroyer : MonoBehaviour
                 case "Wand":
                     return false;
 
-                case "Kiste":    
-                    FindObjectOfType<AudioManager>().playSound("destroyed_box");
+                case "Kiste":
                     objectPooler.SpawnFromPool("Explosion", new Vector3(x, 0.5f, z), Quaternion.identity);
                     levelGenerator.AllGameObjects[x, z] = null;
                     thisGameObject.SetActive(false);
@@ -153,7 +153,7 @@ public class MapDestroyer : MonoBehaviour
                     return true;
 
                 case "Item":
-                    FindObjectOfType<AudioManager>().playSound("break2");
+                    audioManager.playSound("break2");
                     objectPooler.SpawnFromPool("Explosion", new Vector3(x, 0.5f, z), Quaternion.identity);
                     levelGenerator.AllGameObjects[x, z] = null;
                     thisGameObject.SetActive(false);

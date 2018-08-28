@@ -13,12 +13,14 @@ public class GhostSpawnerScript : MonoBehaviour {
     public AudioClip audioScream1;
     public AudioClip audioScream2;
     public AudioClip audioScream3;
+    private AudioManager audioManager;
 
     private int randomScream;
 
     void Awake()
     {
         audioSource = GetComponent<AudioSource>();
+        audioManager = FindObjectOfType<AudioManager>();
     }
 
     public void createGhost(Vector3 spawnposition, int id, Color32 playerColor)
@@ -29,19 +31,19 @@ public class GhostSpawnerScript : MonoBehaviour {
         switch (id)
         {
             case 0:
-                FindObjectOfType<AudioManager>().playSound("player_dead_0");
+                audioManager.playSound("player_dead_0");
                 break;
 
             case 1:
-                FindObjectOfType<AudioManager>().playSound("player_dead_1");
+                audioManager.playSound("player_dead_1");
                 break;
 
             case 2:
-                FindObjectOfType<AudioManager>().playSound("player_dead_2");
+                audioManager.playSound("player_dead_2");
                 break;
 
             case 3:
-                FindObjectOfType<AudioManager>().playSound("player_dead_3");
+                audioManager.playSound("player_dead_3");
                 break;
 
             default: break;
