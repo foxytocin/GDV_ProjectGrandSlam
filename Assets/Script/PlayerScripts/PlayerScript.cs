@@ -47,6 +47,7 @@ public class PlayerScript : MonoBehaviour
         houdini = FindObjectOfType<Houdini>();
         ghostSpawner = FindObjectOfType<GhostSpawnerScript>();
         audioManager = FindObjectOfType<AudioManager>();
+        cam = FindObjectOfType<CameraMovement>();
     }
 
     void Start()
@@ -302,12 +303,6 @@ public class PlayerScript : MonoBehaviour
         return new Vector3(0, 0, 0);
     }
 
-
-    public void setWorld(LevelGenerator LevelGenerator)
-    {
-        this.levelGenerator = LevelGenerator;
-    }
-
     // Uebergabe der PlayerID
     public void setPlayerID(int id)
     {
@@ -329,17 +324,6 @@ public class PlayerScript : MonoBehaviour
         FindObjectOfType<RulesScript>().playerDeath(playerID, transform.position);
         setALife(false);
         this.gameObject.SetActive(false);
-    }
-
-    // PlayerList uebergabe
-    public void setPlayerList(List<GameObject> playerList)
-    {
-        this.playerList = playerList;
-    }
-
-    public List<GameObject> getPlayerList()
-    {
-        return playerList;
     }
 
     // Speed

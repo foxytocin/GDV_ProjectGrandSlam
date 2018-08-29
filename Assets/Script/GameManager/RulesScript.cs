@@ -15,10 +15,13 @@ public class RulesScript : MonoBehaviour
     public GameObject resultScreen;
     public GameObject winner;
     public GameObject reach;
+
     public TextMeshProUGUI winnerText;
     public TextMeshProUGUI reachText;
     public TextMeshProUGUI extraText;
+
     public GameObject nextRoundButton;
+
     GameManager gameManager;
 
     private void Awake()
@@ -102,7 +105,6 @@ public class RulesScript : MonoBehaviour
                 winner.SetActive(true);
                 reachText.SetText(reachTextString.ToString());
                 reach.SetActive(true);
-                Debug.LogWarning("Player1 ist nun auch tot und ist " + (int)width +" weit gekommen");
 
                 break;
             case 2:
@@ -180,4 +182,5 @@ public class RulesScript : MonoBehaviour
         for (int i = 0; i < 4; i++)
             roundResults[i] = 0;
     }
+
 }

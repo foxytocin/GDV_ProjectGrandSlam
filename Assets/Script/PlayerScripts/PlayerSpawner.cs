@@ -78,15 +78,7 @@ public class PlayerSpawner : MonoBehaviour
             // Zwischenspeichern von dem PlayerSript des tmpPlayers, zum bearbeiten
             PlayerScript tmpPlayerScript = tmpPlayer.GetComponent<PlayerScript>();
             // Player bekommt seine einzigartige ID
-            tmpPlayerScript.setPlayerID(i);
-            // Player bekommt seine die PlayerListe mit Ueberreicht
-            tmpPlayerScript.setPlayerList(playerList);
-            // Player bekommt den LevelGenerator Ueberreicht damit der Player auf das AllGameObject-Array zugreifen kann
-            tmpPlayerScript.setWorld(levelGenerator);
-            // Player bekommt den GhostSpawner Uebergeben, damit beim Tod ein Geist Spawnen kann
-            tmpPlayerScript.ghostSpawner = ghostSpawner;
-            // Player bekommt das CameraScript movement 
-            tmpPlayerScript.cam = cam;
+            tmpPlayerScript.playerID = i;
 
             // Player wird in die PlayerListe angefuegt
             playerList.Add(tmpPlayer);
