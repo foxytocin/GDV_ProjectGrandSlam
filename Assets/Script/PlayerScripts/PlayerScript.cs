@@ -228,6 +228,7 @@ public class PlayerScript : MonoBehaviour
             {
                 gravity = 0f;
                 setALife(false);
+                FindObjectOfType<RulesScript>().playerDeath(playerID, transform.position);
                 this.gameObject.SetActive(false);
             }
         }
