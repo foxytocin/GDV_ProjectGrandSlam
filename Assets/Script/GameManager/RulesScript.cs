@@ -121,6 +121,8 @@ public class RulesScript : MonoBehaviour
                 if (playertmp < 2)
                 {
                     roundResults[lastplayer]++;
+                    FindObjectOfType<PlayerSpawner>().playerList[lastplayer].GetComponent<PlayerScript>().winAnimationStart();
+                    FindObjectOfType<MainMenu>().lockControlls();
                     lastplayer++;
                     //Time.timeScale = 0f;
                     FindObjectOfType<PausenMenuScript>().isInGame = false;
@@ -130,6 +132,7 @@ public class RulesScript : MonoBehaviour
                     reachText.SetText(string.Format("{0} {1}", "player", lastplayer.ToString()));
                     reach.SetActive(true);
                     nextRoundButton.SetActive(true);
+                    
 
                     Debug.LogWarning("Es gibt ein Gewinner: " + lastplayer+1 + " und ist " + (int)width + " weit gekommen");
                 }

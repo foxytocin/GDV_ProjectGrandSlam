@@ -11,6 +11,8 @@ public class AudioManager : MonoBehaviour
     public float settingsFXVolume;
     public float settingsMusicVolume;
 
+    public bool musicAtStart;
+
     // Use this for initialization
     void Awake ()
     {
@@ -30,6 +32,9 @@ public class AudioManager : MonoBehaviour
 
     private void Start()
     {
+        if(!musicAtStart)
+            setMusicVolume(0);
+
         playSound("Music");
     }
 

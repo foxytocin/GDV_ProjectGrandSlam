@@ -37,7 +37,7 @@ public class PlayerScript : MonoBehaviour
     private Color32 playerColor;
     private Vector3 lastDirection;
     private AudioManager audioManager;
-
+    public bool resultScreenActive;
 
     void Awake()
     {
@@ -69,6 +69,7 @@ public class PlayerScript : MonoBehaviour
         levelGenerator.AllGameObjects[(int)transform.position.x, (int)transform.position.z] = this.gameObject;
         cam.PlayerPosition(transform.position, playerID);
         transform.Rotate(0, 90, 0, Space.World);
+        resultScreenActive = false;
     }
 
     void Update()
@@ -317,7 +318,6 @@ public class PlayerScript : MonoBehaviour
         return playerID;
     }
 
-
     // Tot trifft ein
     public void dead()
     {
@@ -330,7 +330,6 @@ public class PlayerScript : MonoBehaviour
         this.gameObject.SetActive(false);
     }
 
-
     // PlayerList uebergabe
     public void setPlayerList(List<GameObject> playerList)
     {
@@ -341,7 +340,6 @@ public class PlayerScript : MonoBehaviour
     {
         return playerList;
     }
-
 
     // Speed
     public void setSpeed()
@@ -354,7 +352,6 @@ public class PlayerScript : MonoBehaviour
         return speed;
     }
 
-
     // bombPower
     public void setPower(int tmp)
     {
@@ -365,7 +362,6 @@ public class PlayerScript : MonoBehaviour
     {
         return bombPower;
     }
-
 
     // avaibleBombs
     public void setAvaibleBomb(int wert)
@@ -503,4 +499,38 @@ public class PlayerScript : MonoBehaviour
         fall = true;
         alive = false;
     }
+
+    public void winAnimationStart()
+    {
+        resultScreenActive = true;
+        //StartCoroutine(winAnimation());
+    }
+
+    public IEnumerator winAnimation()
+    {
+        bool richtung = true; // true = aufwärts, false = abwärts;
+
+        while(resultScreenActive)
+        {
+            if (transform.position.y <= 1.5f && richtung)
+            {
+                transform.Translate(0, 0.2f * (Time.deltaTime + 0.6f), 0);
+            }
+            else
+            {
+                richtung = false;
+            }
+
+            if (transform.position.y > 0.6f && !richtung)
+            {
+                transform.Translate(0, -0.2f * (Time.deltaTime + 0.6f), 0);
+            }
+            else
+            {
+                richtung = true;
+            }
+            yield return null;
+        }
+    }
+
 }

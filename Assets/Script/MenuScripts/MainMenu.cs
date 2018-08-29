@@ -99,7 +99,7 @@ public class MainMenu : MonoBehaviour {
 		}
 	}
 
-	void lockControlls()
+	public void lockControlls()
 	{
 		playerList = playerSpawner.playerList;
 		foreach(GameObject go in playerList)
