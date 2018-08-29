@@ -39,6 +39,43 @@ public class DayNightSwitch : MonoBehaviour {
 		worldAmbientOriginal = RenderSettings.ambientIntensity;
 	}
 
+	// Resetet den Tag-Nacht-Wechsel beim LevelRestart basierend auf dem aktuellen Zustand
+	public void restartDayNightModus()
+	{
+		// Wird aktuell eine Nacht-Switch (Sonnenuntergang) durchgefuehrt, wird dieser Abgebrochen
+		if((nightModus && isDay))
+		{
+			levelGenerator.generateGlowBalls = false;
+			nightModus = false;
+			update = true;
+		}
+
+		// Es ist aktuell dunkel: Es wird auf Tag zurueck geschaltet
+		if((nightModus && !isDay))
+		{
+			isDay = true;
+			nightModus = false;
+			update = true;
+			switchToDay();
+			playerLightOff();
+			levelGenerator.generateGlowBalls = false;
+			generateDistanceLine.generateGlowStangen = false;
+			checkGlowDistanceLines();
+		}
+
+		// Wird aktuell eine Tag-Switch (Sonnenaufgang) durchgefuehrt, wird dieser Abgebrochen
+		if((!nightModus && !isDay))
+		{
+			isDay = true;
+			update = true;
+			switchToDay();
+			playerLightOff();
+
+			generateDistanceLine.generateGlowStangen = false;
+			checkGlowDistanceLines();
+		}
+	}
+
 	void Update()
 	{
 		if(!nightModus && isDay)
