@@ -36,7 +36,6 @@ public class CameraDirection : MonoBehaviour {
                 dirFromMeToTarget = target - transform.position;
                 lookRot = Quaternion.LookRotation(dirFromMeToTarget);
                 transform.rotation = Quaternion.Lerp(transform.rotation, lookRot, Time.deltaTime * (degreesPerSecond / 360f));
-                transform.rotation = Quaternion.Lerp(transform.rotation, lookRot, Time.deltaTime * (degreesPerSecond / 360f));
                 transform.Translate(Vector3.left * Mathf.Clamp(orbitSpeed, 0.001f, 0.9f) * Time.deltaTime);
                 orbitSpeed += 0.001f;
             } else //Orbiting around winning Player
