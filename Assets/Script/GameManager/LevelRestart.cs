@@ -10,6 +10,7 @@ public class LevelRestart : MonoBehaviour {
 	private CameraScroller cameraScroller;
 	private PlayerSpawner playerSpawner;
 	private DayNightSwitch dayNightSwitch;
+    private RulesScript rulesScript;
 
 	void Awake()
 	{
@@ -18,13 +19,14 @@ public class LevelRestart : MonoBehaviour {
 		cameraScroller = FindObjectOfType<CameraScroller>();
 		playerSpawner = FindObjectOfType<PlayerSpawner>();
 		dayNightSwitch = FindObjectOfType<DayNightSwitch>();
-
+        rulesScript = FindObjectOfType<RulesScript>();
 	}
 
-	public void nextRound()
-	{
-		levelRestart();
-	}
+    public void mainMenuRestart()
+    {
+        rulesScript.restartResults();
+        levelRestart();
+    }
 
 	public void levelRestart()
 	{

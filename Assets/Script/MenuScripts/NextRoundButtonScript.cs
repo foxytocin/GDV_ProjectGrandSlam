@@ -6,10 +6,12 @@ public class NextRoundButtonScript : MonoBehaviour {
 
     public GameObject resultMenu;
 
+    GameManager gameManager;
     LevelRestart levelRestart;
     
     void Start()
     {
+        gameManager = FindObjectOfType<GameManager>();
         levelRestart = FindObjectOfType<LevelRestart>();
     }
 
@@ -18,5 +20,7 @@ public class NextRoundButtonScript : MonoBehaviour {
         levelRestart.levelRestart();
         resultMenu.SetActive(false);
         FindObjectOfType<OverlayMethodenScript>().isInGame = true;
+        gameManager.unlockControlls();
+
     }
 }

@@ -2,11 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GoButtonScript : MonoBehaviour {
-
-    CanvasGroup canvasGroup;
-    Canvas canvas;
-
+public class GoButtonScript : MonoBehaviour
+{
     SpawnDemoItems spawnDemoItems;
 
     OverlayMethodenScript overlayMethodenScript;
@@ -16,11 +13,10 @@ public class GoButtonScript : MonoBehaviour {
     CameraScroller cameraScroller;
     DestroyScroller destroyScroller;
 
+    public GameObject mainMenuUI;
+
     void Start ()
     {
-
-        canvasGroup = FindObjectOfType<CanvasGroup>();
-        canvas = FindObjectOfType<Canvas>();
 
         spawnDemoItems = FindObjectOfType<SpawnDemoItems>();
 
@@ -35,7 +31,7 @@ public class GoButtonScript : MonoBehaviour {
 
     public void onClickGoButton()
     {
-        overlayMethodenScript.fadeOut(canvasGroup, canvas);
+        mainMenuUI.GetComponent<GroupFadeScript>().fadeOut();
         gameManager.unlockControlls();
         spawnDemoItems.cleanDemoItems();
         FindObjectOfType<AudioManager>().playSound("lets_go");

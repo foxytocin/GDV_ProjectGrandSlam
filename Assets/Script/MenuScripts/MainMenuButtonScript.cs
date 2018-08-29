@@ -4,14 +4,11 @@ using UnityEngine;
 
 public class MainMenuButtonScript : MonoBehaviour {
 
+    public GameObject mainMenuUI;
     public GameObject offSide;
-    public GameObject onSide;
 
     LevelRestart levelRestart;
     OverlayMethodenScript overlayMethodenScript;
-
-    public CanvasGroup canvasGroup;
-    public Canvas canvas;
 
 	void Start ()
     {
@@ -22,8 +19,7 @@ public class MainMenuButtonScript : MonoBehaviour {
     public void onClickMainButton()
     {
         offSide.SetActive(false);
-        onSide.SetActive(true);
+        mainMenuUI.GetComponent<GroupFadeScript>().fadeIn();
         levelRestart.levelRestart();
-        overlayMethodenScript.fadeIn(canvasGroup, canvas);
     }
 }

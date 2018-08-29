@@ -19,15 +19,19 @@ public class RulesScript : MonoBehaviour
     public TextMeshProUGUI reachText;
     public TextMeshProUGUI extraText;
     public GameObject nextRoundButton;
+    GameManager gameManager;
 
     private void Awake()
     {
+        gameManager = FindObjectOfType<GameManager>();
+
         playerIsLive = new bool[4];
 
         roundResults = new int[4];
 
         for (int i = 0; i < 4; i++)
             roundResults[i] = 0;
+
     }
 
     public void onePlayer()
@@ -91,7 +95,6 @@ public class RulesScript : MonoBehaviour
         {
             case 1:
 
-                //Time.timeScale = 0f;
                 int reachTextString = (int)width;
                 FindObjectOfType<OverlayMethodenScript>().isInGame = false;
                 resultScreen.SetActive(true);
@@ -120,21 +123,32 @@ public class RulesScript : MonoBehaviour
 
                 if (playertmp < 2)
                 {
+
+                    FindObjectOfType<OverlayMethodenScript>().isInGame = false;
+                    gameManager.lockControlls();
                     roundResults[lastplayer]++;
                     FindObjectOfType<PlayerSpawner>().playerList[lastplayer].GetComponent<PlayerScript>().winAnimationStart();
-                    //FindObjectOfType<MainMenu>().lockControlls();
-                    lastplayer++;
-                    //Time.timeScale = 0f;
-                    FindObjectOfType<OverlayMethodenScript>().isInGame = false;
-                    resultScreen.SetActive(true);
-                    winnerText.SetText("The Winner of this Round is:");
-                    winner.SetActive(true);
-                    reachText.SetText(string.Format("{0} {1}", "player", lastplayer.ToString()));
-                    reach.SetActive(true);
-                    nextRoundButton.SetActive(true);
-                    
 
-                    Debug.LogWarning("Es gibt ein Gewinner: " + lastplayer+1 + " und ist " + (int)width + " weit gekommen");
+                    if (!endResult())
+                    {
+                        lastplayer++;
+                        resultScreen.SetActive(true);
+                        winnerText.SetText("The Winner of this Round is:");
+                        winner.SetActive(true);
+                        reachText.SetText(string.Format("{0} {1}", "player", lastplayer.ToString()));
+                        reach.SetActive(true);
+                        nextRoundButton.SetActive(true);
+                    }
+                    else
+                    {
+                        lastplayer++;
+                        resultScreen.SetActive(true);
+                        winnerText.SetText("The Winner of this Battle is:");
+                        winner.SetActive(true);
+                        reachText.SetText(string.Format("{0} {1}", "player", lastplayer.ToString()));
+                        reach.SetActive(true);
+                    }
+
                 }
 
                 break;
@@ -143,20 +157,27 @@ public class RulesScript : MonoBehaviour
                 break;
         }
 
-        endResult();
     }
 
-    void endResult()
+    bool endResult()
     {
         for(int i = 0; i < 4; i++)
         {
             if (roundResults[i] == 3)
             {
-                Debug.LogWarning("Drei Runden wurden gewonnen von: Player " + i + 1 + " !");
-                Time.timeScale = 0f;
+
+                return true;
+
             }
             
-        }
+        } 
+
+        return false;
     }
 
+    public void restartResults()
+    {
+        for (int i = 0; i < 4; i++)
+            roundResults[i] = 0;
+    }
 }

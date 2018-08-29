@@ -19,9 +19,6 @@ public class OverlayMethodenScript : MonoBehaviour
     public static bool GameIsPaused = false;
     public GameObject pausenMenuUI;
 
-    private float menueOpacity;
-    private float fadeSpeed;
-
     public bool isInGame;
 
     private void Awake()
@@ -32,13 +29,6 @@ public class OverlayMethodenScript : MonoBehaviour
         levelRestart = FindObjectOfType<LevelRestart>();
         isInGame = false;
     }
-
-    void Start()
-    {
-        fadeSpeed = 1f;
-        menueOpacity = 1f;
-    }
-
 
     void Update()
     {
@@ -86,40 +76,5 @@ public class OverlayMethodenScript : MonoBehaviour
     {
         offSetSide.SetActive(false);
         onSetSide.SetActive(true);
-    }
-
-    public void fadeOut(CanvasGroup canvasGroup, Canvas canvas)
-    {
-        StartCoroutine(fadeOutCore(canvasGroup,canvas));
-    }
-
-    public void fadeIn(CanvasGroup canvasGroup, Canvas canvas)
-    {
-        StartCoroutine(fadeInCore(canvasGroup, canvas));
-    }
-
-    private IEnumerator fadeOutCore(CanvasGroup canvasGroup, Canvas canvas)
-    {
-        while (menueOpacity > 0f)
-        {
-            menueOpacity -= Time.deltaTime * fadeSpeed;
-            canvasGroup.alpha = menueOpacity;
-            yield return null;
-        }
-        canvasGroup.alpha = 0f;
-        canvas.enabled = false;
-    }
-
-    private IEnumerator fadeInCore(CanvasGroup canvasGroup, Canvas canvas)
-    {
-        canvas.enabled = true;
-
-        while (menueOpacity < 1f)
-        {
-            menueOpacity += Time.deltaTime * fadeSpeed;
-            canvasGroup.alpha = menueOpacity;
-            yield return null;
-        }
-        canvasGroup.alpha = 1f;
     }
 }
