@@ -36,7 +36,8 @@ public class PlayerSpawner : MonoBehaviour
         //Wird createPlayers() vom GameManager aufrufen werden zuerst alle Player in der playerList zerstoert und entfernt.
         foreach(GameObject go in playerList)
         {
-            Destroy(go);
+            if(go != null)
+                Destroy(go);
         }
 
         //Bereinigt die beiden Listen bevor sie neu gefuellt werden.
@@ -100,6 +101,6 @@ public class PlayerSpawner : MonoBehaviour
 
     public void setPlayersDropdown(int players)
     {
-        this.players = players+1;
+        this.players = players + 1;
     }
 }

@@ -6,7 +6,6 @@ public class DestroyScroller : MonoBehaviour
     public int dummyPos;
     public LevelGenerator LevelGenerator;
     public CameraMovement camMove;
-    public GameObject dummy;
     private Vector3 target;
     private LevelGenerator levelGenerator;
     public bool gameStatePlay;
@@ -22,23 +21,22 @@ public class DestroyScroller : MonoBehaviour
     void Start()
     {
         oldDummy = -1;
-        dummy = new GameObject("DestroyScroller");
-        dummy.transform.position = new Vector3(15f, 0, -10f);
+        transform.position = new Vector3(0, 0, -10f);
     }
 
     public void restartDestroyScroller()
     {
         gameStatePlay = false;
         oldDummy = -1;
-        dummy.transform.position = new Vector3(15f, 0, -10f);
-        dummyPos = (int)dummy.transform.position.z;
+        transform.position = new Vector3(0, 0, -10f);
+        dummyPos = (int)transform.position.z;
     }
 
     // Update is called once per frame
     void Update()
     {
         target = camMove.centerPoint;
-        dummyPos = (int)dummy.transform.position.z;
+        dummyPos = (int)transform.position.z;
 
         if(gameStatePlay)
             moveDummy(target);
@@ -53,7 +51,7 @@ public class DestroyScroller : MonoBehaviour
 
     private void moveDummy(Vector3 target)
     {
-        Vector3 pos = Vector3.Lerp(dummy.transform.position, new Vector3(15f, 0f, target.z + 3f), 0.1f * Time.deltaTime);
-        dummy.transform.position = pos;
+        Vector3 pos = Vector3.Lerp(transform.position, new Vector3(0f, 0f, target.z + 3f), 0.1f * Time.deltaTime);
+        transform.position = pos;
     }
 }

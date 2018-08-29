@@ -4,7 +4,7 @@ using System.Collections;
 public class FallScript : MonoBehaviour {
     float rotationY;
     float gravity;
-    float randomDelay;
+    float randomSpeed;
     float fallDelay;
     private LevelGenerator LevelGenerator;
 
@@ -55,7 +55,7 @@ public class FallScript : MonoBehaviour {
 
     private IEnumerator fallingVisible()
     {
-        randomDelay = Random.Range(0.3f, 2f) / 10f;
+        randomSpeed = Random.Range(0.3f, 2f) / 10f;
         fallDelay = Random.Range(10f, 41f) / 10f;
         rotationY = Random.Range(-3f, 3f);
         gravity = 0;
@@ -93,7 +93,36 @@ public class FallScript : MonoBehaviour {
         while(transform.position.y > -50f)
         {
             gravity += Time.deltaTime * 0.9f;
-            transform.Translate(0, -((gravity * gravity) + randomDelay), 0);
+            transform.Translate(0, -((gravity * gravity) + randomSpeed), 0);
+            transform.localEulerAngles += new Vector3(0, rotationY * gravity, 0);
+            yield return null;
+        }
+
+        gameObject.SetActive(false);
+        StopAllCoroutines();
+    }
+
+
+    public IEnumerator fallingLevelCleanup()
+    {
+        randomSpeed = Random.Range(0.3f, 3f) / 10f;
+        fallDelay = Random.value;
+        rotationY = Random.Range(-3f, 3f);
+        gravity = 0;
+        int xPos = (int)transform.position.x;
+        int zPos = (int)transform.position.z;
+
+        while(fallDelay >= 0)
+        {
+            transform.localEulerAngles += new Vector3(Random.Range(-0.5f, 0.5f), 0, Random.Range(-0.5f, 0.5f));
+            fallDelay -= Time.deltaTime;
+            yield return null;
+        }
+        
+        while(transform.position.y > -50f)
+        {
+            gravity += Time.deltaTime * 0.9f;
+            transform.Translate(0, -((gravity * gravity) + randomSpeed), 0);
             transform.localEulerAngles += new Vector3(0, rotationY * gravity, 0);
             yield return null;
         }

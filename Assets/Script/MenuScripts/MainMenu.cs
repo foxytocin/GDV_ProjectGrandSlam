@@ -67,7 +67,6 @@ public class MainMenu : MonoBehaviour {
             FindObjectOfType<PausenMenuScript>().isInGame = true;
 		}
 	}
-
 	public void PauseGame()
 	{
 		menuFade.fadeIn();
@@ -89,23 +88,28 @@ public class MainMenu : MonoBehaviour {
 		destroyScroller.gameStatePlay = true;
     }
 
-	void unlockControlls()
+
+	public void unlockControlls()
 	{
+		playerList = playerSpawner.playerList;
 		foreach(GameObject go in playerList)
 		{
-			go.GetComponent<PlayerScript>().gameStatePlay = true;
+			if(go != null)
+				go.GetComponent<PlayerScript>().gameStatePlay = true;
 		}
 	}
 
 	void lockControlls()
 	{
+		playerList = playerSpawner.playerList;
 		foreach(GameObject go in playerList)
 		{
-			go.GetComponent<PlayerScript>().gameStatePlay = false;
+			if(go != null)
+				go.GetComponent<PlayerScript>().gameStatePlay = false;
 		}
 	}
 
-    public void updateSoundOptions()
+    void updateSoundOptions()
     {
         fxSlider.value = FindObjectOfType<AudioManager>().settingsFXVolume;
         musicSlider.value = FindObjectOfType<AudioManager>().settingsMusicVolume;
