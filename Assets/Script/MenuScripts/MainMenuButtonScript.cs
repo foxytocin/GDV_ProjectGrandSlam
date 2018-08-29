@@ -18,6 +18,7 @@ public class MainMenuButtonScript : MonoBehaviour {
 	
     public void onClickMainButton()
     {
+        Time.timeScale = 1f;
         offSide.SetActive(false);
         mainMenuUI.GetComponent<GroupFadeScript>().fadeIn();
         levelRestart.levelRestart();

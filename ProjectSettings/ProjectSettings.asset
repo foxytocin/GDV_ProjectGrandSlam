@@ -12,9 +12,9 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: APJS
+  companyName: JASP
   productName: Project GrandSlam
-  defaultCursor: {fileID: 0}
+  defaultCursor: {fileID: 2800000, guid: 1edf4efe8ce3c4d97b13914034d661ed, type: 3}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.09019608, g: 0.09019608, b: 0.09019608, a: 1}
   m_ShowUnitySplashScreen: 1

@@ -12,7 +12,6 @@ public class GameManager : MonoBehaviour {
     private bool showMiniMap;
     private int player;
     private int playertmp;
-
     public bool isInGame;
 
     void Awake()
