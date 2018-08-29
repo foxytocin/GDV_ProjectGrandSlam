@@ -93,7 +93,7 @@ public class RulesScript : MonoBehaviour
 
                 //Time.timeScale = 0f;
                 int reachTextString = (int)width;
-                FindObjectOfType<PausenMenuScript>().isInGame = false;
+                FindObjectOfType<OverlayMethodenScript>().isInGame = false;
                 resultScreen.SetActive(true);
                 winnerText.SetText("Du bist im Spiel so weit gekommen:");
                 winner.SetActive(true);
@@ -122,10 +122,10 @@ public class RulesScript : MonoBehaviour
                 {
                     roundResults[lastplayer]++;
                     FindObjectOfType<PlayerSpawner>().playerList[lastplayer].GetComponent<PlayerScript>().winAnimationStart();
-                    FindObjectOfType<MainMenu>().lockControlls();
+                    //FindObjectOfType<MainMenu>().lockControlls();
                     lastplayer++;
                     //Time.timeScale = 0f;
-                    FindObjectOfType<PausenMenuScript>().isInGame = false;
+                    FindObjectOfType<OverlayMethodenScript>().isInGame = false;
                     resultScreen.SetActive(true);
                     winnerText.SetText("The Winner of this Round is:");
                     winner.SetActive(true);

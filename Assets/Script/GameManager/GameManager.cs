@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
@@ -10,6 +13,8 @@ public class GameManager : MonoBehaviour {
     private int player;
     private int playertmp;
 
+    public bool isInGame;
+
     void Awake()
     {
         player = 1;
@@ -17,11 +22,7 @@ public class GameManager : MonoBehaviour {
         playerSpawner = FindObjectOfType<PlayerSpawner>();
         miniMapCam = GameObject.Find("MiniMapCam").GetComponent<Camera>();
         miniMapCanvas = GameObject.Find("MiniMapCanvas").GetComponent<Canvas>();
-    }
-
-    public void playLetsGo()
-    {
-        FindObjectOfType<AudioManager>().playSound("lets_go");
+        
     }
 
     void Start()
@@ -29,6 +30,7 @@ public class GameManager : MonoBehaviour {
         showMiniMap = false;
         miniMapCam.enabled = false;
         miniMapCanvas.enabled = false;
+        isInGame = false;
     }
 
     // Update is called once per frame
@@ -94,6 +96,26 @@ public class GameManager : MonoBehaviour {
     public void setFourPlayer()
     {
         player = 4;
+    }
+
+    public void unlockControlls()
+    {
+        List <GameObject> playerList = playerSpawner.playerList;
+        foreach (GameObject go in playerList)
+        {
+            if (go != null)
+                go.GetComponent<PlayerScript>().gameStatePlay = true;
+        }
+    }
+
+    public void lockControlls()
+    {
+        List<GameObject> playerList = playerSpawner.playerList;
+        foreach (GameObject go in playerList)
+        {
+            if (go != null)
+                go.GetComponent<PlayerScript>().gameStatePlay = false;
+        }
     }
 
 }
