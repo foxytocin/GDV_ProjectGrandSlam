@@ -11,7 +11,6 @@ public class CameraDirection : MonoBehaviour {
     private float orbitSpeed = 0.001f;
 
     private float degreesPerSecond = 300f;
-    private int z = 10;
 
     void Start()
     {
@@ -27,38 +26,41 @@ public class CameraDirection : MonoBehaviour {
     {
         //resultscreenmode
         //if(rules.resultScreen.activeSelf && transform.localPosition.y > -6.69f)
-        if(rules.resultScreen.activeSelf && transform.position.y > 2.001f)
+        Vector3 dirFromMeToTarget;
+        Quaternion lookRot;
+        if (rules.resultScreen.activeSelf)
         {
-            target = cm.centerPoint;
-            targetCamPos = target + new Vector3(- 1.5f, 2f, -4f);
-            //Vector3 targetPosition = Vector3.Lerp(transform.position, new Vector3(this.transform.position.x, 0, target.z), 4f * Time.deltaTime);
-            transform.position = Vector3.Lerp(transform.position, targetCamPos, 0.75f * Time.deltaTime);
-            //transform.Translate(Vector3.right * Time.deltaTime);
+            //Zoom
+            if (transform.position.y <= 2.001f)
+            {
+                dirFromMeToTarget = target - transform.position;
+                lookRot = Quaternion.LookRotation(dirFromMeToTarget);
+                transform.rotation = Quaternion.Lerp(transform.rotation, lookRot, Time.deltaTime * (degreesPerSecond / 360f));
+                transform.Translate(Vector3.left * Mathf.Clamp(orbitSpeed, 0.001f, 0.9f) * Time.deltaTime);
+                orbitSpeed += 0.001f;
+            } else //Orbiting around winning Player
+            {
+                target = cm.centerPoint;
+                targetCamPos = target + new Vector3(-1.5f, 2f, -4f);
+                //Vector3 targetPosition = Vector3.Lerp(transform.position, new Vector3(this.transform.position.x, 0, target.z), 4f * Time.deltaTime);
+                transform.position = Vector3.Lerp(transform.position, targetCamPos, 0.75f * Time.deltaTime);
+                //transform.Translate(Vector3.right * Time.deltaTime);
 
-            Vector3 dirFromMeToTarget = target - transform.position;
-            Quaternion lookRot = Quaternion.LookRotation(dirFromMeToTarget);
-            transform.rotation = Quaternion.Lerp(transform.rotation, lookRot, Time.deltaTime * (degreesPerSecond / 360f));
-            
-            if (Camera.main.transform.localEulerAngles.y < 10)
-            {
-                Camera.main.transform.localEulerAngles = new Vector3(Camera.main.transform.localEulerAngles.x, Camera.main.transform.localEulerAngles.y, 0);
-            }
-            else if (Camera.main.transform.localEulerAngles.y > 11)
-            {
-                Camera.main.transform.localEulerAngles = new Vector3(Camera.main.transform.localEulerAngles.x, Camera.main.transform.localEulerAngles.y, 0);
+                dirFromMeToTarget = target - transform.position;
+                lookRot = Quaternion.LookRotation(dirFromMeToTarget);
+                transform.rotation = Quaternion.Lerp(transform.rotation, lookRot, Time.deltaTime * (degreesPerSecond / 360f));
+
+                if (Camera.main.transform.localEulerAngles.y < 10)
+                {
+                    Camera.main.transform.localEulerAngles = new Vector3(Camera.main.transform.localEulerAngles.x, Camera.main.transform.localEulerAngles.y, 0);
+                }
+                else if (Camera.main.transform.localEulerAngles.y > 11)
+                {
+                    Camera.main.transform.localEulerAngles = new Vector3(Camera.main.transform.localEulerAngles.x, Camera.main.transform.localEulerAngles.y, 0);
+                }
             }
         }
-        //CamOrbit, but not working atm
-        else if (rules.resultScreen.activeSelf && transform.position.y <= 2.001f)
-        {
-            Vector3 dirFromMeToTarget = target - transform.position;
-            Quaternion lookRot = Quaternion.LookRotation(dirFromMeToTarget);
-            transform.rotation = Quaternion.Lerp(transform.rotation, lookRot, Time.deltaTime * (degreesPerSecond / 360f));
-            transform.rotation = Quaternion.Lerp(transform.rotation, lookRot, Time.deltaTime * (degreesPerSecond / 360f));
-            Debug.Log(orbitSpeed);
-            transform.Translate(Vector3.left * Mathf.Clamp(orbitSpeed, 0.001f, 0.8f) * Time.deltaTime);
-            orbitSpeed += 0.001f;
-        }
+        //Normal Game mode
         else
         {
             //target = cm.centerPoint;
@@ -71,10 +73,10 @@ public class CameraDirection : MonoBehaviour {
             {
                 target = cm.centerPoint - new Vector3(0, 0, (cm.MaxZDistancePlayers() - 14f) * 0.4f);
             }
-            Vector3 dirFromMeToTarget = target - transform.position;
+            dirFromMeToTarget = target - transform.position;
             //dirFromMeToTarget.x = 0f;
             //dirFromMeToTarget.y = 0f;
-            Quaternion lookRot = Quaternion.LookRotation(dirFromMeToTarget);
+            lookRot = Quaternion.LookRotation(dirFromMeToTarget);
             transform.rotation = Quaternion.Lerp(transform.rotation, lookRot, Time.deltaTime * (degreesPerSecond / 360f));
 
             // Limit lookAt Rotation
