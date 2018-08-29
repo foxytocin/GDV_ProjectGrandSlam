@@ -5,7 +5,7 @@ using UnityEngine;
 public class MazeGenerator : MonoBehaviour {
 
 	const int breite = 29; //Entspricht der Breite der LevelTextdatein. Darf nicht verarndert werden
-	const int hoehe = 18; //Nur ungerade Werte zulaessig!
+	const int hoehe = 20; //Nur gerade Werte zulaessig!
 	private MazeCell[,] Maze;
 	private MazeCell current;
 	private int[,] mazeDataMap;
