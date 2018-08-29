@@ -41,7 +41,6 @@ public class LevelRestart : MonoBehaviour {
 		levelRestart();
 	}
 
-
 	private IEnumerator eraseCurrentWorld()
 	{
 		foreach(GameObject go in levelGenerator.AllGameObjects)
@@ -108,7 +107,7 @@ public class LevelRestart : MonoBehaviour {
 			}
 		}
 
-		yield return new WaitForSecondsRealtime(3f);
+		yield return new WaitForSecondsRealtime(3.5f);
 		recreateWorld();
 	}
 
@@ -119,6 +118,9 @@ public class LevelRestart : MonoBehaviour {
 		levelGenerator.restartLevel();
 		playerSpawner.createPlayers();
 
+		// Fuer den unwahrscheinlichen Fall das nicht alle Objecte deaktiviert wurden
+		// War eine Bugreife stelle, bisher haber problemfrei behoben
+		// Code bleibt zur Beobachtung drin
 		foreach(GameObject go in levelGenerator.AllGameObjects)
 		{
 			if(go != null)

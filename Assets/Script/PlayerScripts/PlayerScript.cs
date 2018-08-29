@@ -66,7 +66,7 @@ public class PlayerScript : MonoBehaviour
         target = transform.position;
         myTime = 0f;
         gravity = 0f;
-        levelGenerator.AllGameObjects[(int)transform.position.x, (int)transform.position.z] = this.gameObject;
+        //levelGenerator.AllGameObjects[(int)transform.position.x, (int)transform.position.z] = this.gameObject;
         cam.PlayerPosition(transform.position, playerID);
         transform.Rotate(0, 90, 0, Space.World);
     }
