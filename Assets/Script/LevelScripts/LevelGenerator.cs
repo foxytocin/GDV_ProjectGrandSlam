@@ -22,6 +22,7 @@ public class LevelGenerator : MonoBehaviour
     public TextAsset LevelTextdatei11;
     public TextAsset LevelTextdatei12;
     public TextAsset LevelTextdatei13;
+    public TextAsset LevelTextdatei14;
     public List<string[][]> levelPool;
     public string[][] levelSectionData;
 
@@ -228,7 +229,7 @@ public class LevelGenerator : MonoBehaviour
             
             SectionDataOffset = CameraPosition;
 
-            int RandomValue = (int)(Random.Range(0, 17));
+            int RandomValue = (int)(Random.Range(0, 18));
 
             // Wenn eine specialSection erlaubt wird, wird diese zuaellig ausgewählt und in den dataBuffer geschrieben
             if(specialSection) {
@@ -339,6 +340,12 @@ public class LevelGenerator : MonoBehaviour
                         generateKisten = true;
                         break;
                     case 16:
+                        levelSectionData = levelPool[14];
+                        dataBufferSize = levelSectionData.Length;
+                        specialSection = false;
+                        generateKisten = false;
+                        break;
+                    case 17:
                         generateMaze = true;
                         break;
                     default:
@@ -624,6 +631,7 @@ public class LevelGenerator : MonoBehaviour
         levelPool.Add(readFile(LevelTextdatei11));
         levelPool.Add(readFile(LevelTextdatei12));
         levelPool.Add(readFile(LevelTextdatei13));
+        levelPool.Add(readFile(LevelTextdatei14));
 
         levelSectionData = levelPool[0];
         dataBufferSize = levelSectionData.Length;
