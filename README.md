@@ -1,7 +1,7 @@
 # Project: GrandSlam
 
 ### Abschluss-Projekt für das Modul GraphDat / Digitale Medien SS2018 Hochschule Fulda
-![alt text](http://anfuchs.de/grandslamsplash.png "Grand Slam Splash")
+![alt text](http://anfuchs.de/grandslam.png "Grand Slam Splash")
 Philipp Körber, Joshua Hirsch ,Sebastian Krah, Andreas Fuchs
 
 ## Beschreibung
