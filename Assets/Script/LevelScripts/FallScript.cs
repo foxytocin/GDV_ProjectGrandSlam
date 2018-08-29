@@ -109,15 +109,8 @@ public class FallScript : MonoBehaviour {
         fallDelay = Random.value;
         rotationY = Random.Range(-3f, 3f);
         gravity = 0;
-        int xPos = (int)transform.position.x;
-        int zPos = (int)transform.position.z;
 
-        while(fallDelay >= 0)
-        {
-            transform.localEulerAngles += new Vector3(Random.Range(-0.5f, 0.5f), 0, Random.Range(-0.5f, 0.5f));
-            fallDelay -= Time.deltaTime;
-            yield return null;
-        }
+        yield return new WaitForSecondsRealtime(fallDelay);
         
         while(transform.position.y > -50f)
         {

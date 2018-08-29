@@ -41,8 +41,9 @@ public class LevelGenerator : MonoBehaviour
     private bool generateKisten;
     public bool generateGlowBalls;
     public int tiefeLevelStartBasis;
-    public GenerateDistanceLine GenerateDistanceLine;
-    public MazeGenerator MazeGenerator;
+    private GenerateDistanceLine GenerateDistanceLine;
+    private SpawnDemoItems SpawnDemoItems;
+    private MazeGenerator MazeGenerator;
     public bool generateMaze;
     private int dataBufferSize;
     public int levelBreite;
@@ -71,6 +72,8 @@ public class LevelGenerator : MonoBehaviour
         levelPool = new List<string[][]>();
         MazeGenerator = FindObjectOfType<MazeGenerator>();
         playerSpawner = FindObjectOfType<PlayerSpawner>();
+        SpawnDemoItems = FindObjectOfType<SpawnDemoItems>();
+        GenerateDistanceLine = FindObjectOfType<GenerateDistanceLine>();
     }
 
     void Start()
@@ -78,6 +81,7 @@ public class LevelGenerator : MonoBehaviour
         objectPooler = ObjectPooler.Instance;
         createLevelData();
         createStartBasis(tiefeLevelStartBasis);
+        SpawnDemoItems.spawnDemoItems();
     }
 
     public void restartLevel()
@@ -91,28 +95,102 @@ public class LevelGenerator : MonoBehaviour
         rotation = 0;
         tiefeLevelStartBasis = 60;
 
+        // foreach(GameObject go in AllGameObjects)
+		// {
+		// 	if(go != null)
+
+		// 		switch(go.tag)
+		// 		{
+        //             case "Player" :
+        //                 go.SetActive(false);
+        //                 Debug.Log("Player entfernt");
+        //             break;
+
+        //             case "Wand" :
+        //                 go.SetActive(false);
+        //                 Debug.Log("Wand entfernt");
+        //             break;
+
+        //             case "Kiste" :
+        //                 go.SetActive(false);
+        //                 Debug.Log("Kiste entfernt");
+        //             break;
+
+        //             case "Item" :
+        //                 go.SetActive(false);
+        //                 Debug.Log("Item entfernt");
+        //             break;
+
+        //             case "FreeFall" :
+        //                 go.SetActive(false);
+        //                 Debug.Log("FreeFall entfernt");
+        //             break;
+		// 		}
+					
+		// }
+        
+        // foreach(GameObject go in SecondaryGameObjects1)
+		// {
+		// 	if(go != null)
+	    //         switch(go.tag)
+		// 		{
+        //             case "Wand" :
+        //                 go.SetActive(false);
+        //                 Debug.Log("Wand entfernt");
+        //             break;
+
+        //             case "Boden" :
+        //                 go.SetActive(false);
+        //                 Debug.Log("Boden entfernt");
+        //             break;
+		// 		}
+					
+		// }
+
+        // foreach(GameObject go in SecondaryGameObjects2)
+		// {
+		// 	if(go != null)
+		// 		if(go.CompareTag("Wand"))
+		// 		{
+		// 			go.SetActive(false);
+		// 			Debug.Log("Wand entfernt");
+		// 		}
+					
+		// }
+
+        // foreach(GameObject go in SecondaryGameObjects3)
+		// {
+        //     if(go != null)
+        //         if(go.CompareTag("Wand"))
+        //         {
+        //             go.SetActive(false);
+        //             Debug.Log("Wand entfernt");
+        //         }
+					
+		// }
+
+        // foreach(GameObject go in DistanceLines)
+		// {
+		// 	if(go != null)
+        //     {
+        //         go.SetActive(false);
+        //         Debug.Log("DistanceLine entfernt");
+        //     }
+					
+		// }
+
         AllGameObjects = new GameObject[levelBreite, levelTiefe];
         SecondaryGameObjects1 = new GameObject[levelBreite, levelTiefe];
         SecondaryGameObjects2 = new GameObject[levelBreite, levelTiefe];
         SecondaryGameObjects3 = new GameObject[levelBreite, levelTiefe];
         DistanceLines = new GameObject[6, levelTiefe];
 
-        foreach(GameObject go in AllGameObjects)
-		{
-			if(go != null)
-				if(go.CompareTag("FreeFall"))
-				{
-					go.SetActive(false);
-					Debug.Log("Alte FreeFall entfernt");
-				}
-					
-		}
-
         // createLevelData() komplett neu aufzubauen, wird nur der Startbereich und deren laenge neu zugeordnet
         levelSectionData = levelPool[0];
         dataBufferSize = levelSectionData.Length;
 
         createStartBasis(tiefeLevelStartBasis);
+        SpawnDemoItems.spawnDemoItems();
     }
 
     // Inizialisiert die Levelbasis die beim Start des Spiels zu sehen sein soll
@@ -430,6 +508,7 @@ public class LevelGenerator : MonoBehaviour
 
         for (int i = 0; i < levelSectionData[0].Length - 1; i++)
         {
+            //Debug.Log("Cam - Offeset: Wert: " +(CameraPosition - SectionDataOffset));
             switch (levelSectionData[CameraPosition - SectionDataOffset][i])
             {
                 case levelGang:
@@ -469,29 +548,31 @@ public class LevelGenerator : MonoBehaviour
         
         int RandomValue = (int)Random.Range(0f, 21f); //Zahl zwischen 0 und 20
         int xPos = (int)pos.x;
-        int zPos = (int)pos.z - SectionDataOffset;
+        int zPos = (int)pos.z;
         bool createBogen = true;
         
         if(RandomValue == 0) {
             
             //Erzeugt einen Turm und deaktiviert das ein Bogen erzeugt werden kann
-            AllGameObjects[(int)pos.x, (int)pos.z] = objectPooler.SpawnFromPool("Wand", pos, Quaternion.identity);
-            SecondaryGameObjects1[(int)pos.x, (int)pos.z] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(0, 1, 0), Quaternion.identity);
+            AllGameObjects[xPos, zPos] = objectPooler.SpawnFromPool("Wand", pos, Quaternion.identity);
+            SecondaryGameObjects1[xPos, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(0, 1, 0), Quaternion.identity);
             createBogen = false;
 
         //Erzeugt ein normales Stück Wand
         } else {
 
-            AllGameObjects[(int)pos.x, (int)pos.z] = objectPooler.SpawnFromPool("Wand", pos, Quaternion.identity);
+            AllGameObjects[xPos, zPos] = objectPooler.SpawnFromPool("Wand", pos, Quaternion.identity);
             
             // Ezeugt glowBalls wenn generateGlowBalls urch den DayNightSwitch.cs auf true gesetzt wurde
             if(generateGlowBalls)
                 createGlowBall(pos);
         }
 
-        //Erzeug einen Bogen. Wenn RandomValue 10 oder 20 ist.
-        //Überprüft das in alle möglich Richtungen eine Wandstück ist zu welchem der Bogen erstellt werden kann.
-        //Stellt sicher dass das Array das die levelSectionData nicht überschritten werden kann.
+        // Erzeug einen Bogen. Wenn RandomValue 10 oder 20 ist.
+        // Überprüft das in alle möglich Richtungen eine Wandstück ist zu welchem der Bogen erstellt werden kann.
+        // Stellt sicher dass das Array das die levelSectionData nicht überschritten werden kann.
+        
+        zPos = (int)pos.z - SectionDataOffset; // Minus Offest um in levelSectionData den richtigen Bezug zu haben
         if ((RandomValue % 10 == 0) && createBogen && (zPos < levelSectionData.Length - 3) && (xPos < levelSectionData[0].Length - 5) &&
             (levelSectionData[zPos][xPos + 2] == levelWand) &&
             (levelSectionData[zPos + 2][xPos] == levelWand) &&

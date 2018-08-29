@@ -8,12 +8,6 @@ public class SpawnDemoItems : MonoBehaviour {
 	private GameObject ItemObjekt;
 	public List<GameObject> demoItemList;
 
-
-	void Start()
-	{
-		spawnDemoItems();
-	}
-
 	public void spawnDemoItems()
 	{
 		for(int i = 10; i < 27; i++)
