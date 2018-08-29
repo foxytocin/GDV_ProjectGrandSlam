@@ -24,6 +24,6 @@ public class MainMenuButtonScript : MonoBehaviour {
         offSide.SetActive(false);
         onSide.SetActive(true);
         levelRestart.levelRestart();
-        //overlayMethodenScript.fadeIn(canvasGroup, canvas);
+        overlayMethodenScript.fadeIn(canvasGroup, canvas);
     }
 }
