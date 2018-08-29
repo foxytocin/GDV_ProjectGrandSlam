@@ -9,6 +9,7 @@ public class LevelRestart : MonoBehaviour {
 	private DestroyScroller destroyScroller;
 	private CameraScroller cameraScroller;
 	private PlayerSpawner playerSpawner;
+	private DayNightSwitch dayNightSwitch;
 
 	void Awake()
 	{
@@ -16,6 +17,13 @@ public class LevelRestart : MonoBehaviour {
 		destroyScroller = FindObjectOfType<DestroyScroller>();
 		cameraScroller = FindObjectOfType<CameraScroller>();
 		playerSpawner = FindObjectOfType<PlayerSpawner>();
+		dayNightSwitch = FindObjectOfType<DayNightSwitch>();
+
+	}
+
+	public void nextRound()
+	{
+		levelRestart();
 	}
 
 	public void levelRestart()
@@ -34,11 +42,6 @@ public class LevelRestart : MonoBehaviour {
         }
 
         StartCoroutine(eraseCurrentWorld());
-	}
-
-	public void nextRound()
-	{
-		levelRestart();
 	}
 
 	private IEnumerator eraseCurrentWorld()
@@ -117,6 +120,7 @@ public class LevelRestart : MonoBehaviour {
 		destroyScroller.restartDestroyScroller();
 		levelGenerator.restartLevel();
 		playerSpawner.createPlayers();
+		dayNightSwitch.restartDayNightModus();
 
 		// Fuer den unwahrscheinlichen Fall das nicht alle Objecte deaktiviert wurden
 		// War eine Bugreife stelle, bisher haber problemfrei behoben
