@@ -98,17 +98,15 @@ public class LevelGenerator : MonoBehaviour
         DistanceLines = new GameObject[6, levelTiefe];
 
         foreach(GameObject go in AllGameObjects)
-        {
-            int count = 1;
-
-            if(go != null)
-                if(go.CompareTag("FreeFall"))
-                {
-                    go.SetActive(false);
-                    Debug.Log("FreeFall ENTFERNT Nr: "+count);
-                    count++;
-                }
-        }
+		{
+			if(go != null)
+				if(go.CompareTag("FreeFall"))
+				{
+					go.SetActive(false);
+					Debug.Log("Alte FreeFall entfernt");
+				}
+					
+		}
 
         // createLevelData() komplett neu aufzubauen, wird nur der Startbereich und deren laenge neu zugeordnet
         levelSectionData = levelPool[0];

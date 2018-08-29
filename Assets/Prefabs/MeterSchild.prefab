@@ -37,6 +37,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4429519636496380}
   - component: {fileID: 114013958954767610}
+  - component: {fileID: 114288661910100750}
   m_Layer: 0
   m_Name: MeterSchild
   m_TagString: MeterSchild
@@ -165,6 +166,17 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &114288661910100750
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1510929197513478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6751fe27b8b0943bfb802ade72caaedf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114825349308698072
 MonoBehaviour:
   m_ObjectHideFlags: 1

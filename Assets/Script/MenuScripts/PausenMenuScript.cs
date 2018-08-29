@@ -8,12 +8,9 @@ public class PausenMenuScript : MonoBehaviour
 
     private LevelRestart levelRestart;
     public static bool GameIsPaused = false;
-
     public bool isInGame = false;
-
     public GameObject pausenMenuUI;
     public MainMenu MainMenu;
-
     public Slider fxSlider;
     public Slider musicSlider;
 
@@ -44,6 +41,7 @@ public class PausenMenuScript : MonoBehaviour
         Time.timeScale = 1f;
         GameIsPaused = false;
         isInGame = true;
+        
     }
 
     public void pause()
@@ -55,18 +53,14 @@ public class PausenMenuScript : MonoBehaviour
 
     public void mainMenu()
     {
-        levelRestart.levelRestart();
+        Time.timeScale = 1f;
         MainMenu.PauseGame();
+        levelRestart.levelRestart();
     }
 
     public void updateSoundOptions()
     {
         fxSlider.value = FindObjectOfType<AudioManager>().settingsFXVolume;
         musicSlider.value = FindObjectOfType<AudioManager>().settingsMusicVolume;
-    }
-
-    public void nextRound()
-    {
-        isInGame = true;
     }
 }

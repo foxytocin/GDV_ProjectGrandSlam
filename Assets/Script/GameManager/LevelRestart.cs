@@ -20,7 +20,6 @@ public class LevelRestart : MonoBehaviour {
 
 	public void levelRestart()
 	{
-        Time.timeScale = 1f;
 
         for (int i = playerSpawner.players - 1; i >= 0; i--)
         {
@@ -37,17 +36,79 @@ public class LevelRestart : MonoBehaviour {
         StartCoroutine(eraseCurrentWorld());
 	}
 
+	public void nextRound()
+	{
+		levelRestart();
+	}
+
+
 	private IEnumerator eraseCurrentWorld()
 	{
-		int destroyScrollerPos = destroyScroller.dummyPos;
-
-		for(int i = 0; i < 70; i++)
+		foreach(GameObject go in levelGenerator.AllGameObjects)
 		{
-			levelGenerator.cleanLine(destroyScrollerPos + i);
+			if(go != null)
+			{
+				switch (go.tag)
+				{
+					case "Player":
+						Destroy(go);
+						break;
+
+					case "Bombe":
+						go.SetActive(false);
+						break;
+
+					default:
+						FallScript fc = go.GetComponent<FallScript>();
+						if (fc != false)
+							StartCoroutine(fc.fallingLevelCleanup());
+						break;
+				}
+        
+			}
 		}
 
-		yield return new WaitForSecondsRealtime(4f);
-		StopAllCoroutines();
+		foreach(GameObject go in levelGenerator.SecondaryGameObjects1)
+		{
+			if(go != null)
+			{
+				FallScript fc = go.GetComponent<FallScript>();
+				if (fc != false)
+					StartCoroutine(fc.fallingLevelCleanup());
+			}
+		}
+
+		foreach(GameObject go in levelGenerator.SecondaryGameObjects2)
+		{
+			if(go != null)
+			{
+				FallScript fc = go.GetComponent<FallScript>();
+				if (fc != false)
+					StartCoroutine(fc.fallingLevelCleanup());
+			}
+		}
+
+		foreach(GameObject go in levelGenerator.SecondaryGameObjects3)
+		{
+			if(go != null)
+			{
+				FallScript fc = go.GetComponent<FallScript>();
+				if (fc != false)
+					StartCoroutine(fc.fallingLevelCleanup());
+			}
+		}
+
+		foreach(GameObject go in levelGenerator.DistanceLines)
+		{
+			if(go != null)
+			{
+				FallScript fc = go.GetComponent<FallScript>();
+				if (fc != false)
+					StartCoroutine(fc.fallingLevelCleanup());
+			}
+		}
+
+		yield return new WaitForSecondsRealtime(3f);
 		recreateWorld();
 	}
 
@@ -57,6 +118,17 @@ public class LevelRestart : MonoBehaviour {
 		destroyScroller.restartDestroyScroller();
 		levelGenerator.restartLevel();
 		playerSpawner.createPlayers();
+
+		foreach(GameObject go in levelGenerator.AllGameObjects)
+		{
+			if(go != null)
+				if(go.CompareTag("FreeFall"))
+				{
+					go.SetActive(false);
+					Debug.Log("Alte FreeFall entfernt");
+				}
+					
+		}
 	}
 
 }

@@ -91,7 +91,7 @@ public class RulesScript : MonoBehaviour
         {
             case 1:
 
-                Time.timeScale = 0f;
+                //Time.timeScale = 0f;
                 int reachTextString = (int)width;
                 FindObjectOfType<PausenMenuScript>().isInGame = false;
                 resultScreen.SetActive(true);
