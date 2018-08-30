@@ -131,6 +131,7 @@ public class RulesScript : MonoBehaviour
     public void nextRoundRules()
     {
         playerIsLive = battle;
+        setPlayerLiveBool(battle);
     }
 
     private void setPlayerLiveBool(int playerAnzahl)
