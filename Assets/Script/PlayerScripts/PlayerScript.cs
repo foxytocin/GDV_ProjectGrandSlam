@@ -38,10 +38,14 @@ public class PlayerScript : MonoBehaviour
     private Vector3 lastDirection;
     private AudioManager audioManager;
     public bool resultScreenActive;
+    public float remoteBombTimer;
+    public float houdiniTimer;
 
     void Awake()
     {
         bombSpawner = FindObjectOfType<BombSpawner>();
+        remoteBombTimer = 0f;
+        houdiniTimer = 0f;
         levelGenerator = FindObjectOfType<LevelGenerator>();
         remoteBomb = FindObjectOfType<RemoteBomb>();
         houdini = FindObjectOfType<Houdini>();
@@ -56,9 +60,11 @@ public class PlayerScript : MonoBehaviour
         playerLight = GetComponent<Light>();
         playerColor = playerMaterial.color;
         gameStatePlay = false;
+        travelDistanceStart = (int)transform.position.z;
         avaibleBomb = 3;
         speed = 5f;
         bombTimer = 2f;
+        Time.timeScale = 1.0f;
         bombPower = 1;
         remoteBombItem = false;
         houdiniItem = false;
