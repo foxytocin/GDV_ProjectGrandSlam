@@ -12,6 +12,8 @@ public class RulesScript : MonoBehaviour
     //Speichert die Playeranzahl für die 3 Runden
     public int battle;
 
+    bool[] playerLifeBool;
+
     int[] roundResults;
 
     public GameObject resultScreen;
@@ -38,12 +40,15 @@ public class RulesScript : MonoBehaviour
         for (int i = 0; i < 4; i++)
             roundResults[i] = 0;
 
+        playerLifeBool = new bool[4];
+
     }
 
     public void setPlayerZahl(int players)
     {
         battle = players;
         playerIsLive = battle;
+        setPlayerLiveBool(battle);
 
     }
 
@@ -64,21 +69,23 @@ public class RulesScript : MonoBehaviour
             case 3:
             case 4:
 
-                playerIsLive--;
+                playerLifeBool[player] = false;
 
                 if (playerIsLive < 2)
                 {
+                    int winnerNumber = searchWinner();
                     FindObjectOfType<OverlayMethodenScript>().isInGame = false;
                     gameManager.lockControlls();
-                    roundResults[player]++;
-                    FindObjectOfType<PlayerSpawner>().playerList[player].GetComponent<PlayerScript>().winAnimationStart();
+                    roundResults[winnerNumber]++;
+                    Debug.LogWarning(roundResults[winnerNumber]);
+                    FindObjectOfType<PlayerSpawner>().playerList[winnerNumber].GetComponent<PlayerScript>().winAnimationStart();
 
                     if (!endResult())
                     {
                         resultScreen.SetActive(true);
                         winnerText.SetText("The Winner of this Round is:");
                         winner.SetActive(true);
-                        reachText.SetText(string.Format("{0} {1}", "player", player.ToString()));
+                        reachText.SetText(string.Format("{0} {1}", "player", (winnerNumber+1).ToString()));
                         reach.SetActive(true);
                         nextRoundButton.SetActive(true);
                     }
@@ -87,7 +94,7 @@ public class RulesScript : MonoBehaviour
                         resultScreen.SetActive(true);
                         winnerText.SetText("The Winner of this Battle is:");
                         winner.SetActive(true);
-                        reachText.SetText(string.Format("{0} {1}", "player", player.ToString()));
+                        reachText.SetText(string.Format("{0} {1}", "player", (winnerNumber+1).ToString()));
                         reach.SetActive(true);
                     }
 
@@ -107,9 +114,7 @@ public class RulesScript : MonoBehaviour
         {
             if (roundResults[i] == 3)
             {
-
                 return true;
-
             }
             
         } 
@@ -126,6 +131,26 @@ public class RulesScript : MonoBehaviour
     public void nextRoundRules()
     {
         playerIsLive = battle;
+    }
+
+    private void setPlayerLiveBool(int playerAnzahl)
+    {
+        for (int i = 0; i < playerAnzahl; i++)
+            playerLifeBool[i] = true;
+    }
+
+    private int searchWinner()
+    {
+        for(int i = 0; i < battle; i++)
+        {
+            if(playerLifeBool[i] == true)
+            {
+                return i;
+            }
+        }
+        Debug.LogWarning("Im Search Winner ist ein Fehler aufgetaucht");
+        return 0;
+       
     }
 
     private void onePlayerRule(float distanze)

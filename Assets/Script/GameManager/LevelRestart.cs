@@ -49,6 +49,7 @@ public class LevelRestart : MonoBehaviour {
         StartCoroutine(eraseCurrentWorld());
 		yield return new WaitForSecondsRealtime(4f);
 		spawnDemoItems.spawnDemoItems();
+        rulesScript.nextRoundRules();
 		GameManager.unlockControlls();
 	}
 

@@ -18,6 +18,7 @@ public class NextRoundButtonScript : MonoBehaviour {
         levelRestart.levelRestartNextRound();
         FindObjectOfType<OverlayMethodenScript>().isInGame = true;
         resultMenu.SetActive(false);
+
     }
 
 }

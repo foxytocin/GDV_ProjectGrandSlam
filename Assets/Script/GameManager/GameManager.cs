@@ -94,13 +94,13 @@ public class GameManager : MonoBehaviour {
     public void setThreePlayer()
     {
         player = 3;
-        rulesScript.setPlayerZahl(2);
+        rulesScript.setPlayerZahl(3);
     }
 
     public void setFourPlayer()
     {
         player = 4;
-        rulesScript.setPlayerZahl(2);
+        rulesScript.setPlayerZahl(4);
     }
 
     public void unlockControlls()
