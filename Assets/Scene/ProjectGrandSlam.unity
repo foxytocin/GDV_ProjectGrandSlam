@@ -3982,7 +3982,7 @@ MonoBehaviour:
     loop: 0
   settingsFXVolume: 0
   settingsMusicVolume: 0
-  musicAtStart: 1
+  musicAtStart: 0
 --- !u!1 &444575531
 GameObject:
   m_ObjectHideFlags: 0
@@ -6753,6 +6753,8 @@ MonoBehaviour:
   generateMaze: 0
   levelBreite: 0
   levelTiefe: 0
+  TurmMenge: 0
+  BogenMenge: 0
 --- !u!4 &958779248
 Transform:
   m_ObjectHideFlags: 0

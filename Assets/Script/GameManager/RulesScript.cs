@@ -7,8 +7,10 @@ using TMPro;
 public class RulesScript : MonoBehaviour
 {
 
-    bool[] playerIsLive;
-    int player;
+    //Speichert die Player die am Leben sind in der Runde
+    public int playerIsLive;
+    //Speichert die Playeranzahl für die 3 Runden
+    public int battle;
 
     int[] roundResults;
 
@@ -28,7 +30,8 @@ public class RulesScript : MonoBehaviour
     {
         gameManager = FindObjectOfType<GameManager>();
 
-        playerIsLive = new bool[4];
+        playerIsLive = 1;
+        battle = 1;
 
         roundResults = new int[4];
 
@@ -37,117 +40,54 @@ public class RulesScript : MonoBehaviour
 
     }
 
-    public void onePlayer()
+    public void setPlayerZahl(int players)
     {
-        player = 1;
+        battle = players;
+        playerIsLive = battle;
 
-        for(int i = 0; i < 4; i++)
-        {
-            if (i == 0)
-                playerIsLive[i] = true;
-            else
-                playerIsLive[i] = false;
-        }
     }
 
-    public void twoPlayer()
+    public void playerDeath(int player, Vector3 distanze)
     {
-        player = 2;
-
-        for (int i = 0; i < 4; i++)
-        {
-            if (i < 2)
-                playerIsLive[i] = true;
-            else
-                playerIsLive[i] = false;
-        }
+        playerIsLive--;
+        roundResult(player, distanze.z);
     }
 
-    public void threePlayer()
+    void roundResult(int player, float distanze)
     {
-        player = 3;
-
-        for (int i = 0; i < 4; i++)
-        {
-            if (i < 3)
-                playerIsLive[i] = true;
-            else
-                playerIsLive[i] = false;
-        }
-    }
-
-    public void fourPlayer()
-    {
-        player = 4;
-
-        for (int i = 0; i < 4; i++)
-        {    
-            playerIsLive[i] = true;
-        }
-    }
-
-    public void playerDeath(int player, Vector3 width)
-    {
-        playerIsLive[player] = false;
-        roundResult(width.z);
-    }
-
-    void roundResult(float width)
-    {
-        switch (player)
+        switch (battle)
         {
             case 1:
-
-                int reachTextString = (int)width;
-                FindObjectOfType<OverlayMethodenScript>().isInGame = false;
-                resultScreen.SetActive(true);
-                winnerText.SetText("Du bist im Spiel so weit gekommen:");
-                winner.SetActive(true);
-                reachText.SetText(reachTextString.ToString());
-                reach.SetActive(true);
-
+                onePlayerRule(distanze);
                 break;
             case 2:
             case 3:
             case 4:
 
-                int playertmp = 0;
-                int lastplayer = 0;
+                playerIsLive--;
 
-                for (int i = 0; i < 4; i++)
+                if (playerIsLive < 2)
                 {
-                    if (playerIsLive[i] == true)
-                    {
-                        playertmp++;
-                        lastplayer = i;
-                    }
-                }
-
-                if (playertmp < 2)
-                {
-
                     FindObjectOfType<OverlayMethodenScript>().isInGame = false;
                     gameManager.lockControlls();
-                    roundResults[lastplayer]++;
-                    FindObjectOfType<PlayerSpawner>().playerList[lastplayer].GetComponent<PlayerScript>().winAnimationStart();
+                    roundResults[player]++;
+                    FindObjectOfType<PlayerSpawner>().playerList[player].GetComponent<PlayerScript>().winAnimationStart();
 
                     if (!endResult())
                     {
-                        lastplayer++;
                         resultScreen.SetActive(true);
                         winnerText.SetText("The Winner of this Round is:");
                         winner.SetActive(true);
-                        reachText.SetText(string.Format("{0} {1}", "player", lastplayer.ToString()));
+                        reachText.SetText(string.Format("{0} {1}", "player", player.ToString()));
                         reach.SetActive(true);
                         nextRoundButton.SetActive(true);
                     }
                     else
                     {
-                        lastplayer++;
                         resultScreen.SetActive(true);
                         winnerText.SetText("The Winner of this Battle is:");
                         winner.SetActive(true);
-                        reachText.SetText(string.Format("{0} {1}", "player", lastplayer.ToString()));
+                        reachText.SetText(string.Format("{0} {1}", "player", player.ToString()));
                         reach.SetActive(true);
                     }
 
@@ -182,5 +122,23 @@ public class RulesScript : MonoBehaviour
         for (int i = 0; i < 4; i++)
             roundResults[i] = 0;
     }
+
+    public void nextRoundRules()
+    {
+        playerIsLive = battle;
+    }
+
+    private void onePlayerRule(float distanze)
+    {
+        int reachTextString = (int)distanze;
+        FindObjectOfType<OverlayMethodenScript>().isInGame = false;
+        resultScreen.SetActive(true);
+        winnerText.SetText("Du bist im Spiel so weit gekommen:");
+        winner.SetActive(true);
+        reachText.SetText(reachTextString.ToString());
+        reach.SetActive(true);
+    }
+
+
 
 }
