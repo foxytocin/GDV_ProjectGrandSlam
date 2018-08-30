@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class LevelRestart : MonoBehaviour {
 
-
 	private LevelGenerator levelGenerator;
 	private DestroyScroller destroyScroller;
 	private CameraScroller cameraScroller;

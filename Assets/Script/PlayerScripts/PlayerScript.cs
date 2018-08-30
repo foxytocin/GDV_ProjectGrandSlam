@@ -218,6 +218,7 @@ public class PlayerScript : MonoBehaviour
 
         if(fall)
         {
+            levelGenerator.AllGameObjects[(int)target.x, (int)target.z] = null;
             gravity += Time.deltaTime * 0.8f;
             transform.position = Vector3.MoveTowards(transform.position, target, gravity * gravity);
 
@@ -388,6 +389,7 @@ public class PlayerScript : MonoBehaviour
     // Restart des Levels
     public IEnumerator playerFallRestart()
     {
+        levelGenerator.AllGameObjects[(int)target.x, (int)target.z] = null;
         target.y = -50f;
         fall = true;
 
@@ -407,11 +409,13 @@ public class PlayerScript : MonoBehaviour
     // Tot trifft ein
     public void dead()
     {
+        levelGenerator.AllGameObjects[(int)target.x, (int)target.z] = null;
         Debug.Log("Player_" + playerID.ToString() + " is Dead");
         ghostSpawner.createGhost(transform.position, playerID, playerColor);
         transform.Translate(0f, -2f, 0f);
         cam.PlayerPosition(transform.position, playerID);
         FindObjectOfType<RulesScript>().playerDeath(playerID, transform.position);
+        levelGenerator.AllGameObjects[(int)target.x, (int)target.z] = null;
         Destroy(gameObject);
     }
 

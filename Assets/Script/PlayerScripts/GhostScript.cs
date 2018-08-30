@@ -17,8 +17,8 @@ public class GhostScript : MonoBehaviour
     
     public IEnumerator animationGhost(Color32 ghostColor)
     {
-        transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-        transform.Rotate(0, (Random.value*3)*60, 0);
+        transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
+        transform.Rotate(0, Random.value * 180f, 0f);
         GetComponent<Renderer>().material.color = ghostColor;
         GetComponent<Light>().enabled = true;
 
@@ -47,10 +47,11 @@ public class GhostScript : MonoBehaviour
                 myTime = 0.0f;
             }
 
-            transform.localScale += new Vector3(0.1f * (Time.deltaTime + 0.3f), 0.1f * (Time.deltaTime + 0.3f), 0.1f * (Time.deltaTime + 0.3f));
-            transform.Translate(0, 0, 0.2f * (Time.deltaTime + 0.3f));
+            transform.localScale += new Vector3(0.3f * Time.deltaTime, 0.3f * Time.deltaTime, 0.3f * Time.deltaTime);
+            transform.Translate(0, 0, 0.3f * (Time.deltaTime + 0.3f));
             yield return null;
         }
+        
         this.gameObject.SetActive(false);
         
     }

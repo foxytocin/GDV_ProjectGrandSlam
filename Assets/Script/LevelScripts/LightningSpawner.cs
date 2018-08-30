@@ -115,8 +115,6 @@ public class LightningSpawner : MonoBehaviour {
  
         audioSource.Stop ();
         audioSource.volume = startVolume;
-
-        StopAllCoroutines();
     }
 
     void thunderStrikeSound()

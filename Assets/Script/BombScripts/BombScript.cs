@@ -74,7 +74,6 @@ public class BombScript : MonoBehaviour
         }
         audioManager.stopSound("Bomb_zuendschnur");
         
-        StopAllCoroutines();
         explode();
     }
 

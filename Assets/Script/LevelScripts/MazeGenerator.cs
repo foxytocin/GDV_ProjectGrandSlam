@@ -76,7 +76,6 @@ public class MazeGenerator : MonoBehaviour {
 
 		generateMazeBinaerMap();
 		generateMazeLevelData();
-		StopAllCoroutines();
 	}
 
 	// Wird von generateMaze() aufgerufen um die Waende der einzelnen Cellen auf false zu stellen (wenn keine Wand dort sein darf)

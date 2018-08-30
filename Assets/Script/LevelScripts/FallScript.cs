@@ -115,7 +115,7 @@ public class FallScript : MonoBehaviour {
         {
             gravity += Time.deltaTime * 0.9f;
             transform.Translate(0, -((gravity * gravity) + randomSpeed), 0);
-            transform.localEulerAngles += new Vector3(0, rotationY * gravity, 0);
+            //transform.localEulerAngles += new Vector3(0, rotationY * gravity, 0);
             yield return null;
         }
 
