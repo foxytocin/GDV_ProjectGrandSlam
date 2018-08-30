@@ -6,8 +6,8 @@ public class MapDestroyer : MonoBehaviour
     ObjectPooler objectPooler;
     public GameObject KistenPartsPrefab;
     public GameObject Item_Prefab;
-    public LevelGenerator levelGenerator;
-    public PlayerSpawner PlayerSpawner;
+    private LevelGenerator levelGenerator;
+    private PlayerSpawner playerSpawner;
     private PlayerScript player;
     private int xPos;
     private int zPos;
@@ -17,10 +17,12 @@ public class MapDestroyer : MonoBehaviour
 
     private void Awake()
     {
-
         objectPooler = ObjectPooler.Instance;
         itemSpawner = FindObjectOfType<ItemSpawner>();
         audioManager = FindObjectOfType<AudioManager>();
+        levelGenerator = FindObjectOfType<LevelGenerator>();
+        playerSpawner = FindObjectOfType<PlayerSpawner>();
+
     }
 
     //Wird beim explodieren der Bombe durch das BombeScript aufgerufen.
@@ -30,9 +32,9 @@ public class MapDestroyer : MonoBehaviour
         xPos = (int)position.x;
         zPos = (int)position.z;
 
-        if(PlayerSpawner.playerList[id] != null)
+        if(playerSpawner.playerList[id] != null)
         {
-            player = PlayerSpawner.playerList[id].GetComponent<PlayerScript>();
+            player = playerSpawner.playerList[id].GetComponent<PlayerScript>();
 
             //Ueberprüft ob der Spieler, der die Bombe gelegt hat, exakt an der gleichen Stelle (in der Bombe) stehen geblieben ist.
             //Sollte dies zutreffen, wird der Spieler getoetet.
@@ -45,8 +47,7 @@ public class MapDestroyer : MonoBehaviour
             player.avaibleBomb += 1;
         }
         
-
-
+        
         //Explosions-Animation an der Stelle der Bombe wird abgespielt.
         objectPooler.SpawnFromPool("Explosion", new Vector3(xPos, 0.5f, zPos), Quaternion.identity);
         audioManager.playSound("explosion_medium");
@@ -151,7 +152,7 @@ public class MapDestroyer : MonoBehaviour
                     //Spawnt Item
                     if(Random.value > 0.5f)
                         itemSpawner.SpawnItem(x, z);
-
+                        
                     return false;
 
                 case "FreeFall":

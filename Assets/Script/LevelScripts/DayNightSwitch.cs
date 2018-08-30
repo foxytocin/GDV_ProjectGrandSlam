@@ -234,10 +234,18 @@ public class DayNightSwitch : MonoBehaviour {
 		while(worldLight.intensity > value)
 		{
 			//worldLight.transform.Rotate(-Time.deltaTime * 4f, 0f, 0f);
-			worldLight.intensity -= Time.deltaTime * 0.2f;
+			worldLight.intensity -= Time.deltaTime * 0.4f;
 			yield return new WaitForSeconds(0.1f);
 		}
 
+	}
+	private IEnumerator dawnWorldAmbient(float value)
+	{
+		while(RenderSettings.ambientIntensity > value)
+		{
+			RenderSettings.ambientIntensity -= Time.deltaTime * 0.5f;
+			yield return new WaitForSeconds(0.1f);
+		}
 	}
 
 	private IEnumerator riseWorldLight(float value)
@@ -245,27 +253,20 @@ public class DayNightSwitch : MonoBehaviour {
 		while(worldLight.intensity < value)
 		{
 			//worldLight.transform.Rotate(Time.deltaTime * 4f, 0f, 0f);
-			worldLight.intensity += Time.deltaTime * 0.2f;
+			worldLight.intensity += Time.deltaTime * 0.3f;
 			yield return new WaitForSeconds(0.1f);
 		}
 
 		worldLight.intensity = value;
 	}
 
-	private IEnumerator dawnWorldAmbient(float value)
-	{
-		while(RenderSettings.ambientIntensity > value)
-		{
-			RenderSettings.ambientIntensity -= Time.deltaTime * 0.4f;
-			yield return new WaitForSeconds(0.1f);
-		}
-	}
+
 
 	private IEnumerator riseWorldAmbient(float value)
 	{
 		while(RenderSettings.ambientIntensity < value)
 		{
-			RenderSettings.ambientIntensity += Time.deltaTime * 0.2f;
+			RenderSettings.ambientIntensity += Time.deltaTime * 0.3f;
 			yield return new WaitForSeconds(0.1f);
 		}
 
