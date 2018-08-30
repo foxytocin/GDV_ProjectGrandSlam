@@ -39,7 +39,7 @@ public class MapDestroyer : MonoBehaviour
         }
 
         //Die explodierte Bombe wird dem Spieler wieder gutgeschrieben.
-        player.setAvaibleBomb(1);
+        player.avaibleBomb += 1;
 
         //Explosions-Animation an der Stelle der Bombe wird abgespielt.
         objectPooler.SpawnFromPool("Explosion", new Vector3(xPos, 0.5f, zPos), Quaternion.identity);

@@ -82,7 +82,7 @@ public class PowerUp : MonoBehaviour {
     public void Item1(int id)
     {
 
-        player.setPower(1);
+        player.bombPower += 1;
       
         Destroy(gameObject);
     }
@@ -91,17 +91,15 @@ public class PowerUp : MonoBehaviour {
     public IEnumerator Item2(int id)
     {
         timeLeft = 10f;
-        player.setRemoteBombe(true);
+        player.remoteBombItem = true;
 
         while (timeLeft >= 0)
         {
             timeLeft -= Time.deltaTime;
              yield return null;
         }
-        player.setRemoteBombe(false);
+        player.remoteBombItem = false;
         Destroy(gameObject);
-        
-        
     }
     
 

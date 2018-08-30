@@ -10,10 +10,8 @@ public class PlayerScript : MonoBehaviour
     public float speed;
     public float bombTimer;
     public int bombPower;
-    public bool alive;
     public bool remoteBombItem;
     public bool houdiniItem;
-    public int travelDistance;
     public bool gameStatePlay;
 
     private int travelDistanceStart;
@@ -59,12 +57,10 @@ public class PlayerScript : MonoBehaviour
         playerColor = playerMaterial.color;
         gameStatePlay = false;
         travelDistanceStart = (int)transform.position.z;
-        travelDistance = 0;
         avaibleBomb = 3;
         speed = 5f;
         bombTimer = 2f;
         bombPower = 1;
-        alive = true;
         remoteBombItem = false;
         houdiniItem = false;
         creatingBomb = false;
@@ -79,7 +75,7 @@ public class PlayerScript : MonoBehaviour
     void Update()
     {
         
-        if(alive && gameStatePlay)
+        if(gameStatePlay)
         {
             myTime += Time.deltaTime;
 
@@ -187,10 +183,8 @@ public class PlayerScript : MonoBehaviour
             {
                 tmpVectorPos = transform.position;
 
-                calcTravelDistance();
-
                 //Debug.Log("nicht Tot");
-                if (transform.position != (transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime)) && alive)
+                if (transform.position != (transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime)))
                 {
                     // Player Rollanimation
                     if (tmpVectorPos.x != transform.position.x && RichtungsAenderung)
@@ -211,7 +205,7 @@ public class PlayerScript : MonoBehaviour
 
                     cam.PlayerPosition(transform.position, playerID);
                 }
-                else if (transform.position.y < 0.45f && !alive)
+                else if (transform.position.y < 0.45f)
                 {
                     transform.position.Set(transform.position.x, -1, transform.position.z);
                     cam.PlayerPosition(transform.position, playerID);
@@ -231,9 +225,10 @@ public class PlayerScript : MonoBehaviour
             if (transform.position.y == -200)
             {
                 gravity = 0f;
-                setALife(false);
+                Debug.Log("Player_" + playerID.ToString() + " is Dead");
+                cam.PlayerPosition(new Vector3(0f, -2f, 0f), playerID);
                 FindObjectOfType<RulesScript>().playerDeath(playerID, transform.position);
-                this.gameObject.SetActive(false);
+                Destroy(gameObject);
             }
         }
     }
@@ -306,103 +301,6 @@ public class PlayerScript : MonoBehaviour
         return new Vector3(0, 0, 0);
     }
 
-    // Uebergabe der PlayerID
-    public void setPlayerID(int id)
-    {
-        playerID = id;
-    }
-
-    public int getPlayerID()
-    {
-        return playerID;
-    }
-
-    // Tot trifft ein
-    public void dead()
-    {
-        Debug.Log("Player_" + playerID.ToString() + " is Dead");
-        ghostSpawner.createGhost(transform.position, playerID, playerColor);
-        transform.Translate(0f, -2f, 0f);
-        cam.PlayerPosition(transform.position, playerID);
-        FindObjectOfType<RulesScript>().playerDeath(playerID, transform.position);
-        setALife(false);
-        this.gameObject.SetActive(false);
-    }
-
-    // Speed
-    public void setSpeed()
-    {
-        speed++;
-    }
-
-    public float getSpeed()
-    {
-        return speed;
-    }
-
-    // bombPower
-    public void setPower(int tmp)
-    {
-        bombPower += tmp;
-    }
-
-    public int getPower()
-    {
-        return bombPower;
-    }
-
-    // avaibleBombs
-    public void setAvaibleBomb(int wert)
-    {
-        avaibleBomb += wert;
-    }
-
-    public int getAvaibleBomb()
-    {
-        return avaibleBomb;
-    }
-
-    // aLife
-    public bool getALife()
-    {
-        return alive;
-    }
-
-    public void setALife(bool tmp)
-    {
-        alive = tmp;
-    }
-
-    // remoteBomb
-    public bool getRemoteBomb()
-    {
-        return remoteBombItem;
-    }
-
-    public void setRemoteBombe(bool tmp)
-    {
-        remoteBombItem = tmp;
-    }
-
-    // bombTimer
-    public float getbombTimer()
-    {
-        return bombTimer;
-    }
-
-    public void setbombTimer(int tmp)
-    {
-        bombTimer = tmp;
-    }
-
-    // Weiteste zurueck gelegte Strecke wird gespeicher
-    void calcTravelDistance() {
-        if(transform.position.z > travelDistance + travelDistanceStart)
-        {
-            travelDistance = (int)transform.position.z - travelDistanceStart;
-        }
-    }
-
     // Setzt Bombe mit überprüfung von avaibleBomb und aLife
     void SetBomb()
     {
@@ -412,7 +310,7 @@ public class PlayerScript : MonoBehaviour
 
         if(avaibleBomb > 0 && (levelGenerator.AllGameObjects[bombXPos, bombZPos] == null || levelGenerator.AllGameObjects[bombXPos, bombZPos].gameObject.CompareTag("Player")))
         {
-            setAvaibleBomb(-1);
+            avaibleBomb -= 1;
             levelGenerator.AllGameObjects[bombXPos, bombZPos] = bombSpawner.SpawnBomb(bombXPos, bombZPos, playerID, bombPower, bombTimer, remoteBombItem, playerColor);
         } else {
             creatingBomb = false;
@@ -472,6 +370,7 @@ public class PlayerScript : MonoBehaviour
             return false;
     }
 
+    // Player faellt in den Abgund
     public void playerFall()
     {
         switch (playerID)
@@ -485,14 +384,13 @@ public class PlayerScript : MonoBehaviour
 
         target.y = -200f;
         fall = true;
-        alive = false;
     }
 
+    // Restart des Levels
     public IEnumerator playerFallRestart()
     {
         target.y = -50f;
         fall = true;
-        alive = false;
 
         while(transform.position.y > target.y)
         {
@@ -500,10 +398,24 @@ public class PlayerScript : MonoBehaviour
             yield return null;
         }
         
-        setALife(false);
+        Debug.Log("Player_" + playerID.ToString() + " is Dead");
+        cam.PlayerPosition(new Vector3(0f, -2f, 0f), playerID);
+        FindObjectOfType<RulesScript>().playerDeath(playerID, transform.position);
         StopAllCoroutines();
         Destroy(gameObject);
     }
+
+    // Tot trifft ein
+    public void dead()
+    {
+        Debug.Log("Player_" + playerID.ToString() + " is Dead");
+        ghostSpawner.createGhost(transform.position, playerID, playerColor);
+        transform.Translate(0f, -2f, 0f);
+        cam.PlayerPosition(transform.position, playerID);
+        FindObjectOfType<RulesScript>().playerDeath(playerID, transform.position);
+        Destroy(gameObject);
+    }
+
 
     public void winAnimationStart()
     {
