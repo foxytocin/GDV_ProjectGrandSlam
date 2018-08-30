@@ -25,16 +25,15 @@ public class LevelRestart : MonoBehaviour {
 		spawnDemoItems = FindObjectOfType<SpawnDemoItems>();
 	}
 
-    // public void mainMenuRestart()
-    // {
-    //     rulesScript.restartResults();
-    //     StartCoroutine(levelRestartMainMenu());
-    // }
 
-	public IEnumerator levelRestartMainMenu()
+  public void levelRestartMainMenu()
 	{
-		rulesScript.restartResults();
+		StartCoroutine(levelRestartMainMenuCore());
+	}
+	public IEnumerator levelRestartMainMenuCore()
+	{
         StartCoroutine(eraseCurrentWorld());
+		rulesScript.restartResults();
 		yield return new WaitForSecondsRealtime(4f);
 		spawnDemoItems.spawnDemoItems();
 	}
@@ -48,7 +47,6 @@ public class LevelRestart : MonoBehaviour {
 	{
         StartCoroutine(eraseCurrentWorld());
 		yield return new WaitForSecondsRealtime(4f);
-		spawnDemoItems.spawnDemoItems();
         rulesScript.nextRoundRules();
 		GameManager.unlockControlls();
 	}
