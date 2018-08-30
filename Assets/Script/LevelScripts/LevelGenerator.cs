@@ -49,11 +49,14 @@ public class LevelGenerator : MonoBehaviour
     private int dataBufferSize;
     public int levelBreite;
     public int levelTiefe;
-    private PlayerSpawner playerSpawner;
+    public int TurmMenge;
+    public int BogenMenge;
    
     // Use this for initialization
     void Awake()
     {
+        TurmMenge = 10; // Menge in %
+        BogenMenge = 8; //Menge in %
         levelBreite = 33;
         levelTiefe = 2000;
         generateMaze = false;
@@ -72,7 +75,6 @@ public class LevelGenerator : MonoBehaviour
         DistanceLines = new GameObject[6, levelTiefe];
         levelPool = new List<string[][]>();
         MazeGenerator = FindObjectOfType<MazeGenerator>();
-        playerSpawner = FindObjectOfType<PlayerSpawner>();
         SpawnDemoItems = FindObjectOfType<SpawnDemoItems>();
         GenerateDistanceLine = FindObjectOfType<GenerateDistanceLine>();
     }
@@ -551,12 +553,11 @@ public class LevelGenerator : MonoBehaviour
     //Erzeug ein Stück Wand, einen Turm, oder einen Bogen
     void createWand(Vector3 pos) {
         
-        int RandomValue = (int)Random.Range(0f, 21f); //Zahl zwischen 0 und 20
         int xPos = (int)pos.x;
         int zPos = (int)pos.z;
         bool createBogen = true;
         
-        if(RandomValue == 0) {
+        if(Random.value <= (TurmMenge / 100f)) {
             
             //Erzeugt einen Turm und deaktiviert das ein Bogen erzeugt werden kann
             AllGameObjects[xPos, zPos] = objectPooler.SpawnFromPool("Wand", pos, Quaternion.identity);
@@ -576,25 +577,79 @@ public class LevelGenerator : MonoBehaviour
         // Erzeug einen Bogen. Wenn RandomValue 10 oder 20 ist.
         // Überprüft das in alle möglich Richtungen eine Wandstück ist zu welchem der Bogen erstellt werden kann.
         // Stellt sicher dass das Array das die levelSectionData nicht überschritten werden kann.
-        
-        zPos = (int)pos.z - SectionDataOffset; // Minus Offest um in levelSectionData den richtigen Bezug zu haben
-        if ((RandomValue % 10 == 0) && createBogen && (zPos < levelSectionData.Length - 3) && (xPos < levelSectionData[0].Length - 5) &&
-            (levelSectionData[zPos][xPos + 2] == levelWand) &&
-            (levelSectionData[zPos + 2][xPos] == levelWand) &&
-            (levelSectionData[zPos][xPos + 1] != levelWand) &&
-            (levelSectionData[zPos + 1][xPos] != levelWand))
+        if (Random.value <= (BogenMenge / 100f) && createBogen)
         {
-            //Ereugt die erste Saule des Bogens
-            SecondaryGameObjects1[(int)pos.x, (int)pos.z] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(0, 1, 0), Quaternion.identity);
-            SecondaryGameObjects2[(int)pos.x, (int)pos.z] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(0, 2, 0), Quaternion.identity);
+            if( Random.value > 0.45f && xPos > 2 &&
+                SecondaryGameObjects1[xPos - 1, zPos] != null &&
+                AllGameObjects[xPos - 2, zPos] != null)
+
+            {
+                // Bogen in xRichtung
+                if( SecondaryGameObjects1[xPos - 1, zPos].CompareTag("Boden") &&
+                    AllGameObjects[xPos - 2, zPos].CompareTag("Wand") &&
+                    SecondaryGameObjects1[xPos - 2, zPos] == null)
+                    {
+                        // Ereugt die erste Saule des Bogens
+                        SecondaryGameObjects1[xPos, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(0, 1, 0), Quaternion.identity);
+                        SecondaryGameObjects2[xPos, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(0, 2, 0), Quaternion.identity);
             
-            //Erzeugt den Rest des Bogen horiznal oder um 90 Grad gedreht vertikal.
-            //Ternärer-Operator um die Richtung zu bestimmten.
-            //Da hier nur 10 oder 20 von RandomValue auftreten kann, und die Bedingung RandomValue == 20 ist, wird zu 50% ein gedrehter Bogen erzeugt
-            SecondaryGameObjects3[(int)pos.x, (int)pos.z] = objectPooler.SpawnFromPool("Wand", pos + ((RandomValue == 20) ? new Vector3(1, 2, 0) : new Vector3(0, 2, 1)), Quaternion.identity);
-            SecondaryGameObjects2[(int)pos.x + 1, (int)pos.z] = objectPooler.SpawnFromPool("Wand", pos + ((RandomValue == 20) ? new Vector3(2, 2, 0) : new Vector3(0, 2, 2)), Quaternion.identity);
-            SecondaryGameObjects3[(int)pos.x + 1, (int)pos.z] = objectPooler.SpawnFromPool("Wand", pos + ((RandomValue == 20) ? new Vector3(2, 1, 0) : new Vector3(0, 1, 2)), Quaternion.identity);
+                        SecondaryGameObjects3[xPos - 1, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(-1, 2, 0), Quaternion.identity);
+                        SecondaryGameObjects2[xPos - 2, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(-2, 2, 0), Quaternion.identity);
+                        SecondaryGameObjects1[xPos - 2, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(-2, 1, 0), Quaternion.identity);
+
+                        // Zweiter Bogenabschnitt
+                        if( Random.value <= (BogenMenge / 100f) &&
+                            xPos > 4 &&
+                            SecondaryGameObjects1[xPos - 3, zPos] != null &&
+                            AllGameObjects[xPos - 4, zPos] != null &&
+                            SecondaryGameObjects1[xPos - 3, zPos].CompareTag("Boden") &&
+                            AllGameObjects[xPos - 4, zPos].CompareTag("Wand") &&
+                            SecondaryGameObjects1[xPos - 4, zPos] == null)
+                            {
+                                // Baut an den ersten Bogen nur die fehlenden Teile an     
+                                SecondaryGameObjects3[xPos - 3, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(-3, 2, 0), Quaternion.identity);
+                                SecondaryGameObjects2[xPos - 4, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(-4, 2, 0), Quaternion.identity);
+                                SecondaryGameObjects1[xPos - 4, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(-4, 1, 0), Quaternion.identity);
+
+                            }
+                    }
+
+            } else if(  zPos > 1  &&
+                        SecondaryGameObjects1[xPos, zPos - 1] != null &&
+                        AllGameObjects[xPos, zPos - 2] != null)
+                        {
+
+                        // Bogen in zRichtung
+                        if( SecondaryGameObjects1[xPos, zPos - 1].CompareTag("Boden") &&
+                            AllGameObjects[xPos, zPos - 2].CompareTag("Wand") &&
+                            SecondaryGameObjects1[xPos, zPos - 2] == null)
+                            {
+                                //Ereugt die erste Saule des Bogens
+                                SecondaryGameObjects1[xPos, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(0, 1, 0), Quaternion.identity);
+                                SecondaryGameObjects2[xPos, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(0, 2, 0), Quaternion.identity);
+                    
+                                SecondaryGameObjects3[xPos, zPos - 1] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(0, 2, -1), Quaternion.identity);
+                                SecondaryGameObjects2[xPos, zPos - 2] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(0, 2, -2), Quaternion.identity);
+                                SecondaryGameObjects1[xPos, zPos - 2] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(0, 1, -2), Quaternion.identity);
+
+                                // Zweiter Bogenabschnitt gedreht
+                                if( Random.value <= (BogenMenge / 100f) &&
+                                    xPos > 2 &&
+                                    SecondaryGameObjects1[xPos - 1, zPos].CompareTag("Boden") &&
+                                    AllGameObjects[xPos - 2, zPos].CompareTag("Wand") &&
+                                    SecondaryGameObjects1[xPos - 2, zPos] == null)
+                                    {
+                                        // Baut an den ersten Bogen nur die fehlenden Teile an
+                                        SecondaryGameObjects3[xPos - 1, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(-1, 2, 0), Quaternion.identity);
+                                        SecondaryGameObjects2[xPos - 2, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(-2, 2, 0), Quaternion.identity);
+                                        SecondaryGameObjects1[xPos - 2, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(-2, 1, 0), Quaternion.identity);
+
+                                }
+                            }
+            }
+
         }
+        
     }
 
     //Erzeugt eine Kiste und Boden unter ihr
