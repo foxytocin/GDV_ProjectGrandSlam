@@ -79,8 +79,23 @@ public class PlayerScript : MonoBehaviour
 
     void Update()
     {
-        
-        if(gameStatePlay)
+        //I T E M  T I M E R
+
+        //HoudiniTimer
+        if (houdiniTimer > 0f)
+        {
+            houdiniItem = true;
+            houdiniTimer -= Time.deltaTime;
+            Debug.Log(houdiniTimer);
+
+        }
+        else if (houdiniTimer <= 0f)
+        {
+            houdiniItem = false;
+            houdiniTimer = 0;
+        }
+
+        if (gameStatePlay)
         {
             myTime += Time.deltaTime;
 
