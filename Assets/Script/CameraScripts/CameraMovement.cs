@@ -58,7 +58,7 @@ public class CameraMovement : MonoBehaviour {
 
     public Vector3 CalcCenterPoint()
     {
-        numPlayers = playerSpawner.playerList.Count;
+        numPlayers = GameObject.FindGameObjectsWithTag("Player").Length;
         Vector3 center = Vector3.zero;   
 
         switch(numPlayers)

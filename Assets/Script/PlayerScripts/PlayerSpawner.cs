@@ -82,7 +82,7 @@ public class PlayerSpawner : MonoBehaviour
 
             // Player wird in die PlayerListe angefuegt
             playerList.Add(tmpPlayer);
-        }
+        }        
     }
   
     // Anzahl der Player, kann dann durch das Menue uebergeben werden durch aufruf der Methode 

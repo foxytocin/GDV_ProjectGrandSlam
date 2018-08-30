@@ -39,9 +39,9 @@ public class CameraZoom : MonoBehaviour {
             return maxDist;
         } else
         {
-            for (int i = 0; i < players.Length; i++)
+            for (int i = 0; i < numPlayers; i++)
             {
-                for (int j = i + 1; j < players.Length; j++)
+                for (int j = i + 1; j < numPlayers; j++)
                 {
                     if (players[i].y == 0.45f && players[j].y == 0.45f)
                     {
