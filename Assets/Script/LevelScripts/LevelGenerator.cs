@@ -55,8 +55,6 @@ public class LevelGenerator : MonoBehaviour
     // Use this for initialization
     void Awake()
     {
-        TurmMenge = 10; // Menge in %
-        BogenMenge = 8; //Menge in %
         levelBreite = 33;
         levelTiefe = 2000;
         generateMaze = false;
@@ -81,6 +79,9 @@ public class LevelGenerator : MonoBehaviour
 
     void Start()
     {
+        TurmMenge = 10; // Menge in %
+        BogenMenge = 8; //Menge in %
+
         objectPooler = ObjectPooler.Instance;
         createLevelData();
         createStartBasis(tiefeLevelStartBasis);
@@ -635,9 +636,10 @@ public class LevelGenerator : MonoBehaviour
                                 // Zweiter Bogenabschnitt gedreht
                                 if( Random.value <= (BogenMenge / 100f) &&
                                     xPos > 2 &&
+                                    SecondaryGameObjects1[xPos - 1, zPos] != null &&
+                                    SecondaryGameObjects1[xPos - 2, zPos] == null &&
                                     SecondaryGameObjects1[xPos - 1, zPos].CompareTag("Boden") &&
-                                    AllGameObjects[xPos - 2, zPos].CompareTag("Wand") &&
-                                    SecondaryGameObjects1[xPos - 2, zPos] == null)
+                                    AllGameObjects[xPos - 2, zPos].CompareTag("Wand"))
                                     {
                                         // Baut an den ersten Bogen nur die fehlenden Teile an
                                         SecondaryGameObjects3[xPos - 1, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(-1, 2, 0), Quaternion.identity);

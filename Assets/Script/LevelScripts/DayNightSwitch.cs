@@ -160,10 +160,20 @@ public class DayNightSwitch : MonoBehaviour {
 	{
 		for(int i = 0; i < playerSpawner.playerList.Count; i++)
 		{
-			GameObject player = playerSpawner.playerList[i].gameObject;
-			StartCoroutine(playerGlowOn(player));
+			PlayerScript player = playerSpawner.playerList[i].gameObject.GetComponent<PlayerScript>();
+			StartCoroutine(player.playerGlowOn());
 		}
 	}
+
+	private void playerLightOff()
+	{
+		for(int i = 0; i < playerSpawner.playerList.Count; i++)
+		{
+			PlayerScript player = playerSpawner.playerList[i].gameObject.GetComponent<PlayerScript>();
+			StartCoroutine(player.playerGlowOff());
+		}
+	}
+
 
 	private IEnumerator glowDistanceLineDimmOn()
 	{
@@ -203,58 +213,6 @@ public class DayNightSwitch : MonoBehaviour {
 				}
 			}
 		}
-	}
-
-	private IEnumerator playerGlowOn(GameObject player)
-	{
-		float emission = 0f;
-		Material playerMaterial = player.GetComponent<Renderer>().material;
-		Color baseColor = playerMaterial.color;
-		Light playerLight = player.GetComponent<Light>();
-		playerLight.intensity = 0f;
-		playerLight.enabled = true;
-
-		while(emission < 2.3f)
-		{
-			emission += Time.deltaTime * 0.2f;
-			Color finalColor = baseColor * Mathf.LinearToGammaSpace (emission);
-			playerMaterial.SetColor("_EmissionColor", finalColor);
-			playerMaterial.EnableKeyword("_EMISSION");
-			playerLight.intensity = emission;
-
-			yield return null;
-		}
-	}
-
-	private void playerLightOff()
-	{
-		for(int i = 0; i < playerSpawner.playerList.Count; i++)
-		{
-			GameObject player = playerSpawner.playerList[i].gameObject;
-			StartCoroutine(playerGlowOff(player));
-		}
-	}
-
-	private IEnumerator playerGlowOff(GameObject player)
-	{
-		float emission = 2.3f;
-		Material playerMaterial = player.GetComponent<Renderer>().material;
-		Color baseColor = playerMaterial.color;
-		Light playerLight = player.GetComponent<Light>();
-
-		while(emission > 0f)
-		{
-			emission -= Time.deltaTime * 0.3f;
-			Color finalColor = baseColor * Mathf.LinearToGammaSpace (emission);
-			playerMaterial.SetColor("_EmissionColor", finalColor);
-			playerLight.intensity = emission;
-
-			yield return null;
-		}
-
-		playerMaterial.DisableKeyword("_EMISSION");
-		playerLight.enabled = false;
-		playerLight.intensity = 0f;
 	}
 
 	private void switchToNight()

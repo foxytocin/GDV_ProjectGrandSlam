@@ -34,7 +34,9 @@ public class PlayerScript : MonoBehaviour
     private bool RichtungsAenderung; //true == z; false == x 
     private bool fall = false;
     private float gravity;
+    private Material playerMaterial;
     private Color32 playerColor;
+    private Light playerLight;
     private Vector3 lastDirection;
     private AudioManager audioManager;
     public bool resultScreenActive;
@@ -52,8 +54,10 @@ public class PlayerScript : MonoBehaviour
 
     void Start()
     {
+        playerMaterial = GetComponent<Renderer>().material;
+        playerLight = GetComponent<Light>();
+        playerColor = playerMaterial.color;
         gameStatePlay = false;
-        playerColor = GetComponent<Renderer>().material.color;
         travelDistanceStart = (int)transform.position.z;
         travelDistance = 0;
         avaibleBomb = 3;
@@ -67,7 +71,6 @@ public class PlayerScript : MonoBehaviour
         target = transform.position;
         myTime = 0f;
         gravity = 0f;
-        //levelGenerator.AllGameObjects[(int)transform.position.x, (int)transform.position.z] = this.gameObject;
         cam.PlayerPosition(transform.position, playerID);
         transform.Rotate(0, 90, 0, Space.World);
         resultScreenActive = false;
@@ -485,6 +488,23 @@ public class PlayerScript : MonoBehaviour
         alive = false;
     }
 
+    public IEnumerator playerFallRestart()
+    {
+        target.y = -50f;
+        fall = true;
+        alive = false;
+
+        while(transform.position.y > target.y)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, target, 0.3f);
+            yield return null;
+        }
+        
+        setALife(false);
+        StopAllCoroutines();
+        Destroy(gameObject);
+    }
+
     public void winAnimationStart()
     {
         resultScreenActive = true;
@@ -517,5 +537,63 @@ public class PlayerScript : MonoBehaviour
             yield return null;
         }
     }
+
+
+    public IEnumerator playerGlowOn()
+	{
+		float emission = 0f;
+		Color baseColor = playerColor;
+		playerLight.intensity = 0f;
+		playerLight.enabled = true;
+
+		while(emission < 2.3f)
+		{
+			emission += Time.deltaTime * 0.2f;
+			Color finalColor = baseColor * Mathf.LinearToGammaSpace (emission);
+			playerMaterial.SetColor("_EmissionColor", finalColor);
+			playerMaterial.EnableKeyword("_EMISSION");
+			playerLight.intensity = emission;
+
+			yield return null;
+		}
+	}
+
+    public IEnumerator playerGlowOff()
+	{
+		float emission = 2.3f;
+		Color baseColor = playerColor;
+
+		while(emission > 0f)
+		{
+			emission -= Time.deltaTime * 0.3f;
+			Color finalColor = baseColor * Mathf.LinearToGammaSpace (emission);
+			playerMaterial.SetColor("_EmissionColor", finalColor);
+			playerLight.intensity = emission;
+
+			yield return null;
+		}
+
+		playerMaterial.DisableKeyword("_EMISSION");
+		playerLight.enabled = false;
+		playerLight.intensity = 0f;
+	}
+
+
+    // public IEnumerator fadeToDeath()
+    // {
+    //     float alpha = playerMaterial.color.a;
+    //     Color fadeColor = playerColor;
+
+    //     while(alpha > 0f)
+    //     {
+    //         Debug.Log("fadeToDead: " +alpha);
+    //         alpha -= Time.deltaTime;
+    //         fadeColor.a = alpha;
+    //         playerMaterial.color = (Color32)fadeColor;
+    //         yield return null;
+    //     }
+
+    //     Destroy(gameObject);
+    // }
 
 }

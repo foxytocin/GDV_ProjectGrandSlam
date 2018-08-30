@@ -55,10 +55,10 @@ public class PlayerSpawner : MonoBehaviour
 
         // ColorList enthälten die SpawnFarben der Player 1-4
         playerColorList = new List<Color>();
-        playerColorList.Add(new Color32(236, 77, 19, 1));     // Player 1 (Red)
-        playerColorList.Add(new Color32(82, 203, 16, 1));     // Player 2 (Green)
-        playerColorList.Add(new Color32(17, 170, 212, 1));    // Player 3 (Blue)
-        playerColorList.Add(new Color32(226, 195, 18, 1));    // Player 4 (Yellow)
+        playerColorList.Add(new Color32(236, 77, 19, 255));     // Player 1 (Red)
+        playerColorList.Add(new Color32(82, 203, 16, 255));     // Player 2 (Green)
+        playerColorList.Add(new Color32(17, 170, 212, 255));    // Player 3 (Blue)
+        playerColorList.Add(new Color32(226, 195, 18, 255));    // Player 4 (Yellow)
 
         // for-Schleife zum erstellen der Player abhaengig von dem Datenfeld players
         for (int i = 0; i < players; i++)

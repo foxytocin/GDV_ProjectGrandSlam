@@ -30,18 +30,12 @@ public class LevelRestart : MonoBehaviour {
 
 	public void levelRestart()
 	{
-
-        for (int i = playerSpawner.players - 1; i >= 0; i--)
-        {
-            Color32 tmpPlayerColor = playerSpawner.playerList[i].GetComponent<Renderer>().material.color;
-
-            for (int j = tmpPlayerColor.a; j > 0; j--)
-            {
-                tmpPlayerColor.a--;
-            }
-
-            Destroy(playerSpawner.playerList[i]);
-        }
+		// for (int i = playerSpawner.players - 1; i >= 0; i--)
+        // {
+        //     PlayerScript player = playerSpawner.playerList[i].GetComponent<PlayerScript>();
+		// 	player.StopCoroutine(player.playerGlowOff());
+		// 	player.StopCoroutine(player.playerGlowOn());
+        // }
 
         StartCoroutine(eraseCurrentWorld());
 	}
@@ -58,7 +52,9 @@ public class LevelRestart : MonoBehaviour {
 				switch (go.tag)
 				{
 					case "Player":
-						Destroy(go);
+						PlayerScript player = go.GetComponent<PlayerScript>();
+						StartCoroutine(player.playerFallRestart());
+						//player.StartCoroutine(player.fadeToDeath());
 						break;
 
 					case "Bombe":
