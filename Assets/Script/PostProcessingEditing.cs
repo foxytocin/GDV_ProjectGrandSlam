@@ -23,7 +23,7 @@ public class PostProcessingEditing : MonoBehaviour {
         pp.bloom.enabled = true;
   
         depthSettings = pp.depthOfField.settings;
-        depthSettings.focalLength = 180;
+        depthSettings.focalLength = 170;
         depthSettings.aperture = 6f;
 
         //Initialize Fog

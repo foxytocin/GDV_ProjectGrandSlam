@@ -32,8 +32,8 @@ public class LevelRestart : MonoBehaviour {
 	}
 	public IEnumerator levelRestartMainMenuCore()
 	{
-		rulesScript.restartResults();
         StartCoroutine(eraseCurrentWorld());
+		rulesScript.restartResults();
 		yield return new WaitForSecondsRealtime(4f);
 		spawnDemoItems.spawnDemoItems();
 	}
@@ -47,11 +47,7 @@ public class LevelRestart : MonoBehaviour {
 	{
         StartCoroutine(eraseCurrentWorld());
 		yield return new WaitForSecondsRealtime(4f);
-<<<<<<< HEAD
-		spawnDemoItems.spawnDemoItems();
         rulesScript.nextRoundRules();
-=======
->>>>>>> Andi
 		GameManager.unlockControlls();
 	}
 
