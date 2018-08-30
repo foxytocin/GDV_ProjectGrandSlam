@@ -48,6 +48,9 @@ public class LevelRestart : MonoBehaviour {
 
 	private IEnumerator eraseCurrentWorld()
 	{
+		cameraScroller.restartCameraScroller();
+		destroyScroller.restartDestroyScroller();
+
 		foreach(GameObject go in levelGenerator.AllGameObjects)
 		{
 			if(go != null)
@@ -118,8 +121,6 @@ public class LevelRestart : MonoBehaviour {
 
 	private void recreateWorld()
 	{
-		cameraScroller.restartCameraScroller();
-		destroyScroller.restartDestroyScroller();
 		levelGenerator.restartLevel();
 		playerSpawner.createPlayers();
 		dayNightSwitch.restartDayNightModus();

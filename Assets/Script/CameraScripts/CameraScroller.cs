@@ -29,9 +29,10 @@ public class CameraScroller : MonoBehaviour
     {
         
         if(gameStatePlay)
+        {
             transform.Translate(0, 0, LevelGenerator.LevelSpeed * Time.deltaTime);
-        
-        rowPosition = (int)transform.position.z;
+            rowPosition = (int)transform.position.z;
+        }
 
         //Prüft ob die Camera genau EINE Zeile weitergescrollt ist um die createWorld() für genau diese 1 Zeile aufzurufen.
         if (rowPosition > altePosition && gameStatePlay)
