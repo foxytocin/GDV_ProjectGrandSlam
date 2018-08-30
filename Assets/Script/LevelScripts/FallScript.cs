@@ -99,7 +99,6 @@ public class FallScript : MonoBehaviour {
         }
 
         gameObject.SetActive(false);
-        StopAllCoroutines();
     }
 
 
@@ -121,7 +120,6 @@ public class FallScript : MonoBehaviour {
         }
 
         gameObject.SetActive(false);
-        StopAllCoroutines();
     }
 
 }
