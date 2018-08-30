@@ -29,17 +29,23 @@ public class MapDestroyer : MonoBehaviour
     {
         xPos = (int)position.x;
         zPos = (int)position.z;
-        player = PlayerSpawner.playerList[id].GetComponent<PlayerScript>();
 
-        //Ueberprüft ob der Spieler, der die Bombe gelegt hat, exakt an der gleichen Stelle (in der Bombe) stehen geblieben ist.
-        //Sollte dies zutreffen, wird der Spieler getoetet.
-        if ((int)player.transform.position.x == xPos && (int)player.transform.position.z == zPos)
+        if(PlayerSpawner.playerList[id] != null)
         {
-             player.dead();
-        }
+            player = PlayerSpawner.playerList[id].GetComponent<PlayerScript>();
 
-        //Die explodierte Bombe wird dem Spieler wieder gutgeschrieben.
-        player.avaibleBomb += 1;
+            //Ueberprüft ob der Spieler, der die Bombe gelegt hat, exakt an der gleichen Stelle (in der Bombe) stehen geblieben ist.
+            //Sollte dies zutreffen, wird der Spieler getoetet.
+            if ((int)player.transform.position.x == xPos && (int)player.transform.position.z == zPos)
+            {
+                player.dead();
+            }
+            
+            //Die explodierte Bombe wird dem Spieler wieder gutgeschrieben.
+            player.avaibleBomb += 1;
+        }
+        
+
 
         //Explosions-Animation an der Stelle der Bombe wird abgespielt.
         objectPooler.SpawnFromPool("Explosion", new Vector3(xPos, 0.5f, zPos), Quaternion.identity);
