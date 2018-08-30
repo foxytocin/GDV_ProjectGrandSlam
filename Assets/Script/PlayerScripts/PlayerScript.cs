@@ -95,6 +95,22 @@ public class PlayerScript : MonoBehaviour
             houdiniTimer = 0;
         }
 
+        //remoteBombTimer
+        if (remoteBombTimer > 0f)
+        {
+            remoteBombItem = true;
+            remoteBombTimer -= Time.deltaTime;
+            Debug.Log(remoteBombTimer);
+
+        }
+
+        else if (remoteBombTimer <= 0f)
+        {
+            remoteBombItem = false;
+            remoteBombTimer = 0;
+        }
+
+        //GameStatePlay
         if (gameStatePlay)
         {
             myTime += Time.deltaTime;
@@ -358,8 +374,7 @@ public class PlayerScript : MonoBehaviour
                     //Hat der Player das Houdini-Item, werden automatisch alle Kisten um ihn herum zerstört
                     if(houdiniItem)
                     {
-                        houdini.callHoudini(xPos, zPos);
-                    }
+                    houdini.callHoudini(xPos, zPos);
 
                     //Debug.Log("Player at: " +levelGenerator.SecondaryGameObjects1[(int)(target.x + tmp.x), (int)(target.z + tmp.z)].gameObject.tag);
                     if (levelGenerator.SecondaryGameObjects1[xPos, zPos].gameObject.CompareTag("KillField"))
