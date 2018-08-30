@@ -11,6 +11,7 @@ public class LevelRestart : MonoBehaviour {
 	private PlayerSpawner playerSpawner;
 	private DayNightSwitch dayNightSwitch;
     private RulesScript rulesScript;
+	private GameManager GameManager;
 
 	void Awake()
 	{
@@ -20,6 +21,7 @@ public class LevelRestart : MonoBehaviour {
 		playerSpawner = FindObjectOfType<PlayerSpawner>();
 		dayNightSwitch = FindObjectOfType<DayNightSwitch>();
         rulesScript = FindObjectOfType<RulesScript>();
+		GameManager = FindObjectOfType<GameManager>();
 	}
 
     public void mainMenuRestart()
@@ -54,6 +56,7 @@ public class LevelRestart : MonoBehaviour {
 					case "Player":
 						PlayerScript player = go.GetComponent<PlayerScript>();
 						StartCoroutine(player.playerFallRestart());
+						//Destroy(go);
 						//player.StartCoroutine(player.fadeToDeath());
 						break;
 
@@ -135,5 +138,4 @@ public class LevelRestart : MonoBehaviour {
 					
 		}
 	}
-
 }

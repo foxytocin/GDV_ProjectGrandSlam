@@ -102,6 +102,7 @@ public class GameManager : MonoBehaviour {
         List <GameObject> playerList = playerSpawner.playerList;
         foreach (GameObject go in playerList)
         {
+            Debug.Log("UNLOCK: " +go.gameObject);
             if (go != null)
                 go.GetComponent<PlayerScript>().gameStatePlay = true;
         }

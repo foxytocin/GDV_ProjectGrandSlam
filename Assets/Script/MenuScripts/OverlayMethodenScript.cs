@@ -47,18 +47,17 @@ public class OverlayMethodenScript : MonoBehaviour
 
     public void resume()
     {
-        pausenMenuUI.SetActive(false);
         Time.timeScale = 1f;
         GameIsPaused = false;
         isInGame = true;
-
+        pausenMenuUI.SetActive(false);
     }
 
     public void pause()
     {
-        pausenMenuUI.SetActive(true);
         Time.timeScale = 0f;
         GameIsPaused = true;
+        pausenMenuUI.SetActive(true);
     }
 
     public void QuitGame()
@@ -74,7 +73,7 @@ public class OverlayMethodenScript : MonoBehaviour
 
     public void sideSwitch(GameObject offSetSide, GameObject onSetSide)
     {
-        offSetSide.SetActive(false);
         onSetSide.SetActive(true);
+        offSetSide.SetActive(false);
     }
 }

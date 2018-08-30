@@ -32,12 +32,12 @@ public class GoButtonScript : MonoBehaviour
     public void onClickGoButton()
     {
         mainMenuUI.GetComponent<GroupFadeScript>().fadeOut();
-        gameManager.unlockControlls();
         spawnDemoItems.cleanDemoItems();
         FindObjectOfType<AudioManager>().playSound("lets_go");
         FindObjectOfType<OverlayMethodenScript>().isInGame = true;
         cameraScroller.gameStatePlay = true;
         destroyScroller.gameStatePlay = true;
+        gameManager.unlockControlls();
 
     }
     

@@ -194,7 +194,6 @@ public class LevelGenerator : MonoBehaviour
         dataBufferSize = levelSectionData.Length;
 
         createStartBasis(tiefeLevelStartBasis);
-        SpawnDemoItems.spawnDemoItems();
     }
 
     // Inizialisiert die Levelbasis die beim Start des Spiels zu sehen sein soll

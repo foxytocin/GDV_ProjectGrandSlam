@@ -17,10 +17,17 @@ public class NextRoundButtonScript : MonoBehaviour {
 
     public void onClickNextButton()
     {
+        StartCoroutine(restart());
+    }
+
+    private IEnumerator restart()
+    {
         levelRestart.levelRestart();
-        resultMenu.SetActive(false);
+
+        yield return new WaitForSecondsRealtime(4f);
+
         FindObjectOfType<OverlayMethodenScript>().isInGame = true;
         gameManager.unlockControlls();
-
+        resultMenu.SetActive(false);
     }
 }

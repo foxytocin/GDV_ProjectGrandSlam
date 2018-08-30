@@ -56,7 +56,6 @@ public class PlayerScript : MonoBehaviour
         playerLight = GetComponent<Light>();
         playerColor = playerMaterial.color;
         gameStatePlay = false;
-        travelDistanceStart = (int)transform.position.z;
         avaibleBomb = 3;
         speed = 5f;
         bombTimer = 2f;
@@ -400,9 +399,9 @@ public class PlayerScript : MonoBehaviour
         
         Debug.Log("Player_" + playerID.ToString() + " is Dead");
         cam.PlayerPosition(new Vector3(0f, -2f, 0f), playerID);
-        FindObjectOfType<RulesScript>().playerDeath(playerID, transform.position);
-        StopAllCoroutines();
+        gameObject.SetActive(false);
         Destroy(gameObject);
+        StopAllCoroutines();
     }
 
     // Tot trifft ein
