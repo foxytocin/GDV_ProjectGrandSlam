@@ -29,28 +29,30 @@ public class GlowScript : MonoBehaviour {
 	private IEnumerator glowStart()
 		{
 			float emission = 0;
+
 			while(emission < emissionBrigthness)
 			{
-				emission += Time.deltaTime * 0.1f;
+				emission += Time.deltaTime * 0.3f;
 				Color finalColor = baseColor * Mathf.LinearToGammaSpace(emission);
 				material.SetColor("_EmissionColor", finalColor);
 				material.EnableKeyword("_EMISSION");
 
-				yield return null;
+				yield return new WaitForSeconds(0.2f);
 			}
 		}
 
 	private IEnumerator glowStopp()
 		{
 			float emission = emissionBrigthness;
+
 			while(emission > 0f)
 			{
-				emission -= Time.deltaTime * 0.2f;
+				emission -= Time.deltaTime * 0.5f;
 				Color finalColor = baseColor * Mathf.LinearToGammaSpace(emission);
 				material.SetColor("_EmissionColor", finalColor);
 				material.EnableKeyword("_EMISSION");
 
-				yield return null;
+				yield return new WaitForSeconds(0.2f);
 			}
 
 			material.DisableKeyword("_EMISSION");
