@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PowerUp : MonoBehaviour {
+public class PowerUp : MonoBehaviour
+{
     public int ItemID;
     private PlayerSpawner playerSpawner;
     private PlayerScript player;
@@ -17,22 +18,27 @@ public class PowerUp : MonoBehaviour {
         // Erzeugt beim Instanzieren einen zufälligen Item-Typ
         Itemwahl();
     }
-   
-    
+
+
     //Item wird gewürfelt
     public void Itemwahl()
     {
-        int RandomValue = (int)(Random.Range(0, 2f));
+        int RandomValue = (int)(Random.Range(0, 3f));
         switch (RandomValue)
         {
             case 0:
                 ItemID = 0;
-                MakeItem1(ItemID);
+                MakeBombPowerItem(ItemID);
                 break;
 
             case 1:
                 ItemID = 1;
-                MakeItem2(ItemID);
+                MakeHoudiniItem(ItemID);
+                break;
+
+            case 2:
+                ItemID = 2;
+                MakeRemoteBombItem(ItemID);
                 break;
         }
     }
@@ -50,16 +56,20 @@ public class PowerUp : MonoBehaviour {
         switch (ItemID)
         {
             case 0:
-                Item1(ItemID);
+                BombPower(ItemID);
                 break;
 
             case 1:
-                StartCoroutine(Item2(ItemID));
+                Houdini(ItemID);
+                break;
+
+            case 2:
+                RemoteBomb(ItemID);
                 break;
         }
     }
-   
-    
+
+
     //ItemLook
     public void MakeItem1(int id)
     {
