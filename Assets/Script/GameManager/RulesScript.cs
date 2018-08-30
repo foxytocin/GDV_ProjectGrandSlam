@@ -24,6 +24,8 @@ public class RulesScript : MonoBehaviour
     public TextMeshProUGUI reachText;
     public TextMeshProUGUI extraText;
 
+    public TextMeshProUGUI nextButtonText;
+
     public GameObject nextRoundButton;
 
     GameManager gameManager;
@@ -88,6 +90,7 @@ public class RulesScript : MonoBehaviour
                         reachText.SetText(string.Format("{0} {1}", "player", (winnerNumber+1).ToString()));
                         reach.SetActive(true);
                         nextRoundButton.SetActive(true);
+                        nextButtonText.SetText("Next Round");
                     }
                     else
                     {
@@ -96,6 +99,7 @@ public class RulesScript : MonoBehaviour
                         winner.SetActive(true);
                         reachText.SetText(string.Format("{0} {1}", "player", (winnerNumber+1).ToString()));
                         reach.SetActive(true);
+                        nextButtonText.SetText("Next Battle");
                     }
 
                 }

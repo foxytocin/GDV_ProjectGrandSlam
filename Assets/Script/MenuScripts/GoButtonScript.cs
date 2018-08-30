@@ -32,6 +32,7 @@ public class GoButtonScript : MonoBehaviour
     public void onClickGoButton()
     {
         mainMenuUI.GetComponent<GroupFadeScript>().fadeOut();
+        Cursor.visible = false;
         spawnDemoItems.cleanDemoItems();
         FindObjectOfType<AudioManager>().playSound("lets_go");
         FindObjectOfType<OverlayMethodenScript>().isInGame = true;

@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour {
     private Camera miniMapCam;
     private Canvas miniMapCanvas;
     private bool showMiniMap;
-    private int player;
+    public int player;
     private int playertmp;
     public bool isInGame;
 
@@ -52,7 +52,7 @@ public class GameManager : MonoBehaviour {
             }
         }
 
-
+        /* 
         if(InputManager.OneR1Button() && player < 4) {
             player += 1;
         }
@@ -61,6 +61,7 @@ public class GameManager : MonoBehaviour {
         {
             player -= 1;
         }
+        */
 
         if(player != playertmp) {
             playertmp = player;
@@ -77,30 +78,6 @@ public class GameManager : MonoBehaviour {
             }
         }
 
-    }
-
-    public void setOnePlayer()
-    {
-        player = 1;
-        rulesScript.setPlayerZahl(1);
-    }
-
-    public void setTwoPlayer()
-    {
-        player = 2;
-        rulesScript.setPlayerZahl(2);
-    }
-
-    public void setThreePlayer()
-    {
-        player = 3;
-        rulesScript.setPlayerZahl(3);
-    }
-
-    public void setFourPlayer()
-    {
-        player = 4;
-        rulesScript.setPlayerZahl(4);
     }
 
     public void unlockControlls()

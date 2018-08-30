@@ -6,7 +6,7 @@ public class GhostScript : MonoBehaviour
 {
     private void Start()
     {
-        transform.Rotate(-90, 0, 0);
+        transform.Rotate(0, 0, 0);
     }
     // Update is called once per frame
    
@@ -48,7 +48,7 @@ public class GhostScript : MonoBehaviour
             }
 
             transform.localScale += new Vector3(0.3f * Time.deltaTime, 0.3f * Time.deltaTime, 0.3f * Time.deltaTime);
-            transform.Translate(0, 0, 0.3f * (Time.deltaTime + 0.3f));
+            transform.Translate(0, 0.3f * (Time.deltaTime + 0.3f), 0);
             yield return null;
         }
         

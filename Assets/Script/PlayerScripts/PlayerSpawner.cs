@@ -7,13 +7,9 @@ public class PlayerSpawner : MonoBehaviour
     public GameObject playerPrefab;
     // Anzahl der Players 
     public int players;
-    private int startplayers;
     //PlayerListe mit GameObjekts
     public List<GameObject> playerList;
 
-    // Daten die weitergereicht werden (LevelGenerator, ghostSpawner)
-    public LevelGenerator levelGenerator;
-    public GhostSpawnerScript ghostSpawner;
     List<Vector3> spawnList;
     List<Color> playerColorList;
     public CameraMovement cam;
@@ -26,8 +22,7 @@ public class PlayerSpawner : MonoBehaviour
         playerColorList = new List<Color>();
 
         //Standardmäßig wird beim Laden der Scene ein Spieler erstellt
-        startplayers = 1;
-        players = startplayers;
+        players = 1;
         createPlayers();
     }
 

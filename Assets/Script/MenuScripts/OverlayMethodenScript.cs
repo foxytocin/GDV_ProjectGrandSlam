@@ -49,6 +49,7 @@ public class OverlayMethodenScript : MonoBehaviour
     {
         Time.timeScale = 1f;
         GameIsPaused = false;
+        Cursor.visible = false;
         isInGame = true;
         pausenMenuUI.SetActive(false);
     }
