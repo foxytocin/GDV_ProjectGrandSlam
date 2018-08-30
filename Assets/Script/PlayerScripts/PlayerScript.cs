@@ -13,9 +13,6 @@ public class PlayerScript : MonoBehaviour
     public bool remoteBombItem;
     public bool houdiniItem;
     public bool gameStatePlay;
-
-    private int travelDistanceStart;
-
     public List<GameObject> playerList;
     public bool creatingBomb;
     public Vector3 target;
@@ -40,6 +37,7 @@ public class PlayerScript : MonoBehaviour
     public bool resultScreenActive;
     public float remoteBombTimer;
     public float houdiniTimer;
+    private RulesScript rulesScript;
 
     void Awake()
     {
@@ -52,6 +50,7 @@ public class PlayerScript : MonoBehaviour
         ghostSpawner = FindObjectOfType<GhostSpawnerScript>();
         audioManager = FindObjectOfType<AudioManager>();
         cam = FindObjectOfType<CameraMovement>();
+        rulesScript = FindObjectOfType<RulesScript>();
     }
 
     void Start()
@@ -60,9 +59,8 @@ public class PlayerScript : MonoBehaviour
         playerLight = GetComponent<Light>();
         playerColor = playerMaterial.color;
         gameStatePlay = false;
-        travelDistanceStart = (int)transform.position.z;
         avaibleBomb = 3;
-        speed = 5f;
+        speed = 5.5f;
         bombTimer = 2f;
         Time.timeScale = 1.0f;
         bombPower = 1;
@@ -80,14 +78,12 @@ public class PlayerScript : MonoBehaviour
     void Update()
     {
         //I T E M  T I M E R
-
         //HoudiniTimer
         if (houdiniTimer > 0f)
         {
             houdiniItem = true;
             houdiniTimer -= Time.deltaTime;
-            Debug.Log(houdiniTimer);
-
+            //Debug.Log(houdiniTimer);
         }
         else if (houdiniTimer <= 0f)
         {
@@ -100,10 +96,8 @@ public class PlayerScript : MonoBehaviour
         {
             remoteBombItem = true;
             remoteBombTimer -= Time.deltaTime;
-            Debug.Log(remoteBombTimer);
-
+            //Debug.Log(remoteBombTimer);
         }
-
         else if (remoteBombTimer <= 0f)
         {
             remoteBombItem = false;
@@ -264,7 +258,7 @@ public class PlayerScript : MonoBehaviour
                 gravity = 0f;
                 Debug.Log("Player_" + playerID.ToString() + " is Dead");
                 cam.PlayerPosition(new Vector3(0f, -2f, 0f), playerID);
-                FindObjectOfType<RulesScript>().playerDeath(playerID, transform.position);
+                rulesScript.playerDeath(playerID, transform.position);
                 Destroy(gameObject);
             }
         }
@@ -361,7 +355,7 @@ public class PlayerScript : MonoBehaviour
         // if (tmp == new Vector3(-1, 0, 0) || tmp == new Vector3(1, 0, 0) || tmp == new Vector3(0, 0, -1) || tmp == new Vector3(0, 0, 1))
         // {
             //entweder hat sich der Richungsvector nicht geändert oder das Objekt die selbe Position wie TargetVector
-            if ((lastTmpVector == tmp || target == transform.position) && myTime > 0.2f)
+            if ((lastTmpVector == tmp || target == transform.position) && myTime > 0.175f)
             {
                 int xPos = (int)(target.x + tmp.x);
                 int zPos = (int)(target.z + tmp.z);
@@ -451,7 +445,7 @@ public class PlayerScript : MonoBehaviour
         ghostSpawner.createGhost(transform.position, playerID, playerColor);
         transform.Translate(0f, -2f, 0f);
         cam.PlayerPosition(transform.position, playerID);
-        FindObjectOfType<RulesScript>().playerDeath(playerID, transform.position);
+        rulesScript.playerDeath(playerID, transform.position);
         levelGenerator.AllGameObjects[(int)target.x, (int)target.z] = null;
         Destroy(gameObject);
     }
@@ -500,14 +494,16 @@ public class PlayerScript : MonoBehaviour
 
 		while(emission < 2.3f)
 		{
-			emission += Time.deltaTime * 0.2f;
+			emission += Time.deltaTime * 0.4f;
 			Color finalColor = baseColor * Mathf.LinearToGammaSpace (emission);
 			playerMaterial.SetColor("_EmissionColor", finalColor);
 			playerMaterial.EnableKeyword("_EMISSION");
 			playerLight.intensity = emission;
 
-			yield return null;
+			yield return new WaitForSeconds(0.1f);
 		}
+
+        StopCoroutine(playerGlowOn());
 	}
 
     public IEnumerator playerGlowOff()
@@ -517,17 +513,22 @@ public class PlayerScript : MonoBehaviour
 
 		while(emission > 0f)
 		{
-			emission -= Time.deltaTime * 0.3f;
+			emission -= Time.deltaTime * 0.5f;
 			Color finalColor = baseColor * Mathf.LinearToGammaSpace (emission);
 			playerMaterial.SetColor("_EmissionColor", finalColor);
+            playerMaterial.EnableKeyword("_EMISSION");
 			playerLight.intensity = emission;
 
-			yield return null;
+            Debug.Log("PlayerGlow OFF :" +emission);
+
+			yield return new WaitForSeconds(0.1f);
 		}
 
 		playerMaterial.DisableKeyword("_EMISSION");
 		playerLight.enabled = false;
 		playerLight.intensity = 0f;
+
+        StopCoroutine(playerGlowOff());
 	}
 
 
