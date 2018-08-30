@@ -521,7 +521,7 @@ public class PlayerScript : MonoBehaviour
 
             Debug.Log("PlayerGlow OFF :" +emission);
 
-			yield return new WaitForSeconds(0.1f);
+			yield return new WaitForSeconds(0.05f);
 		}
 
 		playerMaterial.DisableKeyword("_EMISSION");

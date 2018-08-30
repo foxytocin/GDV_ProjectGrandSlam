@@ -43,7 +43,7 @@ MonoBehaviour:
     m_Enabled: 1
     m_Settings:
       intensity: 1
-      radius: 0.3
+      radius: 0.5
       sampleCount: 10
       downsampling: 1
       forceForwardCompatibility: 0
@@ -71,9 +71,9 @@ MonoBehaviour:
   depthOfField:
     m_Enabled: 1
     m_Settings:
-      focusDistance: 12.452135
-      aperture: 7
-      focalLength: 110
+      focusDistance: 10.6491995
+      aperture: 6
+      focalLength: 170
       useCameraFov: 0
       kernelSize: 0
   motionBlur:
@@ -317,7 +317,7 @@ MonoBehaviour:
       size: 1
       luminanceContribution: 0.8
   vignette:
-    m_Enabled: 0
+    m_Enabled: 1
     m_Settings:
       mode: 0
       color: {r: 0.122641504, g: 0.122641504, b: 0.122641504, a: 1}

@@ -35,7 +35,7 @@ public class AudioManager : MonoBehaviour
         if(!musicAtStart)
             setMusicVolume(0);
 
-        playSound("Music");
+        playSound("music-epic");
     }
 
     public void stopSound(string name)
@@ -63,7 +63,7 @@ public class AudioManager : MonoBehaviour
 
         foreach (Sound s in sounds)
         {
-            if (s.name != "Music")
+            if (s.name != "music-epic")
                 s.source.volume = s.groundVolume * settingsVolume;
 
         }
@@ -85,7 +85,7 @@ public class AudioManager : MonoBehaviour
     public void setMusicVolume(float settingsVolume)
     {
         settingsMusicVolume = settingsVolume;
-        Sound s = Array.Find(sounds, sound => sound.name == "Music");
+        Sound s = Array.Find(sounds, sound => sound.name == "music-epic");
         s.source.volume = s.groundVolume * settingsVolume;
 
     }
