@@ -68,50 +68,58 @@ public class PowerUp : MonoBehaviour
                 break;
         }
     }
-
-
     //ItemLook
-    public void MakeItem1(int id)
+    public void MakeBombPowerItem(int id)
     {
         GetComponent<Renderer>().material.color = Color.red;
         GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.red);
         GetComponent<Light>().color = Color.red;
-        //Debug.Log("Player" + id + " hat Item 1");
+
 
     }
-    public void MakeItem2(int id)
+    public void MakeHoudiniItem(int id)
     {
         GetComponent<Renderer>().material.color = Color.green;
         GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.green);
         GetComponent<Light>().color = Color.green;
-        //Debug.Log("Player" + id + " hat Item 2");
+
+    }
+    public void MakeRemoteBombItem(int id)
+    {
+        GetComponent<Renderer>().material.color = Color.blue;
+        GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.blue);
+        GetComponent<Light>().color = Color.blue;
     }
 
-   
+
+
     //ItemFunktionen
-    public void Item1(int id)
+    public void BombPower(int id)
     {
 
         player.bombPower += 1;
-      
         Destroy(gameObject);
     }
 
 
-    public IEnumerator Item2(int id)
+    public void Houdini(int id)
     {
-        timeLeft = 10f;
-        player.remoteBombItem = true;
 
-        while (timeLeft >= 0)
-        {
-            timeLeft -= Time.deltaTime;
-             yield return null;
-        }
+        player.houdiniTimer += 10.0f;
         player.remoteBombItem = false;
         Destroy(gameObject);
+
     }
-    
+
+
+    public void RemoteBomb(int id)
+    {
+        player.remoteBombTimer += 10.0f;
+        player.houdiniItem = false;
+        Destroy(gameObject);
+
+    }
+
 
 
 
@@ -144,4 +152,4 @@ public class PowerUp : MonoBehaviour
 
     }
 }
-		
+
