@@ -11,6 +11,7 @@ public class LevelRestart : MonoBehaviour {
 	private DayNightSwitch dayNightSwitch;
     private RulesScript rulesScript;
 	private GameManager GameManager;
+	private SpawnDemoItems spawnDemoItems;
 
 	void Awake()
 	{
@@ -21,24 +22,34 @@ public class LevelRestart : MonoBehaviour {
 		dayNightSwitch = FindObjectOfType<DayNightSwitch>();
         rulesScript = FindObjectOfType<RulesScript>();
 		GameManager = FindObjectOfType<GameManager>();
+		spawnDemoItems = FindObjectOfType<SpawnDemoItems>();
 	}
 
-    public void mainMenuRestart()
-    {
-        rulesScript.restartResults();
-        levelRestart();
-    }
+    // public void mainMenuRestart()
+    // {
+    //     rulesScript.restartResults();
+    //     StartCoroutine(levelRestartMainMenu());
+    // }
 
-	public void levelRestart()
+	public IEnumerator levelRestartMainMenu()
 	{
-		// for (int i = playerSpawner.players - 1; i >= 0; i--)
-        // {
-        //     PlayerScript player = playerSpawner.playerList[i].GetComponent<PlayerScript>();
-		// 	player.StopCoroutine(player.playerGlowOff());
-		// 	player.StopCoroutine(player.playerGlowOn());
-        // }
-
+		rulesScript.restartResults();
         StartCoroutine(eraseCurrentWorld());
+		yield return new WaitForSecondsRealtime(4f);
+		spawnDemoItems.spawnDemoItems();
+	}
+
+
+	public void levelRestartNextRound()
+	{
+		StartCoroutine(levelRestartNextRoundCore());
+	}
+	public IEnumerator levelRestartNextRoundCore()
+	{
+        StartCoroutine(eraseCurrentWorld());
+		yield return new WaitForSecondsRealtime(4f);
+		spawnDemoItems.spawnDemoItems();
+		GameManager.unlockControlls();
 	}
 
 	private IEnumerator eraseCurrentWorld()

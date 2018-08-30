@@ -21,18 +21,9 @@ public class MainMenuButtonScript : MonoBehaviour {
 	
     public void onClickMainButton()
     {
-        StartCoroutine(restart());
-    }
-
-    private IEnumerator restart()
-    {
         Time.timeScale = 1f;
         mainMenuUI.GetComponent<GroupFadeScript>().fadeIn();
-        levelRestart.levelRestart();
-
-        yield return new WaitForSecondsRealtime(4f);
-
-        spawnDemoItems.spawnDemoItems();
+        StartCoroutine(levelRestart.levelRestartMainMenu());
         offSide.SetActive(false);
     }
 }
