@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour {
 
     private PlayerSpawner playerSpawner;
+    private RulesScript rulesScript;
     private Camera miniMapCam;
     private Canvas miniMapCanvas;
     private bool showMiniMap;
@@ -19,6 +20,7 @@ public class GameManager : MonoBehaviour {
         player = 1;
         playertmp = player;
         playerSpawner = FindObjectOfType<PlayerSpawner>();
+        rulesScript = FindObjectOfType<RulesScript>();
         miniMapCam = GameObject.Find("MiniMapCam").GetComponent<Camera>();
         miniMapCanvas = GameObject.Find("MiniMapCanvas").GetComponent<Canvas>();
         
@@ -80,21 +82,25 @@ public class GameManager : MonoBehaviour {
     public void setOnePlayer()
     {
         player = 1;
+        rulesScript.setPlayerZahl(1);
     }
 
     public void setTwoPlayer()
     {
         player = 2;
+        rulesScript.setPlayerZahl(2);
     }
 
     public void setThreePlayer()
     {
         player = 3;
+        rulesScript.setPlayerZahl(2);
     }
 
     public void setFourPlayer()
     {
         player = 4;
+        rulesScript.setPlayerZahl(2);
     }
 
     public void unlockControlls()
