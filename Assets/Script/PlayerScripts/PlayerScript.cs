@@ -92,7 +92,7 @@ public class PlayerScript : MonoBehaviour
         else if (houdiniTimer <= 0f)
         {
             houdiniItem = false;
-            houdiniTimer = 0;
+            houdiniTimer = 0f;
         }
 
         //remoteBombTimer
@@ -107,7 +107,7 @@ public class PlayerScript : MonoBehaviour
         else if (remoteBombTimer <= 0f)
         {
             remoteBombItem = false;
-            remoteBombTimer = 0;
+            remoteBombTimer = 0f;
         }
 
         //GameStatePlay
@@ -339,7 +339,7 @@ public class PlayerScript : MonoBehaviour
     }
 
     // Setzt Bombe mit überprüfung von avaibleBomb und aLife
-    void SetBomb()
+    private void SetBomb()
     {
         creatingBomb = true;
         int bombXPos = Mathf.RoundToInt(transform.position.x);
@@ -355,7 +355,7 @@ public class PlayerScript : MonoBehaviour
         creatingBomb = false;
     }
 
-    bool freeWay(Vector3 tmp)
+    private bool freeWay(Vector3 tmp)
     {
         // Pruefen das keine Zwei Tasten für diagonales gehen gedrückt sind 
         // if (tmp == new Vector3(-1, 0, 0) || tmp == new Vector3(1, 0, 0) || tmp == new Vector3(0, 0, -1) || tmp == new Vector3(0, 0, 1))
@@ -374,7 +374,8 @@ public class PlayerScript : MonoBehaviour
                     //Hat der Player das Houdini-Item, werden automatisch alle Kisten um ihn herum zerstört
                     if(houdiniItem)
                     {
-                    houdini.callHoudini(xPos, zPos);
+                        houdini.callHoudini(xPos, zPos);
+                    }
 
                     //Debug.Log("Player at: " +levelGenerator.SecondaryGameObjects1[(int)(target.x + tmp.x), (int)(target.z + tmp.z)].gameObject.tag);
                     if (levelGenerator.SecondaryGameObjects1[xPos, zPos].gameObject.CompareTag("KillField"))
