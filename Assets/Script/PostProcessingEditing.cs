@@ -23,8 +23,8 @@ public class PostProcessingEditing : MonoBehaviour {
         pp.bloom.enabled = true;
   
         depthSettings = pp.depthOfField.settings;
-        depthSettings.focalLength = 110;
-        depthSettings.aperture = 7f;
+        depthSettings.focalLength = 180;
+        depthSettings.aperture = 6f;
 
         //Initialize Fog
         RenderSettings.fog = true;

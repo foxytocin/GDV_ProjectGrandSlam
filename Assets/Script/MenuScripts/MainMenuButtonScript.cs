@@ -23,7 +23,7 @@ public class MainMenuButtonScript : MonoBehaviour {
     {
         Time.timeScale = 1f;
         mainMenuUI.GetComponent<GroupFadeScript>().fadeIn();
-        StartCoroutine(levelRestart.levelRestartMainMenu());
+        levelRestart.levelRestartMainMenu();
         offSide.SetActive(false);
     }
 }
