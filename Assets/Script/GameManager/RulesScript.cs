@@ -85,9 +85,10 @@ public class RulesScript : MonoBehaviour
                     if (!endResult())
                     {
                         resultScreen.SetActive(true);
+                        Cursor.visible = true;
                         winnerText.SetText("The Winner of this Round is:");
                         winner.SetActive(true);
-                        reachText.SetText(string.Format("{0} {1}", "player", (winnerNumber+1).ToString()));
+                        reachText.SetText(string.Format("{0} {1}", "Player", (winnerNumber+1).ToString()));
                         reach.SetActive(true);
                         nextRoundButton.SetActive(true);
                         nextButtonText.SetText("Next Round");
@@ -97,16 +98,16 @@ public class RulesScript : MonoBehaviour
                     else
                     {
                         resultScreen.SetActive(true);
+                        Cursor.visible = true;
                         winnerText.SetText("The Winner of this Battle is:");
                         winner.SetActive(true);
-                        reachText.SetText(string.Format("{0} {1}", "player", (winnerNumber+1).ToString()));
+                        reachText.SetText(string.Format("{0} {1}", "Player", (winnerNumber+1).ToString()));
                         reach.SetActive(true);
                         nextButtonText.SetText("Next Battle");
                         Cursor.visible = true;
                         
                     }
 
-                    Cursor.visible = true;
                 }
 
                 break;
