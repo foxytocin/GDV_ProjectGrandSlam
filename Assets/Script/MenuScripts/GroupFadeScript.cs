@@ -33,6 +33,8 @@ public class GroupFadeScript : MonoBehaviour
 
     private IEnumerator fadeOutCore()
     {
+        Cursor.visible = false;
+        
         while (menueOpacity > 0f)
         {
             menueOpacity -= Time.deltaTime * fadeSpeed;
@@ -46,6 +48,7 @@ public class GroupFadeScript : MonoBehaviour
     private IEnumerator fadeInCore()
     {
         canvas.enabled = true;
+        Cursor.visible = true;
 
         while (menueOpacity < 1f)
         {

@@ -19,11 +19,8 @@ public class GoButtonScript : MonoBehaviour
     {
 
         spawnDemoItems = FindObjectOfType<SpawnDemoItems>();
-
         overlayMethodenScript = FindObjectOfType<OverlayMethodenScript>();
-
         gameManager = FindObjectOfType<GameManager>();
-
         cameraScroller = FindObjectOfType<CameraScroller>();
         destroyScroller = FindObjectOfType<DestroyScroller>();
 
@@ -41,6 +38,5 @@ public class GoButtonScript : MonoBehaviour
         gameManager.unlockControlls();
 
     }
-    
 
 }

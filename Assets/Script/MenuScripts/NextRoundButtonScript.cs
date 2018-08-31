@@ -23,6 +23,7 @@ public class NextRoundButtonScript : MonoBehaviour {
         FindObjectOfType<OverlayMethodenScript>().isInGame = true;
         resultMenu.SetActive(false);
 
+        // Wird niemals erreicht weil SetActive(false) das Script beendet!
         if (nextButtonText.text == "Next Battle")
         {
             Debug.LogWarning("Reset Results");

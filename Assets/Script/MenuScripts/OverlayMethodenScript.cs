@@ -40,6 +40,7 @@ public class OverlayMethodenScript : MonoBehaviour
             }
             else
             {
+                Cursor.visible = true;
                 pause();
             }
         }
@@ -56,9 +57,10 @@ public class OverlayMethodenScript : MonoBehaviour
 
     public void pause()
     {
+        pausenMenuUI.SetActive(true);
         Time.timeScale = 0f;
         GameIsPaused = true;
-        pausenMenuUI.SetActive(true);
+        Cursor.visible = true;
     }
 
     public void QuitGame()

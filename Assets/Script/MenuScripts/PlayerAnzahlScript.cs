@@ -14,10 +14,8 @@ public class PlayerAnzahlScript : MonoBehaviour
 
     void Start ()
     {
-
         gameManager = FindObjectOfType<GameManager>();
         rulesScript = FindObjectOfType<RulesScript>();
-
     }
 
     public void setOnePlayer()
