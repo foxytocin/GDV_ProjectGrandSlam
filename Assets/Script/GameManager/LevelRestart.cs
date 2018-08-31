@@ -7,6 +7,7 @@ public class LevelRestart : MonoBehaviour {
 	private LevelGenerator levelGenerator;
 	private DestroyScroller destroyScroller;
 	private CameraScroller cameraScroller;
+	private CameraDirection cameraDirection;
 	private PlayerSpawner playerSpawner;
 	private DayNightSwitch dayNightSwitch;
     private RulesScript rulesScript;
@@ -18,6 +19,7 @@ public class LevelRestart : MonoBehaviour {
 		levelGenerator = FindObjectOfType<LevelGenerator>();
 		destroyScroller = FindObjectOfType<DestroyScroller>();
 		cameraScroller = FindObjectOfType<CameraScroller>();
+		cameraDirection = FindObjectOfType<CameraDirection>();
 		playerSpawner = FindObjectOfType<PlayerSpawner>();
 		dayNightSwitch = FindObjectOfType<DayNightSwitch>();
         rulesScript = FindObjectOfType<RulesScript>();
@@ -55,6 +57,7 @@ public class LevelRestart : MonoBehaviour {
 	{
 		cameraScroller.restartCameraScroller();
 		destroyScroller.restartDestroyScroller();
+        cameraDirection.restartCameraDirection();
 
 		foreach(GameObject go in levelGenerator.AllGameObjects)
 		{

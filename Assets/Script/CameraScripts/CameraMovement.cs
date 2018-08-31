@@ -51,9 +51,11 @@ public class CameraMovement : MonoBehaviour {
         Vector3 local = transform.InverseTransformPoint(centerPoint);
         float z = Mathf.Clamp(local.z / 2f, -4f, 4f);
 
-        //Dynamischer Levelspeed
+        Vector3 targetPos = new Vector3(centerPoint.x - 12f, 0f, z - OffsetAccordingToMaxDistance());
+
+         //Dynamischer Levelspeed
         cameraScroller.LevelGenerator.setLevelSpeed(((z + z + 5f - OffsetAccordingToMaxDistance()*0.9f) / 4f) + 0.5f);
-        transform.localPosition = Vector3.Lerp(transform.localPosition, new Vector3(centerPoint.x-12f, 0f, z-OffsetAccordingToMaxDistance()), 4f * Time.deltaTime);
+        transform.localPosition = Vector3.Lerp(transform.localPosition, targetPos, 4f * Time.deltaTime);
     }
 
     public Vector3 CalcCenterPoint()

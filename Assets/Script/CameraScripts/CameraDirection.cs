@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.PostProcessing;
@@ -15,7 +16,9 @@ public class CameraDirection : MonoBehaviour {
     void Start()
     {
         //Offset Camera
-        transform.localPosition = new Vector3(-1f, -1f, -11f);        
+        Debug.Log(transform.TransformDirection(new Vector3(-1f, -1f, -11f)));
+
+        transform.localPosition = new Vector3(-1f, -1f, -11f);
 
         cm = FindObjectOfType<CameraMovement>();
         rules = FindObjectOfType<RulesScript>();
@@ -91,5 +94,10 @@ public class CameraDirection : MonoBehaviour {
             //Camera.main.transform.localEulerAngles = new Vector3(Mathf.Clamp(Camera.main.transform.localEulerAngles.x, 40f, 80f), Mathf.Clamp(Camera.main.transform.localEulerAngles.y, maxRotation.x, maxRotation.y), 0);
             //Camera.main.transform.rotation.q
         }
-    }    
+    }
+
+    public void restartCameraDirection()
+    {
+        transform.localPosition = new Vector3(-1f, -1f, -11f);
+    }
 }
