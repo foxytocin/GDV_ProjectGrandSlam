@@ -12,6 +12,7 @@ public class CameraMovement : MonoBehaviour {
     public int numPlayers;
     public Vector3 centerPoint;
     private LevelGenerator levelGenerator;
+    private RulesScript rulesScript;
 
     private List<float> xPos;
     private List<float> zPos;
@@ -29,6 +30,7 @@ public class CameraMovement : MonoBehaviour {
         positions = new Vector3[4];
         cameraScroller = FindObjectOfType<CameraScroller>();
         playerSpawner = FindObjectOfType<PlayerSpawner>();
+        rulesScript = FindObjectOfType<RulesScript>();
         miniMapCam = FindObjectOfType<MiniMapCam>();
         //levelGenerator = GameObject.Find("LevelGenerator").GetComponent<LevelGenerator>();
         
@@ -60,10 +62,55 @@ public class CameraMovement : MonoBehaviour {
 
     public Vector3 CalcCenterPoint()
     {
-        numPlayers = GameObject.FindGameObjectsWithTag("Player").Length;
-        Vector3 center = Vector3.zero;   
+        //numPlayers = GameObject.FindGameObjectsWithTag("Player").Length;
+        numPlayers = rulesScript.playerIsLive;
+        Vector3 center = Vector3.zero;
 
-        switch(numPlayers)
+        int roundPlayers = playerSpawner.playerList.Count;
+        if (numPlayers == 1)
+        {
+            return GameObject.FindGameObjectWithTag("Player").transform.position;
+        }
+            
+        xPos = new List<float>();
+        zPos = new List<float>();
+        
+        for (int i = 0; i < roundPlayers; i++)
+        {
+            if (playerSpawner.playerList[i] != null)
+            {
+                
+                xPos.Add(positions[i].x);
+                zPos.Add(positions[i].z);
+            }
+        }
+        
+        maxX = Mathf.Max(xPos.ToArray());
+        maxZ = Mathf.Max(zPos.ToArray());
+        minX = Mathf.Min(xPos.ToArray());
+        minZ = Mathf.Min(zPos.ToArray());
+
+        minPos = new Vector3(minX, 0, minZ);
+        maxPos = new Vector3(maxX, 0, maxZ);
+
+        center = (minPos + maxPos) * 0.5f;
+        if (numPlayers == 1)
+        {
+            Debug.Log("xp:" + xPos.Count);
+            Debug.Log("Jetzt einer!");
+            Debug.Log(center);
+        }
+        return center;        
+    }
+
+    public Vector3 CalcCenterPointOld()
+    {
+        //numPlayers = GameObject.FindGameObjectsWithTag("Player").Length;
+        numPlayers = rulesScript.playerIsLive;
+        Debug.Log(numPlayers);
+        Vector3 center = Vector3.zero;
+
+        switch (numPlayers)
         {
             case 1:
                 return positions[0];
@@ -71,7 +118,7 @@ public class CameraMovement : MonoBehaviour {
                 //Min und Max Values
                 xPos = new List<float>();
                 zPos = new List<float>();
-
+                Debug.Log(playerSpawner.playerList[1]);
                 for (int i = 0; i < numPlayers; i++)
                 {
                     if (positions[i].y == 0.45f)
@@ -95,7 +142,8 @@ public class CameraMovement : MonoBehaviour {
                 //Min und Max Values
                 xPos = new List<float>();
                 zPos = new List<float>();
-
+                Debug.Log(playerSpawner.playerList[1]);
+                Debug.Log(playerSpawner.playerList[2]);
                 for (int i = 0; i < numPlayers; i++)
                 {
                     if (positions[i].y == 0.45f)
@@ -114,11 +162,13 @@ public class CameraMovement : MonoBehaviour {
 
                 center = (minPos + maxPos) * 0.5f;
                 return center;
-            case 4: 
+            case 4:
                 //Min und Max Values
                 xPos = new List<float>();
                 zPos = new List<float>();
-
+                Debug.Log(playerSpawner.playerList[1]);
+                Debug.Log(playerSpawner.playerList[2]);
+                Debug.Log(playerSpawner.playerList[3]);
                 foreach (Vector3 player in positions)
                 {
                     if (player.y == 0.45f)

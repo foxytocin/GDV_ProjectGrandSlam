@@ -16,8 +16,6 @@ public class CameraDirection : MonoBehaviour {
     void Start()
     {
         //Offset Camera
-        Debug.Log(transform.TransformDirection(new Vector3(-1f, -1f, -11f)));
-
         transform.localPosition = new Vector3(-1f, -1f, -11f);
 
         cm = FindObjectOfType<CameraMovement>();
@@ -36,6 +34,7 @@ public class CameraDirection : MonoBehaviour {
             //Zoom
             if (transform.position.y <= 2.001f)
             {
+                target = cm.centerPoint;
                 dirFromMeToTarget = target - transform.position;
                 lookRot = Quaternion.LookRotation(dirFromMeToTarget);
                 transform.rotation = Quaternion.Lerp(transform.rotation, lookRot, Time.deltaTime * (degreesPerSecond / 360f));
