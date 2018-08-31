@@ -82,7 +82,6 @@ ________________________________________________________________________________
   * Player kann während er wackelt von der Bodenplatte zurück in den sicheren Bereich laufen (hört auf zu wackeln)
   * Levelelemente (Boden, Wand, Kisten, Player) stürzen procedural Animiert in die Tiefe (Player stirbt)
   * Player kann nicht mehr aus dem Level laufen ohne in die Tiefe zu stürzen (Player stirbt)
-  * Levelbreite erhöht
 
 #### Sound & Musik
   * Erste Effekte und Musik implementiert um ein besseres Spielgefühl zu bekommen
@@ -91,7 +90,6 @@ ________________________________________________________________________________
 #### Kamera
   * Depth of Field Effekt der automatisch auf die Anzahl und Position der Spieler angepasst wird
   * Fokus: Alle Player sind scharf
-  * Colorgrading, Antialiasing, Fog, Bloom
   
 #### Player
   * 4 Player implementiert + automatische Farb- und Soundzuordnung
@@ -110,13 +108,11 @@ ________________________________________________________________________________
   
 #### Sonstiges
   * Sämtliche Kollisionsabfragen selbst programmiert (Spieler, Bomben, Kisten, Welt)
-  * Postprozessing
   * Particel-System unter dem Spielfeld um Bewegung und Tiefe zu vermitteln
   * Neue Texturen und Lichtstimmung
   * Performance-Verbesserungen in allen Bereichen: Code + Mesh
   
 #### Steuerung PS4-Controller:
-  * PS4:
   * Quadrat = Bombe
   * X =  RemoteBombe zünden
   * Steuerkreuz = Bewegen
@@ -138,9 +134,9 @@ ________________________________________________________________________________
 #### Prozedurale Levelgenerierung mit steigendem Schwierigkeitsgrad:
   * Endlosse Levelgenerierung
   * Textdateibasierende Levelgrundrisse in zufälliger Kombination
-  * Prozedurarl ergänzt durch Türme, Torbögen, Kisten und Lampen (Lampen nur bei Gewitter)
+  * Prozedural ergänzt durch Türme, Torbögen, Kisten und Lampen (Lampen nur bei Gewitter)
   * Mit steigendem Schwierigkeitsgrad zunehmende Anzahl an wegversperrenden Kisten
-  * Wegmarkierungen mit dynamischer Breite und Farbe je nach aktellem Leveldesign und Schwierigkeitsgrad
+  * Wegmarkierungen mit dynamischer Breite, Farbe und Schilderanzahl je nach aktuellem Leveldesign und Schwierigkeitsgrad
   * Abbrechende Levelkante die die Spieler unaufhaltsam vorantreibt oder in den Abgrund stürzt
   
 #### Irrgartengenerator mit Backtacking Algorithmus
@@ -150,14 +146,14 @@ ________________________________________________________________________________
   
 #### Wettersystem mit Tag-Nacht-Wechsel, Gewitter und Lampen
   * Dynamischer Tag-Nacht-Wechsel (Sonnen Auf- und Untergang)
-  * Glühende Lampen, leuchtende Spieler, Distanzlinien und Entfernungsschildern
+  * Glühende Lampen, leuchtende Spieler, Distanzlinien und Entfernungsschilder
   * Blitze und Blitzeinschläge die Kisten und Items zerstören. Passende Licht und Soundeffekte
-  * Prozedural erzeuge Blitze, die sich immer einen Weg zu Erde suchen
+  * Prozedural erzeuge Blitze, die sich immer einen Weg zur Erde suchen
   
 #### Items
-  * Sammelbare PowerUp-Items die dem Spieler neue Funktionen verleihen
+  * Sammelbare PowerUp-Items die dem Spieler neue Funktionen verleihen (in Kisten versteckt wenn man sie sprengt)
   * Houdini: Renn durch Kisten während alles um dich herum einfach in die Luft fliegt
-  * RemoteBomb: Zünde deine in Playerfarbe strahlenden Bomben wann immer dir danach ist. Ganz ohne Zeitdruck
+  * RemoteBomb: Zünde deine in playerfarbe strahlenden Bomben wann immer dir danach ist. Ganz ohne Zeitdruck
   * BombPower: Erhöhe die Sprengkraft deiner Bomben. Aber Achtung: Du musst selber auch weit genug weg sein
   * BombCount: Standardmäßig mehr als 3 Bomben zur gleichen Zeit? Kein Problem. Erhöhe deinen Vorrat
   
@@ -180,5 +176,6 @@ ________________________________________________________________________________
   * Scriptperformance von 150 auf 900 fps gesteigert: 600% schneller!
   * ObjectPool zum schnelleren Spawnen von Objecten ohne Instanzierung: 70% schneller!
   * CPU-Last von 50ms auf 25ms gesenkt: 50% schneller!
+  * Animationen werden nur berechnet wenn sie auch im Frustum der Kamera zu sehen sind
   * Ghost-Animation beim tot
   * Alles Handarbeit: Wegfindung, Collisionsabfragen, Suchalalgorithmen... So wenig Unity wie möglich verwendet
