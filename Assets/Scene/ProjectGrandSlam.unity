@@ -3913,14 +3913,21 @@ MonoBehaviour:
     pitch: 1
     source: {fileID: 0}
     loop: 0
-  - name: music-epic
+  - name: menumusic
     clip: {fileID: 8300000, guid: 65e7a99677f651d45ac058683f656064, type: 3}
     groundVolume: 1
     volume: 0.5
     pitch: 1
     source: {fileID: 0}
     loop: 1
-  music: []
+  music:
+  - name: Music1
+    clip: {fileID: 8300000, guid: a59f93e66efc8a24abdaf25f99864b98, type: 3}
+    groundVolume: 0.5
+    volume: 0.5
+    pitch: 1
+    source: {fileID: 0}
+    loop: 1
   settingsFXVolume: 0
   settingsMusicVolume: 0
   musicAtStart: 1

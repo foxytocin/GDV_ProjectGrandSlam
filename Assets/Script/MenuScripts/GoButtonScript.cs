@@ -8,6 +8,8 @@ public class GoButtonScript : MonoBehaviour
 
     OverlayMethodenScript overlayMethodenScript;
 
+    AudioManager audioManager;
+
     GameManager gameManager;
 
     CameraScroller cameraScroller;
@@ -17,13 +19,12 @@ public class GoButtonScript : MonoBehaviour
 
     void Start ()
     {
-
+        audioManager = FindObjectOfType<AudioManager>();
         spawnDemoItems = FindObjectOfType<SpawnDemoItems>();
         overlayMethodenScript = FindObjectOfType<OverlayMethodenScript>();
         gameManager = FindObjectOfType<GameManager>();
         cameraScroller = FindObjectOfType<CameraScroller>();
         destroyScroller = FindObjectOfType<DestroyScroller>();
-
     }
 
     public void onClickGoButton()
@@ -31,7 +32,9 @@ public class GoButtonScript : MonoBehaviour
         mainMenuUI.GetComponent<GroupFadeScript>().fadeOut();
         Cursor.visible = false;
         spawnDemoItems.cleanDemoItems();
-        FindObjectOfType<AudioManager>().playSound("lets_go");
+        audioManager.playSound("lets_go");
+        audioManager.stopMenuMusic();
+        audioManager.startInGameMusic();
         FindObjectOfType<OverlayMethodenScript>().isInGame = true;
         cameraScroller.gameStatePlay = true;
         destroyScroller.gameStatePlay = true;
