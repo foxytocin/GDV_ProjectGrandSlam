@@ -434,7 +434,7 @@ public class PlayerScript : MonoBehaviour
         cam.PlayerPosition(new Vector3(0f, -2f, 0f), playerID);
         gameObject.SetActive(false);
         Destroy(gameObject);
-        StopAllCoroutines();
+        
     }
 
     // Tot trifft ein
@@ -530,23 +530,5 @@ public class PlayerScript : MonoBehaviour
 
         StopCoroutine(playerGlowOff());
 	}
-
-
-    // public IEnumerator fadeToDeath()
-    // {
-    //     float alpha = playerMaterial.color.a;
-    //     Color fadeColor = playerColor;
-
-    //     while(alpha > 0f)
-    //     {
-    //         Debug.Log("fadeToDead: " +alpha);
-    //         alpha -= Time.deltaTime;
-    //         fadeColor.a = alpha;
-    //         playerMaterial.color = (Color32)fadeColor;
-    //         yield return null;
-    //     }
-
-    //     Destroy(gameObject);
-    // }
 
 }
