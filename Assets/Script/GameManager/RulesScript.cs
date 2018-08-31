@@ -79,7 +79,7 @@ public class RulesScript : MonoBehaviour
                     FindObjectOfType<OverlayMethodenScript>().isInGame = false;
                     gameManager.lockControlls();
                     roundResults[winnerNumber]++;
-                    Debug.LogWarning(roundResults[winnerNumber]);
+                    //Debug.LogWarning(roundResults[winnerNumber]);
                     FindObjectOfType<PlayerSpawner>().playerList[winnerNumber].GetComponent<PlayerScript>().winAnimationStart();
 
                     if (!endResult())

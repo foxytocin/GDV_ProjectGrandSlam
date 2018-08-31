@@ -94,12 +94,6 @@ public class CameraMovement : MonoBehaviour {
         maxPos = new Vector3(maxX, 0, maxZ);
 
         center = (minPos + maxPos) * 0.5f;
-        if (numPlayers == 1)
-        {
-            Debug.Log("xp:" + xPos.Count);
-            Debug.Log("Jetzt einer!");
-            Debug.Log(center);
-        }
         return center;        
     }
 

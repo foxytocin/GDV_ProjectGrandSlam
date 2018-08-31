@@ -443,7 +443,7 @@ public class PlayerScript : MonoBehaviour
         levelGenerator.AllGameObjects[(int)target.x, (int)target.z] = null;
         Debug.Log("Player_" + playerID.ToString() + " is Dead");
         ghostSpawner.createGhost(transform.position, playerID, playerColor);
-        transform.Translate(0f, -2f, 0f);
+        //transform.Translate(0f, -2f, 0f);
         cam.PlayerPosition(transform.position, playerID);
         rulesScript.playerDeath(playerID, transform.position);
         levelGenerator.AllGameObjects[(int)target.x, (int)target.z] = null;
