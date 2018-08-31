@@ -5,7 +5,7 @@
 Philipp Körber, Joshua Hirsch ,Sebastian Krah, Andreas Fuchs
 
 ## Beschreibung
-Erlebe „Project Grand Slam“ für den PC!
+Erlebe „Project Grand Slam“ für den Windows & Mac!
 
 „Project Grand Slam“ ist ein, taktisches Multiplayer-Spiel für den PC. Inspiriert durch „Bomberman“, bringt „Project Grand Slam“ das bekannte Spielprinzip des “Bomben Gefechts” in die moderne Videospiel-Ära und präsentiert sich in einer verzwickten, dreidimensionalen Spielumgebung. Wie sein Vorbild, bietet es ein schnelles und chaotisches Gameplay mit zahllosen Features.
 Das Spielprinzip und die Regeln sind nach wie vor die gleichen.
