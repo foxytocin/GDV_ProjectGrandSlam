@@ -8,15 +8,13 @@ Philipp Körber, Joshua Hirsch ,Sebastian Krah, Andreas Fuchs
 Erlebe „Project Grand Slam“ für den PC!
 
 „Project Grand Slam“ ist ein, taktisches Multiplayer-Spiel für den PC. Inspiriert durch „Bomberman“, bringt „Project Grand Slam“ das bekannte Spielprinzip des “Bomben Gefechts” in die moderne Videospiel-Ära und präsentiert sich in einer verzwickten, dreidimensionalen Spielumgebung. Wie sein Vorbild, bietet es ein schnelles und chaotisches Gameplay mit zahllosen Features.
-Das Spielprinzip und die Regeln sind nach wie vor die gleichen:
+Das Spielprinzip und die Regeln sind nach wie vor die gleichen.
 
 „Project Grand Slam“ beinhaltet einen „Battle“ Modus, in dem sich bis zu vier Spieler in einem Labyrinth wiederfinden und packenden Gefechten liefern, bis der Sieger feststeht. Steuer deinen Charakter „Slam“ durch das Spielareal, platziere deine Bomben und gehe rechtzeitig aus dem Weg, bevor du dich selbst in die Luft jagst! Nutze deine Bomben geschickt, um deine Kontrahenten auszuschalten, bevor diese es tun! Zerstöre Kisten, die dir den Weg versperren, und kämpfe dich so durch das Labyrinth!
 
 Überliste deine Freunde mit zahlreichen, nützlichen „Power Up‘s“, welche sich in einigen zerstörbaren Kisten eines jeden Labyrinths verstecken. Mit dessen Hilfe hat dein Charakter “Slam” beispielsweise die Möglichkeit, die Reichweite der Explosion der eigenen Bombe zu erhöhen. Statte deinen Charakter mit zusätzlichen „Power Ups“ aus, um weitere Möglichkeiten zu erlangen. Dazu zählen etwa eine höhere Geschwindigkeit, die Manipulation des Gegenspielers und die Fähigkeit, Bomben fern zu zünden. Auf diese Weise gewinnen du oder deine Kontrahenten immer weitere, verheerende Fähigkeiten und treiben ihre Gegner explosiv in die Enge.
 
-Quasi unendliche automatisch-generierte Level sorgen für Abwechslung und verhindern, dass das Spiel langweilig wird. Das Spielfeld ist zu groß oder zu klein? Es sollen mehr oder weniger Kisten auf dem Spielfeld auftauchen? Kein Problem! Über das Hauptmenü lassen sich die Level vor jedem Match nach Belieben konfigurieren und an deine Wünsche anpassen.
-Steige ins Gefecht und führe deinen Charakter mit deiner Tastatur oder deinem Xbox 360 Controller in explosive Matches - aber pass auf, dass du nicht zuerst in die Luft gehst!
-
+Unendliche automatisch-generierte Level sorgen für Abwechslung und verhindern, dass das Spiel langweilig wird.
 _____________________________________________________________________________________________________________________________
 
 ### 24.06.2018 Prototyp Version 0.02
@@ -132,3 +130,55 @@ ________________________________________________________________________________
   * q = RemoteBombe zünden
   * ESC = Restart
   * 1-4 Playeranzahl
+  
+ _____________________________________________________________________________________________________________________________
+
+### 31.08.2018 Betaphase
+  ![alt text](http://anfuchs.de/grandslammakingof.png "MakingOf")
+#### Prozedurale Levelgenerierung mit steigendem Schwierigkeitsgrad:
+  * Endlosse Levelgenerierung
+  * Textdateibasierende Levelgrundrisse in zufälliger Kombination
+  * Prozedurarl ergänzt durch Türme, Torbögen, Kisten und Lampen (Lampen nur bei Gewitter)
+  * Mit steigendem Schwierigkeitsgrad zunehmende Anzahl an wegversperrenden Kisten
+  * Wegmarkierungen mit dynamischer Breite und Farbe je nach aktellem Leveldesign und Schwierigkeitsgrad
+  * Abbrechende Levelkante die die Spieler unaufhaltsam vorantreibt oder in den Abgrund stürzt
+  
+#### Irrgartengenerator mit Backtacking Algorithmus
+  * Zufällig als Irrgarten generierte Levelabschnitte (aber ohne Kisten damit es euch nicht zu schwer wird :D )
+  * Backtracking Algorithmus um sicherzustellen das es immer einen Weg gibt. Und zwar immer einen Anderen
+  * Parser der die generierten Daten für den Levelgenerator les- und schreibar macht
+  
+#### Wettersystem mit Tag-Nacht-Wechsel, Gewitter und Lampen
+  * Dynamischer Tag-Nacht-Wechsel (Sonnen Auf- und Untergang)
+  * Glühende Lampen, leuchtende Spieler, Distanzlinien und Entfernungsschildern
+  * Blitze und Blitzeinschläge die Kisten und Items zerstören. Passende Licht und Soundeffekte
+  * Prozedural erzeuge Blitze, die sich immer einen Weg zu Erde suchen
+  
+#### Items
+  * Sammelbare PowerUp-Items die dem Spieler neue Funktionen verleihen
+  * Houdini: Renn durch Kisten während alles um dich herum einfach in die Luft fliegt
+  * RemoteBomb: Zünde deine in Playerfarbe strahlenden Bomben wann immer dir danach ist. Ganz ohne Zeitdruck
+  * BombPower: Erhöhe die Sprengkraft deiner Bomben. Aber Achtung: Du musst selber auch weit genug weg sein
+  * BombCount: Standardmäßig mehr als 3 Bomben zur gleichen Zeit? Kein Problem. Erhöhe deinen Vorrat
+  
+#### Menü, Sound
+  * Komplettes Menüdesign: Sound- und Grafikoptionen
+  * Playeranzahl: Wahlweise 1 - 4 Player im Best-of-Three-Battle-Modus
+  * Animation: Menübackground ist das aktuelle Spielfeld in das direkt gezoomt wird wenn du GO drückst
+  * Zurück zum Hauptmenü oder Restart? Sieh zu wie das Level in den Abrund fällt und neu erschaffen wird
+  * Sound, Sound, Sound: Es knallt, zischt, scheppert und groovt: Project-Grand-Slam-Music
+  * Donner und Blitz synconisiert mit den Animationen und Einschlägen
+  
+#### Kamera
+  * Erweiterter DOF-Effelt der sich in Echtzeit an Spieleranzahl und Spielgeschehen anpasst
+  * Colorgrading
+  * Dynamische Kamerabewegung und Zoom.
+  * Gewinner-Cam die den jubelnden Sieger umkreist
+  
+#### Sonstiges
+  * Performance, Performance, Performance:
+  * Scriptperformance von 150 auf 900 fps gesteigert: 600% schneller!
+  * ObjectPool zum schnelleren Spawnen von Objecten ohne Instanzierung: 70% schneller!
+  * CPU-Last von 50ms auf 25ms gesenkt: 50% schneller!
+  * Ghost-Animation beim tot
+  * Alles Handarbeit: Wegfindung, Collisionsabfragen, Suchalalgorithmen... So wenig Unity wie möglich verwendet
