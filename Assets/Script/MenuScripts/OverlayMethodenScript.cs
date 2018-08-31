@@ -37,20 +37,21 @@ public class OverlayMethodenScript : MonoBehaviour
             if (GameIsPaused)
             {
                 resume();
+                Cursor.visible = false;
             }
             else
             {
-                Cursor.visible = true;
                 pause();
+                Cursor.visible = true;
             }
         }
     }
 
     public void resume()
     {
+        Cursor.visible = false;
         Time.timeScale = 1f;
         GameIsPaused = false;
-        Cursor.visible = false;
         isInGame = true;
         pausenMenuUI.SetActive(false);
     }

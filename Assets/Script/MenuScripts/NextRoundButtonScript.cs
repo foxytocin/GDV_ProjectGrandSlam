@@ -19,6 +19,7 @@ public class NextRoundButtonScript : MonoBehaviour {
 
     public void onClickNextButton()
     {
+        Cursor.visible = false;
         levelRestart.levelRestartNextRound();
         FindObjectOfType<OverlayMethodenScript>().isInGame = true;
         resultMenu.SetActive(false);
