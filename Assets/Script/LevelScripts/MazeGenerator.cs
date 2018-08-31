@@ -32,6 +32,8 @@ public class MazeGenerator : MonoBehaviour {
 	public void generateNewMaze()
 	{
 		mazeCalculated = false;
+		StopCoroutine(generateMaze());
+
 		initializeMaze();
 		StartCoroutine(generateMaze());
 	}
@@ -154,7 +156,7 @@ public class MazeGenerator : MonoBehaviour {
 	}
 
 
-	public void generateMazeBinaerMap()
+	private void generateMazeBinaerMap()
 	{	
 		MazeCell current;
         mazeDataMap = new int[breite + 1, hoehe + 1];
@@ -224,7 +226,7 @@ public class MazeGenerator : MonoBehaviour {
 	}
 
 
-	public void generateMazeLevelData()
+	private void generateMazeLevelData()
 	{
 		int current;
         mazeLevelData = new string[hoehe][];
