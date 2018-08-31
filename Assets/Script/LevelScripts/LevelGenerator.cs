@@ -99,90 +99,6 @@ public class LevelGenerator : MonoBehaviour
         rotation = 0;
         tiefeLevelStartBasis = 60;
 
-        // foreach(GameObject go in AllGameObjects)
-		// {
-		// 	if(go != null)
-
-		// 		switch(go.tag)
-		// 		{
-        //             case "Player" :
-        //                 go.SetActive(false);
-        //                 Debug.Log("Player entfernt");
-        //             break;
-
-        //             case "Wand" :
-        //                 go.SetActive(false);
-        //                 Debug.Log("Wand entfernt");
-        //             break;
-
-        //             case "Kiste" :
-        //                 go.SetActive(false);
-        //                 Debug.Log("Kiste entfernt");
-        //             break;
-
-        //             case "Item" :
-        //                 go.SetActive(false);
-        //                 Debug.Log("Item entfernt");
-        //             break;
-
-        //             case "FreeFall" :
-        //                 go.SetActive(false);
-        //                 Debug.Log("FreeFall entfernt");
-        //             break;
-		// 		}
-					
-		// }
-        
-        // foreach(GameObject go in SecondaryGameObjects1)
-		// {
-		// 	if(go != null)
-	    //         switch(go.tag)
-		// 		{
-        //             case "Wand" :
-        //                 go.SetActive(false);
-        //                 Debug.Log("Wand entfernt");
-        //             break;
-
-        //             case "Boden" :
-        //                 go.SetActive(false);
-        //                 Debug.Log("Boden entfernt");
-        //             break;
-		// 		}
-					
-		// }
-
-        // foreach(GameObject go in SecondaryGameObjects2)
-		// {
-		// 	if(go != null)
-		// 		if(go.CompareTag("Wand"))
-		// 		{
-		// 			go.SetActive(false);
-		// 			Debug.Log("Wand entfernt");
-		// 		}
-					
-		// }
-
-        // foreach(GameObject go in SecondaryGameObjects3)
-		// {
-        //     if(go != null)
-        //         if(go.CompareTag("Wand"))
-        //         {
-        //             go.SetActive(false);
-        //             Debug.Log("Wand entfernt");
-        //         }
-					
-		// }
-
-        // foreach(GameObject go in DistanceLines)
-		// {
-		// 	if(go != null)
-        //     {
-        //         go.SetActive(false);
-        //         Debug.Log("DistanceLine entfernt");
-        //     }
-					
-		// }
-
         AllGameObjects = new GameObject[levelBreite, levelTiefe];
         SecondaryGameObjects1 = new GameObject[levelBreite, levelTiefe];
         SecondaryGameObjects2 = new GameObject[levelBreite, levelTiefe];
@@ -231,7 +147,7 @@ public class LevelGenerator : MonoBehaviour
             
             SectionDataOffset = CameraPosition;
 
-            int RandomValue = (int)(Random.Range(0, 18));
+            int RandomValue = (int)(Random.Range(0f, 19f));
 
             // Wenn eine specialSection erlaubt wird, wird diese zuaellig ausgewählt und in den dataBuffer geschrieben
             if(specialSection) {
@@ -350,6 +266,9 @@ public class LevelGenerator : MonoBehaviour
                     case 17:
                         generateMaze = true;
                         break;
+                    case 18:
+                        generateMaze = true;
+                        break;
                     default:
                         Debug.Log("Switch-ERROR in createWorld()");
                         break;
@@ -374,7 +293,6 @@ public class LevelGenerator : MonoBehaviour
                 dataBufferSize = levelSectionData.Length;
                 specialSection = true;
                 generateKisten = true;
-                
                 }
 
             // Ein normaler Levelabschnitt wird in den dataBuffer geschrieben
