@@ -172,4 +172,4 @@ ________________________________________________________________________________
   * CPU-Last von 50ms auf 25ms gesenkt: 50% schneller!
   * Animationen werden nur berechnet wenn sie auch im Frustum der Kamera zu sehen sind
   * Ghost-Animation beim tot
-  * Alles Handarbeit: Wegfindung, Collisionsabfragen, Suchalalgorithmen... So wenig Unity wie möglich verwendet
+  * Alles Handarbeit: Wegfindung, Collisionsabfragen, Suchalgorithmen... So wenig Unity wie möglich verwendet
