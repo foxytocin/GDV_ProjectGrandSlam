@@ -44,10 +44,8 @@ public class GhostSpawnerScript : MonoBehaviour {
 
         Color32 ghostColor = playerColor;
         ghostColor.a = transparent;
-        ghost.GetComponent<GhostScript>().startsAnimations(ghostColor);
 
-        ghostColor.a = 1;
-        ghost.GetComponent<Light>().color = ghostColor;
+        ghost.GetComponent<GhostScript>().startsAnimations(ghostColor);
 
     }
     

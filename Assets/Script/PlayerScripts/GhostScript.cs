@@ -51,6 +51,9 @@ public class GhostScript : MonoBehaviour
             transform.Translate(0, 0.3f * (Time.deltaTime + 0.3f), 0);
             yield return null;
         }
+
+        ghostColor.a = 1;
+        GetComponent<Light>().color = ghostColor;
         
         this.gameObject.SetActive(false);
         

@@ -80,7 +80,7 @@ public class RulesScript : MonoBehaviour
                     gameManager.lockControlls();
                     roundResults[winnerNumber]++;
                     //Debug.LogWarning(roundResults[winnerNumber]);
-                    //FindObjectOfType<PlayerSpawner>().playerList[winnerNumber].GetComponent<PlayerScript>().winAnimationStart();
+                    FindObjectOfType<PlayerSpawner>().playerList[winnerNumber].GetComponent<PlayerScript>().winAnimationStart();
 
                     if (!endResult())
                     {
