@@ -13,6 +13,8 @@ public class LevelRestart : MonoBehaviour {
     private RulesScript rulesScript;
 	private GameManager GameManager;
 	private SpawnDemoItems spawnDemoItems;
+	private AudioManager audioManager;
+	private CameraMovement cam;
 
 	void Awake()
 	{
@@ -25,39 +27,45 @@ public class LevelRestart : MonoBehaviour {
         rulesScript = FindObjectOfType<RulesScript>();
 		GameManager = FindObjectOfType<GameManager>();
 		spawnDemoItems = FindObjectOfType<SpawnDemoItems>();
+		audioManager = FindObjectOfType<AudioManager>();
+		cam = FindObjectOfType<CameraMovement>();
 	}
 
 
-  public void levelRestartMainMenu()
+	// Methode um alles für das StartMenu vorzubereiten
+  	public void levelRestartMainMenu()
 	{
 		StartCoroutine(levelRestartMainMenuCore());
 	}
-	public IEnumerator levelRestartMainMenuCore()
+	private IEnumerator levelRestartMainMenuCore()
 	{
-        StartCoroutine(eraseCurrentWorld());
+        StartCoroutine(eraseCurrentWorld(true));
 		rulesScript.restartResults();
 		yield return new WaitForSecondsRealtime(4f);
 		spawnDemoItems.spawnDemoItems();
 	}
 
-
+	// Mehode um alles fuer die naechste Runde vorzubreiten
 	public void levelRestartNextRound()
 	{
 		StartCoroutine(levelRestartNextRoundCore());
 	}
 	public IEnumerator levelRestartNextRoundCore()
 	{
-        StartCoroutine(eraseCurrentWorld());
-		yield return new WaitForSecondsRealtime(4f);
+        StartCoroutine(eraseCurrentWorld(false));
+
+		yield return new WaitForSecondsRealtime(0.8f);
         rulesScript.nextRoundRules();
+
+		yield return new WaitForSecondsRealtime(1f);
 		GameManager.unlockControlls();
+		audioManager.playSound("lets_go");
 	}
 
-	private IEnumerator eraseCurrentWorld()
+	private IEnumerator eraseCurrentWorld(bool animiert)
 	{
 		cameraScroller.restartCameraScroller();
 		destroyScroller.restartDestroyScroller();
-        cameraDirection.restartCameraDirection();
 
 		foreach(GameObject go in levelGenerator.AllGameObjects)
 		{
@@ -67,9 +75,16 @@ public class LevelRestart : MonoBehaviour {
 				{
 					case "Player":
 						PlayerScript player = go.GetComponent<PlayerScript>();
-						StartCoroutine(player.playerFallRestart());
-						//Destroy(go);
-						//player.StartCoroutine(player.fadeToDeath());
+						
+						if(animiert)
+						{
+							StartCoroutine(player.playerFallRestart());
+							//Destroy(go);
+							//player.StartCoroutine(player.fadeToDeath());
+						} else {
+
+							Destroy(go);
+						}
 						break;
 
 					case "Bombe":
@@ -77,64 +92,75 @@ public class LevelRestart : MonoBehaviour {
 						break;
 
 					default:
-						FallScript fc = go.GetComponent<FallScript>();
-						if (fc != false)
-							StartCoroutine(fc.fallingLevelCleanup());
-						break;
+						if(animiert)
+						{
+							FallScript fc = go.GetComponent<FallScript>();
+							if (fc != false)
+								StartCoroutine(fc.fallingLevelCleanup());
+
+						} else {
+
+							StartCoroutine(deaktivationDelay(go));
+						}
+					break;
 				}
         
 			}
 		}
 
-		foreach(GameObject go in levelGenerator.SecondaryGameObjects1)
+		cleanObjectArray(levelGenerator.SecondaryGameObjects1, animiert);
+		cleanObjectArray(levelGenerator.SecondaryGameObjects2, animiert);
+		cleanObjectArray(levelGenerator.SecondaryGameObjects3, animiert);
+		cleanObjectArray(levelGenerator.DistanceLines, animiert);
+	
+		// Wir das Level animiert zerstoert, wird 3.5 Sekunden gewartet bis die Animation zuende ist
+		if(animiert)
 		{
-			if(go != null)
-			{
-				FallScript fc = go.GetComponent<FallScript>();
-				if (fc != false)
-					StartCoroutine(fc.fallingLevelCleanup());
-			}
+			yield return new WaitForSecondsRealtime(3.5f);
+
+		} else {
+
+			yield return new WaitForSecondsRealtime(0.7f);
 		}
 
-		foreach(GameObject go in levelGenerator.SecondaryGameObjects2)
-		{
-			if(go != null)
-			{
-				FallScript fc = go.GetComponent<FallScript>();
-				if (fc != false)
-					StartCoroutine(fc.fallingLevelCleanup());
-			}
-		}
-
-		foreach(GameObject go in levelGenerator.SecondaryGameObjects3)
-		{
-			if(go != null)
-			{
-				FallScript fc = go.GetComponent<FallScript>();
-				if (fc != false)
-					StartCoroutine(fc.fallingLevelCleanup());
-			}
-		}
-
-		foreach(GameObject go in levelGenerator.DistanceLines)
-		{
-			if(go != null)
-			{
-				FallScript fc = go.GetComponent<FallScript>();
-				if (fc != false)
-					StartCoroutine(fc.fallingLevelCleanup());
-			}
-		}
-
-		yield return new WaitForSecondsRealtime(3.5f);
-		recreateWorld();
+		recreateWorld(animiert);
 	}
 
-	private void recreateWorld()
+
+	// Ubernimmt die Bereinigung der Arrays indem alle gefunden Objekte in die ObjectPool zurueckgelegt werden
+	private void cleanObjectArray(GameObject[,] array, bool animiert)
 	{
-		levelGenerator.restartLevel();
+		foreach(GameObject go in array)
+		{
+			if(go != null)
+			{
+				if(animiert)
+				{
+					FallScript fc = go.GetComponent<FallScript>();
+					if (fc != false)
+
+						StartCoroutine(fc.fallingLevelCleanup());
+
+				} else {
+
+					StartCoroutine(deaktivationDelay(go));
+				}
+			}
+		}
+	}
+
+	private IEnumerator deaktivationDelay(GameObject go)
+	{
+		yield return new WaitForSeconds(Random.value * 0.7f);
+		go.SetActive(false);
+	}
+
+	private void recreateWorld(bool animiert)
+	{
+		levelGenerator.restartLevel(animiert);
 		playerSpawner.createPlayers();
 		dayNightSwitch.restartDayNightModus();
+		cameraDirection.restartCameraDirection();
 
 		// Fuer den unwahrscheinlichen Fall das nicht alle Objecte deaktiviert wurden
 		// War eine Bugreife stelle, bisher haber problemfrei behoben

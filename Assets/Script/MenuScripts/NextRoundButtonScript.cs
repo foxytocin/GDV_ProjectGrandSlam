@@ -7,8 +7,8 @@ public class NextRoundButtonScript : MonoBehaviour {
 
     public GameObject resultMenu;
     public TextMeshProUGUI nextButtonText;
-    LevelRestart levelRestart;
-    RulesScript rulesScript;
+    private LevelRestart levelRestart;
+    private RulesScript rulesScript;
 
     void Start()
     {
@@ -27,7 +27,7 @@ public class NextRoundButtonScript : MonoBehaviour {
             Debug.LogWarning("Reset Results");
             rulesScript.restartResults();
         }
-
+        
         resultMenu.SetActive(false);
 
     }

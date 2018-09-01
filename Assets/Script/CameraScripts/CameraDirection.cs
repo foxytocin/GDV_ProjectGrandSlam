@@ -9,6 +9,8 @@ public class CameraDirection : MonoBehaviour {
     public Vector3 targetCamPos;
     private CameraMovement cm;
     private RulesScript rules;
+    private Vector3 dirFromMeToTarget;
+    private Quaternion lookRot;
     private float orbitSpeed = 0.001f;
 
     private float degreesPerSecond = 300f;
@@ -27,8 +29,6 @@ public class CameraDirection : MonoBehaviour {
     {
         //resultscreenmode
         //if(rules.resultScreen.activeSelf && transform.localPosition.y > -6.69f)
-        Vector3 dirFromMeToTarget;
-        Quaternion lookRot;
         if (rules.resultScreen.activeSelf)
         {
             //Zoom
@@ -98,5 +98,6 @@ public class CameraDirection : MonoBehaviour {
     public void restartCameraDirection()
     {
         transform.localPosition = new Vector3(-1f, -1f, -11f);
+        target = cm.centerPoint;
     }
 }
