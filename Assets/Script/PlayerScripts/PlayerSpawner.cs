@@ -21,6 +21,9 @@ public class PlayerSpawner : MonoBehaviour
         spawnList = new List<Vector3>();
         playerColorList = new List<Color>();
 
+        // PlayerList wird Initalisiert
+        playerList = new List<GameObject>();
+
         //Standardmäßig wird beim Laden der Scene ein Spieler erstellt
         players = 1;
         createPlayers();
@@ -44,9 +47,6 @@ public class PlayerSpawner : MonoBehaviour
         spawnList.Add(new Vector3(12f, 0.45f, 2f));   // Player 2
         spawnList.Add(new Vector3(18f, 0.45f, 2f));  // Player 3
         spawnList.Add(new Vector3(24f, 0.45f, 2f));  // Player 4
-
-        // PlayerList wird Initalisiert
-        playerList = new List<GameObject>();
 
         // ColorList enthälten die SpawnFarben der Player 1-4
         playerColorList = new List<Color>();

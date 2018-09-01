@@ -13,7 +13,6 @@ public class PlayerScript : MonoBehaviour
     public bool remoteBombItem;
     public bool houdiniItem;
     public bool gameStatePlay;
-    public List<GameObject> playerList;
     public bool creatingBomb;
     public Vector3 target;
     private Vector3 lastTmpVector;
@@ -21,6 +20,7 @@ public class PlayerScript : MonoBehaviour
     private Vector3 tmp;
     float myTime;
     private LevelGenerator levelGenerator;
+    private PlayerSpawner playerSpawner;
     private BombSpawner bombSpawner;
     private Houdini houdini;
     private RemoteBomb remoteBomb;
@@ -41,6 +41,7 @@ public class PlayerScript : MonoBehaviour
 
     void Awake()
     {
+        playerSpawner = FindObjectOfType<PlayerSpawner>();
         bombSpawner = FindObjectOfType<BombSpawner>();
         remoteBombTimer = 0f;
         houdiniTimer = 0f;
@@ -249,6 +250,7 @@ public class PlayerScript : MonoBehaviour
 
         if(fall)
         {
+            playerSpawner.playerList.Remove(gameObject);
             levelGenerator.AllGameObjects[(int)target.x, (int)target.z] = null;
             gravity += Time.deltaTime * 0.8f;
             transform.position = Vector3.MoveTowards(transform.position, target, gravity * gravity);
@@ -420,6 +422,7 @@ public class PlayerScript : MonoBehaviour
     // Restart des Levels
     public IEnumerator playerFallRestart()
     {
+        playerSpawner.playerList.Remove(gameObject);
         levelGenerator.AllGameObjects[(int)target.x, (int)target.z] = null;
         target.y = -50f;
         fall = true;
@@ -440,6 +443,7 @@ public class PlayerScript : MonoBehaviour
     // Tot trifft ein
     public void dead()
     {
+        playerSpawner.playerList.Remove(gameObject);
         levelGenerator.AllGameObjects[(int)target.x, (int)target.z] = null;
         Debug.Log("Player_" + playerID.ToString() + " is Dead");
         ghostSpawner.createGhost(transform.position, playerID, playerColor);

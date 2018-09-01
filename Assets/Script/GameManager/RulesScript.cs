@@ -91,7 +91,7 @@ public class RulesScript : MonoBehaviour
                         reachText.SetText(string.Format("{0} {1}", "Player", (winnerNumber+1).ToString()));
                         reach.SetActive(true);
                         nextRoundButton.SetActive(true);
-                        nextButtonText.SetText("Next Round");
+                        //nextButtonText.SetText("Next Round");
                         Cursor.visible = true;
                         
                     }
@@ -103,7 +103,7 @@ public class RulesScript : MonoBehaviour
                         winner.SetActive(true);
                         reachText.SetText(string.Format("{0} {1}", "Player", (winnerNumber+1).ToString()));
                         reach.SetActive(true);
-                        nextButtonText.SetText("Next Battle");
+                        //nextButtonText.SetText("Next Battle");
                         Cursor.visible = true;
                         
                     }
