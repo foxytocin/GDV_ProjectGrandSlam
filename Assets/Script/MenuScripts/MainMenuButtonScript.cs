@@ -8,10 +8,11 @@ public class MainMenuButtonScript : MonoBehaviour {
     public GameObject offSide;
     AudioManager audioManager;
     LevelRestart levelRestart;
-
+    InGameGUI inGameGUI;
 
 	void Start ()
     {
+        inGameGUI = FindObjectOfType<InGameGUI>();
         audioManager = FindObjectOfType<AudioManager>();
         levelRestart = FindObjectOfType<LevelRestart>();
     }
@@ -19,6 +20,7 @@ public class MainMenuButtonScript : MonoBehaviour {
     public void onClickMainButton()
     {
         Time.timeScale = 1f;
+        inGameGUI.inAktivInGameUI();
         mainMenuUI.GetComponent<GroupFadeScript>().fadeIn();
         audioManager.stopInGameMusic();
         audioManager.playSound("menumusic");

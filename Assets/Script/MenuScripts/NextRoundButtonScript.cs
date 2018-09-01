@@ -9,9 +9,11 @@ public class NextRoundButtonScript : MonoBehaviour {
     public TextMeshProUGUI nextButtonText;
     LevelRestart levelRestart;
     RulesScript rulesScript;
+    InGameGUI inGameGUI;
 
     void Start()
     {
+        inGameGUI = FindObjectOfType<InGameGUI>();
         rulesScript = FindObjectOfType<RulesScript>();
         levelRestart = FindObjectOfType<LevelRestart>();
     }
@@ -26,6 +28,7 @@ public class NextRoundButtonScript : MonoBehaviour {
         {
             Debug.LogWarning("Reset Results");
             rulesScript.restartResults();
+            inGameGUI.updateInGameGUIMultiplayer();
         }
 
         resultMenu.SetActive(false);

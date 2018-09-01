@@ -14,7 +14,7 @@ public class RulesScript : MonoBehaviour
 
     bool[] playerLifeBool;
 
-    int[] roundResults;
+    public int[] roundResults;
 
     public GameObject resultScreen;
     public GameObject winner;
@@ -28,11 +28,14 @@ public class RulesScript : MonoBehaviour
 
     public GameObject nextRoundButton;
 
+    InGameGUI inGameGUI;
+
     GameManager gameManager;
 
     private void Awake()
     {
         gameManager = FindObjectOfType<GameManager>();
+        inGameGUI = FindObjectOfType<InGameGUI>();
 
         playerIsLive = 1;
         battle = 1;
@@ -79,6 +82,7 @@ public class RulesScript : MonoBehaviour
                     FindObjectOfType<OverlayMethodenScript>().isInGame = false;
                     gameManager.lockControlls();
                     roundResults[winnerNumber]++;
+                    inGameGUI.updateInGameGUIMultiplayer();
                     //Debug.LogWarning(roundResults[winnerNumber]);
                     FindObjectOfType<PlayerSpawner>().playerList[winnerNumber].GetComponent<PlayerScript>().winAnimationStart();
 
@@ -91,7 +95,7 @@ public class RulesScript : MonoBehaviour
                         reachText.SetText(string.Format("{0} {1}", "Player", (winnerNumber+1).ToString()));
                         reach.SetActive(true);
                         nextRoundButton.SetActive(true);
-                        //nextButtonText.SetText("Next Round");
+                        nextButtonText.SetText("Next Round");
                         Cursor.visible = true;
                         
                     }
@@ -103,7 +107,7 @@ public class RulesScript : MonoBehaviour
                         winner.SetActive(true);
                         reachText.SetText(string.Format("{0} {1}", "Player", (winnerNumber+1).ToString()));
                         reach.SetActive(true);
-                        //nextButtonText.SetText("Next Battle");
+                        nextButtonText.SetText("Next Battle");
                         Cursor.visible = true;
                         
                     }
@@ -167,6 +171,8 @@ public class RulesScript : MonoBehaviour
     private void onePlayerRule(float distanze)
     {
         int reachTextString = (int)distanze;
+
+        inGameGUI.inAktivInGameUI();
         FindObjectOfType<OverlayMethodenScript>().isInGame = false;
         resultScreen.SetActive(true);
         winnerText.SetText("Du bist im Spiel so weit gekommen:");

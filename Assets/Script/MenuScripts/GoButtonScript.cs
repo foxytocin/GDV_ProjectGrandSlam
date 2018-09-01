@@ -15,10 +15,13 @@ public class GoButtonScript : MonoBehaviour
     CameraScroller cameraScroller;
     DestroyScroller destroyScroller;
 
+    InGameGUI inGameGUI;
+
     public GameObject mainMenuUI;
 
     void Start ()
     {
+        inGameGUI = FindObjectOfType<InGameGUI>();
         audioManager = FindObjectOfType<AudioManager>();
         spawnDemoItems = FindObjectOfType<SpawnDemoItems>();
         overlayMethodenScript = FindObjectOfType<OverlayMethodenScript>();
@@ -38,6 +41,8 @@ public class GoButtonScript : MonoBehaviour
         overlayMethodenScript.isInGame = true;
         cameraScroller.gameStatePlay = true;
         destroyScroller.gameStatePlay = true;
+        inGameGUI.startGUI(gameManager.player);
+        inGameGUI.updateInGameGUIMultiplayer();
         gameManager.unlockControlls();
 
     }

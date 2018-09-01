@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour {
 
     private PlayerSpawner playerSpawner;
+    private InGameGUI inGameGUI;
     private Camera miniMapCam;
     private Canvas miniMapCanvas;
     private bool showMiniMap;
@@ -19,6 +20,7 @@ public class GameManager : MonoBehaviour {
         player = 1;
         playertmp = player;
         playerSpawner = FindObjectOfType<PlayerSpawner>();
+        inGameGUI = FindObjectOfType<InGameGUI>();
         miniMapCam = GameObject.Find("MiniMapCam").GetComponent<Camera>();
         miniMapCanvas = GameObject.Find("MiniMapCanvas").GetComponent<Canvas>();
         
@@ -63,6 +65,12 @@ public class GameManager : MonoBehaviour {
                 case 4: FindObjectOfType<AudioManager>().playSound("four"); break;
                 default: break;
             }
+        }
+
+        if(isInGame && player == 1)
+        {
+            Debug.Log("if funktioniert");
+            inGameGUI.updateInGameUISingleplayer();
         }
 
     }
