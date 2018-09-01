@@ -57,16 +57,13 @@ public class LevelRestart : MonoBehaviour {
 		yield return new WaitForSecondsRealtime(0.8f);
         rulesScript.nextRoundRules();
 
-		yield return new WaitForSecondsRealtime(1f);
-		GameManager.unlockControlls();
+		yield return new WaitForSecondsRealtime(2f);
 		audioManager.playSound("lets_go");
+		GameManager.unlockControlls();
 	}
 
 	private IEnumerator eraseCurrentWorld(bool animiert)
 	{
-		cameraScroller.restartCameraScroller();
-		destroyScroller.restartDestroyScroller();
-
 		foreach(GameObject go in levelGenerator.AllGameObjects)
 		{
 			if(go != null)
@@ -83,6 +80,10 @@ public class LevelRestart : MonoBehaviour {
 							//player.StartCoroutine(player.fadeToDeath());
 						} else {
 
+							levelGenerator.AllGameObjects[(int)go.transform.position.x, (int)go.transform.position.z] = null;
+							Debug.Log("Player_" + player.playerID.ToString() + " wurde entfernt");
+							cam.PlayerPosition(new Vector3(0f, -2f, 0f), player.playerID);
+							go.SetActive(false);
 							Destroy(go);
 						}
 						break;
@@ -151,16 +152,18 @@ public class LevelRestart : MonoBehaviour {
 
 	private IEnumerator deaktivationDelay(GameObject go)
 	{
-		yield return new WaitForSeconds(Random.value * 0.7f);
+		yield return new WaitForSeconds(Random.value * 0.6f);
 		go.SetActive(false);
 	}
 
 	private void recreateWorld(bool animiert)
 	{
+		dayNightSwitch.restartDayNightModus();
+		cameraScroller.restartCameraScroller();
+		cameraDirection.restartCameraDirection();
+		destroyScroller.restartDestroyScroller();
 		levelGenerator.restartLevel(animiert);
 		playerSpawner.createPlayers();
-		dayNightSwitch.restartDayNightModus();
-		cameraDirection.restartCameraDirection();
 
 		// Fuer den unwahrscheinlichen Fall das nicht alle Objecte deaktiviert wurden
 		// War eine Bugreife stelle, bisher haber problemfrei behoben

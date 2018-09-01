@@ -122,7 +122,7 @@ public class LevelGenerator : MonoBehaviour
         {
             for (int i = 0; i < tiefe; i++) {
                 createWorld(i);
-                yield return new WaitForSeconds(0.05f);
+                yield return new WaitForSeconds(0.03f);
             }
 
         } else {
@@ -130,9 +130,8 @@ public class LevelGenerator : MonoBehaviour
             for (int i = 0; i < tiefe; i++) {
                 createWorld(i);
             }
-
-            yield return null;
         }
+
         
     }
 

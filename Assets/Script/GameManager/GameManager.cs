@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour {
     private PlayerSpawner playerSpawner;
     private Camera miniMapCam;
     private Canvas miniMapCanvas;
+    private CameraScroller cameraScroller;
+    private DestroyScroller destroyScroller;
     private bool showMiniMap;
     public int player;
     private int playertmp;
@@ -19,6 +21,8 @@ public class GameManager : MonoBehaviour {
         player = 1;
         playertmp = player;
         playerSpawner = FindObjectOfType<PlayerSpawner>();
+        cameraScroller = FindObjectOfType<CameraScroller>();
+        destroyScroller = FindObjectOfType<DestroyScroller>();
         miniMapCam = GameObject.Find("MiniMapCam").GetComponent<Camera>();
         miniMapCanvas = GameObject.Find("MiniMapCanvas").GetComponent<Canvas>();
         
@@ -76,10 +80,16 @@ public class GameManager : MonoBehaviour {
             if (go != null)
                 go.GetComponent<PlayerScript>().gameStatePlay = true;
         }
+
+        cameraScroller.gameStatePlay = true;
+        destroyScroller.gameStatePlay = true;
     }
 
     public void lockControlls()
     {
+        cameraScroller.gameStatePlay = false;
+        destroyScroller.gameStatePlay = false;
+
         List<GameObject> playerList = playerSpawner.playerList;
         foreach (GameObject go in playerList)
         {
