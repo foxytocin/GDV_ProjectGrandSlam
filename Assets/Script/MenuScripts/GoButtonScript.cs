@@ -5,18 +5,18 @@ using UnityEngine;
 public class GoButtonScript : MonoBehaviour
 {
     SpawnDemoItems spawnDemoItems;
-
     OverlayMethodenScript overlayMethodenScript;
-
     AudioManager audioManager;
-
     GameManager gameManager;
 
+<<<<<<< HEAD
     CameraScroller cameraScroller;
     DestroyScroller destroyScroller;
 
     InGameGUI inGameGUI;
 
+=======
+>>>>>>> master
     public GameObject mainMenuUI;
 
     void Start ()
@@ -26,8 +26,6 @@ public class GoButtonScript : MonoBehaviour
         spawnDemoItems = FindObjectOfType<SpawnDemoItems>();
         overlayMethodenScript = FindObjectOfType<OverlayMethodenScript>();
         gameManager = FindObjectOfType<GameManager>();
-        cameraScroller = FindObjectOfType<CameraScroller>();
-        destroyScroller = FindObjectOfType<DestroyScroller>();
     }
 
     public void onClickGoButton()
@@ -39,10 +37,13 @@ public class GoButtonScript : MonoBehaviour
         audioManager.stopMenuMusic();
         audioManager.startInGameMusic();
         overlayMethodenScript.isInGame = true;
+<<<<<<< HEAD
         cameraScroller.gameStatePlay = true;
         destroyScroller.gameStatePlay = true;
         inGameGUI.startGUI(gameManager.player);
         inGameGUI.updateInGameGUIMultiplayer();
+=======
+>>>>>>> master
         gameManager.unlockControlls();
 
     }

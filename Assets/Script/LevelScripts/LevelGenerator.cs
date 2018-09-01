@@ -84,11 +84,11 @@ public class LevelGenerator : MonoBehaviour
 
         objectPooler = ObjectPooler.Instance;
         createLevelData();
-        createStartBasis(tiefeLevelStartBasis);
+        StartCoroutine(createStartBasis(tiefeLevelStartBasis, false));
         SpawnDemoItems.spawnDemoItems();
     }
 
-    public void restartLevel()
+    public void restartLevel(bool animiert)
     {
         generateMaze = false;
         generateGlowBalls = false;
@@ -109,18 +109,30 @@ public class LevelGenerator : MonoBehaviour
         levelSectionData = levelPool[0];
         dataBufferSize = levelSectionData.Length;
 
-        createStartBasis(tiefeLevelStartBasis);
+        StartCoroutine(createStartBasis(tiefeLevelStartBasis, animiert));
     }
 
     // Inizialisiert die Levelbasis die beim Start des Spiels zu sehen sein soll
     // int tiefe definiert wie wieviele Levelzeilen dauerhaft generiert sind
-    public void createStartBasis(int tiefe)
+    public IEnumerator createStartBasis(int tiefe, bool animiert)
     {
         generateKisten = false;
 
-        for (int i = 0; i < tiefe; i++) {
-            createWorld(i);
+        if(!animiert)
+        {
+            for (int i = 0; i < tiefe; i++) {
+                createWorld(i);
+                yield return new WaitForSeconds(0.03f);
+            }
+
+        } else {
+
+            for (int i = 0; i < tiefe; i++) {
+                createWorld(i);
+            }
         }
+
+        
     }
 
     // Steuert die Weltgenerierung

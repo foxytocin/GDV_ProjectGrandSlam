@@ -7,9 +7,14 @@ public class NextRoundButtonScript : MonoBehaviour {
 
     public GameObject resultMenu;
     public TextMeshProUGUI nextButtonText;
+<<<<<<< HEAD
     LevelRestart levelRestart;
     RulesScript rulesScript;
     InGameGUI inGameGUI;
+=======
+    private LevelRestart levelRestart;
+    private RulesScript rulesScript;
+>>>>>>> master
 
     void Start()
     {
@@ -30,7 +35,7 @@ public class NextRoundButtonScript : MonoBehaviour {
             rulesScript.restartResults();
             inGameGUI.updateInGameGUIMultiplayer();
         }
-
+        
         resultMenu.SetActive(false);
 
     }

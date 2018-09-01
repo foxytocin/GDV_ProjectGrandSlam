@@ -23,6 +23,7 @@ public class CameraMovement : MonoBehaviour {
     private Vector3 minPos;
     private Vector3 maxPos;
     private int oldPosZ;
+    int roundPlayers;
 
 
     private void Awake()
@@ -66,7 +67,7 @@ public class CameraMovement : MonoBehaviour {
         numPlayers = rulesScript.playerIsLive;
         Vector3 center = Vector3.zero;
 
-        int roundPlayers = playerSpawner.playerList.Count;
+        roundPlayers = playerSpawner.playerList.Count;
         if (numPlayers == 1)
         {
             foreach(GameObject go in playerSpawner.playerList)
@@ -76,31 +77,33 @@ public class CameraMovement : MonoBehaviour {
                     return go.transform.position;
                 }
             }
-        }
+        } else {
+
+            xPos = new List<float>();
+            zPos = new List<float>();
             
-        xPos = new List<float>();
-        zPos = new List<float>();
-        
-        for (int i = 0; i < roundPlayers; i++)
-        {
-            if (playerSpawner.playerList[i] != null)
+            for (int i = 0; i < roundPlayers; i++)
             {
-                
-                xPos.Add(positions[i].x);
-                zPos.Add(positions[i].z);
+                if (playerSpawner.playerList[i] != null)
+                {
+                    xPos.Add(positions[i].x);
+                    zPos.Add(positions[i].z);
+                }
             }
+            
+            maxX = Mathf.Max(xPos.ToArray());
+            maxZ = Mathf.Max(zPos.ToArray());
+            minX = Mathf.Min(xPos.ToArray());
+            minZ = Mathf.Min(zPos.ToArray());
+
+            minPos = new Vector3(minX, 0, minZ);
+            maxPos = new Vector3(maxX, 0, maxZ);
+
+            center = (minPos + maxPos) * 0.5f;
+            return center;   
         }
         
-        maxX = Mathf.Max(xPos.ToArray());
-        maxZ = Mathf.Max(zPos.ToArray());
-        minX = Mathf.Min(xPos.ToArray());
-        minZ = Mathf.Min(zPos.ToArray());
-
-        minPos = new Vector3(minX, 0, minZ);
-        maxPos = new Vector3(maxX, 0, maxZ);
-
-        center = (minPos + maxPos) * 0.5f;
-        return center;        
+        return center;
     }
 
     public Vector3 CalcCenterPointOld()
