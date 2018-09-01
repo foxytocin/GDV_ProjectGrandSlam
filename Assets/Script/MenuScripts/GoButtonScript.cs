@@ -9,14 +9,9 @@ public class GoButtonScript : MonoBehaviour
     AudioManager audioManager;
     GameManager gameManager;
 
-<<<<<<< HEAD
-    CameraScroller cameraScroller;
-    DestroyScroller destroyScroller;
-
     InGameGUI inGameGUI;
 
-=======
->>>>>>> master
+
     public GameObject mainMenuUI;
 
     void Start ()
@@ -37,13 +32,10 @@ public class GoButtonScript : MonoBehaviour
         audioManager.stopMenuMusic();
         audioManager.startInGameMusic();
         overlayMethodenScript.isInGame = true;
-<<<<<<< HEAD
-        cameraScroller.gameStatePlay = true;
-        destroyScroller.gameStatePlay = true;
+
         inGameGUI.startGUI(gameManager.player);
         inGameGUI.updateInGameGUIMultiplayer();
-=======
->>>>>>> master
+
         gameManager.unlockControlls();
 
     }

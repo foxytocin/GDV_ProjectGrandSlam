@@ -22,12 +22,12 @@ public class GameManager : MonoBehaviour {
         player = 1;
         playertmp = player;
         playerSpawner = FindObjectOfType<PlayerSpawner>();
-<<<<<<< HEAD
+
         inGameGUI = FindObjectOfType<InGameGUI>();
-=======
+
         cameraScroller = FindObjectOfType<CameraScroller>();
         destroyScroller = FindObjectOfType<DestroyScroller>();
->>>>>>> master
+
         miniMapCam = GameObject.Find("MiniMapCam").GetComponent<Camera>();
         miniMapCanvas = GameObject.Find("MiniMapCanvas").GetComponent<Canvas>();
         
