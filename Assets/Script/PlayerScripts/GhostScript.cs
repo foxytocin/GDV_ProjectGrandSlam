@@ -4,23 +4,19 @@ using UnityEngine;
 
 public class GhostScript : MonoBehaviour
 {
-    private void Start()
-    {
-        transform.Rotate(0, 0, 0);
-    }
-    // Update is called once per frame
-   
     public void startsAnimations(Color32 playerColor)
     {
         StartCoroutine(animationGhost(playerColor));
     }
     
     public IEnumerator animationGhost(Color32 ghostColor)
-    {
+    {   
+        ghostColor.a = 200;
+        transform.eulerAngles = new Vector3(-90, 0, Random.value * 180f);
         transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
-        transform.Rotate(0, Random.value * 180f, 0f);
         GetComponent<Renderer>().material.color = ghostColor;
         GetComponent<Light>().enabled = true;
+        GetComponent<Light>().color = ghostColor;
 
         bool terminus = true;
 
@@ -48,14 +44,11 @@ public class GhostScript : MonoBehaviour
             }
 
             transform.localScale += new Vector3(0.3f * Time.deltaTime, 0.3f * Time.deltaTime, 0.3f * Time.deltaTime);
-            transform.Translate(0, 0.3f * (Time.deltaTime + 0.3f), 0);
+            transform.Translate(0, 0, 0.3f * (Time.deltaTime + 0.3f));
             yield return null;
         }
-
-        ghostColor.a = 1;
-        GetComponent<Light>().color = ghostColor;
         
-        this.gameObject.SetActive(false);
+        gameObject.SetActive(false);
         
     }
 

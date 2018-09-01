@@ -5,11 +5,7 @@ using UnityEngine;
 public class GhostSpawnerScript : MonoBehaviour {
 
     GameObject ghost;
-    byte transparent = 200;
-
     private AudioManager audioManager;
-
-    private int randomScream;
 
     void Awake()
     {
@@ -43,12 +39,7 @@ public class GhostSpawnerScript : MonoBehaviour {
         }
 
         Color32 ghostColor = playerColor;
-        ghostColor.a = transparent;
-
         ghost.GetComponent<GhostScript>().startsAnimations(ghostColor);
-
     }
     
-        
-
 }
