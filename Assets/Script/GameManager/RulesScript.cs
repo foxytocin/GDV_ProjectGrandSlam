@@ -170,14 +170,14 @@ public class RulesScript : MonoBehaviour
 
     private void onePlayerRule(float distanze)
     {
-        int reachTextString = (int)distanze;
+        int reachTextString = (int)distanze - 4;
 
         inGameGUI.inAktivInGameUI();
         FindObjectOfType<OverlayMethodenScript>().isInGame = false;
         resultScreen.SetActive(true);
         winnerText.SetText("Du bist im Spiel so weit gekommen:");
         winner.SetActive(true);
-        reachText.SetText(reachTextString.ToString());
+        reachText.SetText(reachTextString.ToString() + " Meter");
         reach.SetActive(true);
         Cursor.visible = true;
     }
