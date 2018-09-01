@@ -20,7 +20,6 @@ public class PlayerScript : MonoBehaviour
     private Vector3 tmp;
     float myTime;
     private LevelGenerator levelGenerator;
-    private PlayerSpawner playerSpawner;
     private BombSpawner bombSpawner;
     private Houdini houdini;
     private RemoteBomb remoteBomb;
@@ -41,7 +40,6 @@ public class PlayerScript : MonoBehaviour
 
     void Awake()
     {
-        playerSpawner = FindObjectOfType<PlayerSpawner>();
         bombSpawner = FindObjectOfType<BombSpawner>();
         remoteBombTimer = 0f;
         houdiniTimer = 0f;

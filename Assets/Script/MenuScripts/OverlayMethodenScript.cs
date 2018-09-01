@@ -6,16 +6,6 @@ using UnityEngine.UI;
 
 public class OverlayMethodenScript : MonoBehaviour
 {
-
-    private GameManager gameManager;
-    private AudioSource audioSourceGameManager;
-    private PlayerSpawner playerSpawner;
-    private List<GameObject> playerList;
-    private SpawnDemoItems spawnDemoItems;
-    private bool gamePaused;
-    private bool matchStartet;
-    private LevelRestart levelRestart;
-
     public static bool GameIsPaused = false;
     public GameObject pausenMenuUI;
 
@@ -23,10 +13,6 @@ public class OverlayMethodenScript : MonoBehaviour
 
     private void Awake()
     {
-        gameManager = FindObjectOfType<GameManager>();
-        playerSpawner = FindObjectOfType<PlayerSpawner>();
-        spawnDemoItems = FindObjectOfType<SpawnDemoItems>();
-        levelRestart = FindObjectOfType<LevelRestart>();
         isInGame = false;
     }
 

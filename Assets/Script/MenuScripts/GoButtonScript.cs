@@ -35,7 +35,7 @@ public class GoButtonScript : MonoBehaviour
         audioManager.playSound("lets_go");
         audioManager.stopMenuMusic();
         audioManager.startInGameMusic();
-        FindObjectOfType<OverlayMethodenScript>().isInGame = true;
+        overlayMethodenScript.isInGame = true;
         cameraScroller.gameStatePlay = true;
         destroyScroller.gameStatePlay = true;
         gameManager.unlockControlls();

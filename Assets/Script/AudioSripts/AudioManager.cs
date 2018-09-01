@@ -133,7 +133,7 @@ public class AudioManager : MonoBehaviour
             }
             else
             {
-                Debug.LogWarning("Hier und nicht weiter");
+                //Debug.LogWarning("Hier und nicht weiter");
                 s.source.Stop();
                 s.source.volume = s.groundVolume * settingsMusicVolume;
                 terminus = false;

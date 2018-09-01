@@ -62,14 +62,20 @@ public class CameraMovement : MonoBehaviour {
 
     public Vector3 CalcCenterPoint()
     {
-        //numPlayers = GameObject.FindGameObjectsWithTag("Player").Length;
+        
         numPlayers = rulesScript.playerIsLive;
         Vector3 center = Vector3.zero;
 
         int roundPlayers = playerSpawner.playerList.Count;
         if (numPlayers == 1)
         {
-            return GameObject.FindGameObjectWithTag("Player").transform.position;
+            foreach(GameObject go in playerSpawner.playerList)
+            {
+                if(go != null)
+                {
+                    return go.transform.position;
+                }
+            }
         }
             
         xPos = new List<float>();
