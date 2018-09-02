@@ -63,11 +63,6 @@ public class RulesScript : MonoBehaviour
         roundResult(player, distanze.z);
     }
 
-    public bool checkPlayerIsLive()
-    {
-        return playerIsLive;
-    }
-
     void roundResult(int player, float distanze)
     {
         switch (battle)
