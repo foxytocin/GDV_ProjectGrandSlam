@@ -8,6 +8,7 @@ public class OverlayMethodenScript : MonoBehaviour
 {
     public static bool GameIsPaused = false;
     public GameObject pausenMenuUI;
+    public GameManager gameManager;
 
     InGameGUI inGameGUI;
 
@@ -15,6 +16,7 @@ public class OverlayMethodenScript : MonoBehaviour
 
     private void Awake()
     {
+        gameManager = FindObjectOfType<GameManager>();
         inGameGUI = FindObjectOfType<InGameGUI>();
         isInGame = false;
     }
@@ -38,6 +40,7 @@ public class OverlayMethodenScript : MonoBehaviour
 
     public void resume()
     {
+        gameManager.unlockControlls();
         Cursor.visible = false;
         inGameGUI.aktivInGameUI();
         Time.timeScale = 1f;
@@ -48,6 +51,7 @@ public class OverlayMethodenScript : MonoBehaviour
 
     public void pause()
     {
+        gameManager.lockControlls();
         pausenMenuUI.SetActive(true);
         inGameGUI.inAktivInGameUI();
         Time.timeScale = 0f;

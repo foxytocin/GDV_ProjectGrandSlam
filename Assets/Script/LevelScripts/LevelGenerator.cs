@@ -84,7 +84,7 @@ public class LevelGenerator : MonoBehaviour
 
         objectPooler = ObjectPooler.Instance;
         createLevelData();
-        StartCoroutine(createStartBasis(tiefeLevelStartBasis, false));
+        StartCoroutine(createStartBasis(tiefeLevelStartBasis, true));
         SpawnDemoItems.spawnDemoItems();
     }
 
@@ -122,7 +122,7 @@ public class LevelGenerator : MonoBehaviour
         {
             for (int i = 0; i < tiefe; i++) {
                 createWorld(i);
-                yield return new WaitForSeconds(0.03f);
+                yield return new WaitForSeconds(0.025f);
             }
 
         } else {

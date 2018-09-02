@@ -19,12 +19,12 @@ public class MainMenuButtonScript : MonoBehaviour {
 	
     public void onClickMainButton()
     {
+        levelRestart.levelRestartMainMenu();
         Time.timeScale = 1f;
         inGameGUI.inAktivInGameUI();
         mainMenuUI.GetComponent<GroupFadeScript>().fadeIn();
         audioManager.stopInGameMusic();
         audioManager.playSound("menumusic");
-        levelRestart.levelRestartMainMenu();
         offSide.SetActive(false);
     }
 }

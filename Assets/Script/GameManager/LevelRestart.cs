@@ -58,7 +58,7 @@ public class LevelRestart : MonoBehaviour {
 		yield return new WaitForSecondsRealtime(1f);
         rulesScript.nextRoundRules();
 
-		yield return new WaitForSecondsRealtime(2f);
+		yield return new WaitForSecondsRealtime(2.1f);
 		audioManager.playSound("lets_go");
 		GameManager.unlockControlls();
 	}

@@ -109,7 +109,7 @@ public class FallScript : MonoBehaviour {
         rotationY = Random.Range(-3f, 3f);
         gravity = 0;
 
-        yield return new WaitForSecondsRealtime(fallDelay);
+        yield return new WaitForSeconds(fallDelay);
         
         while(transform.position.y > -50f)
         {
