@@ -12,7 +12,6 @@ public class PlayerScript : MonoBehaviour
     public int bombPower;
     public bool remoteBombItem;
     public bool houdiniItem;
-    public bool gameStatePlay;
     public bool creatingBomb;
     public Vector3 target;
     private Vector3 lastTmpVector;
@@ -60,7 +59,6 @@ public class PlayerScript : MonoBehaviour
         playerMaterial = GetComponent<Renderer>().material;
         playerLight = GetComponent<Light>();
         playerColor = playerMaterial.color;
-        gameStatePlay = false;
         avaibleBomb = 3;
         speed = 5.5f;
         bombTimer = 2f;
@@ -107,7 +105,7 @@ public class PlayerScript : MonoBehaviour
         }
 
         //GameStatePlay
-        if (gameStatePlay)
+        if (gameManager.gameStatePlay)
         {
             myTime += Time.deltaTime;
 
@@ -289,7 +287,7 @@ public class PlayerScript : MonoBehaviour
 
                     cam.PlayerPosition(transform.position, playerID);
                 }
-                else if (transform.position.y < 0.43f)
+                else if (transform.position.y < 0.45f)
                 {
                     transform.position.Set(transform.position.x, -1, transform.position.z);
                     cam.PlayerPosition(transform.position, playerID);
@@ -298,23 +296,6 @@ public class PlayerScript : MonoBehaviour
 
             // ROTATION DER BODENPLATTE ZUR ROTATION DES PLAYERS ADDIEREN, DAMIT DIESER WACKELT WENN ER AUF EINER WACKENDEN BODENPLATTE STEHT
             //transform.localEulerAngles = levelGenerator.SecondaryGameObjects1[(int)transform.position.x, (int)transform.position.z].gameObject.transform.localEulerAngles;
-        }
-
-
-        if(fall)
-        {
-            levelGenerator.AllGameObjects[(int)target.x, (int)target.z] = null;
-            gravity += Time.deltaTime * 0.8f;
-            transform.position = Vector3.MoveTowards(transform.position, target, gravity * gravity);
-
-            if (transform.position.y == -200)
-            {
-                gravity = 0f;
-                Debug.Log("Player_" + playerID.ToString() + " is Dead");
-                cam.PlayerPosition(new Vector3(0f, -2f, 0f), playerID);
-                rulesScript.playerDeath(playerID, transform.position);
-                Destroy(gameObject);
-            }
         }
     }
 
@@ -405,59 +386,60 @@ public class PlayerScript : MonoBehaviour
 
     private bool freeWay(Vector3 tmp)
     {
-        // Pruefen das keine Zwei Tasten für diagonales gehen gedrückt sind 
-        // if (tmp == new Vector3(-1, 0, 0) || tmp == new Vector3(1, 0, 0) || tmp == new Vector3(0, 0, -1) || tmp == new Vector3(0, 0, 1))
-        // {
-            //entweder hat sich der Richungsvector nicht geändert oder das Objekt die selbe Position wie TargetVector
-            if ((lastTmpVector == tmp || target == transform.position) && myTime > 0.175f)
+        //entweder hat sich der Richungsvector nicht geändert oder das Objekt die selbe Position wie TargetVector
+        if ((lastTmpVector == tmp || target == transform.position) && myTime > 0.175f)
+        {
+            int xPos = (int)(target.x + tmp.x);
+            int zPos = (int)(target.z + tmp.z);
+
+            //Prueft im Array an der naechsten stelle ob dort ein objekt liegt wenn nicht dann return.true
+            if (levelGenerator.AllGameObjects[xPos, zPos] == null)
             {
-                int xPos = (int)(target.x + tmp.x);
-                int zPos = (int)(target.z + tmp.z);
+                myTime = 0f;
 
-                //Prueft im Array an der naechsten stelle ob dort ein objekt liegt wenn nicht dann return.true
-                if (levelGenerator.AllGameObjects[xPos, zPos] == null)
+                //Hat der Player das Houdini-Item, werden automatisch alle Kisten um ihn herum zerstört
+                if(houdiniItem)
                 {
-                    myTime = 0f;
-
-                    //Hat der Player das Houdini-Item, werden automatisch alle Kisten um ihn herum zerstört
-                    if(houdiniItem)
-                    {
-                        houdini.callHoudini(xPos, zPos);
-                    }
-
-                    //Debug.Log("Player at: " +levelGenerator.SecondaryGameObjects1[(int)(target.x + tmp.x), (int)(target.z + tmp.z)].gameObject.tag);
-                    if (levelGenerator.SecondaryGameObjects1[xPos, zPos].gameObject.CompareTag("KillField"))
-                    {
-                        dead();
-                    }
-
-                    return true;
+                    houdini.callHoudini(xPos, zPos);
                 }
-                else
+
+                //Debug.Log("Player at: " +levelGenerator.SecondaryGameObjects1[(int)(target.x + tmp.x), (int)(target.z + tmp.z)].gameObject.tag);
+                if (levelGenerator.SecondaryGameObjects1[xPos, zPos].gameObject.CompareTag("KillField"))
                 {
-                    GameObject go = levelGenerator.AllGameObjects[xPos, zPos].gameObject;
-
-                    if (go.CompareTag("FreeFall"))
-                    {
-                        playerFall();
-                    }
-
-                    //Item Kollision
-                    if (go.CompareTag("Item"))
-                    {
-                        go.GetComponent<PowerUp>().GrabItem(playerID);
-                        levelGenerator.AllGameObjects[xPos, zPos] = null;
-                        audioManager.playSound("pickupItem");
-                    }
-                    return false;
+                    dead();
                 }
+
+                return true;
             }
-            return false;
+            else
+            {
+                GameObject go = levelGenerator.AllGameObjects[xPos, zPos].gameObject;
+
+                if (go.CompareTag("FreeFall") && gameManager.gameStatePlay)
+                {
+                    StartCoroutine(playerFall());
+                }
+
+                //Item Kollision
+                if (go.CompareTag("Item"))
+                {
+                    go.GetComponent<PowerUp>().GrabItem(playerID);
+                    levelGenerator.AllGameObjects[xPos, zPos] = null;
+                    audioManager.playSound("pickupItem");
+                }
+                return false;
+            }
+        }
+        return false;
     }
 
     // Player faellt in den Abgund
-    public void playerFall()
+    public IEnumerator playerFall()
     {
+        levelGenerator.AllGameObjects[(int)target.x, (int)target.z] = null;
+        rulesScript.playerDeath(playerID, transform.position);
+        target.y = -200f;
+
         switch (playerID)
         {
             case 0: audioManager.playSound("scream1"); break;
@@ -467,9 +449,19 @@ public class PlayerScript : MonoBehaviour
             default: break;
         }
 
-        target.y = -200f;
-        fall = true;
+        while(transform.position.y > -200)
+        {
+            gravity += Time.deltaTime * 0.8f;
+            transform.position = Vector3.MoveTowards(transform.position, target, gravity * gravity);
+            yield return null;
+        }
+
+        gravity = 0f;
+        Debug.Log("Player_" + playerID.ToString() + " is Dead");
+        //cam.PlayerPosition(new Vector3(0f, -2f, 0f), playerID);
+        Destroy(gameObject);
     }
+
 
     // Restart des Levels
     public IEnumerator playerFallRestart()
@@ -485,8 +477,7 @@ public class PlayerScript : MonoBehaviour
         }
         
         Debug.Log("Player_" + playerID.ToString() + " is Dead");
-        cam.PlayerPosition(new Vector3(0f, -2f, 0f), playerID);
-        gameObject.SetActive(false);
+        //cam.PlayerPosition(new Vector3(0f, -2f, 0f), playerID);
         Destroy(gameObject);
         
     }
@@ -494,13 +485,13 @@ public class PlayerScript : MonoBehaviour
     // Tot trifft ein
     public void dead()
     {
+        rulesScript.playerDeath(playerID, transform.position);
         levelGenerator.AllGameObjects[(int)target.x, (int)target.z] = null;
+
         Debug.Log("Player_" + playerID.ToString() + " is Dead");
         ghostSpawner.createGhost(transform.position, playerID, playerColor);
         //transform.Translate(0f, -2f, 0f);
-        cam.PlayerPosition(transform.position, playerID);
-        rulesScript.playerDeath(playerID, transform.position);
-        levelGenerator.AllGameObjects[(int)target.x, (int)target.z] = null;
+        //cam.PlayerPosition(transform.position, playerID);
         Destroy(gameObject);
     }
 

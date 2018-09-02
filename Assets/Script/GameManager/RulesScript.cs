@@ -63,6 +63,11 @@ public class RulesScript : MonoBehaviour
         roundResult(player, distanze.z);
     }
 
+    public bool checkPlayerIsLive()
+    {
+        return playerIsLive;
+    }
+
     void roundResult(int player, float distanze)
     {
         switch (battle)
@@ -78,9 +83,9 @@ public class RulesScript : MonoBehaviour
 
                 if (playerIsLive < 2)
                 {
+                    gameManager.lockControlls();
                     int winnerNumber = searchWinner();
                     FindObjectOfType<OverlayMethodenScript>().isInGame = false;
-                    gameManager.lockControlls();
                     roundResults[winnerNumber]++;
                     inGameGUI.updateInGameGUIMultiplayer();
                     //Debug.LogWarning(roundResults[winnerNumber]);

@@ -19,8 +19,12 @@ public class BombScript : MonoBehaviour
     private CameraShake cameraShake;
     private MapDestroyer mapDestroyer;
     private LevelGenerator levelGenerator;
+    private GameManager gameManager;
     private Color32 bombColor;
     private AudioManager audioManager;
+    private ParticleSystem pSystem;
+    private Light bombLight;
+    public bool gameStatePlay;
 
     void Awake()
     {
@@ -29,7 +33,10 @@ public class BombScript : MonoBehaviour
         mapDestroyer = FindObjectOfType<MapDestroyer>();
         levelGenerator = FindObjectOfType<LevelGenerator>();
         audioManager = FindObjectOfType<AudioManager>();
+        gameManager = FindObjectOfType<GameManager>();
         bombColor = GetComponent<Renderer>().material.color;
+        pSystem = transform.GetChild(1).GetComponent<ParticleSystem>();
+        bombLight = transform.GetChild(0).GetComponent<Light>();
     }
 
     // Beim ersten Instanzieren aus dem ObjectPool erhält die Bombe eine zufaellige Ausrichtung und Rotationsrichtung
@@ -44,8 +51,12 @@ public class BombScript : MonoBehaviour
     // Durch den ObjectPool werden die Bomben erneut vewendet und benoetigen bei der Wiederverwendung diesen "Reset"
     public IEnumerator bombAnimation()
     {
+        gameStatePlay = true;
+        pSystem.Play();
+        bombLight.enabled = true;
         audioManager.playSound("woosh_2");
-        audioSource.PlayOneShot(audioZischen, (0.9f * audioManager.settingsFXVolume));
+        audioManager.playSound("Bomb_zuendschnur");
+        //audioSource.PlayOneShot(audioZischen, (0.9f * audioManager.settingsFXVolume));
 
         bombPosition = transform.position;
         transform.eulerAngles += new Vector3(0, bombAngle, 0);
@@ -63,7 +74,7 @@ public class BombScript : MonoBehaviour
 
         countDown = bombTimer;
         // Bombe explodiert nach Ablauf des Timers (countDown) oder durch remoteBombe (Fernzuendung durch Player)
-        while (countDown >= 0 || remoteBomb)
+        while ((countDown >= 0 || remoteBomb))
         {
             anglesBode = levelGenerator.SecondaryGameObjects1[(int)transform.position.x, (int)transform.position.z].gameObject.transform.localEulerAngles * 3f;
             anglesRotation += new Vector3(0, 80f * (Time.deltaTime * bombRotation), 0);
@@ -72,9 +83,19 @@ public class BombScript : MonoBehaviour
             countDown -= Time.deltaTime;
             yield return null;
         }
-        audioManager.stopSound("Bomb_zuendschnur");
         
-        explode();
+        if(gameManager.gameStatePlay)
+        {
+            audioManager.stopSound("Bomb_zuendschnur");
+            explode();
+
+        } else {
+
+            audioManager.stopSound("Bomb_zuendschnur");
+            pSystem.Stop();
+            bombLight.enabled = false;
+        }
+
     }
 
     // Steuert die Auswirkung der Explosion
