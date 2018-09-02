@@ -23,7 +23,7 @@ public class CameraMovement : MonoBehaviour {
     private Vector3 minPos;
     private Vector3 maxPos;
     private int oldPosZ;
-    int roundPlayers;
+    public int roundPlayers;
 
 
     private void Awake()

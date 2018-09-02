@@ -33,41 +33,48 @@ public class CameraDirection : MonoBehaviour {
         //if(rules.resultScreen.activeSelf && transform.localPosition.y > -6.69f)
         if (rules.resultScreen.activeSelf)
         {
-            //Zoom
-            if (transform.position.y <= 2.1f)
+            if(cm.roundPlayers == 1)
             {
-                target = cm.centerPoint - new Vector3(offsetCamLookAtTarget, 0, 0);
-                dirFromMeToTarget = target - transform.position;
-                lookRot = Quaternion.LookRotation(dirFromMeToTarget);
-                transform.rotation = Quaternion.Lerp(transform.rotation, lookRot, Time.deltaTime * (degreesPerSecond / 360f));
-                transform.Translate(Vector3.left * Mathf.Clamp(orbitSpeed, 0.001f, 0.9f) * Time.deltaTime);
-                orbitSpeed += 0.003f;
-                
-                offsetCamLookAtTarget -= 0.01f;
-                offsetCamLookAtTarget = Mathf.Clamp(offsetCamLookAtTarget, 0.0001f, 2f);
-                Debug.Log(offsetCamLookAtTarget);
-
-            } else //Orbiting around winning Player
+                transform.position = transform.position;
+            }
+            else
             {
-                target = cm.centerPoint - new Vector3(2f,0,0);
-                targetCamPos = target + new Vector3(-2.5f, 2f, -4f);
-                //Vector3 targetPosition = Vector3.Lerp(transform.position, new Vector3(this.transform.position.x, 0, target.z), 4f * Time.deltaTime);
-                transform.position = Vector3.Lerp(transform.position, targetCamPos, 0.75f * Time.deltaTime);
-                //transform.Translate(Vector3.right * Time.deltaTime);
-
-                dirFromMeToTarget = target - transform.position;
-                lookRot = Quaternion.LookRotation(dirFromMeToTarget);
-                transform.rotation = Quaternion.Lerp(transform.rotation, lookRot, Time.deltaTime * (degreesPerSecond / 360f));
-
-                if (Camera.main.transform.localEulerAngles.y < 10)
+                //Orbiting
+                if (transform.position.y <= 2.1f)
                 {
-                    Camera.main.transform.localEulerAngles = new Vector3(Camera.main.transform.localEulerAngles.x, Camera.main.transform.localEulerAngles.y, 0);
+                    target = cm.centerPoint - new Vector3(offsetCamLookAtTarget, 0, 0);
+                    dirFromMeToTarget = target - transform.position;
+                    lookRot = Quaternion.LookRotation(dirFromMeToTarget);
+                    transform.rotation = Quaternion.Lerp(transform.rotation, lookRot, Time.deltaTime * (degreesPerSecond / 360f));
+                    transform.Translate(Vector3.left * Mathf.Clamp(orbitSpeed, 0.001f, 0.9f) * Time.deltaTime);
+                    orbitSpeed += 0.003f;
+                    offsetCamLookAtTarget -= 0.01f;
+                    offsetCamLookAtTarget = Mathf.Clamp(offsetCamLookAtTarget, 0.0001f, 2f);
+
                 }
-                else if (Camera.main.transform.localEulerAngles.y > 11)
+                else //Zoom
                 {
-                    Camera.main.transform.localEulerAngles = new Vector3(Camera.main.transform.localEulerAngles.x, Camera.main.transform.localEulerAngles.y, 0);
+                    target = cm.centerPoint - new Vector3(2f, 0, 0);
+                    targetCamPos = target + new Vector3(-2.5f, 2f, -4f);
+                    //Vector3 targetPosition = Vector3.Lerp(transform.position, new Vector3(this.transform.position.x, 0, target.z), 4f * Time.deltaTime);
+                    transform.position = Vector3.Lerp(transform.position, targetCamPos, 0.75f * Time.deltaTime);
+                    //transform.Translate(Vector3.right * Time.deltaTime);
+
+                    dirFromMeToTarget = target - transform.position;
+                    lookRot = Quaternion.LookRotation(dirFromMeToTarget);
+                    transform.rotation = Quaternion.Lerp(transform.rotation, lookRot, Time.deltaTime * (degreesPerSecond / 360f));
+
+                    if (Camera.main.transform.localEulerAngles.y < 10)
+                    {
+                        Camera.main.transform.localEulerAngles = new Vector3(Camera.main.transform.localEulerAngles.x, Camera.main.transform.localEulerAngles.y, 0);
+                    }
+                    else if (Camera.main.transform.localEulerAngles.y > 11)
+                    {
+                        Camera.main.transform.localEulerAngles = new Vector3(Camera.main.transform.localEulerAngles.x, Camera.main.transform.localEulerAngles.y, 0);
+                    }
                 }
             }
+            
         }
         //Normal Game mode
         else
