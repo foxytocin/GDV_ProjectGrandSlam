@@ -470,7 +470,7 @@ public class PlayerScript : MonoBehaviour
         target.y = -50f;
         fall = true;
 
-        while(transform.position.y > target.y)
+        while(transform.position.y > target.y && gameObject != null)
         {
             transform.position = Vector3.MoveTowards(transform.position, target, 0.3f);
             yield return null;
