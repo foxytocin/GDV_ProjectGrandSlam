@@ -166,7 +166,7 @@ public class PowerUp : MonoBehaviour
     {
         if (player.bombPower >= 2)
         {
-            player.bombPower =- 1;
+            player.bombPower -= 1;
         }
 
         Destroy(gameObject);
