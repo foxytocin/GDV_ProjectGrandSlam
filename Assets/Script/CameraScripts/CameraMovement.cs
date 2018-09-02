@@ -6,12 +6,10 @@ public class CameraMovement : MonoBehaviour {
 
     private CameraScroller cameraScroller;
     private MiniMapCam miniMapCam;
-    public List<GameObject> livingPlayers;
     public Vector3[] positions;
     private PlayerSpawner playerSpawner;
     public int numPlayers;
     public Vector3 centerPoint;
-    private LevelGenerator levelGenerator;
     private RulesScript rulesScript;
 
     private List<float> xPos;
@@ -22,7 +20,6 @@ public class CameraMovement : MonoBehaviour {
     private float minZ;
     private Vector3 minPos;
     private Vector3 maxPos;
-    private int oldPosZ;
     int roundPlayers;
 
 
@@ -57,7 +54,7 @@ public class CameraMovement : MonoBehaviour {
         Vector3 targetPos = new Vector3(centerPoint.x - 12f, 0f, z - OffsetAccordingToMaxDistance());
 
          //Dynamischer Levelspeed
-        cameraScroller.LevelGenerator.setLevelSpeed(((z + z + 5f - OffsetAccordingToMaxDistance()*0.9f) / 4f) + 0.5f);
+        cameraScroller.scrollSpeed = (((z + z + 5f - OffsetAccordingToMaxDistance()*0.9f) / 4f) + 0.5f);
         if (!rulesScript.resultScreen.activeSelf)
         {
             transform.localPosition = Vector3.Lerp(transform.localPosition, targetPos, 4f * Time.deltaTime);

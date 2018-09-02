@@ -470,15 +470,18 @@ public class PlayerScript : MonoBehaviour
         target.y = -50f;
         fall = true;
 
-        while(transform.position.y > target.y && gameObject != null)
+        while(transform.position.y > target.y)
         {
             transform.position = Vector3.MoveTowards(transform.position, target, 0.3f);
             yield return null;
         }
         
-        Debug.Log("Player_" + playerID.ToString() + " is Dead");
-        //cam.PlayerPosition(new Vector3(0f, -2f, 0f), playerID);
-        Destroy(gameObject);
+        if(gameObject != null)
+        {
+            Debug.Log("Player_" + playerID.ToString() + " is Dead");
+            //cam.PlayerPosition(new Vector3(0f, -2f, 0f), playerID);
+            Destroy(gameObject);
+        }
         
     }
 

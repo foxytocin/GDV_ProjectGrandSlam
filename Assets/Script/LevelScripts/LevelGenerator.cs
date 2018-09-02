@@ -7,7 +7,6 @@ public class LevelGenerator : MonoBehaviour
 {
     ObjectPooler objectPooler;
     public float KistenMenge;
-    public float LevelSpeed;
     public TextAsset LevelTextdatei0;
     public TextAsset LevelTextdatei1;
     public TextAsset LevelTextdatei2;
@@ -61,7 +60,6 @@ public class LevelGenerator : MonoBehaviour
         tiefeLevelStartBasis = 60;
         generateGlowBalls = false;
         generateKisten = true;
-        LevelSpeed = 0.5f;
         KistenMenge = 10f;
         SectionDataOffset = 0;
         rotation = 0;
@@ -640,14 +638,4 @@ public class LevelGenerator : MonoBehaviour
         return levelBase;
     }
 
-
-    public void setLevelSpeed(float speed)
-    {
-        this.LevelSpeed = speed; 
-    }
-
-    public float getLevelSpeed()
-    {
-        return LevelSpeed;
-    }
 }

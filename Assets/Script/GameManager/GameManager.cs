@@ -10,7 +10,6 @@ public class GameManager : MonoBehaviour {
     private InGameGUI inGameGUI;
     private Camera miniMapCam;
     private Canvas miniMapCanvas;
-    private CameraScroller cameraScroller;
     private DestroyScroller destroyScroller;
     public bool gameStatePlay;
     private bool showMiniMap;
@@ -26,8 +25,6 @@ public class GameManager : MonoBehaviour {
         playerSpawner = FindObjectOfType<PlayerSpawner>();
 
         inGameGUI = FindObjectOfType<InGameGUI>();
-
-        cameraScroller = FindObjectOfType<CameraScroller>();
         destroyScroller = FindObjectOfType<DestroyScroller>();
 
         miniMapCam = GameObject.Find("MiniMapCam").GetComponent<Camera>();
@@ -89,15 +86,11 @@ public class GameManager : MonoBehaviour {
     public void unlockControlls()
     {
         gameStatePlay = true;
-        cameraScroller.gameStatePlay = true;
-        destroyScroller.gameStatePlay = true;
     }
 
     public void lockControlls()
     {
         gameStatePlay = false;
-        cameraScroller.gameStatePlay = false;
-        destroyScroller.gameStatePlay = false;
     }
 
 }
