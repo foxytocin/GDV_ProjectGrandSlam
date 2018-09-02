@@ -7,11 +7,13 @@ public class PowerUp : MonoBehaviour
     public int ItemID;
     private PlayerSpawner playerSpawner;
     private PlayerScript player;
+    private BombRain bombrain;
     public float timeLeft;
 
     void Awake()
     {
         playerSpawner = FindObjectOfType<PlayerSpawner>();
+        bombrain = FindObjectOfType<BombRain>();
     }
     void Start()
     {
@@ -23,7 +25,7 @@ public class PowerUp : MonoBehaviour
     //Item wird gewürfelt
     public void Itemwahl()
     {
-        int RandomValue = (int)(Random.Range(0, 3f));
+        int RandomValue = (int)(Random.Range(0, 4f));
         switch (RandomValue)
         {
             case 0:
@@ -39,6 +41,10 @@ public class PowerUp : MonoBehaviour
             case 2:
                 ItemID = 2;
                 MakeRemoteBombItem(ItemID);
+                break;
+            case 3:
+                ItemID = 3;
+                MakeBombRain(ItemID);
                 break;
         }
     }
@@ -66,6 +72,9 @@ public class PowerUp : MonoBehaviour
             case 2:
                 RemoteBomb(ItemID);
                 break;
+            case 3:
+                BombRain(ItemID);
+                break;
         }
     }
     //ItemLook
@@ -89,6 +98,12 @@ public class PowerUp : MonoBehaviour
         GetComponent<Renderer>().material.color = Color.blue;
         GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.blue);
         GetComponent<Light>().color = Color.blue;
+    }
+    public void MakeBombRain(int id)
+    {
+        GetComponent<Renderer>().material.color = Color.yellow;
+        GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.yellow);
+        GetComponent<Light>().color = Color.yellow;
     }
 
 
@@ -116,6 +131,15 @@ public class PowerUp : MonoBehaviour
     {
         player.remoteBombTimer += 10.0f;
         player.houdiniItem = false;
+        Destroy(gameObject);
+
+    }
+
+    public void BombRain(int id)
+    {
+        bombrain.bombenregen = false;
+        player.houdiniItem = false;
+        player.remoteBombItem = false;
         Destroy(gameObject);
 
     }

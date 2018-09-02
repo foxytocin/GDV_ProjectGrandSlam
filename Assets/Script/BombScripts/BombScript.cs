@@ -92,4 +92,20 @@ public class BombScript : MonoBehaviour
         // Bombe wird bis zur Wiederverwendung deaktiviert und zurueck in den ObjectPool gelegt
         gameObject.SetActive(false);
     }
+
+    void BombRainExplode()
+    {
+
+        // Erschütterung der Kamera
+        cameraShake.StartCoroutine(cameraShake.Shake(0.3f, 0.135f));
+
+        // MapDestroyer wird aufgerufen um von der bombPosition und mit deren bombPower zu pruefen welche weiteren Felder um die Bombe herum explodieren muessen.
+        mapDestroyer.explode(bombPosition, bombPower, bombOwnerPlayerID);
+
+        // Bombe wird aus dem AllGameObject-Array "entfernt" damit Player wieder hindurchlaufen koennen
+        levelGenerator.AllGameObjects[(int)bombPosition.x, (int)bombPosition.z] = null;
+
+        // Bombe wird bis zur Wiederverwendung deaktiviert und zurueck in den ObjectPool gelegt
+        gameObject.SetActive(false);
+    }
 }
