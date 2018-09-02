@@ -70,7 +70,7 @@ public class PlayerScript : MonoBehaviour
         target = transform.position;
         myTime = 0f;
         gravity = 0f;
-        cam.PlayerPosition(transform.position, playerID);
+        //cam.PlayerPosition(transform.position, playerID);
         transform.Rotate(0, 90, 0, Space.World);
         resultScreenActive = false;
     }
@@ -285,12 +285,12 @@ public class PlayerScript : MonoBehaviour
                     else
                         transform.Rotate(-8.5f, 0, 0);
 
-                    cam.PlayerPosition(transform.position, playerID);
+                    //cam.PlayerPosition(transform.position, playerID);
                 }
                 else if (transform.position.y < 0.45f)
                 {
                     transform.position.Set(transform.position.x, -1, transform.position.z);
-                    cam.PlayerPosition(transform.position, playerID);
+                    //cam.PlayerPosition(transform.position, playerID);
                 }
             }
 

@@ -23,7 +23,7 @@ public class CameraMovement : MonoBehaviour {
     private Vector3 minPos;
     private Vector3 maxPos;
     private int oldPosZ;
-    int roundPlayers;
+    public int roundPlayers;
 
 
     private void Awake()
@@ -34,10 +34,11 @@ public class CameraMovement : MonoBehaviour {
         rulesScript = FindObjectOfType<RulesScript>();
         miniMapCam = FindObjectOfType<MiniMapCam>();
         //levelGenerator = GameObject.Find("LevelGenerator").GetComponent<LevelGenerator>();
-
+        
     }
     void Update()
     {
+
         centerPoint = CalcCenterPoint();
         miniMapCam.positon(centerPoint);
         /*
@@ -58,6 +59,7 @@ public class CameraMovement : MonoBehaviour {
 
          //Dynamischer Levelspeed
         cameraScroller.LevelGenerator.setLevelSpeed(((z + z + 5f - OffsetAccordingToMaxDistance()*0.9f) / 4f) + 0.5f);
+
         if (!rulesScript.resultScreen.activeSelf)
         {
             transform.localPosition = Vector3.Lerp(transform.localPosition, targetPos, 4f * Time.deltaTime);
@@ -66,13 +68,17 @@ public class CameraMovement : MonoBehaviour {
     }
 
     public Vector3 CalcCenterPoint()
-    {
-        
+    {        
         numPlayers = rulesScript.playerIsLive;
         Vector3 center = Vector3.zero;
-
+   
         roundPlayers = playerSpawner.playerList.Count;
-        if (numPlayers == 1)
+        if(numPlayers == 0)
+        {
+            Debug.Log("NOOOOW");
+            return new Vector3(200, 0, 0);
+        }
+        else if (numPlayers == 1)
         {
             foreach(GameObject go in playerSpawner.playerList)
             {
@@ -94,7 +100,6 @@ public class CameraMovement : MonoBehaviour {
                     zPos.Add(go.transform.position.z);
                 }
             }
-            
             maxX = Mathf.Max(xPos.ToArray());
             maxZ = Mathf.Max(zPos.ToArray());
             minX = Mathf.Min(xPos.ToArray());
@@ -207,9 +212,10 @@ public class CameraMovement : MonoBehaviour {
     {
         return Mathf.Clamp(MaxZDistancePlayers() * MaxZDistancePlayers() / 15f, 0f, 8f);
     }
-
+    /*
     public void PlayerPosition(Vector3 pos, int iD)
     {
         positions[iD] = pos;
     }    
+    */
 }
