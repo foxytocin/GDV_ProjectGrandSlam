@@ -70,7 +70,6 @@ public class PlayerScript : MonoBehaviour
         target = transform.position;
         myTime = 0f;
         gravity = 0f;
-        //cam.PlayerPosition(transform.position, playerID);
         transform.Rotate(0, 90, 0, Space.World);
         resultScreenActive = false;
     }
@@ -284,14 +283,11 @@ public class PlayerScript : MonoBehaviour
                         transform.Rotate(8.5f, 0, 0);
                     else
                         transform.Rotate(-8.5f, 0, 0);
-
-                    //cam.PlayerPosition(transform.position, playerID);
                 }
-                else if (transform.position.y < 0.45f)
-                {
-                    transform.position.Set(transform.position.x, -1, transform.position.z);
-                    //cam.PlayerPosition(transform.position, playerID);
-                }
+                // else if (transform.position.y < 0.45f)
+                // {
+                //     transform.position.Set(transform.position.x, -1, transform.position.z);
+                // }
             }
 
             // ROTATION DER BODENPLATTE ZUR ROTATION DES PLAYERS ADDIEREN, DAMIT DIESER WACKELT WENN ER AUF EINER WACKENDEN BODENPLATTE STEHT
@@ -457,47 +453,18 @@ public class PlayerScript : MonoBehaviour
         }
 
         gravity = 0f;
-        Debug.Log("Player_" + playerID.ToString() + " is Dead");
-        //cam.PlayerPosition(new Vector3(0f, -2f, 0f), playerID);
         Destroy(gameObject);
     }
 
-
-    // Restart des Levels
-    public IEnumerator playerFallRestart()
-    {
-        levelGenerator.AllGameObjects[(int)target.x, (int)target.z] = null;
-        target.y = -50f;
-        fall = true;
-
-        while(transform.position.y > target.y)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, target, 0.3f);
-            yield return null;
-        }
-        
-        if(gameObject != null)
-        {
-            Debug.Log("Player_" + playerID.ToString() + " is Dead");
-            //cam.PlayerPosition(new Vector3(0f, -2f, 0f), playerID);
-            Destroy(gameObject);
-        }
-        
-    }
 
     // Tot trifft ein
     public void dead()
     {
         rulesScript.playerDeath(playerID, transform.position);
         levelGenerator.AllGameObjects[(int)target.x, (int)target.z] = null;
-
-        Debug.Log("Player_" + playerID.ToString() + " is Dead");
         ghostSpawner.createGhost(transform.position, playerID, playerColor);
-        //transform.Translate(0f, -2f, 0f);
-        //cam.PlayerPosition(transform.position, playerID);
         Destroy(gameObject);
     }
-
 
     public void winAnimationStart()
     {

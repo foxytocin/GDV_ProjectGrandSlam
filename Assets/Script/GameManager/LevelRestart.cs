@@ -72,21 +72,14 @@ public class LevelRestart : MonoBehaviour {
 				switch (go.tag)
 				{
 					case "Player":
-						PlayerScript player = go.GetComponent<PlayerScript>();
 						
 						if(animiert)
 						{
-							if(player != go)
-							{
-								StartCoroutine(player.playerFallRestart());
-							}
+							StartCoroutine(playerFall(go));
 							
 						} else {
 
 							levelGenerator.AllGameObjects[(int)go.transform.position.x, (int)go.transform.position.z] = null;
-							Debug.Log("Player_" + player.playerID.ToString() + " wurde entfernt");
-							//cam.PlayerPosition(new Vector3(0f, -2f, 0f), player.playerID);
-							go.SetActive(false);
 							Destroy(go);
 						}
 						break;
@@ -185,4 +178,24 @@ public class LevelRestart : MonoBehaviour {
 
 		playerSpawner.createPlayers();
 	}
+
+
+    public IEnumerator playerFall(GameObject player)
+    {
+        levelGenerator.AllGameObjects[(int)player.transform.position.x, (int)player.transform.position.z] = null;
+		Vector3 target = player.transform.position;
+		target.y = -50f;
+
+        while(player != null && player.transform.position.y > target.y)
+        {
+            player.transform.position = Vector3.MoveTowards(player.transform.position, target, 0.3f);
+            yield return null;
+        }
+
+		if(player != null)
+		{
+			Destroy(player);
+		}
+    }
+
 }

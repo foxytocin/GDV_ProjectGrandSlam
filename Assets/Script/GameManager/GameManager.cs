@@ -86,11 +86,13 @@ public class GameManager : MonoBehaviour {
     public void unlockControlls()
     {
         gameStatePlay = true;
+        Debug.Log("UNLOCKED");
     }
 
     public void lockControlls()
     {
         gameStatePlay = false;
+        Debug.Log("LOCKED");
     }
 
 }

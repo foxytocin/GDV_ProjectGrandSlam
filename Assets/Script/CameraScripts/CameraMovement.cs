@@ -20,7 +20,8 @@ public class CameraMovement : MonoBehaviour {
     private float minZ;
     private Vector3 minPos;
     private Vector3 maxPos;
-    int roundPlayers;
+    public int roundPlayers;
+    private GameManager gameManager;
 
 
     private void Awake()
@@ -30,9 +31,9 @@ public class CameraMovement : MonoBehaviour {
         playerSpawner = FindObjectOfType<PlayerSpawner>();
         rulesScript = FindObjectOfType<RulesScript>();
         miniMapCam = FindObjectOfType<MiniMapCam>();
-        //levelGenerator = GameObject.Find("LevelGenerator").GetComponent<LevelGenerator>();
-        
+        gameManager = FindObjectOfType<GameManager>();        
     }
+
     void Update()
     {
 
@@ -69,9 +70,9 @@ public class CameraMovement : MonoBehaviour {
         Vector3 center = Vector3.zero;
    
         roundPlayers = playerSpawner.playerList.Count;
-        if(numPlayers == 0)
+        if(gameManager.gameStatePlay && numPlayers == 0)
         {
-            Debug.Log("NOOOOW");
+            //Debug.Log("NOOOOW");
             return new Vector3(200, 0, 0);
         }
         else if (numPlayers == 1)

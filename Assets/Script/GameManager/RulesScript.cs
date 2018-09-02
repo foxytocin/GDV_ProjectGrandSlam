@@ -170,8 +170,9 @@ public class RulesScript : MonoBehaviour
 
     private void onePlayerRule(float distanze)
     {
+        gameManager.lockControlls();
+        
         int reachTextString = (int)distanze - 4;
-
         inGameGUI.inAktivInGameUI();
         FindObjectOfType<OverlayMethodenScript>().isInGame = false;
         resultScreen.SetActive(true);

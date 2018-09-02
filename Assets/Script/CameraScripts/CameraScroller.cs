@@ -22,7 +22,7 @@ public class CameraScroller : MonoBehaviour
     {
         altePosition = -1;
         rowPosition = -26;
-        scrollSpeed = 0.5f;
+        scrollSpeed = 0f;
         transform.localPosition = new Vector3(0f, 0f, -26f);
     }
 
