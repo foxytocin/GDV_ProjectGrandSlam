@@ -20,7 +20,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4457229434178118}
   - component: {fileID: 108894679647949520}
-  - component: {fileID: 114618640038979376}
   m_Layer: 0
   m_Name: FlickerLight
   m_TagString: Untagged
@@ -260,7 +259,7 @@ Light:
     m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
-    m_Strength: 0.8
+    m_Strength: 1
     m_Bias: 0.05
     m_NormalBias: 0.4
     m_NearPlane: 0.2
@@ -298,17 +297,6 @@ MonoBehaviour:
   countDown: 0
   audioSource: {fileID: 82657789108281746}
   audioZischen: {fileID: 8300000, guid: f079e9e70cf3d4db8a5033d147a22166, type: 3}
---- !u!114 &114618640038979376
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1442327976768452}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d4ab063af02a49b7b8eaf06869feebf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!198 &198671818459413956
 ParticleSystem:
   m_ObjectHideFlags: 1

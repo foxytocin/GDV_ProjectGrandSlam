@@ -24,7 +24,13 @@ public class BombScript : MonoBehaviour
     private AudioManager audioManager;
     private ParticleSystem pSystem;
     private Light bombLight;
-    public bool gameStatePlay;
+
+    // FlickerLight Parameter
+    float MaxReduction = 1.0f;
+	float MaxIncrease = 1.0f;
+	float RateDamping = 0.1f;
+	float Strength = 300;
+	float baseIntensity;
 
     void Awake()
     {
@@ -51,11 +57,14 @@ public class BombScript : MonoBehaviour
     // Durch den ObjectPool werden die Bomben erneut vewendet und benoetigen bei der Wiederverwendung diesen "Reset"
     public IEnumerator bombAnimation()
     {
-        gameStatePlay = true;
         pSystem.Play();
         bombLight.enabled = true;
         audioManager.playSound("woosh_2");
         audioManager.playSound("Bomb_zuendschnur");
+
+        baseIntensity = 3f;
+        StartCoroutine(flicker());
+
         //audioSource.PlayOneShot(audioZischen, (0.9f * audioManager.settingsFXVolume));
 
         bombPosition = transform.position;
@@ -129,4 +138,14 @@ public class BombScript : MonoBehaviour
         // Bombe wird bis zur Wiederverwendung deaktiviert und zurueck in den ObjectPool gelegt
         gameObject.SetActive(false);
     }
+	
+	private IEnumerator flicker()
+	{
+		while (true)
+        {
+            bombLight.intensity = Mathf.Lerp(bombLight.intensity, Random.Range(baseIntensity - MaxReduction, baseIntensity + MaxIncrease), Strength * Time.deltaTime);
+            yield return new WaitForSeconds(RateDamping);
+        }
+	}
+
 }

@@ -620,9 +620,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dummyPos: 0
-  LevelGenerator: {fileID: 0}
   camMove: {fileID: 0}
-  gameStatePlay: 0
 --- !u!1 &100288545
 GameObject:
   m_ObjectHideFlags: 0
@@ -3409,11 +3407,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 0
+  m_havePropertiesChanged: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -3831,11 +3829,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 1
+  m_isInputParsingRequired: 0
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -3986,11 +3984,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 1
+  m_isInputParsingRequired: 0
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -4748,7 +4746,7 @@ MonoBehaviour:
     loop: 1
   settingsFXVolume: 0
   settingsMusicVolume: 0
-  musicAtStart: 0
+  musicAtStart: 1
 --- !u!1 &444575531
 GameObject:
   m_ObjectHideFlags: 0
@@ -7891,7 +7889,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   KistenMenge: 0
-  LevelSpeed: 0
   LevelTextdatei0: {fileID: 4900000, guid: e1d3aaea6ffb7475fa3597124ee1c6d2, type: 3}
   LevelTextdatei1: {fileID: 4900000, guid: aa9ab9f64860a4684814e727a5edf8ed, type: 3}
   LevelTextdatei2: {fileID: 4900000, guid: a5c3d5f00a8ff47539fbc7f156ecf9fa, type: 3}
@@ -8527,7 +8524,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1078843413
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9757,7 +9754,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1153767917
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11385,11 +11382,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 1
+  m_isInputParsingRequired: 0
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -12558,11 +12555,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 0
+  m_havePropertiesChanged: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -13512,6 +13509,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 281f65f5090632145b6618513cc88a4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameStatePlay: 0
   player: 0
   isInGame: 0
   controller: 0
@@ -13691,11 +13689,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 0
+  m_havePropertiesChanged: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -14687,8 +14685,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rowPosition: 0
-  gameStatePlay: 0
-  LevelGenerator: {fileID: 958779247}
+  scrollSpeed: 0
 --- !u!1 &1784365234
 GameObject:
   m_ObjectHideFlags: 0
@@ -15187,11 +15184,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 0
+  m_havePropertiesChanged: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -16399,10 +16396,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94483070908c6264e920a34535fd35a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  livingPlayers: []
   positions: []
   numPlayers: 0
   centerPoint: {x: 0, y: 0, z: 0}
+  roundPlayers: 0
 --- !u!1 &2054266025
 GameObject:
   m_ObjectHideFlags: 0

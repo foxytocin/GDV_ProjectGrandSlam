@@ -159,7 +159,7 @@ public class LevelRestart : MonoBehaviour {
 	{
 		dayNightSwitch.restartDayNightModus();
 		cameraScroller.restartCameraScroller();
-		cameraDirection.restartCameraDirection();
+		//cameraDirection.restartCameraDirection();
 		destroyScroller.restartDestroyScroller();
 		levelGenerator.restartLevel(animiert);
 
