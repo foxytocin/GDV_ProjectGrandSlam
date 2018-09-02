@@ -461,7 +461,7 @@ public class LevelGenerator : MonoBehaviour
         }
 
         //Generiert alle X Meter die DistanceLine
-        if(CameraPosition > 10 && CameraPosition % 25 == 0 )
+        if(CameraPosition > 10 && ((CameraPosition - 4) % 25 == 0) )
             {
                 GenerateDistanceLine.createDistanceLine(CameraPosition);
             }

@@ -11,6 +11,7 @@ private float endPoint;
 private float centerPoint;
 private float scaleQuerstrebe;
 public bool generateGlowStangen;
+private int playerOffset = 4;
 
 private Color Percent0 = new Color32(83, 170, 39, 1);
 private Color Percent10 = new Color32(105, 170, 39, 1);
@@ -156,15 +157,15 @@ private Color Percent100 = new Color32(170, 39, 39, 1);
 		if(distance >= 26)
 		{
 			GameObject MeterSchild1 = objectPooler.SpawnFromPool("MeterSchild", new Vector3(centerPoint, 3.5f, row), Quaternion.Euler(20f, 0f, 0f));
-			MeterSchild1.GetComponent<MeterSchild>().setMeter(row);
+			MeterSchild1.GetComponent<MeterSchild>().setMeter(row - playerOffset);
 			LevelGenerator.DistanceLines[3, row] = MeterSchild1;
 
 			GameObject MeterSchild2 = objectPooler.SpawnFromPool("MeterSchild", new Vector3(leftMiddle - 1, 3.5f, row), Quaternion.Euler(20f, 0f, 0f));
-			MeterSchild2.GetComponent<MeterSchild>().setMeter(row);
+			MeterSchild2.GetComponent<MeterSchild>().setMeter(row - playerOffset);
 			LevelGenerator.DistanceLines[4, row] = MeterSchild2;
 
 			GameObject MeterSchild3 = objectPooler.SpawnFromPool("MeterSchild", new Vector3(rightMiddle + 2, 3.5f, row), Quaternion.Euler(20f, 0f, 0f));
-			MeterSchild3.GetComponent<MeterSchild>().setMeter(row);
+			MeterSchild3.GetComponent<MeterSchild>().setMeter(row - playerOffset);
 			LevelGenerator.DistanceLines[5, row] = MeterSchild3;
 
 			if(generateGlowStangen)
@@ -177,11 +178,11 @@ private Color Percent100 = new Color32(170, 39, 39, 1);
 		else if(distance >= 13)
 		{
 			GameObject MeterSchild1 = objectPooler.SpawnFromPool("MeterSchild", new Vector3(leftMiddle, 3.5f, row), Quaternion.Euler(20f, 0f, 0f));
-			MeterSchild1.GetComponent<MeterSchild>().setMeter(row);
+			MeterSchild1.GetComponent<MeterSchild>().setMeter(row - playerOffset);
 			LevelGenerator.DistanceLines[3, row] = MeterSchild1;
 
 			GameObject MeterSchild2 = objectPooler.SpawnFromPool("MeterSchild", new Vector3(rightMiddle, 3.5f, row), Quaternion.Euler(20f, 0f, 0f));
-			MeterSchild2.GetComponent<MeterSchild>().setMeter(row);
+			MeterSchild2.GetComponent<MeterSchild>().setMeter(row - playerOffset);
 			LevelGenerator.DistanceLines[4, row] = MeterSchild2;
 
 			if(generateGlowStangen)
@@ -193,7 +194,7 @@ private Color Percent100 = new Color32(170, 39, 39, 1);
 		else
 		{
 			GameObject MeterSchild1 = objectPooler.SpawnFromPool("MeterSchild", new Vector3(centerPoint, 3.5f, row), Quaternion.Euler(20f, 0f, 0f));
-			MeterSchild1.GetComponent<MeterSchild>().setMeter(row);
+			MeterSchild1.GetComponent<MeterSchild>().setMeter(row - playerOffset);
 			LevelGenerator.DistanceLines[3, row] = MeterSchild1;
 
 			if(generateGlowStangen)

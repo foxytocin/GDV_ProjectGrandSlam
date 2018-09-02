@@ -518,8 +518,6 @@ public class PlayerScript : MonoBehaviour
             playerMaterial.EnableKeyword("_EMISSION");
 			playerLight.intensity = emission;
 
-            Debug.Log("PlayerGlow OFF :" +emission);
-
 			yield return new WaitForSeconds(0.05f);
 		}
 
