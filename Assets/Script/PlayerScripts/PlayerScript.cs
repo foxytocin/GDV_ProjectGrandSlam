@@ -23,13 +23,10 @@ public class PlayerScript : MonoBehaviour
     private Houdini houdini;
     private RemoteBomb remoteBomb;
     public GhostSpawnerScript ghostSpawner;
-    public CameraMovement cam;
-    private bool RichtungsAenderung; //true == z; false == x 
-    private bool fall = false;
+    private bool RichtungsAenderung; //true == z; false == x
     private float gravity;
     private Material playerMaterial;
     private Color32 playerColor;
-    private Light playerLight;
     private Vector3 lastDirection;
     private AudioManager audioManager;
     public bool resultScreenActive;
@@ -48,7 +45,6 @@ public class PlayerScript : MonoBehaviour
         houdini = FindObjectOfType<Houdini>();
         ghostSpawner = FindObjectOfType<GhostSpawnerScript>();
         audioManager = FindObjectOfType<AudioManager>();
-        cam = FindObjectOfType<CameraMovement>();
         rulesScript = FindObjectOfType<RulesScript>();
         gameManager = FindObjectOfType<GameManager>();
 
@@ -57,7 +53,6 @@ public class PlayerScript : MonoBehaviour
     void Start()
     {
         playerMaterial = GetComponent<Renderer>().material;
-        playerLight = GetComponent<Light>();
         playerColor = playerMaterial.color;
         avaibleBomb = 3;
         speed = 5.5f;

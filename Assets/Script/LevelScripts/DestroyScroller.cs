@@ -8,14 +8,12 @@ public class DestroyScroller : MonoBehaviour
     private Vector3 target;
     private LevelGenerator levelGenerator;
     private GameManager gameManager;
-    private RulesScript rules;
 
     void Awake()
     {
         camMove = FindObjectOfType<CameraMovement>();
         levelGenerator = FindObjectOfType<LevelGenerator>();
         gameManager = FindObjectOfType<GameManager>();
-        rules = FindObjectOfType<RulesScript>();
     }
 
     // Use this for initialization

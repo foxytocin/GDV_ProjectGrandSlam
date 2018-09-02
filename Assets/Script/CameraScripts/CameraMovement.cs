@@ -56,7 +56,7 @@ public class CameraMovement : MonoBehaviour {
         Vector3 targetPos = new Vector3(centerPoint.x - 12f, 0f, z - OffsetAccordingToMaxDistance());
 
          //Dynamischer Levelspeed
-        cameraScroller.scrollSpeed = (((z + z + 5f - OffsetAccordingToMaxDistance()*0.9f) / 4f) + 0.5f);
+        cameraScroller.scrollSpeed = (((z + z + 5f - OffsetAccordingToMaxDistance() * 0.9f) / 3f) + 0.5f);
         if (!rulesScript.resultScreen.activeSelf)
         {
             transform.localPosition = Vector3.Lerp(transform.localPosition, targetPos, 4f * Time.deltaTime);

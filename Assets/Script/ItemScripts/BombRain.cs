@@ -8,7 +8,7 @@ public class BombRain : MonoBehaviour {
     public GameObject KistenPartsPrefab;
     private CameraScroller cameraScroller;
     private LevelGenerator levelGenerator;
-    private ItemSpawner itemSpawner;
+    //private ItemSpawner itemSpawner;
     private MapDestroyer mapDestroyer;
     public GameObject bomb_Prefab;
     private AudioManager audioManager;
@@ -16,7 +16,7 @@ public class BombRain : MonoBehaviour {
     public AudioClip bombRainSound1;
     public AudioClip bombRainSound2;
     public AudioClip bombRainSound3;
-    private float startVolume;
+    //private float startVolume;
     public bool bombenregen = false;
     private BombSpawner bombSpawner;
     private Color32 bombraincolor;
@@ -30,10 +30,10 @@ public class BombRain : MonoBehaviour {
         cameraScroller = FindObjectOfType<CameraScroller>();
         mapDestroyer = FindObjectOfType<MapDestroyer>();
         levelGenerator = FindObjectOfType<LevelGenerator>();
-        itemSpawner = FindObjectOfType<ItemSpawner>();
+        //itemSpawner = FindObjectOfType<ItemSpawner>();
         audioSource = FindObjectOfType<AudioSource>();
         audioManager = FindObjectOfType<AudioManager>();
-        startVolume = audioSource.volume;
+        //startVolume = audioSource.volume;
     }
 
     void FixedUpdate()
