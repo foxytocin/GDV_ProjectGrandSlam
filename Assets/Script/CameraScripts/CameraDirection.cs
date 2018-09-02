@@ -11,7 +11,7 @@ public class CameraDirection : MonoBehaviour {
     private RulesScript rules;
     private Vector3 dirFromMeToTarget;
     private Quaternion lookRot;
-    private float orbitSpeed = 0.001f;
+    private float orbitSpeed = 0.01f;
 
     private float degreesPerSecond = 300f;
 
@@ -32,14 +32,14 @@ public class CameraDirection : MonoBehaviour {
         if (rules.resultScreen.activeSelf)
         {
             //Zoom
-            if (transform.position.y <= 2.01f)
+            if (transform.position.y <= 2.1f)
             {
                 target = cm.centerPoint;
                 dirFromMeToTarget = target - transform.position;
                 lookRot = Quaternion.LookRotation(dirFromMeToTarget);
                 transform.rotation = Quaternion.Lerp(transform.rotation, lookRot, Time.deltaTime * (degreesPerSecond / 360f));
                 transform.Translate(Vector3.left * Mathf.Clamp(orbitSpeed, 0.001f, 0.9f) * Time.deltaTime);
-                orbitSpeed += 0.001f;
+                orbitSpeed += 0.003f;
             } else //Orbiting around winning Player
             {
                 target = cm.centerPoint;
