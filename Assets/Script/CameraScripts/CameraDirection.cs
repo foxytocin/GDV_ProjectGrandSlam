@@ -12,6 +12,7 @@ public class CameraDirection : MonoBehaviour {
     private Vector3 dirFromMeToTarget;
     private Quaternion lookRot;
     private float orbitSpeed = 0.01f;
+    float offsetCamLookAtTarget;
 
     private float degreesPerSecond = 300f;
 
@@ -22,6 +23,7 @@ public class CameraDirection : MonoBehaviour {
 
         cm = FindObjectOfType<CameraMovement>();
         rules = FindObjectOfType<RulesScript>();
+        offsetCamLookAtTarget = 2;
     }
 
     // Update is called once per frame
@@ -34,16 +36,21 @@ public class CameraDirection : MonoBehaviour {
             //Zoom
             if (transform.position.y <= 2.1f)
             {
-                target = cm.centerPoint;
+                target = cm.centerPoint - new Vector3(offsetCamLookAtTarget, 0, 0);
                 dirFromMeToTarget = target - transform.position;
                 lookRot = Quaternion.LookRotation(dirFromMeToTarget);
                 transform.rotation = Quaternion.Lerp(transform.rotation, lookRot, Time.deltaTime * (degreesPerSecond / 360f));
                 transform.Translate(Vector3.left * Mathf.Clamp(orbitSpeed, 0.001f, 0.9f) * Time.deltaTime);
                 orbitSpeed += 0.003f;
+                
+                offsetCamLookAtTarget -= 0.01f;
+                offsetCamLookAtTarget = Mathf.Clamp(offsetCamLookAtTarget, 0.0001f, 2f);
+                Debug.Log(offsetCamLookAtTarget);
+
             } else //Orbiting around winning Player
             {
-                target = cm.centerPoint;
-                targetCamPos = target + new Vector3(-1.5f, 2f, -4f);
+                target = cm.centerPoint - new Vector3(2f,0,0);
+                targetCamPos = target + new Vector3(-2.5f, 2f, -4f);
                 //Vector3 targetPosition = Vector3.Lerp(transform.position, new Vector3(this.transform.position.x, 0, target.z), 4f * Time.deltaTime);
                 transform.position = Vector3.Lerp(transform.position, targetCamPos, 0.75f * Time.deltaTime);
                 //transform.Translate(Vector3.right * Time.deltaTime);

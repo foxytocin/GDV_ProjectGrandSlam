@@ -34,7 +34,7 @@ public class CameraMovement : MonoBehaviour {
         rulesScript = FindObjectOfType<RulesScript>();
         miniMapCam = FindObjectOfType<MiniMapCam>();
         //levelGenerator = GameObject.Find("LevelGenerator").GetComponent<LevelGenerator>();
-        
+
     }
     void Update()
     {
@@ -58,7 +58,11 @@ public class CameraMovement : MonoBehaviour {
 
          //Dynamischer Levelspeed
         cameraScroller.LevelGenerator.setLevelSpeed(((z + z + 5f - OffsetAccordingToMaxDistance()*0.9f) / 4f) + 0.5f);
-        transform.localPosition = Vector3.Lerp(transform.localPosition, targetPos, 4f * Time.deltaTime);
+        if (!rulesScript.resultScreen.activeSelf)
+        {
+            transform.localPosition = Vector3.Lerp(transform.localPosition, targetPos, 4f * Time.deltaTime);
+        }
+        
     }
 
     public Vector3 CalcCenterPoint()

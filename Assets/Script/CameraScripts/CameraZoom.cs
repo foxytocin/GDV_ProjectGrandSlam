@@ -19,10 +19,7 @@ public class CameraZoom : MonoBehaviour {
     void Update()
     {
         //players = cm.positions;
-        if (rules.resultScreen.activeSelf)
-        {
-
-        } else
+        if (!rules.resultScreen.activeSelf)
         {
             CameraMoving();
         }
