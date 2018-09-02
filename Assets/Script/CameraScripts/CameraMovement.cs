@@ -74,20 +74,20 @@ public class CameraMovement : MonoBehaviour {
             {
                 if(go != null)
                 {
-                    return go.transform.position;
+                    return new Vector3(go.transform.position.x, 0, go.transform.position.z);
                 }
             }
         } else {
 
             xPos = new List<float>();
             zPos = new List<float>();
-            
-            for (int i = 0; i < roundPlayers; i++)
+
+            foreach (GameObject go in playerSpawner.playerList)
             {
-                if (playerSpawner.playerList[i] != null)
+                if (go != null)
                 {
-                    xPos.Add(positions[i].x);
-                    zPos.Add(positions[i].z);
+                    xPos.Add(go.transform.position.x);
+                    zPos.Add(go.transform.position.z);
                 }
             }
             

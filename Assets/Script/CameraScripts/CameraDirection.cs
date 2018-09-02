@@ -32,7 +32,7 @@ public class CameraDirection : MonoBehaviour {
         if (rules.resultScreen.activeSelf)
         {
             //Zoom
-            if (transform.position.y <= 2.001f)
+            if (transform.position.y <= 2.01f)
             {
                 target = cm.centerPoint;
                 dirFromMeToTarget = target - transform.position;
