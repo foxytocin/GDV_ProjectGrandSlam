@@ -85,7 +85,7 @@ public class LevelRestart : MonoBehaviour {
 
 							levelGenerator.AllGameObjects[(int)go.transform.position.x, (int)go.transform.position.z] = null;
 							Debug.Log("Player_" + player.playerID.ToString() + " wurde entfernt");
-							cam.PlayerPosition(new Vector3(0f, -2f, 0f), player.playerID);
+							//cam.PlayerPosition(new Vector3(0f, -2f, 0f), player.playerID);
 							go.SetActive(false);
 							Destroy(go);
 						}
@@ -111,6 +111,9 @@ public class LevelRestart : MonoBehaviour {
         
 			}
 		}
+        
+
+        //Hier kamera methode?
 
 		cleanObjectArray(levelGenerator.SecondaryGameObjects1, animiert);
 		cleanObjectArray(levelGenerator.SecondaryGameObjects2, animiert);

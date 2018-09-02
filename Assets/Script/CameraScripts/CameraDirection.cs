@@ -111,7 +111,25 @@ public class CameraDirection : MonoBehaviour {
 
     public void restartCameraDirection()
     {
+        transform.position = transform.position;
+        //StartCoroutine(CamMove());
         transform.localPosition = new Vector3(-1f, -1f, -11f);
         target = cm.centerPoint;
+    }
+
+    public IEnumerator CamMove()
+    {
+        Vector3 pos = transform.position;
+
+        Vector3 t = new Vector3(0f, 50f, 0f);
+
+        while (transform.position.y < t.y)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, t, 0.3f);
+            yield return null;
+        }
+
+        //transform.position = Vector3.Lerp(pos, new Vector3(0f, 50f, 0f), 4f * Time.deltaTime);
+        //yield return null;
     }
 }
