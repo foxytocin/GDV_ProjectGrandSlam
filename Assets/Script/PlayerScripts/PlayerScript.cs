@@ -234,7 +234,7 @@ public class PlayerScript : MonoBehaviour
 
                     cam.PlayerPosition(transform.position, playerID);
                 }
-                else if (transform.position.y < 0.45f)
+                else if (transform.position.y < 0.43f)
                 {
                     transform.position.Set(transform.position.x, -1, transform.position.z);
                     cam.PlayerPosition(transform.position, playerID);
