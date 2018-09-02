@@ -37,6 +37,7 @@ public class PlayerScript : MonoBehaviour
     public float remoteBombTimer;
     public float houdiniTimer;
     private RulesScript rulesScript;
+    private GameManager gameManager;
 
     void Awake()
     {
@@ -50,6 +51,8 @@ public class PlayerScript : MonoBehaviour
         audioManager = FindObjectOfType<AudioManager>();
         cam = FindObjectOfType<CameraMovement>();
         rulesScript = FindObjectOfType<RulesScript>();
+        gameManager = FindObjectOfType<GameManager>();
+
     }
 
     void Start()
@@ -113,8 +116,21 @@ public class PlayerScript : MonoBehaviour
             {
                 //Player 1
                 case 0:
-
-                    tmp = InputManager.OneMainJoystick();
+                    switch(gameManager.controller)
+                    {
+                        case 0:
+                            tmp = InputManager.KeyOneMainJoystick();
+                            break;
+                        case 1:
+                            tmp = InputManager.XBOXOneMainJoystick();
+                            break;
+                        case 2:
+                            tmp = InputManager.PS4OneMainJoystick();
+                            break;
+                        default:
+                            break;
+                    }
+                    
 
                     if (InputManager.OneXButton() && !creatingBomb)
                         SetBomb();
@@ -132,7 +148,20 @@ public class PlayerScript : MonoBehaviour
                 //Player 2
                 case 1:
 
-                    tmp = InputManager.TwoMainJoystick();
+                    switch (gameManager.controller)
+                    {
+                        case 0:
+                            tmp = InputManager.KeyTwoMainJoystick();
+                            break;
+                        case 1:
+                            tmp = InputManager.XBOXTwoMainJoystick();
+                            break;
+                        case 2:
+                            tmp = InputManager.PS4TwoMainJoystick();
+                            break;
+                        default:
+                            break;
+                    }
 
                     if (InputManager.TwoXButton() && !creatingBomb)
                         SetBomb();
@@ -150,7 +179,20 @@ public class PlayerScript : MonoBehaviour
                 //Player 3
                 case 2:
 
-                    tmp = InputManager.ThreeMainJoystick();
+                    switch (gameManager.controller)
+                    {
+                        case 0:
+                            tmp = InputManager.KeyThreeMainJoystick();
+                            break;
+                        case 1:
+                            tmp = InputManager.XBOXThreeMainJoystick();
+                            break;
+                        case 2:
+                            tmp = InputManager.PS4ThreeMainJoystick();
+                            break;
+                        default:
+                            break;
+                    }
 
                     if (InputManager.ThreeXButton() && !creatingBomb)
                         SetBomb();
@@ -168,7 +210,20 @@ public class PlayerScript : MonoBehaviour
                 //Player 4
                 case 3:
 
-                    tmp = InputManager.FourMainJoystick();
+                    switch (gameManager.controller)
+                    {
+                        case 0:
+                            tmp = InputManager.KeyFourMainJoystick();
+                            break;
+                        case 1:
+                            tmp = InputManager.XBOXFourMainJoystick();
+                            break;
+                        case 2:
+                            tmp = InputManager.PS4FourMainJoystick();
+                            break;
+                        default:
+                            break;
+                    }
 
                     if (InputManager.FourXButton() && !creatingBomb)
                         SetBomb();

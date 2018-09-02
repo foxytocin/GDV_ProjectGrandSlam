@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour {
     public int player;
     private int playertmp;
     public bool isInGame;
+    public int controller; // 0 = Keinen, 1 = Xbox360, 2 = PS4
 
     void Awake()
     {
@@ -30,6 +31,7 @@ public class GameManager : MonoBehaviour {
 
         miniMapCam = GameObject.Find("MiniMapCam").GetComponent<Camera>();
         miniMapCanvas = GameObject.Find("MiniMapCanvas").GetComponent<Canvas>();
+        controller = 0;
         
     }
 
