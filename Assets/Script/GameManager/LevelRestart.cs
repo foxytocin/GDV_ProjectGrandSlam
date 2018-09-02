@@ -41,6 +41,7 @@ public class LevelRestart : MonoBehaviour {
 	{
         StartCoroutine(eraseCurrentWorld(true));
 		rulesScript.restartResults();
+
 		yield return new WaitForSecondsRealtime(4f);
 		spawnDemoItems.spawnDemoItems();
 	}
@@ -54,7 +55,7 @@ public class LevelRestart : MonoBehaviour {
 	{
         StartCoroutine(eraseCurrentWorld(false));
 
-		yield return new WaitForSecondsRealtime(0.8f);
+		yield return new WaitForSecondsRealtime(1f);
         rulesScript.nextRoundRules();
 
 		yield return new WaitForSecondsRealtime(2f);
@@ -163,7 +164,6 @@ public class LevelRestart : MonoBehaviour {
 		cameraDirection.restartCameraDirection();
 		destroyScroller.restartDestroyScroller();
 		levelGenerator.restartLevel(animiert);
-		playerSpawner.createPlayers();
 
 		// Fuer den unwahrscheinlichen Fall das nicht alle Objecte deaktiviert wurden
 		// War eine Bugreife stelle, bisher haber problemfrei behoben
@@ -176,7 +176,8 @@ public class LevelRestart : MonoBehaviour {
 					go.SetActive(false);
 					Debug.Log("Alte FreeFall entfernt");
 				}
-					
 		}
+
+		playerSpawner.createPlayers();
 	}
 }

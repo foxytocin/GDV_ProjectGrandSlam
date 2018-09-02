@@ -30,8 +30,8 @@ public class PostProcessingEditing : MonoBehaviour {
         RenderSettings.fog = true;
         RenderSettings.fogMode = FogMode.Linear; //ExponentialSquared;
         //RenderSettings.fogDensity = 0.035f;
-        RenderSettings.fogStartDistance = 13f;
-        RenderSettings.fogEndDistance = 51f;
+        RenderSettings.fogStartDistance = 35f;
+        RenderSettings.fogEndDistance = 55f;
 
         //Initialize ChromaticAberration
         chromaticAberrationStrength = 0f;
