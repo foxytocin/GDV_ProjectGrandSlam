@@ -289,7 +289,7 @@ public class PlayerScript : MonoBehaviour
 
                     cam.PlayerPosition(transform.position, playerID);
                 }
-                else if (transform.position.y < 0.45f)
+                else if (transform.position.y < 0.43f)
                 {
                     transform.position.Set(transform.position.x, -1, transform.position.z);
                     cam.PlayerPosition(transform.position, playerID);
@@ -537,50 +537,5 @@ public class PlayerScript : MonoBehaviour
             yield return null;
         }
     }
-
-
-    public IEnumerator playerGlowOn()
-	{
-		float emission = 0f;
-		Color baseColor = playerColor;
-		playerLight.intensity = 0f;
-		playerLight.enabled = true;
-
-		while(emission < 2.3f)
-		{
-			emission += Time.deltaTime * 0.4f;
-			Color finalColor = baseColor * Mathf.LinearToGammaSpace (emission);
-			playerMaterial.SetColor("_EmissionColor", finalColor);
-			playerMaterial.EnableKeyword("_EMISSION");
-			playerLight.intensity = emission;
-
-			yield return new WaitForSeconds(0.1f);
-		}
-
-        StopCoroutine(playerGlowOn());
-	}
-
-    public IEnumerator playerGlowOff()
-	{
-		float emission = 2.3f;
-		Color baseColor = playerColor;
-
-		while(emission > 0f)
-		{
-			emission -= Time.deltaTime * 0.5f;
-			Color finalColor = baseColor * Mathf.LinearToGammaSpace (emission);
-			playerMaterial.SetColor("_EmissionColor", finalColor);
-            playerMaterial.EnableKeyword("_EMISSION");
-			playerLight.intensity = emission;
-
-			yield return new WaitForSeconds(0.05f);
-		}
-
-		playerMaterial.DisableKeyword("_EMISSION");
-		playerLight.enabled = false;
-		playerLight.intensity = 0f;
-
-        StopCoroutine(playerGlowOff());
-	}
 
 }

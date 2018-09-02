@@ -39,6 +39,7 @@ public class DayNightSwitch : MonoBehaviour {
 		worldAmbientOriginal = RenderSettings.ambientIntensity;
 	}
 
+
 	// Resetet den Tag-Nacht-Wechsel beim LevelRestart basierend auf dem aktuellen Zustand
 	public void restartDayNightModus()
 	{
@@ -160,8 +161,9 @@ public class DayNightSwitch : MonoBehaviour {
 	{
 		for(int i = 0; i < playerSpawner.playerList.Count; i++)
 		{
-			PlayerScript player = playerSpawner.playerList[i].gameObject.GetComponent<PlayerScript>();
-			StartCoroutine(player.playerGlowOn());
+			GameObject player = playerSpawner.playerList[i];
+			if(player != null)
+				StartCoroutine(playerGlowOn(player));
 		}
 	}
 
@@ -169,9 +171,61 @@ public class DayNightSwitch : MonoBehaviour {
 	{
 		for(int i = 0; i < playerSpawner.playerList.Count; i++)
 		{
-			PlayerScript player = playerSpawner.playerList[i].gameObject.GetComponent<PlayerScript>();
-			StartCoroutine(player.playerGlowOff());
+			GameObject player = playerSpawner.playerList[i];
+			if(player != null)
+				StartCoroutine(playerGlowOff(player));
 		}
+	}
+
+
+	 public IEnumerator playerGlowOn(GameObject player)
+	{
+		Material playerMaterial = player.GetComponent<Renderer>().material;
+		Light playerLight = player.GetComponent<Light>();
+
+		float emission = 0f;
+		Color baseColor = playerMaterial.color;
+		playerLight.intensity = 0f;
+		playerLight.enabled = true;
+
+		while(emission < 2.3f && player != null)
+		{
+			emission += Time.deltaTime * 0.4f;
+			Color finalColor = baseColor * Mathf.LinearToGammaSpace (emission);
+			playerMaterial.SetColor("_EmissionColor", finalColor);
+			playerMaterial.EnableKeyword("_EMISSION");
+			playerLight.intensity = emission;
+
+			yield return new WaitForSeconds(0.1f);
+		}
+	}
+
+    public IEnumerator playerGlowOff(GameObject player)
+	{
+		Material playerMaterial = player.GetComponent<Renderer>().material;
+		Light playerLight = player.GetComponent<Light>();
+
+		float emission = 2.3f;
+		Color baseColor = playerMaterial.color;
+
+		while(emission > 0f && player != null)
+		{
+			emission -= Time.deltaTime * 0.5f;
+			Color finalColor = baseColor * Mathf.LinearToGammaSpace (emission);
+			playerMaterial.SetColor("_EmissionColor", finalColor);
+            playerMaterial.EnableKeyword("_EMISSION");
+			playerLight.intensity = emission;
+
+			yield return new WaitForSeconds(0.05f);
+		}
+
+		if(player != null)
+		{
+			playerMaterial.DisableKeyword("_EMISSION");
+			playerLight.enabled = false;
+			playerLight.intensity = 0f;
+		}
+
 	}
 
 

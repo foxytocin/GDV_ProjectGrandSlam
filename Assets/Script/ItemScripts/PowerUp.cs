@@ -7,11 +7,13 @@ public class PowerUp : MonoBehaviour
     public int ItemID;
     private PlayerSpawner playerSpawner;
     private PlayerScript player;
+    private BombRain bombrain;
     public float timeLeft;
 
     void Awake()
     {
         playerSpawner = FindObjectOfType<PlayerSpawner>();
+        bombrain = FindObjectOfType<BombRain>();
     }
     void Start()
     {
@@ -23,7 +25,7 @@ public class PowerUp : MonoBehaviour
     //Item wird gewürfelt
     public void Itemwahl()
     {
-        int RandomValue = (int)(Random.Range(0, 3f));
+        int RandomValue = (int)(Random.Range(0, 5f));
         switch (RandomValue)
         {
             case 0:
@@ -39,6 +41,14 @@ public class PowerUp : MonoBehaviour
             case 2:
                 ItemID = 2;
                 MakeRemoteBombItem(ItemID);
+                break;
+            case 3:
+                ItemID = 3;
+                MakeBombRain(ItemID);
+                break;
+            case 4:
+                ItemID = 4;
+                MakeMinusBombPowerItem(ItemID);
                 break;
         }
     }
@@ -66,6 +76,12 @@ public class PowerUp : MonoBehaviour
             case 2:
                 RemoteBomb(ItemID);
                 break;
+            case 3:
+                BombRain(ItemID);
+                break;
+            case 4:
+                MinusBombPower(ItemID);
+                break;
         }
     }
     //ItemLook
@@ -90,14 +106,31 @@ public class PowerUp : MonoBehaviour
         GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.blue);
         GetComponent<Light>().color = Color.blue;
     }
+    public void MakeBombRain(int id)
+    {
+        GetComponent<Renderer>().material.color = Color.yellow;
+        GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.yellow);
+        GetComponent<Light>().color = Color.yellow;
+    }
+    public void MakeMinusBombPowerItem(int id)
+    {
+        GetComponent<Renderer>().material.color = Color.magenta;
+        GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.magenta);
+        GetComponent<Light>().color = Color.magenta;
+
+
+    }
 
 
 
     //ItemFunktionen
     public void BombPower(int id)
     {
-
-        player.bombPower += 1;
+        if (player.bombPower < 10)
+        {
+            player.bombPower += 1;
+        }
+        
         Destroy(gameObject);
     }
 
@@ -118,6 +151,25 @@ public class PowerUp : MonoBehaviour
         player.houdiniItem = false;
         Destroy(gameObject);
 
+    }
+
+    public void BombRain(int id)
+    {
+        bombrain.bombenregen = false;
+        player.houdiniItem = false;
+        player.remoteBombItem = false;
+        Destroy(gameObject);
+
+    }
+
+    public void MinusBombPower(int id)
+    {
+        if (player.bombPower >= 2)
+        {
+            player.bombPower -= 1;
+        }
+
+        Destroy(gameObject);
     }
 
 

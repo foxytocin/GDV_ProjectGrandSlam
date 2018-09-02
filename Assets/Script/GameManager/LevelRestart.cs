@@ -76,9 +76,11 @@ public class LevelRestart : MonoBehaviour {
 						
 						if(animiert)
 						{
-							StartCoroutine(player.playerFallRestart());
-							//Destroy(go);
-							//player.StartCoroutine(player.fadeToDeath());
+							if(player != go)
+							{
+								StartCoroutine(player.playerFallRestart());
+							}
+							
 						} else {
 
 							levelGenerator.AllGameObjects[(int)go.transform.position.x, (int)go.transform.position.z] = null;

@@ -184,7 +184,7 @@ public class MapDestroyer : MonoBehaviour
     //Markiert die Bodenplatte auf der eine Explosion stattfindet als "KillField" in dem der Tag von "Boden" auf "KillField" geaendert wird
     //Lauft der Player auf eine so markierte Bodenplatte stirbt er
     //Nach X Sekunden wird der Tag-Switch rueckgangig gemacht
-    IEnumerator KillField(int x, int z)
+    public IEnumerator KillField(int x, int z)
     {
 
         if(levelGenerator.SecondaryGameObjects1[x, z] != null)

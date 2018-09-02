@@ -83,22 +83,22 @@ public class PlayerSpawner : MonoBehaviour
         switch(players)
         {
             case 1:
-                spawnList.Add(new Vector3(15f, 0.45f, 4f));   // Player 1
+                spawnList.Add(new Vector3(15f, 0.43f, 4f));   // Player 1
                 break;
             case 2:
-                spawnList.Add(new Vector3(10f, 0.45f, 4f));   // Player 1
-                spawnList.Add(new Vector3(20f, 0.45f, 4f));   // Player 2
+                spawnList.Add(new Vector3(10f, 0.43f, 4f));   // Player 1
+                spawnList.Add(new Vector3(20f, 0.43f, 4f));   // Player 2
                 break;
             case 3:
-                spawnList.Add(new Vector3(7f, 0.45f, 4f));    // Player 1
-                spawnList.Add(new Vector3(15f, 0.45f, 4f));   // Player 2
-                spawnList.Add(new Vector3(23f, 0.45f, 4f));   // Player 3
+                spawnList.Add(new Vector3(7f, 0.43f, 4f));    // Player 1
+                spawnList.Add(new Vector3(15f, 0.43f, 4f));   // Player 2
+                spawnList.Add(new Vector3(23f, 0.43f, 4f));   // Player 3
                 break;
             case 4:
-                spawnList.Add(new Vector3(6f, 0.45f, 4f));    // Player 1
-                spawnList.Add(new Vector3(12f, 0.45f, 4f));   // Player 2
-                spawnList.Add(new Vector3(18f, 0.45f, 4f));   // Player 3
-                spawnList.Add(new Vector3(24f, 0.45f, 4f));   // Player 4
+                spawnList.Add(new Vector3(6f, 0.43f, 4f));    // Player 1
+                spawnList.Add(new Vector3(12f, 0.43f, 4f));   // Player 2
+                spawnList.Add(new Vector3(18f, 0.43f, 4f));   // Player 3
+                spawnList.Add(new Vector3(24f, 0.43f, 4f));   // Player 4
                 break;
             default:
             break;
