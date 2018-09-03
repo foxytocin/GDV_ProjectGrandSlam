@@ -4826,7 +4826,7 @@ MonoBehaviour:
     loop: 1
   settingsFXVolume: 0
   settingsMusicVolume: 0
-  musicAtStart: 1
+  musicAtStart: 0
 --- !u!1 &444575531
 GameObject:
   m_ObjectHideFlags: 0
