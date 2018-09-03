@@ -11,6 +11,7 @@ public class MapDestroyer : MonoBehaviour
     private PlayerScript player;
     private int xPos;
     private int zPos;
+    private bool realPlayer;
     private ItemSpawner itemSpawner;
     private AudioManager audioManager;
     private GameManager gameManager;
@@ -24,6 +25,7 @@ public class MapDestroyer : MonoBehaviour
         levelGenerator = FindObjectOfType<LevelGenerator>();
         playerSpawner = FindObjectOfType<PlayerSpawner>();
         gameManager = FindObjectOfType<GameManager>();
+        realPlayer = true;
 
     }
 
@@ -34,7 +36,15 @@ public class MapDestroyer : MonoBehaviour
         xPos = (int)position.x;
         zPos = (int)position.z;
 
-        if(playerSpawner.playerList[id] != null)
+        if(id != 5)
+        {
+            realPlayer = true;
+        } else {
+
+            realPlayer = false;
+        }
+
+        if(realPlayer && playerSpawner.playerList[id] != null)
         {
             player = playerSpawner.playerList[id].GetComponent<PlayerScript>();
 
