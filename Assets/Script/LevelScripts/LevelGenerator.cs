@@ -48,12 +48,14 @@ public class LevelGenerator : MonoBehaviour
     private int dataBufferSize;
     public int levelBreite;
     public int levelTiefe;
+    public int startLinie;
     public int TurmMenge;
     public int BogenMenge;
    
     // Use this for initialization
     void Awake()
     {
+        startLinie = 5;
         levelBreite = 33;
         levelTiefe = 2000;
         generateMaze = false;
@@ -460,7 +462,7 @@ public class LevelGenerator : MonoBehaviour
         }
 
         //Generiert alle X Meter die DistanceLine
-        if(CameraPosition > 10 && ((CameraPosition - 4) % 25 == 0) )
+        if(CameraPosition > 10 && ((CameraPosition - (startLinie - 1)) % 25 == 0) )
             {
                 GenerateDistanceLine.createDistanceLine(CameraPosition);
             }
@@ -473,7 +475,7 @@ public class LevelGenerator : MonoBehaviour
         SecondaryGameObjects1[(int)pos.x, (int)pos.z] = objectPooler.SpawnFromPool("Boden", pos - new Vector3(0, 0.1f, 0), Quaternion.identity);
 
         //Wird die 5 Zeile Boden generiert, wird dieser rot eingefaerbt, da dort der Countdown der Startline lauft
-        if(CameraPosition == 5)
+        if(CameraPosition == startLinie)
         {
             SecondaryGameObjects1[(int)pos.x, (int)pos.z].GetComponent<Renderer>().material.color = new Color32(149, 55, 55, 1);
         }

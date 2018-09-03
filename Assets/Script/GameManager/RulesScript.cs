@@ -30,12 +30,14 @@ public class RulesScript : MonoBehaviour
 
     InGameGUI inGameGUI;
 
-    GameManager gameManager;
+    private GameManager gameManager;
+    private LevelGenerator LevelGenerator;
 
     private void Awake()
     {
         gameManager = FindObjectOfType<GameManager>();
         inGameGUI = FindObjectOfType<InGameGUI>();
+        LevelGenerator = FindObjectOfType<LevelGenerator>();
 
         playerIsLive = 1;
         battle = 1;
@@ -172,7 +174,7 @@ public class RulesScript : MonoBehaviour
     {
         gameManager.lockControlls();
         
-        int reachTextString = (int)distanze - 4;
+        int reachTextString = (int)distanze - (LevelGenerator.startLinie - 1);
         inGameGUI.inAktivInGameUI();
         FindObjectOfType<OverlayMethodenScript>().isInGame = false;
         resultScreen.SetActive(true);

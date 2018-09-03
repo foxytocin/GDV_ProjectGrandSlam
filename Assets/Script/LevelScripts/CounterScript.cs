@@ -6,9 +6,8 @@ using TMPro;
 public class CounterScript : MonoBehaviour
 {
     private GameManager gameManager;
-    private Vector3 tmpKoord;
-    private float tmpLightIntensity;
     private LevelGenerator levelGenerator;
+
     private void Awake()
     {
         levelGenerator = FindObjectOfType<LevelGenerator>();
@@ -26,14 +25,14 @@ public class CounterScript : MonoBehaviour
     {
 
         int counter = 3;
-        int startLinePos = 5;
+        int startLinePos = levelGenerator.startLinie; 
         int breite = levelGenerator.levelBreite - 2;
 
-        Material SaveMaterial = levelGenerator.SecondaryGameObjects1[7, 1].GetComponent<Renderer>().material;
+        Color32 savedColor = levelGenerator.SecondaryGameObjects1[3, startLinePos + 1].GetComponent<Renderer>().material.color;
 
         while (counter >= 0)
         {
-            for (int i = 2; i < breite-2; i++)
+            for (int i = 2; i < breite - 2; i++)
             {
                 switch (counter)
                 {
@@ -50,7 +49,7 @@ public class CounterScript : MonoBehaviour
                         //Debug.Log("Green");
                         break;
                     case 0:
-                        levelGenerator.SecondaryGameObjects1[i, startLinePos].GetComponent<Renderer>().material = SaveMaterial;
+                        levelGenerator.SecondaryGameObjects1[i, startLinePos].GetComponent<Renderer>().material.color = savedColor;
                         FindObjectOfType<AudioManager>().playSound("lets_go");
                         gameManager.unlockControlls();
                         break;
