@@ -43,7 +43,7 @@ public class LevelRestart : MonoBehaviour {
 	}
 	private IEnumerator levelRestartMainMenuCore()
 	{
-        cameraMovement.RestartCameraMovement();
+        cameraMovement.RestartCameraMovement(true);
         StartCoroutine(eraseCurrentWorld(true));
 		rulesScript.restartResults();
 
@@ -58,7 +58,7 @@ public class LevelRestart : MonoBehaviour {
 	}
 	public IEnumerator levelRestartNextRoundCore()
 	{
-        cameraMovement.RestartCameraMovement();
+        cameraMovement.RestartCameraMovement(false);
         StartCoroutine(eraseCurrentWorld(false));
 
 		yield return new WaitForSecondsRealtime(1f);
