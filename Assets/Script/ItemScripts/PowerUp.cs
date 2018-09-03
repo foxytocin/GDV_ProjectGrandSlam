@@ -8,12 +8,13 @@ public class PowerUp : MonoBehaviour
     private PlayerSpawner playerSpawner;
     private PlayerScript player;
     private BombRain bombrain;
-    public float timeLeft;
+    private Houdini houdini;
 
     void Awake()
     {
         playerSpawner = FindObjectOfType<PlayerSpawner>();
         bombrain = FindObjectOfType<BombRain>();
+        houdini = FindObjectOfType<Houdini>();
     }
     void Start()
     {
@@ -137,7 +138,9 @@ public class PowerUp : MonoBehaviour
 
     public void Houdini(int id)
     {
+        houdini.callHoudini((int)transform.position.x, (int)transform.position.z);
         player.remoteBombTimer = 0f;
+        player.houdiniTimer += 10.0f;
         player.remoteBombItem = false;
         player.houdiniTimer += 10.0f;
         Destroy(gameObject);
