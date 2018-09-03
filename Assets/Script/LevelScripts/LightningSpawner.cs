@@ -75,7 +75,6 @@ public class LightningSpawner : MonoBehaviour {
                         {
                             case "Kiste" :
                                 levelGenerator.AllGameObjects[thunderPos.x + x, thunderPos.z + z] = null;
-                                audioManager.playSound("destroyed_box");
                                 go.SetActive(false);
 
                                 //Ersetzt die Kiste durch Kiste_destroyed Prefab
@@ -118,11 +117,11 @@ public class LightningSpawner : MonoBehaviour {
 
     void thunderStrikeSound()
     {
-        switch((int)Random.Range(0f, 4f))
+        switch((int)Random.Range(0f, 3f))
         {
-            case 1: audioSource.PlayOneShot(thunderStrike1, 0.5f * audioManager.settingsFXVolume); break;
-            case 2: audioSource.PlayOneShot(thunderStrike1, 0.5f * audioManager.settingsFXVolume); break;
-            case 3: audioSource.PlayOneShot(thunderStrike1, 0.5f * audioManager.settingsFXVolume); break;
+            case 0: audioSource.PlayOneShot(thunderStrike1, 0.4f * audioManager.settingsFXVolume); break;
+            case 1: audioSource.PlayOneShot(thunderStrike2, 0.6f * audioManager.settingsFXVolume); break;
+            case 2: audioSource.PlayOneShot(thunderStrike3, 0.5f * audioManager.settingsFXVolume); break;
         }
     }
 }

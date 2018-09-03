@@ -96,6 +96,7 @@ public class LevelGenerator : MonoBehaviour
         SectionDataOffset = 0;
         rotation = 0;
         tiefeLevelStartBasis = 60;
+        GenerateDistanceLine.generateGlowStangen = false;
 
         AllGameObjects = new GameObject[levelBreite, levelTiefe];
         SecondaryGameObjects1 = new GameObject[levelBreite, levelTiefe];
