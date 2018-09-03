@@ -406,19 +406,29 @@ public class PlayerScript : MonoBehaviour
             {
                 GameObject go = levelGenerator.AllGameObjects[xPos, zPos].gameObject;
 
-                if (go.CompareTag("FreeFall") && gameManager.gameStatePlay)
+                switch(go.tag)
                 {
-                    StartCoroutine(playerFall());
-                }
+                    case "FreeFall":
+                        StartCoroutine(playerFall());
+                        return true;
+                    
+                    case "Item":
+                        go.GetComponent<PowerUp>().GrabItem(playerID);
+                        levelGenerator.AllGameObjects[(int)go.transform.position.x, (int)go.transform.position.z] = null;
+                        audioManager.playSound("pickupItem");
+                        return true;
 
-                //Item Kollision
-                if (go.CompareTag("Item"))
-                {
-                    go.GetComponent<PowerUp>().GrabItem(playerID);
-                    levelGenerator.AllGameObjects[xPos, zPos] = null;
-                    audioManager.playSound("pickupItem");
+                    // case "Kiste":
+                    //     Debug.Log("Gegen eine Kiste gelaufen");
+                    //     return false;
+
+                    // case "Wand":
+                    //     Debug.Log("Gegen eine Wand gelaufen");
+                    //     return false;
+
+                    default:
+                        break;
                 }
-                return false;
             }
         }
         return false;
