@@ -137,9 +137,9 @@ public class PowerUp : MonoBehaviour
 
     public void Houdini(int id)
     {
-
-        player.houdiniTimer += 10.0f;
+        player.remoteBombTimer = 0f;
         player.remoteBombItem = false;
+        player.houdiniTimer += 10.0f;
         Destroy(gameObject);
 
     }
@@ -147,17 +147,21 @@ public class PowerUp : MonoBehaviour
 
     public void RemoteBomb(int id)
     {
-        player.remoteBombTimer += 10.0f;
+        player.houdiniTimer = 0f;
         player.houdiniItem = false;
+        player.remoteBombTimer += 10.0f;
         Destroy(gameObject);
 
     }
 
     public void BombRain(int id)
     {
-        bombrain.bombenregen = false;
+        
+        player.houdiniTimer = 0f;
         player.houdiniItem = false;
-        player.remoteBombItem = false;
+        player.remoteBombTimer = 0f;
+        player.houdiniItem = false;
+        bombrain.bombenregen = true;
         Destroy(gameObject);
 
     }

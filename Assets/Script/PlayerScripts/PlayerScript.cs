@@ -55,6 +55,7 @@ public class PlayerScript : MonoBehaviour
         playerMaterial = GetComponent<Renderer>().material;
         playerColor = playerMaterial.color;
         avaibleBomb = 3;
+
         speed = 5.5f;
         bombTimer = 2f;
         Time.timeScale = 1.0f;
@@ -365,7 +366,7 @@ public class PlayerScript : MonoBehaviour
         int bombXPos = Mathf.RoundToInt(transform.position.x);
         int bombZPos = Mathf.RoundToInt(transform.position.z);
 
-        if(avaibleBomb > 0 && (levelGenerator.AllGameObjects[bombXPos, bombZPos] == null || levelGenerator.AllGameObjects[bombXPos, bombZPos].gameObject.CompareTag("Player")))
+        if(avaibleBomb > 0 && houdiniItem == false && (levelGenerator.AllGameObjects[bombXPos, bombZPos] == null ||  houdiniItem == false && levelGenerator.AllGameObjects[bombXPos, bombZPos].gameObject.CompareTag("Player")))
         {
             avaibleBomb -= 1;
             levelGenerator.AllGameObjects[bombXPos, bombZPos] = bombSpawner.SpawnBomb(bombXPos, bombZPos, playerID, bombPower, bombTimer, remoteBombItem, playerColor);

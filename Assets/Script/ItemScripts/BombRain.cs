@@ -30,24 +30,23 @@ public class BombRain : MonoBehaviour {
         cameraScroller = FindObjectOfType<CameraScroller>();
         mapDestroyer = FindObjectOfType<MapDestroyer>();
         levelGenerator = FindObjectOfType<LevelGenerator>();
-        //itemSpawner = FindObjectOfType<ItemSpawner>();
         audioSource = FindObjectOfType<AudioSource>();
         audioManager = FindObjectOfType<AudioManager>();
-        //startVolume = audioSource.volume;
     }
 
     void FixedUpdate()
     {
 
-        if (Random.value > 0.5f && bombenregen == true)
+        if (Random.value > 0.98f && bombenregen == true)
         {
 
 
-            Vector3Int bombPos = new Vector3Int((int)Random.Range(0f, 10f), 0, cameraScroller.rowPosition + (int)Random.Range(0f, 10f));
+            Vector3Int bombPos = new Vector3Int((int)Random.Range(2f, 32f), 0, cameraScroller.rowPosition + (int)Random.Range(0f, 20f));
+
 
             BombRainSound();
             StartCoroutine(checkWorld(bombPos));
-            levelGenerator.AllGameObjects[bombPos.x, bombPos.z] = bombSpawner.SpawnBomb(bombPos.x, bombPos.z, 1000, 1, -1, false, bombraincolor);
+            
         }
     }
 
@@ -62,6 +61,10 @@ public class BombRain : MonoBehaviour {
 
                 if (x > 0 && x < levelGenerator.levelBreite && z > 0 && z < levelGenerator.levelTiefe)
                 {
+                    if (levelGenerator.AllGameObjects[x, z] == null)
+                    {
+                        levelGenerator.AllGameObjects[x, z] = bombSpawner.SpawnBomb(bombPos.x, bombPos.z, 5, 2, 3, false, bombraincolor);
+                    }
                     if (levelGenerator.AllGameObjects[x, z] != null)
                     {
                         go = levelGenerator.AllGameObjects[x, z].gameObject;
@@ -70,29 +73,37 @@ public class BombRain : MonoBehaviour {
                         {
                             case "Kiste":
                                 audioManager.playSound("destroyed_box");
-                                levelGenerator.AllGameObjects[x, z] = null;
                                 go.SetActive(false);
 
                                 //Ersetzt die Kiste durch Kiste_destroyed Prefab
                                 Instantiate(KistenPartsPrefab, new Vector3(x, 0.5f, z), Quaternion.identity, transform);
+                                levelGenerator.AllGameObjects[bombPos.x, bombPos.z] = bombSpawner.SpawnBomb(bombPos.x, bombPos.z, 5, 2, 3, false, bombraincolor);
 
                                 break;
 
                             case "Item":
                                 audioManager.playSound("break2");
-                                levelGenerator.AllGameObjects[bombPos.x, bombPos.z] = null;
                                 go.SetActive(false);
-                                
+                                levelGenerator.AllGameObjects[bombPos.x, bombPos.z] = bombSpawner.SpawnBomb(bombPos.x, bombPos.z, 5, 2, 3, false, bombraincolor);
+
                                 break;
 
                             case "Player":
                                 objectPooler.SpawnFromPool("Explosion", new Vector3(x, 0.5f, z), Quaternion.identity);
                                 go.GetComponent<PlayerScript>().dead();
-                                levelGenerator.AllGameObjects[x, z] = null;
                                 StartCoroutine(mapDestroyer.KillField(x, z));
-                                break;
+                                levelGenerator.AllGameObjects[bombPos.x, bombPos.z] = bombSpawner.SpawnBomb(bombPos.x, bombPos.z, 5, 2, 3, false, bombraincolor);
+                            break;
 
-                            default:
+                            case "Wand":
+
+                            break;
+
+                            case "bombe":
+
+                            break;
+
+                    default:
                                 break;
                         }
                     }
