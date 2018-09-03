@@ -8,6 +8,7 @@ public class LevelRestart : MonoBehaviour {
 	private DestroyScroller destroyScroller;
 	private CameraScroller cameraScroller;
 	private CameraDirection cameraDirection;
+	private CameraMovement cameraMovement;
 	private PlayerSpawner playerSpawner;
 	private DayNightSwitch dayNightSwitch;
     private RulesScript rulesScript;
@@ -23,6 +24,7 @@ public class LevelRestart : MonoBehaviour {
 		destroyScroller = FindObjectOfType<DestroyScroller>();
 		cameraScroller = FindObjectOfType<CameraScroller>();
 		cameraDirection = FindObjectOfType<CameraDirection>();
+		cameraMovement = FindObjectOfType<CameraMovement>();
 		playerSpawner = FindObjectOfType<PlayerSpawner>();
 		dayNightSwitch = FindObjectOfType<DayNightSwitch>();
         rulesScript = FindObjectOfType<RulesScript>();
@@ -41,6 +43,7 @@ public class LevelRestart : MonoBehaviour {
 	}
 	private IEnumerator levelRestartMainMenuCore()
 	{
+        
         StartCoroutine(eraseCurrentWorld(true));
 		rulesScript.restartResults();
 
@@ -55,6 +58,7 @@ public class LevelRestart : MonoBehaviour {
 	}
 	public IEnumerator levelRestartNextRoundCore()
 	{
+        cameraMovement.RestartCameraMovement();
         StartCoroutine(eraseCurrentWorld(false));
 
 		yield return new WaitForSecondsRealtime(1f);
@@ -66,7 +70,8 @@ public class LevelRestart : MonoBehaviour {
 
 	private IEnumerator eraseCurrentWorld(bool animiert)
 	{
-		foreach(GameObject go in levelGenerator.AllGameObjects)
+        
+        foreach (GameObject go in levelGenerator.AllGameObjects)
 		{
 			if(go != null)
 			{
@@ -105,11 +110,12 @@ public class LevelRestart : MonoBehaviour {
         
 			}
 		}
-        
+
 
         //Hier kamera methode?
+        
 
-		cleanObjectArray(levelGenerator.SecondaryGameObjects1, animiert);
+        cleanObjectArray(levelGenerator.SecondaryGameObjects1, animiert);
 		cleanObjectArray(levelGenerator.SecondaryGameObjects2, animiert);
 		cleanObjectArray(levelGenerator.SecondaryGameObjects3, animiert);
 		cleanObjectArray(levelGenerator.DistanceLines, animiert);
@@ -161,6 +167,7 @@ public class LevelRestart : MonoBehaviour {
 		dayNightSwitch.restartDayNightModus();
 		cameraScroller.restartCameraScroller();
 		cameraDirection.restartCameraDirection();
+        
 		destroyScroller.restartDestroyScroller();
 		levelGenerator.restartLevel(animiert);
 

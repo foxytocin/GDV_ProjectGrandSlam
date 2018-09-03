@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -22,6 +23,7 @@ public class CameraMovement : MonoBehaviour {
     private Vector3 maxPos;
     public int roundPlayers;
     private GameManager gameManager;
+    public bool nextRoundAnimation;
 
 
     private void Awake()
@@ -31,36 +33,29 @@ public class CameraMovement : MonoBehaviour {
         playerSpawner = FindObjectOfType<PlayerSpawner>();
         rulesScript = FindObjectOfType<RulesScript>();
         miniMapCam = FindObjectOfType<MiniMapCam>();
-        gameManager = FindObjectOfType<GameManager>();        
+        gameManager = FindObjectOfType<GameManager>();
+        nextRoundAnimation = false;
     }
 
     void Update()
     {
-
-        centerPoint = CalcCenterPoint();
-        miniMapCam.positon(centerPoint);
-        /*
-        for(int i = 0; i < positions.Length; i++)
+        if(!nextRoundAnimation)
         {
-            //Debug.Log("Anz spieler: " + numPlayers);
-            //Debug.Log("Anz spieler2: " + playerSpawner.players);
-            Debug.Log("Position " + i + positions[i]);
-            Debug.Log("CP: " + centerPoint);
+            centerPoint = CalcCenterPoint();
+            miniMapCam.positon(centerPoint);
 
-        }
-        */        
+            Vector3 local = transform.InverseTransformPoint(centerPoint);
+            float z = Mathf.Clamp(local.z / 2f, -4f, 4f);
 
-        Vector3 local = transform.InverseTransformPoint(centerPoint);
-        float z = Mathf.Clamp(local.z / 2f, -4f, 4f);
+            Vector3 targetPos = new Vector3(centerPoint.x - 12f, 0f, z - OffsetAccordingToMaxDistance());
 
-        Vector3 targetPos = new Vector3(centerPoint.x - 12f, 0f, z - OffsetAccordingToMaxDistance());
-
-         //Dynamischer Levelspeed
-        cameraScroller.scrollSpeed = (((z + z + 5f - OffsetAccordingToMaxDistance() * 0.9f) / 3f) + 0.5f);
-        if (!rulesScript.resultScreen.activeSelf)
-        {
-            transform.localPosition = Vector3.Lerp(transform.localPosition, targetPos, 4f * Time.deltaTime);
-        }
+            //Dynamischer Levelspeed
+            cameraScroller.scrollSpeed = (((z + z + 5f - OffsetAccordingToMaxDistance() * 0.9f) / 3f) + 0.5f);
+            if (!rulesScript.resultScreen.activeSelf)
+            {
+                transform.localPosition = Vector3.Lerp(transform.localPosition, targetPos, 4f * Time.deltaTime);
+            }
+        }       
         
     }
 
@@ -215,4 +210,37 @@ public class CameraMovement : MonoBehaviour {
         positions[iD] = pos;
     }    
     */
+
+    public void RestartCameraMovement()
+    {
+        nextRoundAnimation = true;
+        Vector3 target = new Vector3(0f, transform.position.y, transform.position.z) + new Vector3(15f, 10f, -15f);
+        StartCoroutine(HoldCamera(target, 0.7f));
+    }
+
+    private IEnumerator HoldCamera(Vector3 target, float seconds)
+    {
+        //Vector3 targetPos = transform.position + new Vector3(0f, 10f, -10f);
+        //transform.position = Vector3.Lerp(transform.position, targetPos, 4f * Time.deltaTime);
+        //transform.position = new Vector3(0f, transform.position.y, transform.position.z) + new Vector3(15f, 15f, -15f);
+
+        //Vector3 pos = transform.position;
+
+        //Vector3 t = new Vector3(0f, transform.position.y, transform.position.z) + new Vector3(15f, 15f, -15f);
+
+        
+       //transform.position = Vector3.MoveTowards(transform.position, target, 0.1f);
+
+        float elapsedTime = 0;
+        Vector3 startingPos = transform.position;
+        while (elapsedTime < seconds)
+        {
+            transform.position = Vector3.Lerp(startingPos, target, (elapsedTime / seconds));
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        //yield return new WaitForSecondsRealtime(0.7f);
+        nextRoundAnimation = false;
+    }
 }
