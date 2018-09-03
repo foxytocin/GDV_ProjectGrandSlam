@@ -38,15 +38,15 @@ public class CounterScript : MonoBehaviour
                 switch (counter)
                 {
                     case 3:
-                        levelGenerator.SecondaryGameObjects1[i, startLinePos].GetComponent<Renderer>().material.color = new Color32(255, 0, 0, 255);
+                        levelGenerator.SecondaryGameObjects1[i, startLinePos].GetComponent<Renderer>().material.color = new Color32(147, 0, 0, 255);
                         Debug.Log("Red");
                         break;
                     case 2:
-                        levelGenerator.SecondaryGameObjects1[i, startLinePos].GetComponent<Renderer>().material.color = new Color32(255, 222, 0, 255);
+                        levelGenerator.SecondaryGameObjects1[i, startLinePos].GetComponent<Renderer>().material.color = new Color32(209, 143, 0, 255);
                         Debug.Log("Orange");
                         break;
                     case 1:
-                        levelGenerator.SecondaryGameObjects1[i, startLinePos].GetComponent<Renderer>().material.color = new Color32(0, 255, 0, 255);
+                        levelGenerator.SecondaryGameObjects1[i, startLinePos].GetComponent<Renderer>().material.color = new Color32(54, 165, 0, 255);
                         Debug.Log("Green");
                         break;
                     case 0:
