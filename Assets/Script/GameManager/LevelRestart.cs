@@ -64,7 +64,7 @@ public class LevelRestart : MonoBehaviour {
 		yield return new WaitForSecondsRealtime(1f);
         rulesScript.nextRoundRules();
 
-		yield return new WaitForSecondsRealtime(0.1f);
+		yield return new WaitForSecondsRealtime(0.2f);
         CounterScript.startCounter();
 	}
 
@@ -111,10 +111,6 @@ public class LevelRestart : MonoBehaviour {
 			}
 		}
 
-
-        //Hier kamera methode?
-        
-
         cleanObjectArray(levelGenerator.SecondaryGameObjects1, animiert);
 		cleanObjectArray(levelGenerator.SecondaryGameObjects2, animiert);
 		cleanObjectArray(levelGenerator.SecondaryGameObjects3, animiert);
@@ -127,7 +123,7 @@ public class LevelRestart : MonoBehaviour {
 
 		} else {
 
-			yield return new WaitForSecondsRealtime(0.7f);
+			yield return new WaitForSecondsRealtime(0.6f);
 		}
 
 		recreateWorld(animiert);
