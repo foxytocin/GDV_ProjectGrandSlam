@@ -59,8 +59,7 @@ public class LevelRestart : MonoBehaviour {
         rulesScript.nextRoundRules();
 
 		yield return new WaitForSecondsRealtime(2.1f);
-		audioManager.playSound("lets_go");
-		GameManager.unlockControlls();
+        FindObjectOfType<CounterScript>().startCounter();
 	}
 
 	private IEnumerator eraseCurrentWorld(bool animiert)

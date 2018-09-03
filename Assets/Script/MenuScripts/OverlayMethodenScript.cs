@@ -23,7 +23,7 @@ public class OverlayMethodenScript : MonoBehaviour
 
     void Update()
     {
-        if (InputManager.OneStartButton() || InputManager.ThreeStartButton() || InputManager.FourStartButton() || InputManager.TwoStartButton() || Input.GetKeyDown(KeyCode.Escape) && isInGame)
+        if (InputManager.OneStartButton() || InputManager.ThreeStartButton() || InputManager.FourStartButton() || InputManager.TwoStartButton() || Input.GetKeyDown(KeyCode.Escape) && gameManager.gameStatePlay)
         {
             if (GameIsPaused)
             {

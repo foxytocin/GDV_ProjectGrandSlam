@@ -10,12 +10,13 @@ public class GoButtonScript : MonoBehaviour
     GameManager gameManager;
 
     InGameGUI inGameGUI;
-
+    CounterScript counterScript;
 
     public GameObject mainMenuUI;
 
     void Start ()
     {
+        counterScript = FindObjectOfType<CounterScript>();
         inGameGUI = FindObjectOfType<InGameGUI>();
         audioManager = FindObjectOfType<AudioManager>();
         spawnDemoItems = FindObjectOfType<SpawnDemoItems>();
@@ -28,7 +29,6 @@ public class GoButtonScript : MonoBehaviour
         mainMenuUI.GetComponent<GroupFadeScript>().fadeOut();
         Cursor.visible = false;
         spawnDemoItems.cleanDemoItems();
-        audioManager.playSound("lets_go");
         audioManager.stopMenuMusic();
         audioManager.startInGameMusic();
         overlayMethodenScript.isInGame = true;
@@ -36,8 +36,7 @@ public class GoButtonScript : MonoBehaviour
         inGameGUI.startGUI(gameManager.player);
         inGameGUI.updateInGameGUIMultiplayer();
 
-        gameManager.unlockControlls();
-
+        counterScript.startCounter();
     }
 
 }
