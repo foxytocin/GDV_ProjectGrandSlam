@@ -211,7 +211,7 @@ public class CameraMovement : MonoBehaviour {
     }    
     */
 
-    public void RestartCameraMovement()
+    public void RestartCameraMovement(bool mainmenu)
     {
         nextRoundAnimation = true;
         Vector3 target = new Vector3(0f, transform.position.y, transform.position.z) + new Vector3(15f, 10f, -15f);

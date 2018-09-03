@@ -43,7 +43,7 @@ public class LevelRestart : MonoBehaviour {
 	}
 	private IEnumerator levelRestartMainMenuCore()
 	{
-        
+        cameraMovement.RestartCameraMovement();
         StartCoroutine(eraseCurrentWorld(true));
 		rulesScript.restartResults();
 
