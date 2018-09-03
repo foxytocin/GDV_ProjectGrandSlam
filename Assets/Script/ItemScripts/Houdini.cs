@@ -4,8 +4,15 @@ using UnityEngine;
 
 public class Houdini : MonoBehaviour {
 
-	public LevelGenerator LevelGenerator;
+	private LevelGenerator LevelGenerator;
+	private AudioManager audioManager;
 	public GameObject KistenteilePrefab;
+
+	void Awake()
+	{
+		audioManager = FindObjectOfType<AudioManager>();
+		LevelGenerator = FindObjectOfType<LevelGenerator>();
+	}
 
 	public void callHoudini(int xPos, int zPos)
 	{
@@ -19,11 +26,21 @@ public class Houdini : MonoBehaviour {
 	{
 		if(LevelGenerator.AllGameObjects[xPos, zPos] != null)
 		{
-			if(LevelGenerator.AllGameObjects[xPos, zPos].gameObject.CompareTag("Kiste"))
+			GameObject go = LevelGenerator.AllGameObjects[xPos, zPos].gameObject;
+
+			switch(go.tag)
 			{
-				LevelGenerator.AllGameObjects[xPos, zPos].SetActive(false);
-				LevelGenerator.AllGameObjects[xPos, zPos] = null;
-				Instantiate(KistenteilePrefab, new Vector3(xPos, 0.5f, zPos), Quaternion.identity, transform);
+				case "Kiste":
+					Instantiate(KistenteilePrefab, new Vector3(xPos, 0.5f, zPos), Quaternion.identity, transform);
+					LevelGenerator.AllGameObjects[xPos, zPos] = null;
+					go.SetActive(false);
+					break;
+				
+				case "Item":
+					audioManager.playSound("break2");
+					LevelGenerator.AllGameObjects[xPos, zPos] = null;
+					go.SetActive(false);
+					break;
 			}
 		}
 	}

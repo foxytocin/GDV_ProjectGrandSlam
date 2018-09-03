@@ -60,7 +60,6 @@ public class LightningSpawner : MonoBehaviour {
     private IEnumerator checkWorld(Vector3Int thunderPos)
     {
         int radius = 2;
-        GameObject go;
 
         for(int z = -radius; z <= radius; z++)
         {
@@ -70,13 +69,13 @@ public class LightningSpawner : MonoBehaviour {
                 {
                     if(levelGenerator.AllGameObjects[thunderPos.x + x, thunderPos.z + z] != null)
                     {
-                        go = levelGenerator.AllGameObjects[thunderPos.x + x, thunderPos.z + z].gameObject;
+                        GameObject go = levelGenerator.AllGameObjects[thunderPos.x + x, thunderPos.z + z].gameObject;
 
                         switch(go.tag)
                         {
                             case "Kiste" :
-                                audioManager.playSound("destroyed_box");
                                 levelGenerator.AllGameObjects[thunderPos.x + x, thunderPos.z + z] = null;
+                                audioManager.playSound("destroyed_box");
                                 go.SetActive(false);
 
                                 //Ersetzt die Kiste durch Kiste_destroyed Prefab
@@ -85,13 +84,13 @@ public class LightningSpawner : MonoBehaviour {
                                 //Spawnt Item
                                 if(Random.value > 0.5f)
                                     itemSpawner.SpawnItem(thunderPos.x + x, thunderPos.z + z);
-                            break;
+                                break;
 
                             case "Item" :
-                                audioManager.playSound("break2");
                                 levelGenerator.AllGameObjects[thunderPos.x + x, thunderPos.z + z] = null;
+                                audioManager.playSound("break2");
                                 go.SetActive(false);
-                            break;
+                                break;
 
                             default :
                                 break;

@@ -395,9 +395,12 @@ public class PlayerScript : MonoBehaviour
                 }
 
                 //Debug.Log("Player at: " +levelGenerator.SecondaryGameObjects1[(int)(target.x + tmp.x), (int)(target.z + tmp.z)].gameObject.tag);
-                if (levelGenerator.SecondaryGameObjects1[xPos, zPos].gameObject.CompareTag("KillField"))
+                if(levelGenerator.SecondaryGameObjects1[xPos, zPos] != null)
                 {
-                    dead();
+                    if(levelGenerator.SecondaryGameObjects1[xPos, zPos].gameObject.CompareTag("KillField"))
+                    {
+                        dead();
+                    }
                 }
 
                 return true;
