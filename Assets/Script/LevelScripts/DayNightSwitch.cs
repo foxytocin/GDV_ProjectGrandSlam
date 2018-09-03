@@ -110,7 +110,7 @@ public class DayNightSwitch : MonoBehaviour {
 			}
 
 			levelGenerator.generateGlowBalls = true;
-			if(cameraScroller.rowPosition > startRowPos + worldOffest - 5)
+			if(cameraScroller.rowPosition > startRowPos + worldOffest - 10)
 			{
 				isDay = false;
 				update = true;

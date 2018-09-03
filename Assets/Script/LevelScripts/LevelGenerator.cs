@@ -560,30 +560,29 @@ public class LevelGenerator : MonoBehaviour
                         if( SecondaryGameObjects1[xPos, zPos - 1].CompareTag("Boden") &&
                             AllGameObjects[xPos, zPos - 2].CompareTag("Wand") &&
                             SecondaryGameObjects1[xPos, zPos - 2] == null)
+                        {
+                            //Ereugt die erste Saule des Bogens
+                            SecondaryGameObjects1[xPos, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(0, 1, 0), Quaternion.identity);
+                            SecondaryGameObjects2[xPos, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(0, 2, 0), Quaternion.identity);
+                
+                            SecondaryGameObjects3[xPos, zPos - 1] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(0, 2, -1), Quaternion.identity);
+                            SecondaryGameObjects2[xPos, zPos - 2] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(0, 2, -2), Quaternion.identity);
+                            SecondaryGameObjects1[xPos, zPos - 2] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(0, 1, -2), Quaternion.identity);
+
+                            // Zweiter Bogenabschnitt gedreht
+                            if( Random.value <= (BogenMenge / 100f) &&
+                                xPos > 2 &&
+                                SecondaryGameObjects1[xPos - 1, zPos] != null &&
+                                SecondaryGameObjects1[xPos - 2, zPos] == null &&
+                                SecondaryGameObjects1[xPos - 1, zPos].CompareTag("Boden") &&
+                                AllGameObjects[xPos - 2, zPos].CompareTag("Wand"))
                             {
-                                //Ereugt die erste Saule des Bogens
-                                SecondaryGameObjects1[xPos, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(0, 1, 0), Quaternion.identity);
-                                SecondaryGameObjects2[xPos, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(0, 2, 0), Quaternion.identity);
-                    
-                                SecondaryGameObjects3[xPos, zPos - 1] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(0, 2, -1), Quaternion.identity);
-                                SecondaryGameObjects2[xPos, zPos - 2] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(0, 2, -2), Quaternion.identity);
-                                SecondaryGameObjects1[xPos, zPos - 2] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(0, 1, -2), Quaternion.identity);
-
-                                // Zweiter Bogenabschnitt gedreht
-                                if( Random.value <= (BogenMenge / 100f) &&
-                                    xPos > 2 &&
-                                    SecondaryGameObjects1[xPos - 1, zPos] != null &&
-                                    SecondaryGameObjects1[xPos - 2, zPos] == null &&
-                                    SecondaryGameObjects1[xPos - 1, zPos].CompareTag("Boden") &&
-                                    AllGameObjects[xPos - 2, zPos].CompareTag("Wand"))
-                                    {
-                                        // Baut an den ersten Bogen nur die fehlenden Teile an
-                                        SecondaryGameObjects3[xPos - 1, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(-1, 2, 0), Quaternion.identity);
-                                        SecondaryGameObjects2[xPos - 2, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(-2, 2, 0), Quaternion.identity);
-                                        SecondaryGameObjects1[xPos - 2, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(-2, 1, 0), Quaternion.identity);
-
-                                }
+                                // Baut an den ersten Bogen nur die fehlenden Teile an
+                                SecondaryGameObjects3[xPos - 1, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(-1, 2, 0), Quaternion.identity);
+                                SecondaryGameObjects2[xPos - 2, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(-2, 2, 0), Quaternion.identity);
+                                SecondaryGameObjects1[xPos - 2, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(-2, 1, 0), Quaternion.identity);
                             }
+                        }
             }
 
         }
