@@ -13,6 +13,7 @@ public class MapDestroyer : MonoBehaviour
     private int zPos;
     private ItemSpawner itemSpawner;
     private AudioManager audioManager;
+    private GameManager gameManager;
 
 
     private void Awake()
@@ -22,6 +23,7 @@ public class MapDestroyer : MonoBehaviour
         audioManager = FindObjectOfType<AudioManager>();
         levelGenerator = FindObjectOfType<LevelGenerator>();
         playerSpawner = FindObjectOfType<PlayerSpawner>();
+        gameManager = FindObjectOfType<GameManager>();
 
     }
 
@@ -70,7 +72,7 @@ public class MapDestroyer : MonoBehaviour
         {
             case 0:
                 int distanz = 1;
-                while (distanz <= bombPower && ExplodeCell(xPos + distanz, zPos, id))
+                while (gameManager.gameStatePlay && distanz <= bombPower && ExplodeCell(xPos + distanz, zPos, id))
                 {
                     yield return new WaitForSeconds(waitTime);
                     distanz++;
@@ -79,7 +81,7 @@ public class MapDestroyer : MonoBehaviour
                 
             case 1:
                 distanz = 1;
-                while (distanz <= bombPower && ExplodeCell(xPos - distanz, zPos, id))
+                while (gameManager.gameStatePlay && distanz <= bombPower && ExplodeCell(xPos - distanz, zPos, id))
                 {
                     yield return new WaitForSeconds(waitTime);
                     distanz++;
@@ -88,7 +90,7 @@ public class MapDestroyer : MonoBehaviour
 
             case 2:
                 distanz = 1;
-                while (distanz <= bombPower && ExplodeCell(xPos, zPos + distanz, id))
+                while (gameManager.gameStatePlay && distanz <= bombPower && ExplodeCell(xPos, zPos + distanz, id))
                 {
                     yield return new WaitForSeconds(waitTime);
                     distanz++;
@@ -97,7 +99,7 @@ public class MapDestroyer : MonoBehaviour
 
             case 3:
                 distanz = 1;
-                while (distanz <= bombPower && ExplodeCell(xPos, zPos - distanz, id))
+                while (gameManager.gameStatePlay && distanz <= bombPower && ExplodeCell(xPos, zPos - distanz, id))
                 {
                     yield return new WaitForSeconds(waitTime);
                     distanz++;
