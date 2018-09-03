@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour {
 
     private PlayerSpawner playerSpawner;
+    private AudioManager audioManager;
     private InGameGUI inGameGUI;
     private Camera miniMapCam;
     private Canvas miniMapCanvas;
@@ -22,6 +23,7 @@ public class GameManager : MonoBehaviour {
         player = 1;
         playertmp = player;
         playerSpawner = FindObjectOfType<PlayerSpawner>();
+        audioManager = FindObjectOfType<AudioManager>();
         inGameGUI = FindObjectOfType<InGameGUI>();
         miniMapCam = GameObject.Find("MiniMapCam").GetComponent<Camera>();
         miniMapCanvas = GameObject.Find("MiniMapCanvas").GetComponent<Canvas>();
@@ -63,10 +65,10 @@ public class GameManager : MonoBehaviour {
 
             switch (player)
             {
-                case 1: FindObjectOfType<AudioManager>().playSound("one"); break;
-                case 2: FindObjectOfType<AudioManager>().playSound("two"); break;
-                case 3: FindObjectOfType<AudioManager>().playSound("three"); break;
-                case 4: FindObjectOfType<AudioManager>().playSound("four"); break;
+                case 1: audioManager.playSound("one"); break;
+                case 2: audioManager.playSound("two"); break;
+                case 3: audioManager.playSound("three"); break;
+                case 4: audioManager.playSound("four"); break;
                 default: break;
             }
         }

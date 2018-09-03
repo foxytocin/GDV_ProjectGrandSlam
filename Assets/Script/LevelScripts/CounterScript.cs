@@ -7,11 +7,13 @@ public class CounterScript : MonoBehaviour
 {
     private GameManager gameManager;
     private LevelGenerator levelGenerator;
+    private AudioManager audioManager;
 
     private void Awake()
     {
         levelGenerator = FindObjectOfType<LevelGenerator>();
         gameManager = FindObjectOfType<GameManager>();
+        audioManager = FindObjectOfType<AudioManager>();
     }
 
 
@@ -38,19 +40,22 @@ public class CounterScript : MonoBehaviour
                 {
                     case 3:
                         levelGenerator.SecondaryGameObjects1[i, startLinePos].GetComponent<Renderer>().material.color = new Color32(149, 55, 55, 1);
+                        audioManager.playSound("three");
                         //Debug.Log("Red");
                         break;
                     case 2:
                         levelGenerator.SecondaryGameObjects1[i, startLinePos].GetComponent<Renderer>().material.color = new Color32(149, 100, 55, 1);
+                        audioManager.playSound("two");
                         //Debug.Log("Orange");
                         break;
                     case 1:
                         levelGenerator.SecondaryGameObjects1[i, startLinePos].GetComponent<Renderer>().material.color = new Color32(94, 149, 55, 1);
+                        audioManager.playSound("one");
                         //Debug.Log("Green");
                         break;
                     case 0:
                         levelGenerator.SecondaryGameObjects1[i, startLinePos].GetComponent<Renderer>().material.color = savedColor;
-                        FindObjectOfType<AudioManager>().playSound("lets_go");
+                        audioManager.playSound("lets_go");
                         gameManager.unlockControlls();
                         break;
                     default:

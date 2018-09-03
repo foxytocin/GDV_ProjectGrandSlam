@@ -82,7 +82,7 @@ public class PlayerSpawner : MonoBehaviour
     // Passt den SpawnPoint an die Anzahl der Spieler an
     private List<Vector3> createSpawnPoints(int players,  List<Vector3> spawnList)
     {
-        float startPosition = (float)LevelGenerator.startLinie - 1f;
+        float startPosition = (float)LevelGenerator.startLinie - 1;
         switch(players)
         {
             case 1:
