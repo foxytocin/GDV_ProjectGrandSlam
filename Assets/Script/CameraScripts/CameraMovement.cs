@@ -214,8 +214,8 @@ public class CameraMovement : MonoBehaviour {
     public void RestartCameraMovement()
     {
         nextRoundAnimation = true;
-        Vector3 target = new Vector3(0f, transform.position.y, transform.position.z) + new Vector3(15f, 10f, -10f);
-        StartCoroutine(HoldCamera(target, 0.1f));
+        Vector3 target = new Vector3(0f, transform.position.y, transform.position.z) + new Vector3(15f, 10f, -15f);
+        StartCoroutine(HoldCamera(target, 0.7f));
     }
 
     private IEnumerator HoldCamera(Vector3 target, float seconds)

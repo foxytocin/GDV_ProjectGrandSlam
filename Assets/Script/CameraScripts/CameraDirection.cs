@@ -78,7 +78,7 @@ public class CameraDirection : MonoBehaviour {
         }
         else if(cm.nextRoundAnimation)
         {
-            Camera.main.transform.localEulerAngles = new Vector3(40f, 0f, 0f);
+            Camera.main.transform.localEulerAngles = new Vector3(30f, 0f, 0f);
         }
         //Normal Game mode
         else
