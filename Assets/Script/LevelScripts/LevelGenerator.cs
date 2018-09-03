@@ -471,6 +471,12 @@ public class LevelGenerator : MonoBehaviour
     void createGang(Vector3 pos, int CameraPosition) {
         
         SecondaryGameObjects1[(int)pos.x, (int)pos.z] = objectPooler.SpawnFromPool("Boden", pos - new Vector3(0, 0.1f, 0), Quaternion.identity);
+
+        //Wird die 5 Zeile Boden generiert, wird dieser rot eingefaerbt, da dort der Countdown der Startline lauft
+        if(CameraPosition == 5)
+        {
+            SecondaryGameObjects1[(int)pos.x, (int)pos.z].GetComponent<Renderer>().material.color = new Color32(149, 55, 55, 1);
+        }
         
         if((Random.value <= (KistenMenge / 100f)) && generateKisten) {
             rotation = Random.value > 0.5f ? 0 : 90;
@@ -486,7 +492,7 @@ public class LevelGenerator : MonoBehaviour
         int zPos = (int)pos.z;
         bool createBogen = true;
         
-        if(Random.value <= (TurmMenge / 100f)) {
+        if(Random.value <= (TurmMenge / 100f) && zPos > 5) {
             
             //Erzeugt einen Turm und deaktiviert das ein Bogen erzeugt werden kann
             AllGameObjects[xPos, zPos] = objectPooler.SpawnFromPool("Wand", pos, Quaternion.identity);

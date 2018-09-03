@@ -14,6 +14,7 @@ public class LevelRestart : MonoBehaviour {
 	private GameManager GameManager;
 	private SpawnDemoItems spawnDemoItems;
 	private AudioManager audioManager;
+	private CounterScript CounterScript;
 	//private CameraMovement cam;
 
 	void Awake()
@@ -28,6 +29,7 @@ public class LevelRestart : MonoBehaviour {
 		GameManager = FindObjectOfType<GameManager>();
 		spawnDemoItems = FindObjectOfType<SpawnDemoItems>();
 		audioManager = FindObjectOfType<AudioManager>();
+		CounterScript = FindObjectOfType<CounterScript>();
 		//cam = FindObjectOfType<CameraMovement>();
 	}
 
@@ -58,8 +60,8 @@ public class LevelRestart : MonoBehaviour {
 		yield return new WaitForSecondsRealtime(1f);
         rulesScript.nextRoundRules();
 
-		yield return new WaitForSecondsRealtime(2.1f);
-        FindObjectOfType<CounterScript>().startCounter();
+		yield return new WaitForSecondsRealtime(0.1f);
+        CounterScript.startCounter();
 	}
 
 	private IEnumerator eraseCurrentWorld(bool animiert)

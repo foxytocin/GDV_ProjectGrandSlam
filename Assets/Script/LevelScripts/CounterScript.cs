@@ -29,7 +29,7 @@ public class CounterScript : MonoBehaviour
         int startLinePos = 5;
         int breite = levelGenerator.levelBreite - 2;
 
-        Material SaveMaterial = levelGenerator.SecondaryGameObjects1[6, 1].GetComponent<Renderer>().material;
+        Material SaveMaterial = levelGenerator.SecondaryGameObjects1[7, 1].GetComponent<Renderer>().material;
 
         while (counter >= 0)
         {
@@ -38,16 +38,16 @@ public class CounterScript : MonoBehaviour
                 switch (counter)
                 {
                     case 3:
-                        levelGenerator.SecondaryGameObjects1[i, startLinePos].GetComponent<Renderer>().material.color = new Color32(147, 0, 0, 255);
-                        Debug.Log("Red");
+                        levelGenerator.SecondaryGameObjects1[i, startLinePos].GetComponent<Renderer>().material.color = new Color32(149, 55, 55, 1);
+                        //Debug.Log("Red");
                         break;
                     case 2:
-                        levelGenerator.SecondaryGameObjects1[i, startLinePos].GetComponent<Renderer>().material.color = new Color32(209, 143, 0, 255);
-                        Debug.Log("Orange");
+                        levelGenerator.SecondaryGameObjects1[i, startLinePos].GetComponent<Renderer>().material.color = new Color32(149, 100, 55, 1);
+                        //Debug.Log("Orange");
                         break;
                     case 1:
-                        levelGenerator.SecondaryGameObjects1[i, startLinePos].GetComponent<Renderer>().material.color = new Color32(54, 165, 0, 255);
-                        Debug.Log("Green");
+                        levelGenerator.SecondaryGameObjects1[i, startLinePos].GetComponent<Renderer>().material.color = new Color32(94, 149, 55, 1);
+                        //Debug.Log("Green");
                         break;
                     case 0:
                         levelGenerator.SecondaryGameObjects1[i, startLinePos].GetComponent<Renderer>().material = SaveMaterial;
