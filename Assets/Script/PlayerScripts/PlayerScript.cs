@@ -410,20 +410,24 @@ public class PlayerScript : MonoBehaviour
                 {
                     case "FreeFall":
                         StartCoroutine(playerFall());
+                        myTime = 0f;
                         return true;
                     
                     case "Item":
                         go.GetComponent<PowerUp>().GrabItem(playerID);
                         levelGenerator.AllGameObjects[(int)go.transform.position.x, (int)go.transform.position.z] = null;
                         audioManager.playSound("pickupItem");
+                        myTime = 0f;
                         return true;
 
                     // case "Kiste":
                     //     Debug.Log("Gegen eine Kiste gelaufen");
+                    //     myTime = 0f;
                     //     return false;
 
                     // case "Wand":
                     //     Debug.Log("Gegen eine Wand gelaufen");
+                    //     myTime = 0f;
                     //     return false;
 
                     default:
