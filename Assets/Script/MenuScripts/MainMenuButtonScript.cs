@@ -9,12 +9,14 @@ public class MainMenuButtonScript : MonoBehaviour {
     AudioManager audioManager;
     LevelRestart levelRestart;
     InGameGUI inGameGUI;
+    private MenuDemoMode MenuDemoMode;
 
 	void Start ()
     {
         inGameGUI = FindObjectOfType<InGameGUI>();
         audioManager = FindObjectOfType<AudioManager>();
         levelRestart = FindObjectOfType<LevelRestart>();
+        MenuDemoMode = FindObjectOfType<MenuDemoMode>();
     }
 	
     public void onClickMainButton()
@@ -25,6 +27,7 @@ public class MainMenuButtonScript : MonoBehaviour {
         mainMenuUI.GetComponent<GroupFadeScript>().fadeIn();
         audioManager.stopInGameMusic();
         audioManager.playSound("menumusic");
+        MenuDemoMode.demoAllowed = true;
         offSide.SetActive(false);
     }
 }

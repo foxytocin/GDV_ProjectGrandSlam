@@ -32,7 +32,6 @@ public class LevelRestart : MonoBehaviour {
 		spawnDemoItems = FindObjectOfType<SpawnDemoItems>();
 		audioManager = FindObjectOfType<AudioManager>();
 		CounterScript = FindObjectOfType<CounterScript>();
-		//cam = FindObjectOfType<CameraMovement>();
 	}
 
 

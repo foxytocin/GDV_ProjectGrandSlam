@@ -8,12 +8,14 @@ public class DestroyScroller : MonoBehaviour
     private Vector3 target;
     private LevelGenerator levelGenerator;
     private GameManager gameManager;
+    private MenuDemoMode menuDemoMode;
 
     void Awake()
     {
         camMove = FindObjectOfType<CameraMovement>();
         levelGenerator = FindObjectOfType<LevelGenerator>();
         gameManager = FindObjectOfType<GameManager>();
+        menuDemoMode = FindObjectOfType<MenuDemoMode>();
     }
 
     // Use this for initialization
@@ -33,7 +35,7 @@ public class DestroyScroller : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        if (gameManager.gameStatePlay)
+        if (gameManager.gameStatePlay || menuDemoMode.demoRunning)
         {
             target = camMove.centerPoint;
             dummyPos = (int)transform.position.z;

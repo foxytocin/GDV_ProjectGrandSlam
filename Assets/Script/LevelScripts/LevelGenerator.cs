@@ -44,6 +44,7 @@ public class LevelGenerator : MonoBehaviour
     private GenerateDistanceLine GenerateDistanceLine;
     private SpawnDemoItems SpawnDemoItems;
     private MazeGenerator MazeGenerator;
+    private MenuDemoMode MenuDemoMode;
     public bool generateMaze;
     private int dataBufferSize;
     public int levelBreite;
@@ -75,6 +76,7 @@ public class LevelGenerator : MonoBehaviour
         MazeGenerator = FindObjectOfType<MazeGenerator>();
         SpawnDemoItems = FindObjectOfType<SpawnDemoItems>();
         GenerateDistanceLine = FindObjectOfType<GenerateDistanceLine>();
+        MenuDemoMode = FindObjectOfType<MenuDemoMode>();
     }
 
     void Start()
@@ -507,7 +509,7 @@ public class LevelGenerator : MonoBehaviour
             AllGameObjects[xPos, zPos] = objectPooler.SpawnFromPool("Wand", pos, Quaternion.identity);
             
             // Ezeugt glowBalls wenn generateGlowBalls urch den DayNightSwitch.cs auf true gesetzt wurde
-            if(generateGlowBalls)
+            if(generateGlowBalls && !MenuDemoMode.demoAllowed)
                 createGlowBall(pos);
         }
 

@@ -28,13 +28,13 @@ public class CounterScript : MonoBehaviour
 
         int counter = 3;
         int startLinePos = levelGenerator.startLinie; 
-        int breite = levelGenerator.levelBreite - 2;
+        int breite = levelGenerator.levelBreite - 4;
 
         Color32 savedColor = levelGenerator.SecondaryGameObjects1[3, startLinePos + 1].GetComponent<Renderer>().material.color;
 
         while (counter >= 0)
         {
-            for (int i = 2; i < breite - 2; i++)
+            for (int i = 2; i < breite; i++)
             {
                 switch (counter)
                 {

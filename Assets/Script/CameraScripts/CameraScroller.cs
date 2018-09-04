@@ -5,8 +5,10 @@ public class CameraScroller : MonoBehaviour
     public int rowPosition;
     private int altePosition;
     public float scrollSpeed;
+    public bool demoMode;
     private LevelGenerator LevelGenerator;
     private GameManager GameManager;
+    private MenuDemoMode menuDemoMode;
 
 
     // Use this for initialization
@@ -14,8 +16,10 @@ public class CameraScroller : MonoBehaviour
     {
         LevelGenerator = FindObjectOfType<LevelGenerator>();
         GameManager = FindObjectOfType<GameManager>();
+        menuDemoMode = FindObjectOfType<MenuDemoMode>();
         scrollSpeed = 0.5f;
         altePosition = -1;
+        demoMode = false;
     }
 
     public void restartCameraScroller()
@@ -24,12 +28,13 @@ public class CameraScroller : MonoBehaviour
         rowPosition = -26;
         scrollSpeed = 0f;
         transform.localPosition = new Vector3(0f, 0f, -26f);
+        demoMode = false;
     }
 
     // Update is called once per frame
     void LateUpdate()
     {
-        if(GameManager.gameStatePlay)
+        if(GameManager.gameStatePlay || menuDemoMode.demoRunning)
         {
             transform.Translate(0f, 0f, scrollSpeed * Time.deltaTime);
             rowPosition = (int)transform.position.z;

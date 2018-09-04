@@ -10,6 +10,7 @@ public class DayNightSwitch : MonoBehaviour {
 	private PlayerSpawner playerSpawner;
 	private CameraScroller cameraScroller;
 	private GenerateDistanceLine generateDistanceLine;
+	private MenuDemoMode menuDemoMode;
 	private int worldOffest;
 	private int startRowPos;
 	private bool update;
@@ -28,6 +29,7 @@ public class DayNightSwitch : MonoBehaviour {
 		playerSpawner = FindObjectOfType<PlayerSpawner>();
 		worldLight = FindObjectOfType<Light>();
 		generateDistanceLine = FindObjectOfType<GenerateDistanceLine>();
+		menuDemoMode = FindObjectOfType<MenuDemoMode>();
 	}
 
 	void Start()
@@ -79,72 +81,75 @@ public class DayNightSwitch : MonoBehaviour {
 
 	void Update()
 	{
-		if(!nightModus && isDay)
+		if(!menuDemoMode.demoAllowed)
 		{
-			if(pastTime < duration)
+			if(!nightModus && isDay)
 			{
-				pastTime += Time.deltaTime;
-			} else {
-				nightModus = true;
-				pastTime = 0f;
-				duration = Random.value * 50f;
-			}
-		} else if(!isDay) {
+				if(pastTime < duration)
+				{
+					pastTime += Time.deltaTime;
+				} else {
+					nightModus = true;
+					pastTime = 0f;
+					duration = Random.value * 50f;
+				}
+			} else if(!isDay) {
 
-			if(pastTime < duration)
+				if(pastTime < duration)
+				{
+					pastTime += Time.deltaTime;
+				} else {
+					nightModus = false;
+					pastTime = 0f;
+					duration = Random.value * 50f;
+				}
+			}
+
+			if(nightModus && isDay)
 			{
-				pastTime += Time.deltaTime;
-			} else {
-				nightModus = false;
-				pastTime = 0f;
-				duration = Random.value * 50f;
+				if(update)
+				{
+					update = false;
+					startRowPos = cameraScroller.rowPosition;
+				}
+
+				levelGenerator.generateGlowBalls = true;
+				if(cameraScroller.rowPosition > startRowPos + worldOffest - 10)
+				{
+					isDay = false;
+					update = true;
+					switchToNight();
+					playerLightOn();
+
+					generateDistanceLine.generateGlowStangen = true;
+					checkGlowDistanceLines();
+					//Debug.Log("Switch to Night");
+				}
+			}
+
+
+			if(!nightModus && !isDay)
+			{
+				if(update)
+				{
+					update = false;
+					startRowPos = cameraScroller.rowPosition;
+				}
+
+				levelGenerator.generateGlowBalls = false;
+				if(cameraScroller.rowPosition > startRowPos + worldOffest - 5)
+				{
+					isDay = true;
+					update = true;
+					switchToDay();
+					playerLightOff();
+
+					generateDistanceLine.generateGlowStangen = false;
+					checkGlowDistanceLines();
+					//Debug.Log("Switch to Day");
+				}
 			}
 		}
-
-		if(nightModus && isDay)
-		{
-			if(update)
-			{
-				update = false;
-				startRowPos = cameraScroller.rowPosition;
-			}
-
-			levelGenerator.generateGlowBalls = true;
-			if(cameraScroller.rowPosition > startRowPos + worldOffest - 10)
-			{
-				isDay = false;
-				update = true;
-				switchToNight();
-				playerLightOn();
-
-				generateDistanceLine.generateGlowStangen = true;
-				checkGlowDistanceLines();
-				//Debug.Log("Switch to Night");
-			}
-		}
-
-
-		if(!nightModus && !isDay)
-		{
-			if(update)
-			{
-				update = false;
-				startRowPos = cameraScroller.rowPosition;
-			}
-
-			levelGenerator.generateGlowBalls = false;
-			if(cameraScroller.rowPosition > startRowPos + worldOffest - 5)
-			{
-				isDay = true;
-				update = true;
-				switchToDay();
-				playerLightOff();
-
-				generateDistanceLine.generateGlowStangen = false;
-				checkGlowDistanceLines();
-				//Debug.Log("Switch to Day");
-			}
-		} 
 	}
 
 	public void checkGlowDistanceLines()
