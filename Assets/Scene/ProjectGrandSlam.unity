@@ -1416,7 +1416,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1620339726}
         m_MethodName: allowDemo
         m_Mode: 1
         m_Arguments:
@@ -5369,13 +5369,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   KistenPartsPrefab: {fileID: 1724026369652452, guid: 64f748d2e2239264dba8c28eb7627d11,
     type: 2}
-  bomb_Prefab: {fileID: 1739174225997816, guid: 2effe9be9ab3148b1a0a368568848eb9,
-    type: 2}
   audioSource: {fileID: 0}
   bombRainSound1: {fileID: 0}
   bombRainSound2: {fileID: 0}
   bombRainSound3: {fileID: 0}
   bombenregen: 0
+  bombraincolor:
+    serializedVersion: 2
+    rgba: 0
+  PlayerID: 0
 --- !u!1 &534672764
 GameObject:
   m_ObjectHideFlags: 0

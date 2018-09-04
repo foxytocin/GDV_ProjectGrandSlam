@@ -116,8 +116,10 @@ public class MenuDemoMode : MonoBehaviour {
 		gameManager.lockControlls();
 		countDown = timeToDemo;
 		demoRunning = false;
-		LevelRestart.levelRestartMainMenu();
+		LevelRestart.levelRestartMainMenuFromDemo();
 	}
+
+	
 
 
 }

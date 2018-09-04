@@ -50,6 +50,20 @@ public class LevelRestart : MonoBehaviour {
 		spawnDemoItems.spawnDemoItems();
 	}
 
+
+	// Methode um alles für das StartMenu vorzubereiten (vom DemoMode aus)
+  	public void levelRestartMainMenuFromDemo()
+	{
+		StartCoroutine(levelRestartMainMenuFromDemoCore());
+	}
+	private IEnumerator levelRestartMainMenuFromDemoCore()
+	{
+        cameraMovement.RestartCameraMovement(false);
+        StartCoroutine(eraseCurrentWorld(false));
+		yield return null;
+	}
+
+
 	// Mehode um alles fuer die naechste Runde vorzubreiten
 	public void levelRestartNextRound()
 	{
@@ -66,6 +80,10 @@ public class LevelRestart : MonoBehaviour {
 		yield return new WaitForSecondsRealtime(0.2f);
         CounterScript.startCounter();
 	}
+
+
+	
+
 
 	private IEnumerator eraseCurrentWorld(bool animiert)
 	{
