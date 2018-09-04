@@ -20,6 +20,8 @@ public class MenuDemoMode : MonoBehaviour {
 
 	void Awake()
 	{
+		demoRunning = false;
+		timeToDemo = 10;
 		PlayerSpawner = FindObjectOfType<PlayerSpawner>();
 		LevelRestart = FindObjectOfType<LevelRestart>();
 		spawnDemoItems = FindObjectOfType<SpawnDemoItems>();
@@ -30,11 +32,9 @@ public class MenuDemoMode : MonoBehaviour {
 
 	void Start()
 	{
-		demoRunning = false;
 		startLinePos = levelGenerator.startLinie;
 		levelBreite = levelGenerator.levelBreite - 4;
 		levelTiefe = levelGenerator.levelTiefe;
-		timeToDemo = 10;
 		countDown = timeToDemo;
 		demoAllowed = true;
 	}
