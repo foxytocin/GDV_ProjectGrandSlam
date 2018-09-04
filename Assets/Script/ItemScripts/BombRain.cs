@@ -2,24 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BombRain : MonoBehaviour {
+public class BombRain : MonoBehaviour
+{
 
     ObjectPooler objectPooler;
     public GameObject KistenPartsPrefab;
     private CameraScroller cameraScroller;
     private LevelGenerator levelGenerator;
-    //private ItemSpawner itemSpawner;
     private MapDestroyer mapDestroyer;
-    public GameObject bomb_Prefab;
     private AudioManager audioManager;
     public AudioSource audioSource;
     public AudioClip bombRainSound1;
     public AudioClip bombRainSound2;
     public AudioClip bombRainSound3;
-    //private float startVolume;
     public bool bombenregen = false;
     private BombSpawner bombSpawner;
-    private Color32 bombraincolor;
+    public Color32 bombraincolor;
+    public int PlayerID;
 
 
     void Awake()
@@ -37,19 +36,13 @@ public class BombRain : MonoBehaviour {
     void FixedUpdate()
     {
 
-        if (Random.value > 0.98f && bombenregen == true)
+        if (Random.value > 0.95f && bombenregen == true)
         {
-
-
-            Vector3Int bombPos = new Vector3Int((int)Random.Range(2f, 32f), 0, cameraScroller.rowPosition + (int)Random.Range(0f, 20f));
-
-
-            BombRainSound();
+            Vector3Int bombPos = new Vector3Int((int)Random.Range(2f, 32f), 0, cameraScroller.rowPosition + (int)Random.Range(0f, 15f));
             StartCoroutine(checkWorld(bombPos));
-            
+
         }
     }
-
 
 
     private IEnumerator checkWorld(Vector3Int bombPos)
@@ -59,66 +52,66 @@ public class BombRain : MonoBehaviour {
 
         GameObject go;
 
-                if (x > 0 && x < levelGenerator.levelBreite && z > 0 && z < levelGenerator.levelTiefe)
+        if (levelGenerator.SecondaryGameObjects1[x, z] != null)
+        {
+            if (levelGenerator.SecondaryGameObjects1[x, z].gameObject.CompareTag("Boden") && levelGenerator.AllGameObjects[x, z] == null)
+            {
+                levelGenerator.AllGameObjects[x, z] = bombSpawner.SpawnBomb(bombPos.x, bombPos.z, 5, 1, 3, false, true, bombraincolor);
+            }
+
+            if (levelGenerator.AllGameObjects[x, z] != null)
+            {
+                go = levelGenerator.AllGameObjects[x, z].gameObject;
+
+                switch (go.tag)
                 {
-                    if (levelGenerator.AllGameObjects[x, z] == null)
-                    {
-                        levelGenerator.AllGameObjects[x, z] = bombSpawner.SpawnBomb(bombPos.x, bombPos.z, 5, 2, 3, false, bombraincolor);
-                    }
-                    if (levelGenerator.AllGameObjects[x, z] != null)
-                    {
-                        go = levelGenerator.AllGameObjects[x, z].gameObject;
+                    case "Kiste":
+                        go.SetActive(false);
 
-                        switch (go.tag)
-                        {
-                            case "Kiste":
-                                audioManager.playSound("destroyed_box");
-                                go.SetActive(false);
+                        //Ersetzt die Kiste durch Kiste_destroyed Prefab
+                        Instantiate(KistenPartsPrefab, new Vector3(x, 0.5f, z), Quaternion.identity, transform);
+                        levelGenerator.AllGameObjects[bombPos.x, bombPos.z] = bombSpawner.SpawnBomb(bombPos.x, bombPos.z, 5, 1, 3, false, true, bombraincolor);
 
-                                //Ersetzt die Kiste durch Kiste_destroyed Prefab
-                                Instantiate(KistenPartsPrefab, new Vector3(x, 0.5f, z), Quaternion.identity, transform);
-                                levelGenerator.AllGameObjects[bombPos.x, bombPos.z] = bombSpawner.SpawnBomb(bombPos.x, bombPos.z, 5, 2, 3, false, bombraincolor);
+                        break;
 
-                                break;
+                    case "Item":
+                        audioManager.playSound("break2");
+                        go.SetActive(false);
+                        levelGenerator.AllGameObjects[bombPos.x, bombPos.z] = bombSpawner.SpawnBomb(bombPos.x, bombPos.z, 5, 1, 3, false, true, bombraincolor);
 
-                            case "Item":
-                                audioManager.playSound("break2");
-                                go.SetActive(false);
-                                levelGenerator.AllGameObjects[bombPos.x, bombPos.z] = bombSpawner.SpawnBomb(bombPos.x, bombPos.z, 5, 2, 3, false, bombraincolor);
+                        break;
 
-                                break;
+                    case "Player":
+                        objectPooler.SpawnFromPool("Explosion", new Vector3(x, 0.5f, z), Quaternion.identity);
+                        go.GetComponent<PlayerScript>().dead();
+                        StartCoroutine(mapDestroyer.KillField(x, z));
+                        levelGenerator.AllGameObjects[bombPos.x, bombPos.z] = bombSpawner.SpawnBomb(bombPos.x, bombPos.z, 5, 1, 3, false, true, bombraincolor);
+                        break;
 
-                            case "Player":
-                                objectPooler.SpawnFromPool("Explosion", new Vector3(x, 0.5f, z), Quaternion.identity);
-                                go.GetComponent<PlayerScript>().dead();
-                                StartCoroutine(mapDestroyer.KillField(x, z));
-                                levelGenerator.AllGameObjects[bombPos.x, bombPos.z] = bombSpawner.SpawnBomb(bombPos.x, bombPos.z, 5, 2, 3, false, bombraincolor);
-                            break;
+                    case "Wand":
 
-                            case "Wand":
+                        break;
 
-                            break;
+                    case "Bombe":
 
-                            case "bombe":
-
-                            break;
+                        break;
 
                     default:
-                                break;
-                        }
-                    }
+                        break;
                 }
+            }
+        }
         yield return null;
     }
 
 
     void BombRainSound()
     {
-        switch ((int)Random.Range(0f, 4f))
+        switch ((int)Random.Range(0f, 3f))
         {
-            case 1: audioSource.PlayOneShot(bombRainSound1, 0.5f * audioManager.settingsFXVolume); break;
-            case 2: audioSource.PlayOneShot(bombRainSound2, 0.5f * audioManager.settingsFXVolume); break;
-            case 3: audioSource.PlayOneShot(bombRainSound3, 0.5f * audioManager.settingsFXVolume); break;
+            case 0: audioSource.PlayOneShot(bombRainSound1, 0.5f * audioManager.settingsFXVolume); break;
+            case 1: audioSource.PlayOneShot(bombRainSound2, 0.5f * audioManager.settingsFXVolume); break;
+            case 2: audioSource.PlayOneShot(bombRainSound3, 0.5f * audioManager.settingsFXVolume); break;
         }
     }
 }
