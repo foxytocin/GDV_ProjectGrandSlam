@@ -73,11 +73,9 @@ public class LevelRestart : MonoBehaviour {
 	{
         cameraMovement.RestartCameraMovement(false);
         StartCoroutine(eraseCurrentWorld(false));
-
-		yield return new WaitForSecondsRealtime(1f);
         rulesScript.nextRoundRules();
 
-		yield return new WaitForSecondsRealtime(0.2f);
+		yield return new WaitForSecondsRealtime(1.2f);
         CounterScript.startCounter();
 	}
 
@@ -140,7 +138,7 @@ public class LevelRestart : MonoBehaviour {
 
 		} else {
 
-			yield return new WaitForSecondsRealtime(0.6f);
+			yield return new WaitForSecondsRealtime(0.8f);
 		}
 
 		recreateWorld(animiert);

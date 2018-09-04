@@ -28,7 +28,7 @@ public class NextRoundButtonScript : MonoBehaviour {
 
         if (nextButtonText.text == "Next Battle")
         {
-            Debug.LogWarning("Reset Results");
+            //Debug.LogWarning("Reset Results");
             rulesScript.restartResults();
             inGameGUI.updateInGameGUIMultiplayer();
         }
