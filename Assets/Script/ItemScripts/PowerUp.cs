@@ -168,7 +168,7 @@ public class PowerUp : MonoBehaviour
         player.houdiniItem = false;
         bombrain.PlayerID = id;
         bombrain.bombraincolor = player.playerColor;
-        bombrain.bombenregen = true;
+        //bombrain.bombenregen = true;
         Destroy(gameObject);
 
     }
