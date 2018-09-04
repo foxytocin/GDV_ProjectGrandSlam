@@ -39,14 +39,17 @@ public class MenuDemoMode : MonoBehaviour {
 		demoAllowed = true;
 	}
 	
-	public void alloDemo()
+	public void allowDemo()
 	{
 		demoAllowed = true;
+		countDown = timeToDemo;
 	}
 
 	public void	forbidDemo()
 	{
 		demoAllowed = false;
+		countDown = timeToDemo;
+		demoRunning = false;
 	}
 
 
