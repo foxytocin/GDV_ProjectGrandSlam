@@ -34,6 +34,7 @@ public class PlayerScript : MonoBehaviour
     public float houdiniTimer;
     private RulesScript rulesScript;
     private GameManager gameManager;
+    private Vector2 lastPlayerAtAllGameObject;
 
     void Awake()
     {
@@ -68,6 +69,8 @@ public class PlayerScript : MonoBehaviour
         gravity = 0f;
         transform.Rotate(0, 90, 0, Space.World);
         resultScreenActive = false;
+        levelGenerator.AllGameObjects[(int)transform.position.x, (int)transform.position.z] = this.gameObject;
+        lastPlayerAtAllGameObject = new Vector2((int)transform.position.x, (int)transform.position.z);
     }
 
     void Update()
@@ -238,17 +241,11 @@ public class PlayerScript : MonoBehaviour
             tmp = checkSingleDirection(tmp);
 
             if (tmp != new Vector3(0, 0, 0))
-            { 
-                //Im Array aktuelle position loeschen wenn das objekt auch wirklich ein Player ist 
-                if (levelGenerator.AllGameObjects[(int)target.x, (int)target.z] != null && levelGenerator.AllGameObjects[(int)target.x, (int)target.z].gameObject.CompareTag("Player"))
-                    levelGenerator.AllGameObjects[(int)target.x, (int)target.z] = null;
-
+            {  
                 //neue position berechenen
                 target += tmp;
 
-                //Player wird im Array auf der neuer Position 
-                levelGenerator.AllGameObjects[(int)target.x, (int)target.z] = this.gameObject;
-
+    
                 //speichern des benutzten Bewegungsvectors
                 lastTmpVector = tmp;
             }
@@ -257,10 +254,11 @@ public class PlayerScript : MonoBehaviour
             if (transform.position.y > -1f)
             {
                 tmpVectorPos = transform.position;
-
+                
                 //Debug.Log("nicht Tot");
                 if (transform.position != (transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime)))
                 {
+                    objectKollision();
                     // Player Rollanimation
                     if (tmpVectorPos.x != transform.position.x && RichtungsAenderung)
                     {
@@ -450,7 +448,7 @@ public class PlayerScript : MonoBehaviour
     private bool freeWay(Vector3 tmp)
     {
         //entweder hat sich der Richungsvector nicht geändert oder das Objekt die selbe Position wie TargetVector
-        if ((lastTmpVector == tmp || target == transform.position) && myTime > 0.175f)
+        if ((lastTmpVector == tmp || target == transform.position) && myTime > 0.2f)
         {
             int xPos = (int)(target.x + tmp.x);
             int zPos = (int)(target.z + tmp.z);
@@ -464,53 +462,71 @@ public class PlayerScript : MonoBehaviour
                 if(houdiniItem)
                 {
                     houdini.callHoudini(xPos, zPos);
-                }
-
-                //Debug.Log("Player at: " +levelGenerator.SecondaryGameObjects1[(int)(target.x + tmp.x), (int)(target.z + tmp.z)].gameObject.tag);
-                if(levelGenerator.SecondaryGameObjects1[xPos, zPos] != null)
-                {
-                    if(levelGenerator.SecondaryGameObjects1[xPos, zPos].gameObject.CompareTag("KillField"))
-                    {
-                        dead();
-                    }
-                }
-
+                }   
                 return true;
             }
-            else
+
+            GameObject go = levelGenerator.AllGameObjects[xPos, zPos].gameObject;
+
+            switch (go.tag)
             {
-                GameObject go = levelGenerator.AllGameObjects[xPos, zPos].gameObject;
+                case "FreeFall":
+                    return true;
+                    break;
 
-                switch(go.tag)
-                {
-                    case "FreeFall":
-                        StartCoroutine(playerFall());
-                        myTime = 0f;
-                        return true;
-                    
-                    case "Item":
-                        go.GetComponent<PowerUp>().GrabItem(playerID);
-                        levelGenerator.AllGameObjects[(int)go.transform.position.x, (int)go.transform.position.z] = null;
-                        audioManager.playSound("pickupItem");
-                        myTime = 0f;
-                        return true;
+                case "Item":
+                    return true;
+                    break;
 
-                    // case "Kiste":
-                    //     Debug.Log("Gegen eine Kiste gelaufen");
-                    //     myTime = 0f;
-                    //     return false;
-
-                    // case "Wand":
-                    //     Debug.Log("Gegen eine Wand gelaufen");
-                    //     myTime = 0f;
-                    //     return false;
-
-                    default:
-                        break;
-                }
+                default:
+                    break;
             }
+            return false;
         }
         return false;
+    }
+
+    private void objectKollision()
+    {
+        if (levelGenerator.SecondaryGameObjects1[(int)transform.position.x, (int)transform.position.z] != null)
+        {
+            if (levelGenerator.SecondaryGameObjects1[(int)transform.position.x, (int)transform.position.z].gameObject.CompareTag("KillField"))
+            {
+                dead();
+            }
+        }
+
+        
+        if (levelGenerator.AllGameObjects[(int)transform.position.x, (int)transform.position.z] != null)
+        {
+            GameObject go = levelGenerator.AllGameObjects[(int)transform.position.x, (int)transform.position.z]; 
+
+            switch (go.gameObject.tag)
+            {
+                case "FreeFall":
+                    StartCoroutine(playerFall());
+                    break;
+
+                case "Item":
+                    go.GetComponent<PowerUp>().GrabItem(playerID);
+                    levelGenerator.AllGameObjects[(int)go.transform.position.x, (int)go.transform.position.z] = null;
+                    audioManager.playSound("pickupItem");
+                    break;
+
+                default:
+                    break;
+            }
+        }
+        
+        if(levelGenerator.AllGameObjects[(int)lastPlayerAtAllGameObject.x, (int)lastPlayerAtAllGameObject.y] != null && levelGenerator.AllGameObjects[(int)lastPlayerAtAllGameObject.x, (int)lastPlayerAtAllGameObject.y].gameObject.tag == "Player")
+        {
+            Debug.LogWarning("ist in der IF");
+            levelGenerator.AllGameObjects[(int)lastPlayerAtAllGameObject.x, (int)lastPlayerAtAllGameObject.y] = null;
+            //Player wird im Array auf der neuer Position 
+            levelGenerator.AllGameObjects[(int)transform.position.x, (int)transform.position.z] = this.gameObject;
+            lastPlayerAtAllGameObject = new Vector2((int)transform.position.x, (int)transform.position.z);
+        }
+            
     }
 
     // Player faellt in den Abgund
