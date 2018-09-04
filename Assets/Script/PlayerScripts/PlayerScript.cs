@@ -26,7 +26,7 @@ public class PlayerScript : MonoBehaviour
     private bool RichtungsAenderung; //true == z; false == x
     private float gravity;
     private Material playerMaterial;
-    private Color32 playerColor;
+    public Color32 playerColor;
     private Vector3 lastDirection;
     private AudioManager audioManager;
     public bool resultScreenActive;
@@ -78,7 +78,6 @@ public class PlayerScript : MonoBehaviour
         {
             houdiniItem = true;
             houdiniTimer -= Time.deltaTime;
-            //Debug.Log(houdiniTimer);
         }
         else if (houdiniTimer <= 0f)
         {
@@ -91,7 +90,6 @@ public class PlayerScript : MonoBehaviour
         {
             remoteBombItem = true;
             remoteBombTimer -= Time.deltaTime;
-            //Debug.Log(remoteBombTimer);
         }
         else if (remoteBombTimer <= 0f)
         {
@@ -369,7 +367,7 @@ public class PlayerScript : MonoBehaviour
         if(avaibleBomb > 0 && houdiniItem == false && (levelGenerator.AllGameObjects[bombXPos, bombZPos] == null ||  houdiniItem == false && levelGenerator.AllGameObjects[bombXPos, bombZPos].gameObject.CompareTag("Player")))
         {
             avaibleBomb -= 1;
-            levelGenerator.AllGameObjects[bombXPos, bombZPos] = bombSpawner.SpawnBomb(bombXPos, bombZPos, playerID, bombPower, bombTimer, remoteBombItem, playerColor);
+            levelGenerator.AllGameObjects[bombXPos, bombZPos] = bombSpawner.SpawnBomb(bombXPos, bombZPos, playerID, bombPower, bombTimer, remoteBombItem, false, playerColor);
         } else {
             creatingBomb = false;
         }
