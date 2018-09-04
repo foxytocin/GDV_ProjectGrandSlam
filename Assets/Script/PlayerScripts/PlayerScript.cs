@@ -69,7 +69,7 @@ public class PlayerScript : MonoBehaviour
         gravity = 0f;
         transform.Rotate(0, 90, 0, Space.World);
         resultScreenActive = false;
-        levelGenerator.AllGameObjects[(int)transform.position.x, (int)transform.position.z] = this.gameObject;
+        levelGenerator.AllGameObjects[(int)transform.position.x, (int)transform.position.z] = gameObject;
         lastPlayerAtAllGameObject = new Vector2((int)transform.position.x, (int)transform.position.z);
     }
 
@@ -245,45 +245,37 @@ public class PlayerScript : MonoBehaviour
                 //neue position berechenen
                 target += tmp;
 
-    
                 //speichern des benutzten Bewegungsvectors
                 lastTmpVector = tmp;
             }
 
             //Objekt zum target Bewegung
-            if (transform.position.y > -1f)
+            tmpVectorPos = transform.position;
+            
+            if (transform.position != (transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime)))
             {
-                tmpVectorPos = transform.position;
-                
-                //Debug.Log("nicht Tot");
-                if (transform.position != (transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime)))
+                objectKollision();
+
+                // Player Rollanimation
+                if (tmpVectorPos.x != transform.position.x && RichtungsAenderung)
                 {
-                    objectKollision();
-                    // Player Rollanimation
-                    if (tmpVectorPos.x != transform.position.x && RichtungsAenderung)
-                    {
-                        transform.Rotate(0, 90f, 0, Space.World);
-                        RichtungsAenderung = false;
-                    }
-                    else if (tmpVectorPos.z != transform.position.z && !RichtungsAenderung)
-                    {
-                        transform.Rotate(0, -90f, 0, Space.World);
-                        RichtungsAenderung = true;
-                    }
-
-                    if (tmpVectorPos.z < transform.position.z || tmpVectorPos.x < transform.position.x)
-                        transform.Rotate(8.5f, 0, 0);
-                    else
-                        transform.Rotate(-8.5f, 0, 0);
+                    transform.Rotate(0, 90f, 0, Space.World);
+                    RichtungsAenderung = false;
                 }
-                // else if (transform.position.y < 0.45f)
-                // {
-                //     transform.position.Set(transform.position.x, -1, transform.position.z);
-                // }
-            }
+                else if (tmpVectorPos.z != transform.position.z && !RichtungsAenderung)
+                {
+                    transform.Rotate(0, -90f, 0, Space.World);
+                    RichtungsAenderung = true;
+                }
 
-            // ROTATION DER BODENPLATTE ZUR ROTATION DES PLAYERS ADDIEREN, DAMIT DIESER WACKELT WENN ER AUF EINER WACKENDEN BODENPLATTE STEHT
-            //transform.localEulerAngles = levelGenerator.SecondaryGameObjects1[(int)transform.position.x, (int)transform.position.z].gameObject.transform.localEulerAngles;
+                if (tmpVectorPos.z < transform.position.z || tmpVectorPos.x < transform.position.x)
+                    transform.Rotate(8.5f, 0, 0);
+                else
+                    transform.Rotate(-8.5f, 0, 0);
+            } else {
+
+                levelGenerator.AllGameObjects[(int)transform.position.x, (int)transform.position.z] = gameObject;
+            }
         }
     }
 
@@ -421,6 +413,7 @@ public class PlayerScript : MonoBehaviour
                     return tmp;
                 }
 
+                lastDirection = tmp;
                 return nullVector;
             }
             return tmp;
@@ -448,40 +441,42 @@ public class PlayerScript : MonoBehaviour
     private bool freeWay(Vector3 tmp)
     {
         //entweder hat sich der Richungsvector nicht geändert oder das Objekt die selbe Position wie TargetVector
-        if ((lastTmpVector == tmp || target == transform.position) && myTime > 0.2f)
+        if ((lastTmpVector == tmp || target == transform.position) && myTime > 0.18f)
         {
             int xPos = (int)(target.x + tmp.x);
             int zPos = (int)(target.z + tmp.z);
 
             //Prueft im Array an der naechsten stelle ob dort ein objekt liegt wenn nicht dann return.true
-            if (levelGenerator.AllGameObjects[xPos, zPos] == null)
+            if(levelGenerator.AllGameObjects[xPos, zPos] != null)
             {
-                myTime = 0f;
+                GameObject go = levelGenerator.AllGameObjects[xPos, zPos];
+
+                switch (go.tag)
+                {
+                    case "FreeFall":
+                        myTime = 0f;
+                        return true;
+
+                    case "Item":
+                        myTime = 0f;
+                        return true;
+
+                    default:
+                        break;
+                }
+
+            } else {
 
                 //Hat der Player das Houdini-Item, werden automatisch alle Kisten um ihn herum zerstört
                 if(houdiniItem)
                 {
                     houdini.callHoudini(xPos, zPos);
-                }   
+                }
+
+                myTime = 0f;
                 return true;
             }
-
-            GameObject go = levelGenerator.AllGameObjects[xPos, zPos].gameObject;
-
-            switch (go.tag)
-            {
-                case "FreeFall":
-                    return true;
-                    break;
-
-                case "Item":
-                    return true;
-                    break;
-
-                default:
-                    break;
-            }
-            return false;
+ 
         }
         return false;
     }
@@ -501,7 +496,7 @@ public class PlayerScript : MonoBehaviour
         {
             GameObject go = levelGenerator.AllGameObjects[(int)transform.position.x, (int)transform.position.z]; 
 
-            switch (go.gameObject.tag)
+            switch (go.tag)
             {
                 case "FreeFall":
                     StartCoroutine(playerFall());
@@ -517,13 +512,21 @@ public class PlayerScript : MonoBehaviour
                     break;
             }
         }
+
+        // } else {
+
+        //     Debug.LogWarning("Player an Stelle: " +(int)transform.position.x+ " / " +(int)transform.position.z);
+        //     levelGenerator.AllGameObjects[(int)transform.position.x, (int)transform.position.z] = gameObject;
+        // }
         
-        if(levelGenerator.AllGameObjects[(int)lastPlayerAtAllGameObject.x, (int)lastPlayerAtAllGameObject.y] != null && levelGenerator.AllGameObjects[(int)lastPlayerAtAllGameObject.x, (int)lastPlayerAtAllGameObject.y].gameObject.tag == "Player")
+        if(levelGenerator.AllGameObjects[(int)lastPlayerAtAllGameObject.x, (int)lastPlayerAtAllGameObject.y] != null && levelGenerator.AllGameObjects[(int)lastPlayerAtAllGameObject.x, (int)lastPlayerAtAllGameObject.y].gameObject.CompareTag("Player"))
         {
             Debug.LogWarning("ist in der IF");
+            Debug.LogWarning("Player an Stelle: " +(int)transform.position.x+ " / " +(int)transform.position.z);
+            Debug.LogWarning("LastPlayer an Stelle: " +(int)lastPlayerAtAllGameObject.x+ " / " +(int)lastPlayerAtAllGameObject.y);
             levelGenerator.AllGameObjects[(int)lastPlayerAtAllGameObject.x, (int)lastPlayerAtAllGameObject.y] = null;
             //Player wird im Array auf der neuer Position 
-            levelGenerator.AllGameObjects[(int)transform.position.x, (int)transform.position.z] = this.gameObject;
+            levelGenerator.AllGameObjects[(int)transform.position.x, (int)transform.position.z] = gameObject;
             lastPlayerAtAllGameObject = new Vector2((int)transform.position.x, (int)transform.position.z);
         }
             
@@ -532,7 +535,7 @@ public class PlayerScript : MonoBehaviour
     // Player faellt in den Abgund
     public IEnumerator playerFall()
     {
-        levelGenerator.AllGameObjects[(int)target.x, (int)target.z] = null;
+        levelGenerator.AllGameObjects[(int)transform.position.x, (int)transform.position.z] = null;
         rulesScript.playerDeath(playerID, transform.position);
         target.y = -200f;
 
