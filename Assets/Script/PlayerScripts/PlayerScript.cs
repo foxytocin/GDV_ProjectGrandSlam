@@ -55,7 +55,7 @@ public class PlayerScript : MonoBehaviour
         playerMaterial = GetComponent<Renderer>().material;
         playerColor = playerMaterial.color;
         avaibleBomb = 3;
-
+        lastTmpVector = new Vector3(1, 0, 0);
         speed = 5.5f;
         bombTimer = 2f;
         Time.timeScale = 1.0f;
@@ -107,7 +107,7 @@ public class PlayerScript : MonoBehaviour
             {
                 //Player 1
                 case 0:
-                    switch(gameManager.controller)
+                    switch (gameManager.controller)
                     {
                         case 0:
                             tmp = InputManager.KeyOneMainJoystick();
@@ -121,7 +121,7 @@ public class PlayerScript : MonoBehaviour
                         default:
                             break;
                     }
-                    
+
 
                     if (InputManager.OneXButton() && !creatingBomb)
                         SetBomb();
@@ -133,7 +133,7 @@ public class PlayerScript : MonoBehaviour
                     //Pause aufrufen
                     if (InputManager.OneStartButton())
                         return;
-                    
+
                     break;
 
                 //Player 2
@@ -235,10 +235,10 @@ public class PlayerScript : MonoBehaviour
                     break;
             }
 
+            tmp = checkSingleDirection(tmp);
 
-            //Target bewegen
-            if (freeWay(checkSingleDirection(tmp)))
-            {
+            if (tmp != new Vector3(0, 0, 0))
+            { 
                 //Im Array aktuelle position loeschen wenn das objekt auch wirklich ein Player ist 
                 if (levelGenerator.AllGameObjects[(int)target.x, (int)target.z] != null && levelGenerator.AllGameObjects[(int)target.x, (int)target.z].gameObject.CompareTag("Player"))
                     levelGenerator.AllGameObjects[(int)target.x, (int)target.z] = null;
@@ -294,6 +294,8 @@ public class PlayerScript : MonoBehaviour
     //Die zuletzt gedrückte Taste bestimmt dann die aktuelle Richtung
     Vector3 checkSingleDirection(Vector3 tmp)
     {
+        Vector3 nullVector = new Vector3(0, 0, 0);
+
         if(tmp != new Vector3(0f, 0f, 0f))
         {   
             //Ist das Produkt != 0 werden 2 Tasten gedruckt
@@ -304,57 +306,128 @@ public class PlayerScript : MonoBehaviour
                 //Bewegung nach Rechts und Hoch wird gedrueckt
                 if(lastDirection.x == 1 && tmp.x * tmp.z == 1) {
                     this.tmp = new Vector3(0, 0, 1);
-                    return this.tmp;
+                    if (freeWay(this.tmp))
+                    {
+                        return this.tmp;
+                    }
+                    else if(freeWay(lastDirection))
+                    {
+                        return lastDirection;
+                    }
+                    return nullVector;
                 }
                 
                 //Bewegung nach Rechts und Runter wird gedrueckt
                 if(lastDirection.x == 1 && tmp.x * tmp.z == -1) {
                     this.tmp = new Vector3(0, 0, -1);
-                    return this.tmp;
+                    if (freeWay(this.tmp))
+                    {
+                        return this.tmp;
+                    }
+                    else if (freeWay(lastDirection))
+                    {
+                        return lastDirection;
+                    }
+                    return nullVector;
                 }
 
                 //Bewegung nach Linkt und Hoch wird gedrueckt
                 if(lastDirection.x == -1 && tmp.x * tmp.z == -1) {
                     this.tmp = new Vector3(0, 0, 1);
-                    return this.tmp;
+                    if (freeWay(this.tmp))
+                    {
+                        return this.tmp;
+                    }
+                    else if (freeWay(lastDirection))
+                    {
+                        return lastDirection;
+                    }
+                    return nullVector;
                 }
 
                 //Bewegung nach Links und Runter wird gedrueckt
                 if(lastDirection.x == -1 && tmp.x * tmp.z == 1) {
                     this.tmp = new Vector3(0, 0, -1);
-                    return this.tmp;
+                    if (freeWay(this.tmp))
+                    {
+                        return this.tmp;
+                    }
+                    else if (freeWay(lastDirection))
+                    {
+                        return lastDirection;
+                    }
+                    return nullVector;
                 }
 
                 //Bewegung nach Oben und Rechts wird gedrueckt
                 if(lastDirection.z == 1 && tmp.x * tmp.z == 1) {
                     this.tmp = new Vector3(1, 0, 0);
-                    return this.tmp;
+                    if (freeWay(this.tmp))
+                    {
+                        return this.tmp;
+                    }
+                    else if (freeWay(lastDirection))
+                    {
+                        return lastDirection;
+                    }
+                    return nullVector;
                 }
 
                 //Bewegung nach Oben und Links wird gedrueckt
                 if(lastDirection.z == 1 && tmp.x * tmp.z == -1) {
                     this.tmp = new Vector3(-1, 0, 0);
-                    return this.tmp;
+                    if (freeWay(this.tmp))
+                    {
+                        return this.tmp;
+                    }
+                    else if (freeWay(lastDirection))
+                    {
+                        return lastDirection;
+                    }
+                    return nullVector;
                 }
 
                 //Bewegung nach Unten und Rechts wird gedrueckt
                 if(lastDirection.z == -1 && tmp.x * tmp.z == -1) {
                     this.tmp = new Vector3(1, 0, 0);
-                    return this.tmp;
+                    if (freeWay(this.tmp))
+                    {
+                        return this.tmp;
+                    }
+                    else if (freeWay(lastDirection))
+                    {
+                        return lastDirection;
+                    }
+                    return nullVector;
                 }
 
                 //Bewegung nach Unten und Links wird gedrueckt
                 if(lastDirection.z == -1 && tmp.x * tmp.z == 1) {
                     this.tmp = new Vector3(-1, 0, 0);
-                    return this.tmp;
+                    if (freeWay(this.tmp))
+                    {
+                        return this.tmp;
+                    }
+                    else if (freeWay(lastDirection))
+                    {
+                        return lastDirection;
+                    }
+                    return nullVector;
                 }
-            } else {
+            }
+            else
+            {
+                if(freeWay(tmp))
+                {
+                    lastDirection = tmp;
+                    return tmp;
+                }
 
-                lastDirection = tmp;
+                return nullVector;
             }
             return tmp;
         }
-        return new Vector3(0, 0, 0);
+        return nullVector;
     }
 
     // Setzt Bombe mit überprüfung von avaibleBomb und aLife
