@@ -109,6 +109,7 @@ public class PowerUp : MonoBehaviour
     }
     public void MakeBombRain(int id)
     {
+        
         GetComponent<Renderer>().material.color = Color.yellow;
         GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.yellow);
         GetComponent<Light>().color = Color.yellow;
@@ -150,6 +151,7 @@ public class PowerUp : MonoBehaviour
 
     public void RemoteBomb(int id)
     {
+        
         player.houdiniTimer = 0f;
         player.houdiniItem = false;
         player.remoteBombTimer += 10.0f;
@@ -164,6 +166,8 @@ public class PowerUp : MonoBehaviour
         player.houdiniItem = false;
         player.remoteBombTimer = 0f;
         player.houdiniItem = false;
+        bombrain.PlayerID = id;
+        bombrain.bombraincolor = player.playerColor;
         bombrain.bombenregen = true;
         Destroy(gameObject);
 
