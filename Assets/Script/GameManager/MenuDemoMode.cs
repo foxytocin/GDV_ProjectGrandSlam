@@ -11,6 +11,7 @@ public class MenuDemoMode : MonoBehaviour {
 	public bool demoAllowed;
 	private int startLinePos;
 	private int levelBreite;
+	private int levelTiefe;
 	private PlayerSpawner PlayerSpawner;
 	private LevelRestart LevelRestart;
 	private SpawnDemoItems spawnDemoItems;
@@ -29,7 +30,8 @@ public class MenuDemoMode : MonoBehaviour {
 		demoRunning = false;
 		startLinePos = levelGenerator.startLinie;
 		levelBreite = levelGenerator.levelBreite - 4;
-		timeToDemo = 15;
+		levelTiefe = levelGenerator.levelTiefe;
+		timeToDemo = 10;
 		countDown = timeToDemo;
 		demoAllowed = true;
 	}
@@ -93,9 +95,9 @@ public class MenuDemoMode : MonoBehaviour {
 
 	private IEnumerator movePlayer(GameObject player)
 	{
-		while(demoAllowed && player.transform.position.z < 2000f)
+		while(demoAllowed && player.transform.position.z < levelTiefe - (levelGenerator.tiefeLevelStartBasis))
 		{
-			Vector3 target = new Vector3(player.transform.position.x, 0, 2000f);
+			Vector3 target = new Vector3(player.transform.position.x, 0, levelTiefe);
 			player.transform.position = Vector3.MoveTowards(player.transform.position, target, 0.075f);
 			yield return null;
 		}
