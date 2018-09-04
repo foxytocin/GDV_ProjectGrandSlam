@@ -6,7 +6,8 @@ public class BombScript : MonoBehaviour
     public int bombOwnerPlayerID;       // ID des Players der die Bombe gelegt hat
     public int bombPower;               // Staerker / Reichweite der Bombe
     public float bombTimer;             // Zeit bis die Bombe explodiert
-    public bool remoteBomb;             // RemoteBombe wenn der Player das entsprechende Item eingesammelt hat
+    public bool remoteBomb;
+    public bool bombrain;             // RemoteBombe wenn der Player das entsprechende Item eingesammelt hat
     public Color playerColor;           // Farbe des Players um RemoteBomben mit dieser zu versehen
 
     public float countDown;             // Überwacht die Vergangene Zeit bis zur Explosion
@@ -70,7 +71,7 @@ public class BombScript : MonoBehaviour
         bombPosition = transform.position;
         transform.eulerAngles += new Vector3(0, bombAngle, 0);
 
-        if(remoteBomb) {
+        if(remoteBomb || bombrain) {
             GetComponent<Renderer>().material.color = playerColor;
         } else {
             GetComponent<Renderer>().material.color = bombColor;
