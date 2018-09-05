@@ -21,6 +21,7 @@ public class MainMenuButtonScript : MonoBehaviour {
 	
     public void onClickMainButton()
     {
+        audioManager.playSound("buttonclick");
         levelRestart.levelRestartMainMenu();
         Time.timeScale = 1f;
         inGameGUI.inAktivInGameUI();

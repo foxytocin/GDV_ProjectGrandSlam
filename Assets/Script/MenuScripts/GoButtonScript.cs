@@ -26,6 +26,7 @@ public class GoButtonScript : MonoBehaviour
 
     public void onClickGoButton()
     {
+        audioManager.playSound("buttonclick");
         mainMenuUI.GetComponent<GroupFadeScript>().fadeOut();
         Cursor.visible = false;
         spawnDemoItems.cleanDemoItems();

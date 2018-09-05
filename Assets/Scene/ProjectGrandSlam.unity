@@ -4682,7 +4682,7 @@ MonoBehaviour:
   - name: four
     clip: {fileID: 8300000, guid: 9a852a4eca7694005a020a0b218a43be, type: 3}
     groundVolume: 0.8
-    volume: 0.8
+    volume: 0.6
     pitch: 1
     source: {fileID: 0}
     loop: 0
@@ -4703,7 +4703,7 @@ MonoBehaviour:
   - name: one
     clip: {fileID: 8300000, guid: e989e5768c918455a9835bdc6eeb6e82, type: 3}
     groundVolume: 0.8
-    volume: 0.8
+    volume: 0.6
     pitch: 1
     source: {fileID: 0}
     loop: 0
@@ -4780,7 +4780,7 @@ MonoBehaviour:
   - name: three
     clip: {fileID: 8300000, guid: a89088d5e365b400c92313799fc864f8, type: 3}
     groundVolume: 0.8
-    volume: 0.8
+    volume: 0.6
     pitch: 1
     source: {fileID: 0}
     loop: 0
@@ -4815,7 +4815,7 @@ MonoBehaviour:
   - name: two
     clip: {fileID: 8300000, guid: 5e265ebef7a9e4a4c9f091ebb643ba32, type: 3}
     groundVolume: 0.8
-    volume: 0.8
+    volume: 0.6
     pitch: 1
     source: {fileID: 0}
     loop: 0
@@ -4829,10 +4829,17 @@ MonoBehaviour:
   - name: menumusic
     clip: {fileID: 8300000, guid: 65e7a99677f651d45ac058683f656064, type: 3}
     groundVolume: 1
-    volume: 0.5
+    volume: 0.2
     pitch: 1
     source: {fileID: 0}
     loop: 1
+  - name: buttonclick
+    clip: {fileID: 8300000, guid: 8f672e776f177b04d90fc460dd92b131, type: 3}
+    groundVolume: 1
+    volume: 0.5
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
   music:
   - name: Music1
     clip: {fileID: 8300000, guid: a59f93e66efc8a24abdaf25f99864b98, type: 3}

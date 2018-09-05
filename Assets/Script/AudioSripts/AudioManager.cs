@@ -107,7 +107,7 @@ public class AudioManager : MonoBehaviour
         foreach (Music m in music)
         {
          
-                m.source.volume = m.groundVolume * settingsVolume;
+            m.source.volume = m.groundVolume * settingsVolume;
 
         }
 
@@ -129,7 +129,7 @@ public class AudioManager : MonoBehaviour
         {
             if (s.source.volume > 0)
             {
-                s.source.volume -= 0.2f * (Time.deltaTime + 0.3f);
+                s.source.volume -= 0.2f * (Time.deltaTime + 0.1f);
             }
             else
             {
@@ -156,7 +156,7 @@ public class AudioManager : MonoBehaviour
 
         while(music[randomInGameMusic].source.volume < music[randomInGameMusic].groundVolume * settingsMusicVolume)
         {
-            music[randomInGameMusic].source.volume += 0.2f * (Time.deltaTime + 0.3f);
+            music[randomInGameMusic].source.volume += 0.2f * (Time.deltaTime + 0.1f);
             yield return null;
         }
     }
@@ -175,11 +175,11 @@ public class AudioManager : MonoBehaviour
         {
             if (music[randomInGameMusic].source.volume > 0)
             {
-                music[randomInGameMusic].source.volume -= 0.2f * (Time.deltaTime + 0.3f);
+                music[randomInGameMusic].source.volume -= 0.2f * (Time.deltaTime + 0.1f);
             }
             else
             {
-                music[randomInGameMusic].source.Stop();
+                music[randomInGameMusic].source.Pause();
                 music[randomInGameMusic].source.volume = music[randomInGameMusic].groundVolume * settingsMusicVolume;
                 terminus = false;
             }

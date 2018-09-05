@@ -81,7 +81,7 @@ public class LightningSpawner : MonoBehaviour {
                                 Instantiate(KistenPartsPrefab, new Vector3(thunderPos.x + x, 0.5f, thunderPos.z + z), Quaternion.identity, transform);
 
                                 //Spawnt Item
-                                if(Random.value > 0.5f)
+                                if(Random.value > 0.7f)
                                     itemSpawner.SpawnItem(thunderPos.x + x, thunderPos.z + z);
                                 break;
 
