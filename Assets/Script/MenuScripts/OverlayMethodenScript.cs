@@ -42,12 +42,12 @@ public class OverlayMethodenScript : MonoBehaviour
 
     public void resume()
     {
+        Time.timeScale = 1f;
+        StartCoroutine(audioManager.pitchUp());
         audioManager.playSound("buttonclick");
-        audioManager.startInGameMusic();
         gameManager.unlockControlls();
         Cursor.visible = false;
         inGameGUI.aktivInGameUI();
-        Time.timeScale = 1f;
         GameIsPaused = false;
         isInGame = true;
         pausenMenuUI.SetActive(false);
@@ -56,6 +56,7 @@ public class OverlayMethodenScript : MonoBehaviour
     public void pause()
     {
         audioManager.playSound("buttonclick");
+        StartCoroutine(audioManager.pitchDown());
         audioManager.stopInGameMusic();
         gameManager.lockControlls();
         pausenMenuUI.SetActive(true);

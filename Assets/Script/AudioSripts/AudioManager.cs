@@ -156,7 +156,7 @@ public class AudioManager : MonoBehaviour
 
         while(music[randomInGameMusic].source.volume < music[randomInGameMusic].groundVolume * settingsMusicVolume)
         {
-            music[randomInGameMusic].source.volume += 0.2f * (Time.deltaTime + 0.1f);
+            music[randomInGameMusic].source.volume += 0.1f * (Time.deltaTime + 0.1f);
             yield return null;
         }
     }
@@ -175,11 +175,11 @@ public class AudioManager : MonoBehaviour
         {
             if (music[randomInGameMusic].source.volume > 0)
             {
-                music[randomInGameMusic].source.volume -= 0.2f * (Time.deltaTime + 0.1f);
+                music[randomInGameMusic].source.volume -= 0.1f * (Time.deltaTime + 0.1f);
             }
             else
             {
-                music[randomInGameMusic].source.Pause();
+                music[randomInGameMusic].source.Stop();
                 music[randomInGameMusic].source.volume = music[randomInGameMusic].groundVolume * settingsMusicVolume;
                 terminus = false;
             }
@@ -188,5 +188,39 @@ public class AudioManager : MonoBehaviour
 
         }
 
+    }
+
+
+    // Pitched die Musik runter wenn das Spiel auf Pause gestellt wird
+    // + 0.1f bei Time.deltaTime da die Zeit beim Pausieren auf 0 gestellt wird und es Null-Multiplikation kommen wuerde
+    public IEnumerator pitchDown()
+    {
+        StopCoroutine(pitchUp());
+        while(music[randomInGameMusic].source.pitch > 0f)
+        {
+            music[randomInGameMusic].source.pitch -= 0.3f * (Time.deltaTime + 0.1f);
+            //Debug.Log(music[randomInGameMusic].source.pitch);
+            yield return null;
+        }
+
+        music[randomInGameMusic].source.pitch = 0f;
+    }
+
+    // Pitched die Musik wieder auf Normalgeschwindigkeit wenn das Spiel resumed wird
+    public IEnumerator pitchUp()
+    {
+        StopCoroutine(pitchDown());
+        music[randomInGameMusic].source.pitch = 0.2f;
+        music[randomInGameMusic].source.volume = music[randomInGameMusic].groundVolume * settingsMusicVolume;
+        music[randomInGameMusic].source.Play();
+
+        while(music[randomInGameMusic].source.pitch < 1.0f)
+        {
+            music[randomInGameMusic].source.pitch += Time.deltaTime;
+            //Debug.Log(music[randomInGameMusic].source.pitch);
+            yield return null;
+        }
+
+        music[randomInGameMusic].source.pitch = 1.0f;
     }
 }
