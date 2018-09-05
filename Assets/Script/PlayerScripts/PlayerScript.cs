@@ -13,10 +13,12 @@ public class PlayerScript : MonoBehaviour
     public bool remoteBombItem;
     public bool houdiniItem;
     public bool creatingBomb;
-    public Vector3 target;
+    public Vector3Int target;
     private Vector3 lastTmpVector;
     private Vector3 tmpVectorPos;
-    private Vector3 tmp;
+    private Vector3Int nullVector;
+    private Vector3Int tmp;
+    private Vector3Int lastDirection;
     float myTime;
     private LevelGenerator levelGenerator;
     private BombSpawner bombSpawner;
@@ -27,14 +29,12 @@ public class PlayerScript : MonoBehaviour
     private float gravity;
     private Material playerMaterial;
     public Color32 playerColor;
-    private Vector3 lastDirection;
     private AudioManager audioManager;
     public bool resultScreenActive;
     public float remoteBombTimer;
     public float houdiniTimer;
     private RulesScript rulesScript;
     private GameManager gameManager;
-    private Vector2 lastPlayerAtAllGameObject;
 
     void Awake()
     {
@@ -48,7 +48,7 @@ public class PlayerScript : MonoBehaviour
         audioManager = FindObjectOfType<AudioManager>();
         rulesScript = FindObjectOfType<RulesScript>();
         gameManager = FindObjectOfType<GameManager>();
-
+        nullVector = new Vector3Int(0, 0, 0);
     }
 
     void Start()
@@ -56,7 +56,7 @@ public class PlayerScript : MonoBehaviour
         playerMaterial = GetComponent<Renderer>().material;
         playerColor = playerMaterial.color;
         avaibleBomb = 3;
-        lastTmpVector = new Vector3(1, 0, 0);
+        lastTmpVector = new Vector3Int(1, 0, 0);
         speed = 5.5f;
         bombTimer = 2f;
         Time.timeScale = 1.0f;
@@ -64,13 +64,11 @@ public class PlayerScript : MonoBehaviour
         remoteBombItem = false;
         houdiniItem = false;
         creatingBomb = false;
-        target = transform.position;
+        target = Vector3Int.FloorToInt(transform.position);
         myTime = 0f;
         gravity = 0f;
         transform.Rotate(0, 90, 0, Space.World);
         resultScreenActive = false;
-        levelGenerator.AllGameObjects[(int)transform.position.x, (int)transform.position.z] = gameObject;
-        lastPlayerAtAllGameObject = new Vector2((int)transform.position.x, (int)transform.position.z);
     }
 
     void Update()
@@ -113,13 +111,13 @@ public class PlayerScript : MonoBehaviour
                     switch (gameManager.controller)
                     {
                         case 0:
-                            tmp = InputManager.KeyOneMainJoystick();
+                            tmp = Vector3Int.FloorToInt(InputManager.KeyOneMainJoystick());
                             break;
                         case 1:
-                            tmp = InputManager.XBOXOneMainJoystick();
+                            tmp = Vector3Int.FloorToInt(InputManager.XBOXOneMainJoystick());
                             break;
                         case 2:
-                            tmp = InputManager.PS4OneMainJoystick();
+                            tmp = Vector3Int.FloorToInt(InputManager.PS4OneMainJoystick());
                             break;
                         default:
                             break;
@@ -145,13 +143,13 @@ public class PlayerScript : MonoBehaviour
                     switch (gameManager.controller)
                     {
                         case 0:
-                            tmp = InputManager.KeyTwoMainJoystick();
+                            tmp = Vector3Int.FloorToInt(InputManager.KeyTwoMainJoystick());
                             break;
                         case 1:
-                            tmp = InputManager.XBOXTwoMainJoystick();
+                            tmp = Vector3Int.FloorToInt(InputManager.XBOXTwoMainJoystick());
                             break;
                         case 2:
-                            tmp = InputManager.PS4TwoMainJoystick();
+                            tmp = Vector3Int.FloorToInt(InputManager.PS4TwoMainJoystick());
                             break;
                         default:
                             break;
@@ -176,13 +174,13 @@ public class PlayerScript : MonoBehaviour
                     switch (gameManager.controller)
                     {
                         case 0:
-                            tmp = InputManager.KeyThreeMainJoystick();
+                            tmp = Vector3Int.FloorToInt(InputManager.KeyThreeMainJoystick());
                             break;
                         case 1:
-                            tmp = InputManager.XBOXThreeMainJoystick();
+                            tmp = Vector3Int.FloorToInt(InputManager.XBOXThreeMainJoystick());
                             break;
                         case 2:
-                            tmp = InputManager.PS4ThreeMainJoystick();
+                            tmp = Vector3Int.FloorToInt(InputManager.PS4ThreeMainJoystick());
                             break;
                         default:
                             break;
@@ -207,13 +205,13 @@ public class PlayerScript : MonoBehaviour
                     switch (gameManager.controller)
                     {
                         case 0:
-                            tmp = InputManager.KeyFourMainJoystick();
+                            tmp = Vector3Int.FloorToInt(InputManager.KeyFourMainJoystick());
                             break;
                         case 1:
-                            tmp = InputManager.XBOXFourMainJoystick();
+                            tmp = Vector3Int.FloorToInt(InputManager.XBOXFourMainJoystick());
                             break;
                         case 2:
-                            tmp = InputManager.PS4FourMainJoystick();
+                            tmp = Vector3Int.FloorToInt(InputManager.PS4FourMainJoystick());
                             break;
                         default:
                             break;
@@ -238,12 +236,19 @@ public class PlayerScript : MonoBehaviour
                     break;
             }
 
-            tmp = checkSingleDirection(tmp);
+            if (tmp != nullVector)
+            {
+                tmp = checkSingleDirection(tmp);
+                
+                //Im Array aktuelle position loeschen wenn das objekt auch wirklich ein Player ist 
+                if (levelGenerator.AllGameObjects[target.x, target.z] != null && levelGenerator.AllGameObjects[target.x, target.z].gameObject.CompareTag("Player"))
+                    levelGenerator.AllGameObjects[target.x, target.z] = null;
 
-            if (tmp != new Vector3(0, 0, 0))
-            {  
                 //neue position berechenen
                 target += tmp;
+
+                //Player wird im Array auf der neuer Position 
+                levelGenerator.AllGameObjects[target.x, target.z] = gameObject;
 
                 //speichern des benutzten Bewegungsvectors
                 lastTmpVector = tmp;
@@ -251,11 +256,13 @@ public class PlayerScript : MonoBehaviour
 
             //Objekt zum target Bewegung
             tmpVectorPos = transform.position;
-            
-            if (transform.position != (transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime)))
-            {
-                objectKollision();
 
+            if (transform.position != target)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
+                
+                //transform.Rotate(Vector3.RotateTowards(transform.position, target, 0.01f, 0.01f));
+                
                 // Player Rollanimation
                 if (tmpVectorPos.x != transform.position.x && RichtungsAenderung)
                 {
@@ -272,153 +279,146 @@ public class PlayerScript : MonoBehaviour
                     transform.Rotate(8.5f, 0, 0);
                 else
                     transform.Rotate(-8.5f, 0, 0);
-            } else {
-
-                levelGenerator.AllGameObjects[(int)transform.position.x, (int)transform.position.z] = gameObject;
             }
+
         }
     }
 
-
     //Funktion erlaubt das Druecken von 2 Richtungstasten zur gleichen Zeit
     //Die zuletzt gedrückte Taste bestimmt dann die aktuelle Richtung
-    Vector3 checkSingleDirection(Vector3 tmp)
+    Vector3Int checkSingleDirection(Vector3Int tmp)
     {
-        Vector3 nullVector = new Vector3(0, 0, 0);
-
-        if(tmp != new Vector3(0f, 0f, 0f))
-        {   
-            //Ist das Produkt != 0 werden 2 Tasten gedruckt
-            //Um zu bestimmen welche Taste zusätzlich gedrueckt wurde wird die aktuelle Richtung mit dem Produkt beider Tasten verglichen
-            //Daraus kann errechnet werden welcher der neue Richtungvector ist
-            if(tmp.x * tmp.z != 0)
-            {
-                //Bewegung nach Rechts und Hoch wird gedrueckt
-                if(lastDirection.x == 1 && tmp.x * tmp.z == 1) {
-                    this.tmp = new Vector3(0, 0, 1);
-                    if (freeWay(this.tmp))
-                    {
-                        return this.tmp;
-                    }
-                    else if(freeWay(lastDirection))
-                    {
-                        return lastDirection;
-                    }
-                    return nullVector;
-                }
-                
-                //Bewegung nach Rechts und Runter wird gedrueckt
-                if(lastDirection.x == 1 && tmp.x * tmp.z == -1) {
-                    this.tmp = new Vector3(0, 0, -1);
-                    if (freeWay(this.tmp))
-                    {
-                        return this.tmp;
-                    }
-                    else if (freeWay(lastDirection))
-                    {
-                        return lastDirection;
-                    }
-                    return nullVector;
-                }
-
-                //Bewegung nach Linkt und Hoch wird gedrueckt
-                if(lastDirection.x == -1 && tmp.x * tmp.z == -1) {
-                    this.tmp = new Vector3(0, 0, 1);
-                    if (freeWay(this.tmp))
-                    {
-                        return this.tmp;
-                    }
-                    else if (freeWay(lastDirection))
-                    {
-                        return lastDirection;
-                    }
-                    return nullVector;
-                }
-
-                //Bewegung nach Links und Runter wird gedrueckt
-                if(lastDirection.x == -1 && tmp.x * tmp.z == 1) {
-                    this.tmp = new Vector3(0, 0, -1);
-                    if (freeWay(this.tmp))
-                    {
-                        return this.tmp;
-                    }
-                    else if (freeWay(lastDirection))
-                    {
-                        return lastDirection;
-                    }
-                    return nullVector;
-                }
-
-                //Bewegung nach Oben und Rechts wird gedrueckt
-                if(lastDirection.z == 1 && tmp.x * tmp.z == 1) {
-                    this.tmp = new Vector3(1, 0, 0);
-                    if (freeWay(this.tmp))
-                    {
-                        return this.tmp;
-                    }
-                    else if (freeWay(lastDirection))
-                    {
-                        return lastDirection;
-                    }
-                    return nullVector;
-                }
-
-                //Bewegung nach Oben und Links wird gedrueckt
-                if(lastDirection.z == 1 && tmp.x * tmp.z == -1) {
-                    this.tmp = new Vector3(-1, 0, 0);
-                    if (freeWay(this.tmp))
-                    {
-                        return this.tmp;
-                    }
-                    else if (freeWay(lastDirection))
-                    {
-                        return lastDirection;
-                    }
-                    return nullVector;
-                }
-
-                //Bewegung nach Unten und Rechts wird gedrueckt
-                if(lastDirection.z == -1 && tmp.x * tmp.z == -1) {
-                    this.tmp = new Vector3(1, 0, 0);
-                    if (freeWay(this.tmp))
-                    {
-                        return this.tmp;
-                    }
-                    else if (freeWay(lastDirection))
-                    {
-                        return lastDirection;
-                    }
-                    return nullVector;
-                }
-
-                //Bewegung nach Unten und Links wird gedrueckt
-                if(lastDirection.z == -1 && tmp.x * tmp.z == 1) {
-                    this.tmp = new Vector3(-1, 0, 0);
-                    if (freeWay(this.tmp))
-                    {
-                        return this.tmp;
-                    }
-                    else if (freeWay(lastDirection))
-                    {
-                        return lastDirection;
-                    }
-                    return nullVector;
-                }
-            }
-            else
-            {
-                if(freeWay(tmp))
+        //Ist das Produkt != 0 werden 2 Tasten gedruckt
+        //Um zu bestimmen welche Taste zusätzlich gedrueckt wurde wird die aktuelle Richtung mit dem Produkt beider Tasten verglichen
+        //Daraus kann errechnet werden welcher der neue Richtungvector ist
+        int buttonCombi = tmp.x * tmp.z;
+        
+        if(buttonCombi != 0)
+        {
+            //Bewegung nach Rechts und Hoch wird gedrueckt
+            if(lastDirection.x == 1 && buttonCombi == 1) {
+                this.tmp = new Vector3Int(0, 0, 1);
+                if (freeWay(this.tmp))
                 {
-                    lastDirection = tmp;
-                    return tmp;
+                    return this.tmp;
                 }
-
-                lastDirection = tmp;
+                else if(freeWay(lastDirection))
+                {
+                    return lastDirection;
+                }
                 return nullVector;
             }
-            return tmp;
+        
+            //Bewegung nach Rechts und Runter wird gedrueckt
+            if(lastDirection.x == 1 && buttonCombi == -1) {
+                this.tmp = new Vector3Int(0, 0, -1);
+                if (freeWay(this.tmp))
+                {
+                    return this.tmp;
+                }
+                else if (freeWay(lastDirection))
+                {
+                    return lastDirection;
+                }
+                return nullVector;
+            }
+
+            //Bewegung nach Linkt und Hoch wird gedrueckt
+            if(lastDirection.x == -1 && buttonCombi == -1) {
+                this.tmp = new Vector3Int(0, 0, 1);
+                if (freeWay(this.tmp))
+                {
+                    return this.tmp;
+                }
+                else if (freeWay(lastDirection))
+                {
+                    return lastDirection;
+                }
+                return nullVector;
+            }
+
+            //Bewegung nach Links und Runter wird gedrueckt
+            if(lastDirection.x == -1 && buttonCombi == 1) {
+                this.tmp = new Vector3Int(0, 0, -1);
+                if (freeWay(this.tmp))
+                {
+                    return this.tmp;
+                }
+                else if (freeWay(lastDirection))
+                {
+                    return lastDirection;
+                }
+                return nullVector;
+            }
+
+            //Bewegung nach Oben und Rechts wird gedrueckt
+            if(lastDirection.z == 1 && buttonCombi == 1) {
+                this.tmp = new Vector3Int(1, 0, 0);
+                if (freeWay(this.tmp))
+                {
+                    return this.tmp;
+                }
+                else if (freeWay(lastDirection))
+                {
+                    return lastDirection;
+                }
+                return nullVector;
+            }
+
+            //Bewegung nach Oben und Links wird gedrueckt
+            if(lastDirection.z == 1 && buttonCombi == -1) {
+                this.tmp = new Vector3Int(-1, 0, 0);
+                if (freeWay(this.tmp))
+                {
+                    return this.tmp;
+                }
+                else if (freeWay(lastDirection))
+                {
+                    return lastDirection;
+                }
+                return nullVector;
+            }
+
+            //Bewegung nach Unten und Rechts wird gedrueckt
+            if(lastDirection.z == -1 && buttonCombi == -1) {
+                this.tmp = new Vector3Int(1, 0, 0);
+                if (freeWay(this.tmp))
+                {
+                    return this.tmp;
+                }
+                else if (freeWay(lastDirection))
+                {
+                    return lastDirection;
+                }
+                return nullVector;
+            }
+
+            //Bewegung nach Unten und Links wird gedrueckt
+            if(lastDirection.z == -1 && buttonCombi == 1) {
+                this.tmp = new Vector3Int(-1, 0, 0);
+                if (freeWay(this.tmp))
+                {
+                    return this.tmp;
+                }
+                else if (freeWay(lastDirection))
+                {
+                    return lastDirection;
+                }
+                return nullVector;
+            }
+            
+        } else {
+
+            if(freeWay(tmp))
+            {
+                lastDirection = tmp;
+                return tmp;
+            }
+
+            lastDirection = tmp;
+            return nullVector;
         }
-        return nullVector;
+        return tmp;
     }
 
     // Setzt Bombe mit überprüfung von avaibleBomb und aLife
@@ -438,34 +438,18 @@ public class PlayerScript : MonoBehaviour
         creatingBomb = false;
     }
 
-    private bool freeWay(Vector3 tmp)
+    private bool freeWay(Vector3Int tmp)
     {
         //entweder hat sich der Richungsvector nicht geändert oder das Objekt die selbe Position wie TargetVector
         if ((lastTmpVector == tmp || target == transform.position) && myTime > 0.18f)
         {
-            int xPos = (int)(target.x + tmp.x);
-            int zPos = (int)(target.z + tmp.z);
+            int xPos = target.x + tmp.x;
+            int zPos = target.z + tmp.z;
 
             //Prueft im Array an der naechsten stelle ob dort ein objekt liegt wenn nicht dann return.true
-            if(levelGenerator.AllGameObjects[xPos, zPos] != null)
+            if (levelGenerator.AllGameObjects[xPos, zPos] == null)
             {
-                GameObject go = levelGenerator.AllGameObjects[xPos, zPos];
-
-                switch (go.tag)
-                {
-                    case "FreeFall":
-                        myTime = 0f;
-                        return true;
-
-                    case "Item":
-                        myTime = 0f;
-                        return true;
-
-                    default:
-                        break;
-                }
-
-            } else {
+                myTime = 0f;
 
                 //Hat der Player das Houdini-Item, werden automatisch alle Kisten um ihn herum zerstört
                 if(houdiniItem)
@@ -473,71 +457,59 @@ public class PlayerScript : MonoBehaviour
                     houdini.callHoudini(xPos, zPos);
                 }
 
-                myTime = 0f;
+                //Debug.Log("Player at: " +levelGenerator.SecondaryGameObjects1[(int)(target.x + tmp.x), (int)(target.z + tmp.z)].gameObject.tag);
+                if(levelGenerator.SecondaryGameObjects1[xPos, zPos] != null)
+                {
+                    if(levelGenerator.SecondaryGameObjects1[xPos, zPos].gameObject.CompareTag("KillField"))
+                    {
+                        dead();
+                    }
+                }
+
                 return true;
             }
- 
+            else
+            {
+                GameObject go = levelGenerator.AllGameObjects[xPos, zPos].gameObject;
+
+                switch(go.tag)
+                {
+                    case "FreeFall":
+                        StartCoroutine(playerFall());
+                        myTime = 0f;
+                        return true;
+                    
+                    case "Item":
+                        go.GetComponent<PowerUp>().GrabItem(playerID);
+                        levelGenerator.AllGameObjects[zPos, xPos] = null;
+                        audioManager.playSound("pickupItem");
+                        myTime = 0f;
+                        return true;
+
+                    // case "Kiste":
+                    //     Debug.Log("Gegen eine Kiste gelaufen");
+                    //     myTime = 0f;
+                    //     return false;
+
+                    // case "Wand":
+                    //     Debug.Log("Gegen eine Wand gelaufen");
+                    //     myTime = 0f;
+                    //     return false;
+
+                    default:
+                        break;
+                }
+            }
         }
         return false;
-    }
-
-    private void objectKollision()
-    {
-        if (levelGenerator.SecondaryGameObjects1[(int)transform.position.x, (int)transform.position.z] != null)
-        {
-            if (levelGenerator.SecondaryGameObjects1[(int)transform.position.x, (int)transform.position.z].gameObject.CompareTag("KillField"))
-            {
-                dead();
-            }
-        }
-
-        
-        if (levelGenerator.AllGameObjects[(int)transform.position.x, (int)transform.position.z] != null)
-        {
-            GameObject go = levelGenerator.AllGameObjects[(int)transform.position.x, (int)transform.position.z]; 
-
-            switch (go.tag)
-            {
-                case "FreeFall":
-                    StartCoroutine(playerFall());
-                    break;
-
-                case "Item":
-                    go.GetComponent<PowerUp>().GrabItem(playerID);
-                    levelGenerator.AllGameObjects[(int)go.transform.position.x, (int)go.transform.position.z] = null;
-                    audioManager.playSound("pickupItem");
-                    break;
-
-                default:
-                    break;
-            }
-        }
-
-        // } else {
-
-        //     Debug.LogWarning("Player an Stelle: " +(int)transform.position.x+ " / " +(int)transform.position.z);
-        //     levelGenerator.AllGameObjects[(int)transform.position.x, (int)transform.position.z] = gameObject;
-        // }
-        
-        if(levelGenerator.AllGameObjects[(int)lastPlayerAtAllGameObject.x, (int)lastPlayerAtAllGameObject.y] != null && levelGenerator.AllGameObjects[(int)lastPlayerAtAllGameObject.x, (int)lastPlayerAtAllGameObject.y].gameObject.CompareTag("Player"))
-        {
-            Debug.LogWarning("ist in der IF");
-            Debug.LogWarning("Player an Stelle: " +(int)transform.position.x+ " / " +(int)transform.position.z);
-            Debug.LogWarning("LastPlayer an Stelle: " +(int)lastPlayerAtAllGameObject.x+ " / " +(int)lastPlayerAtAllGameObject.y);
-            levelGenerator.AllGameObjects[(int)lastPlayerAtAllGameObject.x, (int)lastPlayerAtAllGameObject.y] = null;
-            //Player wird im Array auf der neuer Position 
-            levelGenerator.AllGameObjects[(int)transform.position.x, (int)transform.position.z] = gameObject;
-            lastPlayerAtAllGameObject = new Vector2((int)transform.position.x, (int)transform.position.z);
-        }
-            
     }
 
     // Player faellt in den Abgund
     public IEnumerator playerFall()
     {
-        levelGenerator.AllGameObjects[(int)transform.position.x, (int)transform.position.z] = null;
+        levelGenerator.AllGameObjects[target.x, target.z] = null;
         rulesScript.playerDeath(playerID, transform.position);
-        target.y = -200f;
+        target.y = -200;
 
         switch (playerID)
         {
@@ -564,7 +536,7 @@ public class PlayerScript : MonoBehaviour
     public void dead()
     {
         rulesScript.playerDeath(playerID, transform.position);
-        levelGenerator.AllGameObjects[(int)target.x, (int)target.z] = null;
+        levelGenerator.AllGameObjects[target.x, target.z] = null;
         ghostSpawner.createGhost(transform.position, playerID, playerColor);
         Destroy(gameObject);
     }
