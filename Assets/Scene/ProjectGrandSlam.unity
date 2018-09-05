@@ -4682,7 +4682,7 @@ MonoBehaviour:
   - name: four
     clip: {fileID: 8300000, guid: 9a852a4eca7694005a020a0b218a43be, type: 3}
     groundVolume: 0.8
-    volume: 0.6
+    volume: 0.4
     pitch: 1
     source: {fileID: 0}
     loop: 0
@@ -4695,15 +4695,15 @@ MonoBehaviour:
     loop: 0
   - name: lets_go
     clip: {fileID: 8300000, guid: 054e1619409914dae9b53e3e236cf741, type: 3}
-    groundVolume: 1
-    volume: 1
+    groundVolume: 0.8
+    volume: 0.6
     pitch: 1
     source: {fileID: 0}
     loop: 0
   - name: one
     clip: {fileID: 8300000, guid: e989e5768c918455a9835bdc6eeb6e82, type: 3}
     groundVolume: 0.8
-    volume: 0.6
+    volume: 0.4
     pitch: 1
     source: {fileID: 0}
     loop: 0
@@ -4780,7 +4780,7 @@ MonoBehaviour:
   - name: three
     clip: {fileID: 8300000, guid: a89088d5e365b400c92313799fc864f8, type: 3}
     groundVolume: 0.8
-    volume: 0.6
+    volume: 0.4
     pitch: 1
     source: {fileID: 0}
     loop: 0
@@ -4815,7 +4815,7 @@ MonoBehaviour:
   - name: two
     clip: {fileID: 8300000, guid: 5e265ebef7a9e4a4c9f091ebb643ba32, type: 3}
     groundVolume: 0.8
-    volume: 0.6
+    volume: 0.4
     pitch: 1
     source: {fileID: 0}
     loop: 0
@@ -4835,6 +4835,20 @@ MonoBehaviour:
     loop: 1
   - name: buttonclick
     clip: {fileID: 8300000, guid: 8f672e776f177b04d90fc460dd92b131, type: 3}
+    groundVolume: 1
+    volume: 0.5
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: levelrestart
+    clip: {fileID: 8300000, guid: e200b8fed2baa4afa993d8c5cc39ddce, type: 3}
+    groundVolume: 1
+    volume: 0.6
+    pitch: 0.8
+    source: {fileID: 0}
+    loop: 0
+  - name: fallingstones
+    clip: {fileID: 8300000, guid: c4b18dd2f72644a3e914539612cb34d9, type: 3}
     groundVolume: 1
     volume: 0.5
     pitch: 1

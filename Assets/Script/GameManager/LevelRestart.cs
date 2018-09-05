@@ -58,6 +58,7 @@ public class LevelRestart : MonoBehaviour {
 	}
 	private IEnumerator levelRestartMainMenuFromDemoCore()
 	{
+		audioManager.playSound("fallingstones");
         cameraMovement.RestartCameraMovement(false);
         StartCoroutine(eraseCurrentWorld(false));
 		yield return null;
@@ -71,11 +72,12 @@ public class LevelRestart : MonoBehaviour {
 	}
 	public IEnumerator levelRestartNextRoundCore()
 	{
+		audioManager.playSound("fallingstones");
         cameraMovement.RestartCameraMovement(false);
         StartCoroutine(eraseCurrentWorld(false));
         rulesScript.nextRoundRules();
 
-		yield return new WaitForSecondsRealtime(1.2f);
+		yield return new WaitForSecondsRealtime(1.4f);
         CounterScript.startCounter();
 	}
 
@@ -137,8 +139,10 @@ public class LevelRestart : MonoBehaviour {
 			yield return new WaitForSecondsRealtime(3.5f);
 
 		} else {
-
+			
+			audioManager.playSound("levelrestart");
 			yield return new WaitForSecondsRealtime(0.8f);
+	
 		}
 
 		recreateWorld(animiert);
