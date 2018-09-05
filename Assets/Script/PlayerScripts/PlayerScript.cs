@@ -236,10 +236,10 @@ public class PlayerScript : MonoBehaviour
                     break;
             }
 
+            tmp = checkSingleDirection(tmp);
+
             if (tmp != nullVector)
-            {
-                tmp = checkSingleDirection(tmp);
-                
+            {   
                 //Im Array aktuelle position loeschen wenn das objekt auch wirklich ein Player ist 
                 if (levelGenerator.AllGameObjects[target.x, target.z] != null && levelGenerator.AllGameObjects[target.x, target.z].gameObject.CompareTag("Player"))
                     levelGenerator.AllGameObjects[target.x, target.z] = null;
@@ -258,9 +258,8 @@ public class PlayerScript : MonoBehaviour
             tmpVectorPos = transform.position;
 
             if (transform.position != target)
-            {
+            {                
                 transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
-                
                 //transform.Rotate(Vector3.RotateTowards(transform.position, target, 0.01f, 0.01f));
                 
                 // Player Rollanimation
@@ -418,6 +417,8 @@ public class PlayerScript : MonoBehaviour
             lastDirection = tmp;
             return nullVector;
         }
+        
+        lastDirection = tmp;
         return tmp;
     }
 
@@ -441,7 +442,7 @@ public class PlayerScript : MonoBehaviour
     private bool freeWay(Vector3Int tmp)
     {
         //entweder hat sich der Richungsvector nicht geändert oder das Objekt die selbe Position wie TargetVector
-        if ((lastTmpVector == tmp || target == transform.position) && myTime > 0.18f)
+        if ((lastTmpVector == tmp || target == transform.position) && myTime > 0.185f)
         {
             int xPos = target.x + tmp.x;
             int zPos = target.z + tmp.z;
@@ -481,7 +482,7 @@ public class PlayerScript : MonoBehaviour
                     
                     case "Item":
                         go.GetComponent<PowerUp>().GrabItem(playerID);
-                        levelGenerator.AllGameObjects[zPos, xPos] = null;
+                        levelGenerator.AllGameObjects[(int)go.transform.position.x, (int)go.transform.position.z] = null;
                         audioManager.playSound("pickupItem");
                         myTime = 0f;
                         return true;
