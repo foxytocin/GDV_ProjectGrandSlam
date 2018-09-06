@@ -10,6 +10,7 @@ public class MainMenuButtonScript : MonoBehaviour {
     LevelRestart levelRestart;
     InGameGUI inGameGUI;
     private MenuDemoMode MenuDemoMode;
+    private OverlayMethodenScript overlayMethodenScript;
 
 	void Start ()
     {
@@ -17,11 +18,13 @@ public class MainMenuButtonScript : MonoBehaviour {
         audioManager = FindObjectOfType<AudioManager>();
         levelRestart = FindObjectOfType<LevelRestart>();
         MenuDemoMode = FindObjectOfType<MenuDemoMode>();
+        overlayMethodenScript = FindObjectOfType<OverlayMethodenScript>();
     }
 	
     public void onClickMainButton()
     {
         audioManager.playSound("buttonclick");
+        overlayMethodenScript.isInGame = false;
         levelRestart.levelRestartMainMenu();
         Time.timeScale = 1f;
         inGameGUI.inAktivInGameUI();

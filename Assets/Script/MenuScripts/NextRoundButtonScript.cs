@@ -12,6 +12,7 @@ public class NextRoundButtonScript : MonoBehaviour {
     private InGameGUI inGameGUI;
     private LevelRestart levelRestart;
     private RulesScript rulesScript;
+    private OverlayMethodenScript overlayMethodenScript;
 
 
     void Start()
@@ -20,6 +21,7 @@ public class NextRoundButtonScript : MonoBehaviour {
         rulesScript = FindObjectOfType<RulesScript>();
         levelRestart = FindObjectOfType<LevelRestart>();
         audioManager = FindObjectOfType<AudioManager>();
+        overlayMethodenScript = FindObjectOfType<OverlayMethodenScript>();
     }
 
     public void onClickNextButton()
@@ -27,7 +29,7 @@ public class NextRoundButtonScript : MonoBehaviour {
         audioManager.playSound("buttonclick");
         Cursor.visible = false;
         levelRestart.levelRestartNextRound();
-        FindObjectOfType<OverlayMethodenScript>().isInGame = true;
+        overlayMethodenScript.isInGame = true;
 
         if (nextButtonText.text == "Next Battle")
         {

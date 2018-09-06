@@ -65,6 +65,7 @@ public class PlayerScript : MonoBehaviour
         houdiniItem = false;
         creatingBomb = false;
         target = transform.position;
+        levelGenerator.AllGameObjects[(int)transform.position.x, (int)transform.position.z] = gameObject;
         myTime = 0f;
         gravity = 0f;
         transform.Rotate(0, 90, 0, Space.World);
