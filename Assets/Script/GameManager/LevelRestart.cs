@@ -12,12 +12,10 @@ public class LevelRestart : MonoBehaviour {
 	private PlayerSpawner playerSpawner;
 	private DayNightSwitch dayNightSwitch;
     private RulesScript rulesScript;
-	private GameManager GameManager;
 	private SpawnDemoItems spawnDemoItems;
 	private AudioManager audioManager;
 	private CounterScript CounterScript;
-	//private CameraMovement cam;
-
+	
 	void Awake()
 	{
 		levelGenerator = FindObjectOfType<LevelGenerator>();
@@ -28,7 +26,6 @@ public class LevelRestart : MonoBehaviour {
 		playerSpawner = FindObjectOfType<PlayerSpawner>();
 		dayNightSwitch = FindObjectOfType<DayNightSwitch>();
         rulesScript = FindObjectOfType<RulesScript>();
-		GameManager = FindObjectOfType<GameManager>();
 		spawnDemoItems = FindObjectOfType<SpawnDemoItems>();
 		audioManager = FindObjectOfType<AudioManager>();
 		CounterScript = FindObjectOfType<CounterScript>();
