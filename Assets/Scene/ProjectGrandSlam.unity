@@ -4851,7 +4851,7 @@ MonoBehaviour:
   - name: fallingstones
     clip: {fileID: 8300000, guid: c4b18dd2f72644a3e914539612cb34d9, type: 3}
     groundVolume: 1
-    volume: 0.5
+    volume: 0.6
     pitch: 1
     source: {fileID: 0}
     loop: 0
@@ -12082,12 +12082,12 @@ Prefab:
     - target: {fileID: 198000011337858710, guid: 5ca4c580b3888314581688fa46fb142d,
         type: 2}
       propertyPath: ShapeModule.m_Scale.y
-      value: 70
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 198000011337858710, guid: 5ca4c580b3888314581688fa46fb142d,
         type: 2}
       propertyPath: ShapeModule.m_Scale.z
-      value: 20
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 4000010002477438, guid: 5ca4c580b3888314581688fa46fb142d, type: 2}
       propertyPath: m_LocalScale.y
@@ -12110,7 +12110,7 @@ Prefab:
     - target: {fileID: 198000011337858710, guid: 5ca4c580b3888314581688fa46fb142d,
         type: 2}
       propertyPath: ShapeModule.m_Position.z
-      value: -5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 198000011337858710, guid: 5ca4c580b3888314581688fa46fb142d,
         type: 2}

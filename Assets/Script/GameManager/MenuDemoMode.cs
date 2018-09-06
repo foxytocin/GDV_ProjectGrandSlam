@@ -68,7 +68,7 @@ public class MenuDemoMode : MonoBehaviour {
 				demoRunning = true;
 				spawnDemoItems.cleanDemoItems();
 				changeColorStartLine();
-				searchPlayer();
+				remoteControllPlayer();
 			}
 
 		} else if (demoRunning) {
@@ -87,12 +87,13 @@ public class MenuDemoMode : MonoBehaviour {
 		}
 	}
 
-	private void searchPlayer()
+	private void remoteControllPlayer()
 	{
 		foreach(GameObject player in PlayerSpawner.playerList)
 		{
 			if(player != null)
 			{
+				levelGenerator.AllGameObjects[(int)player.transform.position.x, (int)player.transform.position.z] = null;
 				player.GetComponent<MeshRenderer>().enabled = false;
 				StartCoroutine(movePlayer(player));
 			}
@@ -101,6 +102,7 @@ public class MenuDemoMode : MonoBehaviour {
 
 	private IEnumerator movePlayer(GameObject player)
 	{
+
 		while(player != null && demoAllowed && player.transform.position.z < (levelTiefe - levelGenerator.tiefeLevelStartBasis - 100))
 		{
 			Vector3 target = new Vector3(player.transform.position.x, 0, levelTiefe);
