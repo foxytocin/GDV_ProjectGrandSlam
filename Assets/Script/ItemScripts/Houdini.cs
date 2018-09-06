@@ -36,11 +36,6 @@ public class Houdini : MonoBehaviour {
 					go.SetActive(false);
 					break;
 				
-				case "Item":
-					audioManager.playSound("break2");
-					LevelGenerator.AllGameObjects[xPos, zPos] = null;
-					go.SetActive(false);
-					break;
 			}
 		}
 	}
