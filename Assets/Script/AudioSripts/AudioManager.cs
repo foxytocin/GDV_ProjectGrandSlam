@@ -151,6 +151,7 @@ public class AudioManager : MonoBehaviour
 
     public IEnumerator startInGameMusicCore()
     {
+        music[randomInGameMusic].source.pitch = 1.0f;
         music[randomInGameMusic].source.volume = 0;
         music[randomInGameMusic].source.Play();
 

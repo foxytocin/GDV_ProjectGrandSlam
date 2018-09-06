@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class OverlayMethodenScript : MonoBehaviour
 {
-    public static bool GameIsPaused = false;
+    public bool GameIsPaused;
     public GameObject pausenMenuUI;
     public GameManager gameManager;
     private AudioManager audioManager;
@@ -20,6 +20,7 @@ public class OverlayMethodenScript : MonoBehaviour
         gameManager = FindObjectOfType<GameManager>();
         inGameGUI = FindObjectOfType<InGameGUI>();
         audioManager = FindObjectOfType<AudioManager>();
+        GameIsPaused = false;
         isInGame = false;
     }
 

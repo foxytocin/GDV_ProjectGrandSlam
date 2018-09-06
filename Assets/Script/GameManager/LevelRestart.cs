@@ -133,15 +133,16 @@ public class LevelRestart : MonoBehaviour {
 		cleanObjectArray(levelGenerator.SecondaryGameObjects3, animiert);
 		cleanObjectArray(levelGenerator.DistanceLines, animiert);
 	
-		// Wir das Level animiert zerstoert, wird 3.5 Sekunden gewartet bis die Animation zuende ist
+		// Wir das Level animiert zerstoert, wird 3.6 Sekunden gewartet bis die Animation zuende ist
 		if(animiert)
 		{
-			yield return new WaitForSecondsRealtime(3.5f);
+			yield return new WaitForSecondsRealtime(3.7f);
 
 		} else {
 			
+			yield return new WaitForSecondsRealtime(0.4f);
 			audioManager.playSound("levelrestart");
-			yield return new WaitForSecondsRealtime(0.8f);
+			yield return new WaitForSecondsRealtime(0.5f);
 	
 		}
 

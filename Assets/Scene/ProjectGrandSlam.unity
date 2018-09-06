@@ -2534,6 +2534,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33769c27c2dd4f5498382d8842dc6ced, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GameIsPaused: 0
   pausenMenuUI: {fileID: 2080367965}
   gameManager: {fileID: 0}
   isInGame: 0
@@ -4843,7 +4844,7 @@ MonoBehaviour:
   - name: levelrestart
     clip: {fileID: 8300000, guid: e200b8fed2baa4afa993d8c5cc39ddce, type: 3}
     groundVolume: 1
-    volume: 0.6
+    volume: 0.5
     pitch: 0.8
     source: {fileID: 0}
     loop: 0
@@ -12061,7 +12062,7 @@ Prefab:
     - target: {fileID: 198000011337858710, guid: 5ca4c580b3888314581688fa46fb142d,
         type: 2}
       propertyPath: InitialModule.startSize.scalar
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 198000011337858710, guid: 5ca4c580b3888314581688fa46fb142d,
         type: 2}
@@ -12123,7 +12124,7 @@ Prefab:
     - target: {fileID: 198000011337858710, guid: 5ca4c580b3888314581688fa46fb142d,
         type: 2}
       propertyPath: VelocityModule.enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 198000011337858710, guid: 5ca4c580b3888314581688fa46fb142d,
         type: 2}
@@ -12133,7 +12134,7 @@ Prefab:
     - target: {fileID: 198000011337858710, guid: 5ca4c580b3888314581688fa46fb142d,
         type: 2}
       propertyPath: VelocityModule.y.scalar
-      value: 2
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 198000011337858710, guid: 5ca4c580b3888314581688fa46fb142d,
         type: 2}
