@@ -11,22 +11,17 @@ public class RulesScript : MonoBehaviour
     public int playerIsLive;
     //Speichert die Playeranzahl für die 3 Runden
     public int battle;
-
     bool[] playerLifeBool;
-
     public int[] roundResults;
-
     public GameObject resultScreen;
     public GameObject winner;
     public GameObject reach;
-
     public TextMeshProUGUI winnerText;
     public TextMeshProUGUI reachText;
     public TextMeshProUGUI extraText;
-
     public TextMeshProUGUI nextButtonText;
-
     public GameObject nextRoundButton;
+    public int record;
 
     InGameGUI inGameGUI;
 
@@ -41,6 +36,7 @@ public class RulesScript : MonoBehaviour
 
         playerIsLive = 1;
         battle = 1;
+        record = 0;
 
         roundResults = new int[4];
 
@@ -62,10 +58,10 @@ public class RulesScript : MonoBehaviour
     public void playerDeath(int player, Vector3 distanze)
     {
         playerIsLive--;
-        roundResult(player, distanze.z);
+        roundResult(player, (int)distanze.z);
     }
 
-    void roundResult(int player, float distanze)
+    void roundResult(int player, int distanze)
     {
         switch (battle)
         {
@@ -141,7 +137,12 @@ public class RulesScript : MonoBehaviour
     public void restartResults()
     {
         for (int i = 0; i < 4; i++)
+        {
             roundResults[i] = 0;
+        }
+
+        record = 0;
+           
     }
 
     public void nextRoundRules()
@@ -170,19 +171,26 @@ public class RulesScript : MonoBehaviour
        
     }
 
-    private void onePlayerRule(float distanze)
+    private void onePlayerRule(int distanze)
     {
 
-        distanze = (int)distanze - (LevelGenerator.startLinie - 1);
+        distanze = distanze - (LevelGenerator.startLinie - 1);
 
+        // Verhinderte negative Werte falls der Spieler hinter der Zielline stirbt
         if(distanze < 0)
         {
             distanze = 0;
         }
 
+        // Setzt den Record der zurueckgelegten Strecke auf das neue Maximum
+        if(distanze > record)
+        {
+            record = distanze;
+        }
+
         gameManager.lockControlls();
         
-        int reachTextString = (int)distanze;
+        int reachTextString = distanze;
         inGameGUI.inAktivInGameUI();
         FindObjectOfType<OverlayMethodenScript>().isInGame = false;
         resultScreen.SetActive(true);

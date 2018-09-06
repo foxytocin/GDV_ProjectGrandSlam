@@ -34,7 +34,7 @@ private Color Percent100 = new Color32(170, 39, 39, 1);
 		endPoint = 0;
 	}
 
-	public void createDistanceLine(int row)
+	public void createDistanceLine(int row, bool normalline)
 	{
 		bool foundStart = false;
 		for (int i = 0; i < LevelGenerator.levelSectionData[0].Length - 1; i++)
@@ -79,9 +79,9 @@ private Color Percent100 = new Color32(170, 39, 39, 1);
 		Querstrebe.transform.localScale = new Vector3(1f, 1f, scaleQuerstrebe);
 		
 		//Zuweisung der Farbe passend zum Schwierigkeitsgrad (KisteMenge)
-		setEmissionAndColor(StartStange);
-		setEmissionAndColor(EndStange);
-		setEmissionAndColor(Querstrebe);
+		setEmissionAndColor(StartStange, normalline);
+		setEmissionAndColor(EndStange, normalline);
+		setEmissionAndColor(Querstrebe, normalline);
 
 		//Eintragung der GameObjecte in das DistanceLines-Array damit sie später geloescht werden koennen
 		LevelGenerator.DistanceLines[0, row] = StartStange;
@@ -92,10 +92,19 @@ private Color Percent100 = new Color32(170, 39, 39, 1);
 
 	}
 
-	private void setEmissionAndColor(GameObject go)
+	private void setEmissionAndColor(GameObject go, bool normalline)
 	{
 			Material material = go.GetComponent<Renderer>().material;
-			Color baseColor = setMaterialColor();
+			Color baseColor;
+			
+			if(normalline)
+			{
+				baseColor = setMaterialColor();
+			} else {
+
+				baseColor = Color.blue;
+			}
+			
 			Color emissionColor = baseColor * Mathf.LinearToGammaSpace(1.6f);
 
 			if(generateGlowStangen)

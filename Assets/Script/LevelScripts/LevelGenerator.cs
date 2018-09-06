@@ -45,6 +45,7 @@ public class LevelGenerator : MonoBehaviour
     private SpawnDemoItems SpawnDemoItems;
     private MazeGenerator MazeGenerator;
     private MenuDemoMode MenuDemoMode;
+    private RulesScript RulesScript;
     public bool generateMaze;
     private int dataBufferSize;
     public int levelBreite;
@@ -52,6 +53,9 @@ public class LevelGenerator : MonoBehaviour
     public int startLinie;
     public int TurmMenge;
     public int BogenMenge;
+    private const bool normalline = true;
+    private const bool recordline = false;
+
    
     // Use this for initialization
     void Awake()
@@ -77,6 +81,7 @@ public class LevelGenerator : MonoBehaviour
         SpawnDemoItems = FindObjectOfType<SpawnDemoItems>();
         GenerateDistanceLine = FindObjectOfType<GenerateDistanceLine>();
         MenuDemoMode = FindObjectOfType<MenuDemoMode>();
+        RulesScript = FindObjectOfType<RulesScript>();
     }
 
     void Start()
@@ -463,11 +468,18 @@ public class LevelGenerator : MonoBehaviour
             }
         }
 
-        //Generiert alle X Meter die DistanceLine
-        if(CameraPosition > 10 && ((CameraPosition - (startLinie - 1)) % 25 == 0) )
-            {
-                GenerateDistanceLine.createDistanceLine(CameraPosition);
-            }
+        // Generiert alle X Meter die DistanceLine
+        // Ausser die DistanceLine und die RecordLine sind auf der exakt gleichen Hoehe, dann die RecordLine vorrang
+        if(CameraPosition > startLinie && ((CameraPosition - (startLinie - 1)) == RulesScript.record))
+        {
+            GenerateDistanceLine.createDistanceLine(CameraPosition, recordline);
+
+        } else if(CameraPosition > 10 && ((CameraPosition - (startLinie - 1)) % 25 == 0) ) {
+
+            GenerateDistanceLine.createDistanceLine(CameraPosition, normalline);
+        }
+
+
     }
 
 
