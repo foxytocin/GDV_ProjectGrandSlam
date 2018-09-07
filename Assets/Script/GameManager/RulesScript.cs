@@ -204,6 +204,7 @@ public class RulesScript : MonoBehaviour
         int reachTextString = distance;
         FindObjectOfType<OverlayMethodenScript>().isInGame = false;
         resultScreen.SetActive(true);
+        winner.SetActive(false);
         //winnerText.SetText("Du bist im Spiel so weit gekommen:");
         //winner.SetActive(true);
         reachText.SetText(reachTextString.ToString() + " Meter");
