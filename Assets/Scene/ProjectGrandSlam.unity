@@ -8539,6 +8539,7 @@ MonoBehaviour:
   generateGlowBalls: 0
   tiefeLevelStartBasis: 60
   generateMaze: 0
+  stopCameraScroller: 0
   levelBreite: 0
   levelTiefe: 0
   startLinie: 0
@@ -12105,7 +12106,7 @@ Prefab:
     - target: {fileID: 198000011337858710, guid: 5ca4c580b3888314581688fa46fb142d,
         type: 2}
       propertyPath: ShapeModule.m_Position.x
-      value: 14
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 198000011337858710, guid: 5ca4c580b3888314581688fa46fb142d,
         type: 2}
@@ -14283,6 +14284,7 @@ MonoBehaviour:
   extraText: {fileID: 0}
   nextButtonText: {fileID: 422784918}
   nextRoundButton: {fileID: 353907299}
+  record: 0
 --- !u!114 &1620339724
 MonoBehaviour:
   m_ObjectHideFlags: 0

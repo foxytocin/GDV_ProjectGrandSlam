@@ -160,7 +160,7 @@ public class LevelGenerator : MonoBehaviour
         if(dataBufferSize > 0)
         {
             dataBufferSize--;
-            drawLevelLine(CameraPosition);
+            StartCoroutine(drawLevelLine(CameraPosition));
 
         // Ist die dataBufferSize == 0 wird ein neuer Levelabschnitt in den Buffer geladen
         } else {
@@ -326,7 +326,7 @@ public class LevelGenerator : MonoBehaviour
 
             // Die erste Levelzeile aus dem neu angelegten dataBuffer wird geschrieben
             dataBufferSize--;
-            drawLevelLine(CameraPosition);
+            StartCoroutine(drawLevelLine(CameraPosition));
         }
     }
 
@@ -334,7 +334,7 @@ public class LevelGenerator : MonoBehaviour
     //Abhängig von der CameraPosition wird die Menge der Kisten verändert
     //Je weiter der Spieler im Level, desto mehr Kisten werden generiert
     // Kisten Menge wird auf einer RandomValue 0 - 20 % KistenMenge errechnet.
-    void setDifficulty(int row)
+    private void setDifficulty(int row)
     {
         switch(row)
         {
@@ -411,45 +411,31 @@ public class LevelGenerator : MonoBehaviour
                     }
                 }
 
-                if (SecondaryGameObjects1[i, CameraPosition] != null)
+                cleanSecondGameArry(SecondaryGameObjects1, i, CameraPosition);
+                cleanSecondGameArry(SecondaryGameObjects2, i, CameraPosition);
+                cleanSecondGameArry(SecondaryGameObjects3, i, CameraPosition);
+
+                //Loescht die DistanceLine aus der Spielwelt wenn diese 10 Felder hinter der Camnera ist
+                if(i < 6)
                 {
-                    FallScript fc = SecondaryGameObjects1[i, CameraPosition].gameObject.GetComponent<FallScript>();
-                    if (fc != false)
-                        fc.fallDown();
-                }
-
-                if (SecondaryGameObjects2[i, CameraPosition] != null) {
-                    FallScript fc = SecondaryGameObjects2[i, CameraPosition].gameObject.GetComponent<FallScript>();
-                    if (fc != false)
-                        fc.fallDown();
-                }
-
-                if (SecondaryGameObjects3[i, CameraPosition] != null) {
-                    FallScript fc = SecondaryGameObjects3[i, CameraPosition].gameObject.GetComponent<FallScript>();
-                    if (fc != false)
-                        fc.fallDown();
+                    cleanSecondGameArry(DistanceLines, i, CameraPosition);
                 }
             }
+        }
+    }
 
-            //Loescht die DistanceLine aus der Spielwelt wenn diese 10 Felder hinter der Camnera ist
-            if (CameraPosition > 10) {
-
-                for(int i = 0; i < 6; i++)
-                {
-                    if(DistanceLines[i, CameraPosition - 10] != null)
-                    {
-                        DistanceLines[i, CameraPosition - 10].gameObject.SetActive(false);
-                    }
-                    
-                }
-            }
-
+    private void cleanSecondGameArry(GameObject[,] arry, int xPos, int CameraPosition)
+    {
+        if (arry[xPos, CameraPosition] != null) {
+            FallScript fc = arry[xPos, CameraPosition].gameObject.GetComponent<FallScript>();
+            if (fc != false)
+                fc.fallDown();
         }
     }
 
 
     //Zeichnet die Linien der LevelSectionData zeilenweise. Abhängig vom Symbol der aktuellen Stelle (Gang, Wand, Kiste)
-    void drawLevelLine(int CameraPosition) {
+    private IEnumerator drawLevelLine(int CameraPosition) {
 
         for (int i = 0; i < levelSectionData[0].Length - 1; i++)
         {
@@ -478,13 +464,12 @@ public class LevelGenerator : MonoBehaviour
 
             GenerateDistanceLine.createDistanceLine(CameraPosition, normalline);
         }
-
-
+        yield return null;
     }
 
 
     //Erzeugt eine Bodenplatte und zufällig eine Kiste
-    void createGang(Vector3 pos, int CameraPosition) {
+    private void createGang(Vector3 pos, int CameraPosition) {
         
         SecondaryGameObjects1[(int)pos.x, (int)pos.z] = objectPooler.SpawnFromPool("Boden", pos - new Vector3(0, 0.1f, 0), Quaternion.identity);
 
@@ -502,7 +487,7 @@ public class LevelGenerator : MonoBehaviour
 
 
     //Erzeug ein Stück Wand, einen Turm, oder einen Bogen
-    void createWand(Vector3 pos) {
+    private void createWand(Vector3 pos) {
         
         int xPos = (int)pos.x;
         int zPos = (int)pos.z;
@@ -604,7 +589,7 @@ public class LevelGenerator : MonoBehaviour
     }
 
     //Erzeugt eine Kiste und Boden unter ihr
-    void createKiste(Vector3 pos)
+    private void createKiste(Vector3 pos)
     {
         rotation = Random.value > 0.5f ? 0 : 90;
         SecondaryGameObjects1[(int)pos.x, (int)pos.z] = objectPooler.SpawnFromPool("Boden", pos - new Vector3(0, 0.1f, 0), Quaternion.identity);
@@ -612,7 +597,7 @@ public class LevelGenerator : MonoBehaviour
     }
 
     // Ezeugt glowBalls wenn generateGlowBalls urch den DayNightSwitch.cs auf true gesetzt wurde
-    void createGlowBall(Vector3 pos)
+    private void createGlowBall(Vector3 pos)
     {
         if(Random.value > 0.97f)
             SecondaryGameObjects1[(int)pos.x, (int)pos.z] = objectPooler.SpawnFromPool("GlowBall", pos + new Vector3(0f, 1f, 0f), Quaternion.identity);
@@ -621,7 +606,7 @@ public class LevelGenerator : MonoBehaviour
 
     // Iniziales Einlesen der LevelTextdatein in den levelPool
     // Aus dem levelPool werden spater zufaerllige Levelabschnitt entnommen und kombiniert
-    void createLevelData()
+    private void createLevelData()
     {
         levelPool.Add(readFile(LevelTextdatei0));
         levelPool.Add(readFile(LevelTextdatei1));
@@ -645,7 +630,7 @@ public class LevelGenerator : MonoBehaviour
 
 
     // Parsen der LevelTextdatein zu einem string-Array
-    string[][] readFile(TextAsset file)
+    private string[][] readFile(TextAsset file)
     {
         string[] lines = Regex.Split(file.ToString(), "\n");
         int rows = lines.Length;
