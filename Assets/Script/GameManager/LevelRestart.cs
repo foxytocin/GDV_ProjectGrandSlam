@@ -127,7 +127,6 @@ public class LevelRestart : MonoBehaviour {
 
         cleanObjectArray(levelGenerator.SecondaryGameObjects1, animiert);
 		cleanObjectArray(levelGenerator.SecondaryGameObjects2, animiert);
-		cleanObjectArray(levelGenerator.SecondaryGameObjects3, animiert);
 		cleanObjectArray(levelGenerator.DistanceLines, animiert);
 	
 		// Wir das Level animiert zerstoert, wird 3.6 Sekunden gewartet bis die Animation zuende ist
