@@ -23,6 +23,7 @@ public class InGameGUI : MonoBehaviour {
     PlayerSpawner playerSpawner;
     bool singlePlayerActive;
     GameObject playerOne;
+    LevelGenerator levelGenerator;
     
 
 	void Awake ()
@@ -31,12 +32,13 @@ public class InGameGUI : MonoBehaviour {
         gameManager = FindObjectOfType<GameManager>();
         playerSpawner = FindObjectOfType<PlayerSpawner>();
         rulesScript = FindObjectOfType<RulesScript>();
+        levelGenerator = FindObjectOfType<LevelGenerator>();
 	}
 
     private void Update()
     {
         if(singlePlayerActive && gameManager.gameStatePlay)
-            singlePlayerText.SetText(((int)playerOne.transform.position.z).ToString());
+            singlePlayerText.SetText((((int)playerOne.transform.position.z - (levelGenerator.startLinie - 1))).ToString());
     }
 
     public void startGUI(int player)
