@@ -1016,6 +1016,7 @@ MonoBehaviour:
   thunderStrike1: {fileID: 8300000, guid: b283e9549f9cf47d182348c5053bad11, type: 3}
   thunderStrike2: {fileID: 8300000, guid: 2f680cc6feb164af9b331543cdf0b522, type: 3}
   thunderStrike3: {fileID: 8300000, guid: 09f3526a2cf874e3bbb9daa4d256c364, type: 3}
+  thunderPos: {x: 0, y: 0, z: 0}
 --- !u!82 &136782931
 AudioSource:
   m_ObjectHideFlags: 0
@@ -4855,6 +4856,13 @@ MonoBehaviour:
     pitch: 1
     source: {fileID: 0}
     loop: 0
+  - name: rollingstone
+    clip: {fileID: 8300000, guid: 9e5234bdf59644e8592aed7b784333b9, type: 3}
+    groundVolume: 1
+    volume: 0.3
+    pitch: 1
+    source: {fileID: 0}
+    loop: 1
   music:
   - name: Music1
     clip: {fileID: 8300000, guid: a59f93e66efc8a24abdaf25f99864b98, type: 3}
@@ -4865,7 +4873,7 @@ MonoBehaviour:
     loop: 1
   settingsFXVolume: 0
   settingsMusicVolume: 0
-  musicAtStart: 0
+  musicAtStart: 1
 --- !u!1 &444575531
 GameObject:
   m_ObjectHideFlags: 0

@@ -35,6 +35,7 @@ public class PlayerScript : MonoBehaviour
     public float houdiniTimer;
     private RulesScript rulesScript;
     private GameManager gameManager;
+    private AudioSource playerAudio;
 
     void Awake()
     {
@@ -48,7 +49,7 @@ public class PlayerScript : MonoBehaviour
         audioManager = FindObjectOfType<AudioManager>();
         rulesScript = FindObjectOfType<RulesScript>();
         gameManager = FindObjectOfType<GameManager>();
-
+        playerAudio = GetComponent<AudioSource>();
     }
 
     void Start()
@@ -260,6 +261,8 @@ public class PlayerScript : MonoBehaviour
 
             if (transform.position != (transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime)))
             {
+                movingSound(true);
+
                 // Player Rollanimation
                 if (tmpVectorPos.x != transform.position.x && RichtungsAenderung)
                 {
@@ -276,7 +279,26 @@ public class PlayerScript : MonoBehaviour
                     transform.Rotate(8.5f, 0, 0);
                 else
                     transform.Rotate(-8.5f, 0, 0);
+            } else {
+
+                movingSound(false);
             }
+        }
+    }
+
+
+    bool soundNotPlaying = true;
+    private void movingSound(bool moving)
+    {
+        if(moving && soundNotPlaying)
+        {
+            soundNotPlaying = false;
+            playerAudio.Play();
+
+        } else if(!moving && !soundNotPlaying) {
+
+            soundNotPlaying = true;
+            playerAudio.Pause();
         }
     }
 
