@@ -13,12 +13,17 @@ public class PlayerSpawner : MonoBehaviour
 
     List<Vector3> spawnList;
     List<Color> playerColorList;
+    RulesScript rulesScript;
+    InGameGUI inGameGUI;
+
     public CameraMovement cam;
 
     public Material playerOne;
 
     void Awake()
     {
+        rulesScript = FindObjectOfType<RulesScript>();
+        inGameGUI = FindObjectOfType<InGameGUI>();
         LevelGenerator = FindObjectOfType<LevelGenerator>();
         spawnList = new List<Vector3>();
         playerColorList = new List<Color>();
@@ -76,7 +81,14 @@ public class PlayerSpawner : MonoBehaviour
 
             // Player wird in die PlayerListe angefuegt
             playerList.Add(tmpPlayer);
-        }        
+        }
+
+        if (rulesScript.battle == 1)
+        {
+            Debug.Log("Restart SinglePlayerGuI");
+            inGameGUI.restartSinglePlayerGui();
+        }
+
     }
 
     // Passt den SpawnPoint an die Anzahl der Spieler an
@@ -114,10 +126,5 @@ public class PlayerSpawner : MonoBehaviour
     public void setPlayers (int players)
     {
         this.players = players;
-    }
-
-    public void setPlayersDropdown(int players)
-    {
-        this.players = players + 1;
     }
 }

@@ -6,6 +6,7 @@ using TMPro;
 public class InGameGUI : MonoBehaviour {
 
     RulesScript rulesScript;
+    GameManager gameManager;
 
     public GameObject inGameCanvasUI;
 
@@ -19,30 +20,42 @@ public class InGameGUI : MonoBehaviour {
     public TextMeshProUGUI player3Win;
     public TextMeshProUGUI player4Win;
 
-    //PlayerSpawner playerSpawner;
-
+    PlayerSpawner playerSpawner;
+    bool singlePlayerActive;
     GameObject playerOne;
     
 
-	void Start ()
+	void Awake ()
     {
-        //playerSpawner = FindObjectOfType<PlayerSpawner>();
+        singlePlayerActive = false;
+        gameManager = FindObjectOfType<GameManager>();
+        playerSpawner = FindObjectOfType<PlayerSpawner>();
         rulesScript = FindObjectOfType<RulesScript>();
 	}
-	
+
+    private void Update()
+    {
+        if(singlePlayerActive && gameManager.gameStatePlay)
+            singlePlayerText.SetText(((int)playerOne.transform.position.z).ToString());
+    }
+
     public void startGUI(int player)
     {
         switch(player)
         {
             case 1:
-                /*
-                    inAktivInGameUI();
-                playerOne = playerSpawner.playerList[0];
+
+                multiPlayerCanvas.SetActive(false);
+                singlePlayerText.SetText("4");
+                aktivInGameUI();
+                singlePlayerActive = true;
+                restartSinglePlayerGui();
                 singleplayerCanvas.SetActive(true);
-                */
+                
                 break;
 
             case 2:
+                singleplayerCanvas.SetActive(false);
                 multiPlayerCanvas.SetActive(true);
                 player1Win.color = new Color32(236, 77, 19, 255);
                 player2Win.color = new Color32(82, 203, 16, 255);
@@ -88,11 +101,6 @@ public class InGameGUI : MonoBehaviour {
 
     }
 
-    public void updateInGameUISingleplayer()
-    {
-        singlePlayerText.SetText(((int)playerOne.transform.position.z).ToString());
-    }
-
     public void aktivInGameUI()
     {
         inGameCanvasUI.SetActive(true);
@@ -103,4 +111,9 @@ public class InGameGUI : MonoBehaviour {
         inGameCanvasUI.SetActive(false);
     }
 
+    public void restartSinglePlayerGui()
+    {
+        singlePlayerText.SetText("4");
+        playerOne = playerSpawner.playerList[0];
+    }
 }

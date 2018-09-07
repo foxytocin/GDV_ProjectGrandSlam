@@ -72,13 +72,6 @@ public class GameManager : MonoBehaviour {
                 default: break;
             }
         }
-
-        if(isInGame && player == 1)
-        {
-            Debug.Log("if funktioniert");
-            inGameGUI.updateInGameUISingleplayer();
-        }
-
     }
 
     public void unlockControlls()

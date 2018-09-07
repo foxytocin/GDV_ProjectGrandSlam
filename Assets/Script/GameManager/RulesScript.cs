@@ -13,6 +13,7 @@ public class RulesScript : MonoBehaviour
     public int battle;
     bool[] playerLifeBool;
     public int[] roundResults;
+    public int[] distanzRecords;
     public GameObject resultScreen;
     public GameObject winner;
     public GameObject reach;
@@ -21,7 +22,9 @@ public class RulesScript : MonoBehaviour
     public TextMeshProUGUI extraText;
     public TextMeshProUGUI nextButtonText;
     public GameObject nextRoundButton;
+    public GameObject recordsTextfield;
     public int record;
+    public TextMeshProUGUI recordsText; 
 
     InGameGUI inGameGUI;
 
@@ -42,6 +45,10 @@ public class RulesScript : MonoBehaviour
 
         for (int i = 0; i < 4; i++)
             roundResults[i] = 0;
+
+        distanzRecords = new int[4];
+        for (int i = 0; i < 4; i++)
+            distanzRecords[i] = 0;
 
         playerLifeBool = new bool[4];
 
@@ -188,17 +195,73 @@ public class RulesScript : MonoBehaviour
             record = distanze;
         }
 
+        recodsOrganize(recordSearch(distanze, 4), distanze);
+
         gameManager.lockControlls();
         
         int reachTextString = distanze;
-        inGameGUI.inAktivInGameUI();
         FindObjectOfType<OverlayMethodenScript>().isInGame = false;
         resultScreen.SetActive(true);
-        winnerText.SetText("Du bist im Spiel so weit gekommen:");
-        winner.SetActive(true);
+        //winnerText.SetText("Du bist im Spiel so weit gekommen:");
+        //winner.SetActive(true);
         reachText.SetText(reachTextString.ToString() + " Meter");
         reach.SetActive(true);
+
+        recordsText.SetText("The Last Three Records:\n"+
+                            "1:\t" + distanzRecords[0] + " Meter\n" +
+                            "2:\t" + distanzRecords[1] + " Meter\n" +
+                            "3:\t" + distanzRecords[2] + " Meter\n" );
+                           
+
+        recordsTextfield.SetActive(true);
         Cursor.visible = true;
+    }
+
+    private int recordSearch(int distanz, int index)
+    {
+        if (distanz > distanzRecords[index -= 1] && index != 0)
+            return recordSearch(distanz, index);
+        else if (distanz > distanzRecords[index] && index == 0)
+            return 0;
+        else
+            return index += 1;
+    }
+
+    private void recodsOrganize(int index, int distanze)
+    {
+        switch(index)
+        {
+            case 0:
+                distanzRecords[3] = distanzRecords[2];
+                distanzRecords[2] = distanzRecords[1];
+                distanzRecords[1] = distanzRecords[0];
+                distanzRecords[0] = distanze;
+                break;
+
+            case 1:
+                distanzRecords[3] = distanzRecords[2];
+                distanzRecords[2] = distanzRecords[1];
+                distanzRecords[1] = distanze;
+                break;
+
+            case 2:
+                distanzRecords[3] = distanzRecords[2];
+                distanzRecords[2] = distanze;
+                break;
+
+            case 3:
+                distanzRecords[3] = distanze;
+                break;
+
+            case 4:
+                Debug.Log("Kein Neuer Rekord");
+                break;
+
+            default:
+                Debug.LogWarning("Fehler im RecordOrganize");
+                break;
+
+        }
     }
 
 
