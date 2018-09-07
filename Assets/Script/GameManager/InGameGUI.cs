@@ -22,6 +22,7 @@ public class InGameGUI : MonoBehaviour {
 
     PlayerSpawner playerSpawner;
     bool singlePlayerActive;
+    private int distance;
     GameObject playerOne;
     LevelGenerator levelGenerator;
     
@@ -38,7 +39,16 @@ public class InGameGUI : MonoBehaviour {
     private void Update()
     {
         if(singlePlayerActive && gameManager.gameStatePlay)
-            singlePlayerText.SetText((((int)playerOne.transform.position.z - (levelGenerator.startLinie - 1))).ToString());
+        {
+            distance = (int)(playerOne.transform.position.z - (levelGenerator.startLinie - 1));
+
+            if(distance < 0)
+            {
+                distance = 0;
+            }
+
+            singlePlayerText.SetText(distance.ToString()+ " Meter");
+        }
     }
 
     public void startGUI(int player)
@@ -48,7 +58,7 @@ public class InGameGUI : MonoBehaviour {
             case 1:
 
                 multiPlayerCanvas.SetActive(false);
-                singlePlayerText.SetText("4");
+                singlePlayerText.SetText("0 Meter");
                 aktivInGameUI();
                 singlePlayerActive = true;
                 restartSinglePlayerGui();
@@ -115,7 +125,7 @@ public class InGameGUI : MonoBehaviour {
 
     public void restartSinglePlayerGui()
     {
-        singlePlayerText.SetText("4");
+        singlePlayerText.SetText("0 Meter");
         playerOne = playerSpawner.playerList[0];
     }
 }

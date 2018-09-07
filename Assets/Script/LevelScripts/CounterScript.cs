@@ -28,6 +28,8 @@ public class CounterScript : MonoBehaviour
         int startLinePos = levelGenerator.startLinie;
         int breite = levelGenerator.levelBreite - 4;
 
+        yield return new WaitForSecondsRealtime(0.5f);
+
         while (counter >= 0)
         {
             switch (counter)
@@ -67,7 +69,7 @@ public class CounterScript : MonoBehaviour
                 }
             }
 
-            yield return new WaitForSecondsRealtime(1.5f);
+            yield return new WaitForSecondsRealtime(1.4f);
             counter--;
         }
 

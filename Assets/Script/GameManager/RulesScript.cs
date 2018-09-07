@@ -62,18 +62,18 @@ public class RulesScript : MonoBehaviour
 
     }
 
-    public void playerDeath(int player, Vector3 distanze)
+    public void playerDeath(int player, Vector3 distance)
     {
         playerIsLive--;
-        roundResult(player, (int)distanze.z);
+        roundResult(player, (int)distance.z);
     }
 
-    void roundResult(int player, int distanze)
+    void roundResult(int player, int distance)
     {
         switch (battle)
         {
             case 1:
-                onePlayerRule(distanze);
+                onePlayerRule(distance);
                 break;
             case 2:
             case 3:
@@ -178,28 +178,28 @@ public class RulesScript : MonoBehaviour
        
     }
 
-    private void onePlayerRule(int distanze)
+    private void onePlayerRule(int distance)
     {
 
-        distanze = distanze - (LevelGenerator.startLinie - 1);
+        distance = distance - (LevelGenerator.startLinie - 1);
 
         // Verhinderte negative Werte falls der Spieler hinter der Zielline stirbt
-        if(distanze < 0)
+        if(distance < 0)
         {
-            distanze = 0;
+            distance = 0;
         }
 
         // Setzt den Record der zurueckgelegten Strecke auf das neue Maximum
-        if(distanze > record)
+        if(distance > record)
         {
-            record = distanze;
+            record = distance;
         }
 
-        recodsOrganize(recordSearch(distanze, 4), distanze);
+        recodsOrganize(recordSearch(distance, 4), distance);
 
         gameManager.lockControlls();
         
-        int reachTextString = distanze;
+        int reachTextString = distance;
         FindObjectOfType<OverlayMethodenScript>().isInGame = false;
         resultScreen.SetActive(true);
         //winnerText.SetText("Du bist im Spiel so weit gekommen:");
@@ -227,7 +227,7 @@ public class RulesScript : MonoBehaviour
             return index += 1;
     }
 
-    private void recodsOrganize(int index, int distanze)
+    private void recodsOrganize(int index, int distance)
     {
         switch(index)
         {
@@ -235,22 +235,22 @@ public class RulesScript : MonoBehaviour
                 distanzRecords[3] = distanzRecords[2];
                 distanzRecords[2] = distanzRecords[1];
                 distanzRecords[1] = distanzRecords[0];
-                distanzRecords[0] = distanze;
+                distanzRecords[0] = distance;
                 break;
 
             case 1:
                 distanzRecords[3] = distanzRecords[2];
                 distanzRecords[2] = distanzRecords[1];
-                distanzRecords[1] = distanze;
+                distanzRecords[1] = distance;
                 break;
 
             case 2:
                 distanzRecords[3] = distanzRecords[2];
-                distanzRecords[2] = distanze;
+                distanzRecords[2] = distance;
                 break;
 
             case 3:
-                distanzRecords[3] = distanze;
+                distanzRecords[3] = distance;
                 break;
 
             case 4:
