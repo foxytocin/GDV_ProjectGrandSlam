@@ -67,6 +67,7 @@ public class InGameGUI : MonoBehaviour {
                 break;
 
             case 2:
+                singlePlayerActive = false;
                 singleplayerCanvas.SetActive(false);
                 multiPlayerCanvas.SetActive(true);
                 player1Win.color = new Color32(236, 77, 19, 255);
@@ -77,6 +78,8 @@ public class InGameGUI : MonoBehaviour {
                 break;
 
             case 3:
+                singlePlayerActive = false;
+                singleplayerCanvas.SetActive(false);
                 multiPlayerCanvas.SetActive(true);
                 player1Win.color = new Color32(236, 77, 19, 255);
                 player2Win.color = new Color32(82, 203, 16, 255);
@@ -86,6 +89,8 @@ public class InGameGUI : MonoBehaviour {
                 break;
 
             case 4:
+                singlePlayerActive = false;
+                singleplayerCanvas.SetActive(false);
                 multiPlayerCanvas.SetActive(true);
                 player1Win.color = new Color32(236, 77, 19, 255);
                 player2Win.color = new Color32(82, 203, 16, 255);
