@@ -442,7 +442,7 @@ public class LevelGenerator : MonoBehaviour
                     createGang(new Vector3(i, 0f, CameraPosition), CameraPosition);
                     break;
                 case levelWand:
-                    createWand(new Vector3(i, 0.5f, CameraPosition));
+                    createWand(new Vector3(i, 0.5f, CameraPosition), CameraPosition);
                     break;
                 case levelKiste:
                     createKiste(new Vector3(i, 0f, CameraPosition));
@@ -483,7 +483,7 @@ public class LevelGenerator : MonoBehaviour
 
 
     //Erzeug ein Stück Wand, einen Turm, oder einen Bogen
-    private void createWand(Vector3 pos) {
+    private void createWand(Vector3 pos, int CameraPosition) {
         
         int xPos = (int)pos.x;
         int zPos = (int)pos.z;
@@ -502,7 +502,8 @@ public class LevelGenerator : MonoBehaviour
             AllGameObjects[xPos, zPos] = objectPooler.SpawnFromPool("Wand", pos, Quaternion.identity);
             
             // Ezeugt glowBalls wenn generateGlowBalls urch den DayNightSwitch.cs auf true gesetzt wurde
-            if(generateGlowBalls && !MenuDemoMode.demoAllowed)
+            // Weitere Bedinungen: Nicht im DemoMode & Nicht auf Hoehe einer DistanzeLine
+            if(generateGlowBalls && !MenuDemoMode.demoAllowed && (CameraPosition - (startLinie - 1)) % 25 != 0)
                 createGlowBall(pos);
         }
 
