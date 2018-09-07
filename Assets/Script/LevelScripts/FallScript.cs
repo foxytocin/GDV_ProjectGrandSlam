@@ -7,10 +7,12 @@ public class FallScript : MonoBehaviour {
     float randomSpeed;
     float fallDelay;
     private LevelGenerator LevelGenerator;
+    private GameManager GameManager;
 
     private void Awake()
     {
         LevelGenerator = FindObjectOfType<LevelGenerator>();
+        GameManager = FindObjectOfType<GameManager>();
     }
 
     public void fallDown() {
@@ -50,8 +52,12 @@ public class FallScript : MonoBehaviour {
             }
         }
         
-        LevelGenerator.AllGameObjects[xPos, zPos] = ObjectPooler.Instance.SpawnFromPool("FreeFall", transform.position, Quaternion.identity);
-        gameObject.SetActive(false);
+        if(GameManager.gameStatePlay)
+        {
+            LevelGenerator.AllGameObjects[xPos, zPos] = ObjectPooler.Instance.SpawnFromPool("FreeFall", transform.position, Quaternion.identity);
+            gameObject.SetActive(false);
+        }
+
     }
 
 
@@ -92,7 +98,10 @@ public class FallScript : MonoBehaviour {
             }
         }
         
-        LevelGenerator.AllGameObjects[xPos, zPos] = ObjectPooler.Instance.SpawnFromPool("FreeFall", transform.position, Quaternion.identity);
+        if(GameManager.gameStatePlay)
+        {
+            LevelGenerator.AllGameObjects[xPos, zPos] = ObjectPooler.Instance.SpawnFromPool("FreeFall", transform.position, Quaternion.identity);
+        }
 
         while(transform.position.y > -50f)
         {
