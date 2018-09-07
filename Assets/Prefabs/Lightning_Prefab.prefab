@@ -164,6 +164,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lightningLChild_Prefab: {fileID: 1380236083426342, guid: bd6db81744191ad4fbc5a4d0b0696c7a,
     type: 2}
+  lightningRChild_Prefab: {fileID: 1380236083426342, guid: 3c599af99d609914192fae7b148f79db,
+    type: 2}
   lightning_prefab: {fileID: 0}
   lightningSpawner: {fileID: 0}
   depth: 1

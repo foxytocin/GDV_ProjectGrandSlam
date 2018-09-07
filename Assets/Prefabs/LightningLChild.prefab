@@ -124,8 +124,8 @@ Light:
   serializedVersion: 8
   m_Type: 2
   m_Color: {r: 0.43867922, g: 0.74874216, b: 1, a: 1}
-  m_Intensity: 3
-  m_Range: 40
+  m_Intensity: 2
+  m_Range: 30
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
@@ -146,7 +146,7 @@ Light:
   m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 4
+  m_BounceIntensity: 3
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
   m_ShadowRadius: 0

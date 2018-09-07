@@ -35,9 +35,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4486479114333748}
-  - component: {fileID: 114926149429447366}
-  - component: {fileID: 23276394116036008}
-  - component: {fileID: 33407131054393324}
+  - component: {fileID: 114633737644068722}
+  - component: {fileID: 23294933060277246}
+  - component: {fileID: 33186537589640262}
   m_Layer: 0
   m_Name: LightningRChild
   m_TagString: Untagged
@@ -72,7 +72,7 @@ Transform:
   m_Father: {fileID: 4486479114333748}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &23276394116036008
+--- !u!23 &23294933060277246
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -107,7 +107,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!33 &33407131054393324
+--- !u!33 &33186537589640262
 MeshFilter:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -124,8 +124,8 @@ Light:
   serializedVersion: 8
   m_Type: 2
   m_Color: {r: 0.43867922, g: 0.74874216, b: 1, a: 1}
-  m_Intensity: 3
-  m_Range: 40
+  m_Intensity: 2
+  m_Range: 30
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
@@ -146,12 +146,12 @@ Light:
   m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 4
+  m_BounceIntensity: 3
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &114926149429447366
+--- !u!114 &114633737644068722
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -159,7 +159,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1380236083426342}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa3ca5b8ba5bf264ea7f49461cc1cd0a, type: 3}
+  m_Script: {fileID: 11500000, guid: a16f9d5ed75154147ba93d671f7d57aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   depth: 1

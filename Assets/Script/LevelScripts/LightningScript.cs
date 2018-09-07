@@ -193,7 +193,7 @@ public class LightningScript : MonoBehaviour
                 
                 //ChildLightning
                 int randomChildLightningProb = Mathf.RoundToInt((Random.value * 12) + ((i * i * i) / 1300f));
-                Debug.Log(randomChildLightningProb);
+                //Debug.Log(randomChildLightningProb);
                 if (randomChildLightningProb > 10)
                 {
                     if (Random.value < 0.5f)
