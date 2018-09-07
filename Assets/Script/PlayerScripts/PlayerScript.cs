@@ -287,18 +287,38 @@ public class PlayerScript : MonoBehaviour
     }
 
 
-    bool soundNotPlaying = true;
+    private bool soundNotPlaying = true;
+    public float rollingSoundDelay = 0.2f;
     private void movingSound(bool moving)
     {
         if(moving && soundNotPlaying)
         {
+            playerAudio.volume = 0.3f;
             soundNotPlaying = false;
             playerAudio.Play();
 
         } else if(!moving && !soundNotPlaying) {
 
-            soundNotPlaying = true;
-            playerAudio.Pause();
+            if(rollingSoundDelay > 0f)
+            {
+                rollingSoundDelay -= Time.deltaTime;
+
+            } else {
+
+                if(playerAudio.volume > 0f)
+                {
+                    playerAudio.volume -= Time.deltaTime;
+
+                } else {
+
+                    soundNotPlaying = true;
+                    playerAudio.Pause();
+                    rollingSoundDelay = 0.2f;
+                    playerAudio.volume = 0.3f;
+                }
+
+            }
+
         }
     }
 
@@ -525,6 +545,7 @@ public class PlayerScript : MonoBehaviour
                 }
             }
         }
+
         return false;
     }
 

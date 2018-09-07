@@ -84,7 +84,7 @@ public class BombScript : MonoBehaviour
 
         countDown = bombTimer;
         // Bombe explodiert nach Ablauf des Timers (countDown) oder durch remoteBombe (Fernzuendung durch Player)
-        while ((countDown >= 0 || remoteBomb))
+        while (gameObject != null && (countDown >= 0 || remoteBomb))
         {
             anglesBode = levelGenerator.SecondaryGameObjects1[(int)transform.position.x, (int)transform.position.z].gameObject.transform.localEulerAngles * 3f;
             anglesRotation += new Vector3(0, 80f * (Time.deltaTime * bombRotation), 0);
