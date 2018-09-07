@@ -85,7 +85,7 @@ public class PlayerSpawner : MonoBehaviour
 
         if (rulesScript.battle == 1)
         {
-            Debug.Log("Restart SinglePlayerGuI");
+            //Debug.Log("Restart SinglePlayerGuI");
             inGameGUI.restartSinglePlayerGui();
         }
 

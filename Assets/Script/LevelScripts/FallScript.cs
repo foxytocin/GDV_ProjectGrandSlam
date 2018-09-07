@@ -43,7 +43,7 @@ public class FallScript : MonoBehaviour {
                 case "Player":
                     PlayerScript pc = currentGameObject.GetComponent<PlayerScript>();
                     if(pc != null)
-                        StartCoroutine(pc.playerFall());
+                        pc.playerFall();
                     break;
                 default:
                     break;
@@ -85,7 +85,7 @@ public class FallScript : MonoBehaviour {
                 case "Player":
                     PlayerScript pc = currentGameObject.GetComponent<PlayerScript>();
                     if(pc != null)
-                        StartCoroutine(pc.playerFall());
+                        pc.playerFall();
                     break;
                 default:
                     break;

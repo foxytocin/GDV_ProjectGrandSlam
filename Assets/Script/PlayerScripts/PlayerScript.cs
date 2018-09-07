@@ -477,7 +477,7 @@ public class PlayerScript : MonoBehaviour
                 switch(go.tag)
                 {
                     case "FreeFall":
-                        StartCoroutine(playerFall());
+                        playerFall();
                         myTime = 0f;
                         return true;
                     
@@ -507,9 +507,17 @@ public class PlayerScript : MonoBehaviour
     }
 
     // Player faellt in den Abgund
-    public IEnumerator playerFall()
+    // playerFall & playerFallCore damit die Coroutine innerhalb des Players und nicht im Aufrufenden Objekt laeuft
+    public void playerFall()
     {
-        levelGenerator.AllGameObjects[(int)target.x, (int)target.z] = null;
+        if(gameManager.gameStatePlay)
+        {
+            StartCoroutine(playerFallCore());
+        }
+    }
+
+    private IEnumerator playerFallCore()
+    {
         rulesScript.playerDeath(playerID, transform.position);
         target.y = -200f;
 
@@ -522,7 +530,7 @@ public class PlayerScript : MonoBehaviour
             default: break;
         }
 
-        while(transform.position.y > -200)
+        while(transform.position.y > -50 && gameManager.gameStatePlay)
         {
             gravity += Time.deltaTime * 0.8f;
             transform.position = Vector3.MoveTowards(transform.position, target, gravity * gravity);
@@ -530,7 +538,12 @@ public class PlayerScript : MonoBehaviour
         }
 
         gravity = 0f;
-        Destroy(gameObject);
+        if(gameObject != null)
+        {
+            levelGenerator.AllGameObjects[(int)target.x, (int)target.z] = null;
+            Destroy(gameObject);
+        }
+        
     }
 
 

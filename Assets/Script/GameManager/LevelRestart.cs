@@ -79,8 +79,6 @@ public class LevelRestart : MonoBehaviour {
 	}
 
 
-	
-
 
 	private IEnumerator eraseCurrentWorld(bool animiert)
 	{
@@ -93,12 +91,15 @@ public class LevelRestart : MonoBehaviour {
 				{
 					case "Player":
 						
+						Debug.Log("LevelRestart: Player gefunden");
+
 						if(animiert)
 						{
 							StartCoroutine(playerFall(go));
 							
 						} else {
-
+							
+							Debug.Log("LevelRestart: Player gelöscht und Destroyed");
 							levelGenerator.AllGameObjects[(int)go.transform.position.x, (int)go.transform.position.z] = null;
 							Destroy(go);
 						}
@@ -200,8 +201,9 @@ public class LevelRestart : MonoBehaviour {
 	}
 
 
-    public IEnumerator playerFall(GameObject player)
+    private IEnumerator playerFall(GameObject player)
     {
+		Debug.Log("Letzter Player fällt");
         levelGenerator.AllGameObjects[(int)player.transform.position.x, (int)player.transform.position.z] = null;
 		Vector3 target = player.transform.position;
 		target.y = -50f;

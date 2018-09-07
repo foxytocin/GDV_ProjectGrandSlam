@@ -182,7 +182,7 @@ public class RulesScript : MonoBehaviour
 
     private void onePlayerRule(int distance)
     {
-
+        gameManager.lockControlls();
         distance = distance - (LevelGenerator.startLinie - 1);
 
         // Verhinderte negative Werte falls der Spieler hinter der Zielline stirbt
@@ -198,8 +198,6 @@ public class RulesScript : MonoBehaviour
         }
 
         recodsOrganize(recordSearch(distance, 4), distance);
-
-        gameManager.lockControlls();
         
         int reachTextString = distance;
         FindObjectOfType<OverlayMethodenScript>().isInGame = false;
