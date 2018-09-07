@@ -19,7 +19,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4898770781549210}
-  - component: {fileID: 114409910427572466}
   - component: {fileID: 23067022853239086}
   - component: {fileID: 33690630143864848}
   - component: {fileID: 114657425924692972}
@@ -152,18 +151,6 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &114409910427572466
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1035689952390638}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f4d8c243b82bee4489112b9bebad8b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  depth: 1
 --- !u!114 &114657425924692972
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -175,4 +162,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f4d8c243b82bee4489112b9bebad8b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lightningLChild_Prefab: {fileID: 1380236083426342, guid: bd6db81744191ad4fbc5a4d0b0696c7a,
+    type: 2}
+  lightning_prefab: {fileID: 0}
+  lightningSpawner: {fileID: 0}
   depth: 1

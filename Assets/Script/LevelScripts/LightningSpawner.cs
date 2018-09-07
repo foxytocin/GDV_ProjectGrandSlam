@@ -17,6 +17,7 @@ public class LightningSpawner : MonoBehaviour {
     public AudioClip thunderStrike3;
     private bool thunderAndRainisPlaying;
     private float startVolume;
+    public Vector3Int thunderPos;
 
 	// Use this for initialization
 	void Awake()
@@ -36,7 +37,7 @@ public class LightningSpawner : MonoBehaviour {
         if(Random.value > 0.99f && !dayNightSwitch.isDay)
         {
 
-            Vector3Int thunderPos = new Vector3Int((int)Random.Range(-5f, 35f), 0, cameraScroller.rowPosition + (int)Random.Range(0f, 35f));
+            thunderPos = new Vector3Int((int)Random.Range(-5f, 35f), 0, cameraScroller.rowPosition + (int)Random.Range(0f, 35f));
 
             Instantiate(lightning_prefab, thunderPos, Quaternion.identity);
             thunderStrikeSound();

@@ -8,7 +8,11 @@ using UnityEngine;
 public class LightningScript : MonoBehaviour
 {
     GameObject turtle;
-    
+    public GameObject lightningLChild_Prefab;
+    public GameObject lightning_prefab;
+
+    public LightningSpawner lightningSpawner;
+
     public int depth = 1;
 
     private Mesh meinMesh;
@@ -21,6 +25,8 @@ public class LightningScript : MonoBehaviour
     private float maxXStep = 1.0f;
     private float maxYStep = 2.0f;
 
+    float rz = 0;
+
     Material mat;
     float emission;
 
@@ -32,6 +38,8 @@ public class LightningScript : MonoBehaviour
         verts = new List<Vector3>();
         faceNormals = new List<Vector3>();
         vertexNormals = new List<Vector3>();
+
+        lightningSpawner = FindObjectOfType<LightningSpawner>();
 
         GetComponent<MeshFilter>().mesh = meinMesh = new Mesh();        //Gleiche Instanz Zuweisung
         mat = GetComponent<MeshRenderer>().material;
@@ -166,6 +174,7 @@ public class LightningScript : MonoBehaviour
 
         for(int i = 20; i > 0; i--)
         {
+            // 50/50 Chance, ob Turtle sich nach links oder rechts bewegt  (<0.5=rechts)
             if (Random.value < 0.5f)
             {
                 turn(90f);
@@ -179,6 +188,34 @@ public class LightningScript : MonoBehaviour
                 move(Random.Range(0.0f, maxXStep), 0, i/20f);
                 turn(90f);
                 move(Random.Range(0.0f, maxYStep), 1, i/20f);
+
+                
+                //ChildLightning
+                int randomChildLightningProb = Mathf.RoundToInt((Random.value * 12) + ((i * i * i) / 1300f));
+                Debug.Log(randomChildLightningProb);
+                if (randomChildLightningProb > 10)
+                {
+                    rz = -90f;
+                    Quaternion rot = Quaternion.Euler(180f, 0f, 0f);
+                    GameObject lc = Instantiate(lightningLChild_Prefab, lightningSpawner.thunderPos + new Vector3(verts[verts.Count-2].x + 0.4f, turtle.transform.position.y, 0), rot);
+                    lc.transform.parent = gameObject.transform;
+                    LightningLeftChildScript lcs = lc.GetComponent<LightningLeftChildScript>();
+                    lcs.init();
+                    lcs.GenerateLeftChildLightning(new Vector3(0, 0, 0), i);
+                }
+                /*
+                //ChildLightning
+                int randomChildLightningProb = Mathf.RoundToInt(Random.value * 12);
+                Debug.Log(randomChildLightningProb);
+                if (randomChildLightningProb % 6 == 0)
+                {
+                    rz -= 90f;
+                    Quaternion rot = Quaternion.Euler(0f, 0f, rz);
+                    Vector3 posChild = lightningSpawner.thunderPos - new Vector3(15, 0 ,0);
+                    Instantiate(lightning_prefab, posChild, rot);
+                    Debug.Log("NEW!");
+                }
+                */
             }
         }
     }
