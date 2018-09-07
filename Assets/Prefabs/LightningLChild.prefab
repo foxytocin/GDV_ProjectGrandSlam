@@ -39,7 +39,7 @@ GameObject:
   - component: {fileID: 23276394116036008}
   - component: {fileID: 33407131054393324}
   m_Layer: 0
-  m_Name: LightningLChild 1
+  m_Name: LightningLChild
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

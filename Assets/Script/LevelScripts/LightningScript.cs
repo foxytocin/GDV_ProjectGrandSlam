@@ -9,6 +9,7 @@ public class LightningScript : MonoBehaviour
 {
     GameObject turtle;
     public GameObject lightningLChild_Prefab;
+    public GameObject lightningRChild_Prefab;
     public GameObject lightning_prefab;
 
     public LightningSpawner lightningSpawner;
@@ -195,13 +196,25 @@ public class LightningScript : MonoBehaviour
                 Debug.Log(randomChildLightningProb);
                 if (randomChildLightningProb > 10)
                 {
-                    rz = -90f;
-                    Quaternion rot = Quaternion.Euler(180f, 0f, 0f);
-                    GameObject lc = Instantiate(lightningLChild_Prefab, lightningSpawner.thunderPos + new Vector3(verts[verts.Count-2].x + 0.4f, turtle.transform.position.y, 0), rot);
-                    lc.transform.parent = gameObject.transform;
-                    LightningLeftChildScript lcs = lc.GetComponent<LightningLeftChildScript>();
-                    lcs.init();
-                    lcs.GenerateLeftChildLightning(new Vector3(0, 0, 0), i);
+                    if (Random.value < 0.5f)
+                    {
+                        rz = -90f;
+                        Quaternion rot = Quaternion.Euler(180f, 0f, 0f);
+                        GameObject lc = Instantiate(lightningLChild_Prefab, lightningSpawner.thunderPos + new Vector3(verts[verts.Count - 2].x + 0.4f, turtle.transform.position.y, 0), rot);
+                        lc.transform.parent = gameObject.transform;
+                        LightningLeftChildScript lcs = lc.GetComponent<LightningLeftChildScript>();
+                        lcs.init();
+                        lcs.GenerateLeftChildLightning(new Vector3(0, 0, 0), i);
+                    }
+                    else
+                    {
+                        Quaternion rot = Quaternion.Euler(0f, 0f, 0f);
+                        GameObject rc = Instantiate(lightningRChild_Prefab, lightningSpawner.thunderPos + new Vector3(verts[verts.Count - 2].x + 0.4f, turtle.transform.position.y, 0), rot);
+                        rc.transform.parent = gameObject.transform;
+                        LightningRightChildScript rcs = rc.GetComponent<LightningRightChildScript>();
+                        rcs.init();
+                        rcs.GenerateRightChildLightning(new Vector3(0, 0, 0), i);
+                    }
                 }
                 /*
                 //ChildLightning

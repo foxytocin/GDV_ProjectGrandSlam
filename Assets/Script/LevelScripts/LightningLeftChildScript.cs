@@ -160,7 +160,7 @@ public class LightningLeftChildScript : MonoBehaviour
     }
 
     //Rekursiv?
-    public void GenerateLeftChildLightning(Vector3 pos, int lightningDepth)
+    public void GenerateLeftChildLightning(Vector3 pos, float lightningDepth)
     {
 
         // GameObject initialisieren
@@ -175,7 +175,7 @@ public class LightningLeftChildScript : MonoBehaviour
         turn(-90f);
         move(Random.Range(0.0f, maxYStep), 1, lightningDepth / 20f);
 
-        for (int i = lightningDepth; i > 0; i--)
+        for (int i = Mathf.RoundToInt(lightningDepth * (lightningDepth / 20f)); i > 0; i--)
         {
             float off = i / 20f;
             if (Random.value < 0.1f)
