@@ -293,7 +293,7 @@ public class PlayerScript : MonoBehaviour
     {
         if(moving && soundNotPlaying)
         {
-            playerAudio.volume = 0.3f;
+            playerAudio.volume = 0.2f;
             soundNotPlaying = false;
             playerAudio.Play();
 
@@ -314,7 +314,7 @@ public class PlayerScript : MonoBehaviour
                     soundNotPlaying = true;
                     playerAudio.Pause();
                     rollingSoundDelay = 0.2f;
-                    playerAudio.volume = 0.3f;
+                    playerAudio.volume = 0.2f;
                 }
 
             }

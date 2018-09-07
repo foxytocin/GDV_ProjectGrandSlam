@@ -1,5 +1,6 @@
 ﻿using UnityEngine.Audio;
 using System.Collections;
+using Random=UnityEngine.Random;
 using System;
 using UnityEngine;
 
@@ -9,13 +10,11 @@ public class AudioManager : MonoBehaviour
     public Sound[] sounds;
     public Music[] music;
 
-
     public float settingsFXVolume;
     public float settingsMusicVolume;
-
     public bool musicAtStart;
+    public int randomInGameMusic;
 
-    int randomInGameMusic;
 
     // Use this for initialization
     void Awake ()
@@ -42,9 +41,7 @@ public class AudioManager : MonoBehaviour
 
         settingsMusicVolume = 0.5f;
         settingsFXVolume = 1f;
-
-        randomInGameMusic = 0;
-}
+    }
 
     private void Start()
     {
@@ -53,6 +50,14 @@ public class AudioManager : MonoBehaviour
 
         playSound("menumusic");
     }
+
+    public void playNextSong(){
+        music[randomInGameMusic].source.Stop();
+        randomInGameMusic = Random.Range(0, music.Length);
+        music[randomInGameMusic].source.Play();
+        //AudioClip song = music[randomInGameMusic].clip;
+        //Invoke("PlayNextSong", music[randomInGameMusic].source.Length;
+    }    
 
     public void stopSound(string name)
     {
@@ -106,9 +111,7 @@ public class AudioManager : MonoBehaviour
 
         foreach (Music m in music)
         {
-         
             m.source.volume = m.groundVolume * settingsVolume;
-
         }
 
     }
@@ -197,14 +200,14 @@ public class AudioManager : MonoBehaviour
     public IEnumerator pitchDown()
     {
         StopCoroutine(pitchUp());
-        while(music[randomInGameMusic].source.pitch > 0f)
+        while(music[randomInGameMusic].source.pitch > 0.3f)
         {
             music[randomInGameMusic].source.pitch -= 0.3f * (Time.deltaTime + 0.1f);
             //Debug.Log(music[randomInGameMusic].source.pitch);
             yield return null;
         }
 
-        music[randomInGameMusic].source.pitch = 0f;
+        music[randomInGameMusic].source.Pause();
     }
 
     // Pitched die Musik wieder auf Normalgeschwindigkeit wenn das Spiel resumed wird

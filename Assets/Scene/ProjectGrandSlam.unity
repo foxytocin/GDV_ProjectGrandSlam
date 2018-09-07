@@ -4871,9 +4871,52 @@ MonoBehaviour:
     pitch: 1
     source: {fileID: 0}
     loop: 1
+  - name: Music2
+    clip: {fileID: 8300000, guid: d5e9774fe68814e30b886c64e500c7a6, type: 3}
+    groundVolume: 0.5
+    volume: 0.5
+    pitch: 1
+    source: {fileID: 0}
+    loop: 1
+  - name: Music3
+    clip: {fileID: 8300000, guid: 2899786fda6b74e78935c9558392129e, type: 3}
+    groundVolume: 0.5
+    volume: 0.5
+    pitch: 1
+    source: {fileID: 0}
+    loop: 1
+  - name: Music4
+    clip: {fileID: 8300000, guid: 6cf10884eddfb442a92118e011eb6022, type: 3}
+    groundVolume: 0.5
+    volume: 0.5
+    pitch: 1
+    source: {fileID: 0}
+    loop: 1
+  - name: Music5
+    clip: {fileID: 8300000, guid: f495b523698ea4504a9bf88977a09ed0, type: 3}
+    groundVolume: 0.5
+    volume: 0.5
+    pitch: 1
+    source: {fileID: 0}
+    loop: 1
+  - name: Music6
+    clip: {fileID: 8300000, guid: a280dec5f8e2a483cb02ea635ed14eae, type: 3}
+    groundVolume: 0.5
+    volume: 0.5
+    pitch: 1
+    source: {fileID: 0}
+    loop: 1
+  - name: Music7
+    clip: {fileID: 8300000, guid: a9003e0d0e3394aad8e4856a61ce5a46, type: 3}
+    groundVolume: 0.5
+    volume: 0.5
+    pitch: 1
+    source: {fileID: 0}
+    loop: 1
   settingsFXVolume: 0
   settingsMusicVolume: 0
-  musicAtStart: 0
+  musicAtStart: 1
+  randomInGameMusic: 0
 --- !u!1 &444575531
 GameObject:
   m_ObjectHideFlags: 0
