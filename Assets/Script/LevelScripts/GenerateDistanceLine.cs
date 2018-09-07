@@ -160,7 +160,7 @@ private Color Percent100 = new Color32(170, 39, 39, 1);
 	void createMeterSchild(float startPoint, float endPoint, float centerPoint, int row, bool normalline)
 	{
 		float distance = endPoint - startPoint;
-		float leftMiddle = startPoint - 1 + (centerPoint - startPoint) / 2f;
+		float leftMiddle = startPoint + (centerPoint - startPoint) / 2f;
 		float rightMiddle = centerPoint + (endPoint - centerPoint) / 2f;
 
 		if(distance >= 26)
@@ -169,7 +169,7 @@ private Color Percent100 = new Color32(170, 39, 39, 1);
 			MeterSchild1.GetComponent<MeterSchild>().setMeter(row - playerOffset, normalline);
 			LevelGenerator.DistanceLines[3, row] = MeterSchild1;
 
-			GameObject MeterSchild2 = objectPooler.SpawnFromPool("MeterSchild", new Vector3(leftMiddle - 1, 3.5f, row), Quaternion.Euler(20f, 0f, 0f));
+			GameObject MeterSchild2 = objectPooler.SpawnFromPool("MeterSchild", new Vector3(leftMiddle - 2, 3.5f, row), Quaternion.Euler(20f, 0f, 0f));
 			MeterSchild2.GetComponent<MeterSchild>().setMeter(row - playerOffset, normalline);
 			LevelGenerator.DistanceLines[4, row] = MeterSchild2;
 
