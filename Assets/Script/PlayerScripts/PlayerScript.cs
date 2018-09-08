@@ -429,11 +429,12 @@ public class PlayerScript : MonoBehaviour
         creatingBomb = true;
         int bombXPos = Mathf.RoundToInt(transform.position.x);
         int bombZPos = Mathf.RoundToInt(transform.position.z);
+        float bombYPos = 0.38f;
 
-        if(avaibleBomb > 0 && houdiniItem == false && (levelGenerator.AllGameObjects[bombXPos, bombZPos] == null ||  houdiniItem == false && levelGenerator.AllGameObjects[bombXPos, bombZPos].gameObject.CompareTag("Player")))
+        if (avaibleBomb > 0 && houdiniItem == false && (levelGenerator.AllGameObjects[bombXPos, bombZPos] == null ||  houdiniItem == false && levelGenerator.AllGameObjects[bombXPos, bombZPos].gameObject.CompareTag("Player")))
         {
             avaibleBomb -= 1;
-            levelGenerator.AllGameObjects[bombXPos, bombZPos] = bombSpawner.SpawnBomb(bombXPos, bombZPos, playerID, bombPower, bombTimer, remoteBombItem, false, playerColor);
+            levelGenerator.AllGameObjects[bombXPos, bombZPos] = bombSpawner.SpawnBomb(bombXPos, bombYPos, bombZPos, playerID, bombPower, bombTimer, remoteBombItem, false, playerColor);
         } else {
             creatingBomb = false;
         }
