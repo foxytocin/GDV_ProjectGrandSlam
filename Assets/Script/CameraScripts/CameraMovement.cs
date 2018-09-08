@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,12 +7,10 @@ public class CameraMovement : MonoBehaviour {
 
     private CameraScroller cameraScroller;
     private MiniMapCam miniMapCam;
-    public List<GameObject> livingPlayers;
     public Vector3[] positions;
     private PlayerSpawner playerSpawner;
     public int numPlayers;
     public Vector3 centerPoint;
-    private LevelGenerator levelGenerator;
     private RulesScript rulesScript;
 
     private List<float> xPos;
@@ -22,8 +21,9 @@ public class CameraMovement : MonoBehaviour {
     private float minZ;
     private Vector3 minPos;
     private Vector3 maxPos;
-    private int oldPosZ;
-    int roundPlayers;
+    public int roundPlayers;
+    private GameManager gameManager;
+    public bool nextRoundAnimation;
 
 
     private void Awake()
@@ -33,64 +33,65 @@ public class CameraMovement : MonoBehaviour {
         playerSpawner = FindObjectOfType<PlayerSpawner>();
         rulesScript = FindObjectOfType<RulesScript>();
         miniMapCam = FindObjectOfType<MiniMapCam>();
-        //levelGenerator = GameObject.Find("LevelGenerator").GetComponent<LevelGenerator>();
-        
+        gameManager = FindObjectOfType<GameManager>();
+        nextRoundAnimation = false;
     }
+
     void Update()
     {
-        centerPoint = CalcCenterPoint();
-        miniMapCam.positon(centerPoint);
-        /*
-        for(int i = 0; i < positions.Length; i++)
+        if(!nextRoundAnimation)
         {
-            //Debug.Log("Anz spieler: " + numPlayers);
-            //Debug.Log("Anz spieler2: " + playerSpawner.players);
-            Debug.Log("Position " + i + positions[i]);
-            Debug.Log("CP: " + centerPoint);
+            centerPoint = CalcCenterPoint();
+            miniMapCam.positon(centerPoint);
 
-        }
-        */        
+            Vector3 local = transform.InverseTransformPoint(centerPoint);
+            float z = Mathf.Clamp(local.z / 2f, -4f, 4f);
 
-        Vector3 local = transform.InverseTransformPoint(centerPoint);
-        float z = Mathf.Clamp(local.z / 2f, -4f, 4f);
+            Vector3 targetPos = new Vector3(centerPoint.x - 12f, 0f, z - OffsetAccordingToMaxDistance());
 
-        Vector3 targetPos = new Vector3(centerPoint.x - 12f, 0f, z - OffsetAccordingToMaxDistance());
-
-         //Dynamischer Levelspeed
-        cameraScroller.LevelGenerator.setLevelSpeed(((z + z + 5f - OffsetAccordingToMaxDistance()*0.9f) / 4f) + 0.5f);
-        transform.localPosition = Vector3.Lerp(transform.localPosition, targetPos, 4f * Time.deltaTime);
+            //Dynamischer Levelspeed
+            cameraScroller.scrollSpeed = (((z + z + 5f - OffsetAccordingToMaxDistance() * 0.9f) / 3f) + 0.5f);
+            if (!rulesScript.resultScreen.activeSelf)
+            {
+                transform.localPosition = Vector3.Lerp(transform.localPosition, targetPos, 4f * Time.deltaTime);
+            }
+        }       
+        
     }
 
     public Vector3 CalcCenterPoint()
-    {
-        
+    {        
         numPlayers = rulesScript.playerIsLive;
         Vector3 center = Vector3.zero;
-
+   
         roundPlayers = playerSpawner.playerList.Count;
-        if (numPlayers == 1)
+        if(gameManager.gameStatePlay && numPlayers == 0)
+        {
+            //Debug.Log("NOOOOW");
+            return new Vector3(200, 0, 0);
+        }
+        else if (numPlayers == 1)
         {
             foreach(GameObject go in playerSpawner.playerList)
             {
                 if(go != null)
                 {
-                    return go.transform.position;
+                    return new Vector3(go.transform.position.x, 0, go.transform.position.z);
                 }
             }
         } else {
 
             xPos = new List<float>();
             zPos = new List<float>();
-            
-            for (int i = 0; i < roundPlayers; i++)
+
+            foreach (GameObject go in playerSpawner.playerList)
             {
-                if (playerSpawner.playerList[i] != null)
+                if (go != null)
                 {
-                    xPos.Add(positions[i].x);
-                    zPos.Add(positions[i].z);
+                    xPos.Add(go.transform.position.x);
+                    zPos.Add(go.transform.position.z);
                 }
             }
-            
             maxX = Mathf.Max(xPos.ToArray());
             maxZ = Mathf.Max(zPos.ToArray());
             minX = Mathf.Min(xPos.ToArray());
@@ -203,9 +204,51 @@ public class CameraMovement : MonoBehaviour {
     {
         return Mathf.Clamp(MaxZDistancePlayers() * MaxZDistancePlayers() / 15f, 0f, 8f);
     }
-
+    /*
     public void PlayerPosition(Vector3 pos, int iD)
     {
         positions[iD] = pos;
     }    
+    */
+
+    public void RestartCameraMovement(bool mainmenu)
+    {
+        nextRoundAnimation = true;
+        Vector3 target = new Vector3(0f, transform.position.y, transform.position.z) + new Vector3(15f, 10f, -15f);
+        if(mainmenu)
+        {
+            StartCoroutine(HoldCamera(target, 3.5f));
+        }
+        else
+        {
+            StartCoroutine(HoldCamera(target, 0.7f));
+        }
+        
+    }
+
+    private IEnumerator HoldCamera(Vector3 target, float seconds)
+    {
+        //Vector3 targetPos = transform.position + new Vector3(0f, 10f, -10f);
+        //transform.position = Vector3.Lerp(transform.position, targetPos, 4f * Time.deltaTime);
+        //transform.position = new Vector3(0f, transform.position.y, transform.position.z) + new Vector3(15f, 15f, -15f);
+
+        //Vector3 pos = transform.position;
+
+        //Vector3 t = new Vector3(0f, transform.position.y, transform.position.z) + new Vector3(15f, 15f, -15f);
+
+        
+       //transform.position = Vector3.MoveTowards(transform.position, target, 0.1f);
+
+        float elapsedTime = 0;
+        Vector3 startingPos = transform.position;
+        while (elapsedTime < seconds)
+        {
+            transform.position = Vector3.Lerp(startingPos, target, (elapsedTime / seconds));
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        //yield return new WaitForSecondsRealtime(0.7f);
+        nextRoundAnimation = false;
+    }
 }

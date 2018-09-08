@@ -173,6 +173,11 @@ private Color Percent100 = new Color32(170, 39, 39, 1);
 				MeterSchild1.transform.GetChild(0).GetComponent<Renderer>().material.EnableKeyword("_EMISSION");
 				MeterSchild2.transform.GetChild(0).GetComponent<Renderer>().material.EnableKeyword("_EMISSION");
 				MeterSchild3.transform.GetChild(0).GetComponent<Renderer>().material.EnableKeyword("_EMISSION");
+			} else {
+
+				MeterSchild1.transform.GetChild(0).GetComponent<Renderer>().material.DisableKeyword("_EMISSION");
+				MeterSchild2.transform.GetChild(0).GetComponent<Renderer>().material.DisableKeyword("_EMISSION");
+				MeterSchild3.transform.GetChild(0).GetComponent<Renderer>().material.DisableKeyword("_EMISSION");
 			}
 		}
 		else if(distance >= 13)
@@ -189,6 +194,10 @@ private Color Percent100 = new Color32(170, 39, 39, 1);
 			{
 				MeterSchild1.transform.GetChild(0).GetComponent<Renderer>().material.EnableKeyword("_EMISSION");
 				MeterSchild2.transform.GetChild(0).GetComponent<Renderer>().material.EnableKeyword("_EMISSION");
+			} else {
+
+				MeterSchild1.transform.GetChild(0).GetComponent<Renderer>().material.DisableKeyword("_EMISSION");
+				MeterSchild2.transform.GetChild(0).GetComponent<Renderer>().material.DisableKeyword("_EMISSION");
 			}
 		}
 		else
@@ -200,6 +209,9 @@ private Color Percent100 = new Color32(170, 39, 39, 1);
 			if(generateGlowStangen)
 			{
 				MeterSchild1.transform.GetChild(0).GetComponent<Renderer>().material.EnableKeyword("_EMISSION");
+			} else {
+
+				MeterSchild1.transform.GetChild(0).GetComponent<Renderer>().material.DisableKeyword("_EMISSION");
 			}
 		}
 	}

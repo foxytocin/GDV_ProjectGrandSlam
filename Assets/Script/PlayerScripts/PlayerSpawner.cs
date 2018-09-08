@@ -9,6 +9,7 @@ public class PlayerSpawner : MonoBehaviour
     public int players;
     //PlayerListe mit GameObjekts
     public List<GameObject> playerList;
+    private LevelGenerator LevelGenerator;
 
     List<Vector3> spawnList;
     List<Color> playerColorList;
@@ -18,6 +19,7 @@ public class PlayerSpawner : MonoBehaviour
 
     void Awake()
     {
+        LevelGenerator = FindObjectOfType<LevelGenerator>();
         spawnList = new List<Vector3>();
         playerColorList = new List<Color>();
 
@@ -80,25 +82,26 @@ public class PlayerSpawner : MonoBehaviour
     // Passt den SpawnPoint an die Anzahl der Spieler an
     private List<Vector3> createSpawnPoints(int players,  List<Vector3> spawnList)
     {
+        float startPosition = (float)LevelGenerator.startLinie - 1;
         switch(players)
         {
             case 1:
-                spawnList.Add(new Vector3(15f, 0.43f, 4f));   // Player 1
+                spawnList.Add(new Vector3(15f, 0.43f, startPosition));   // Player 1
                 break;
             case 2:
-                spawnList.Add(new Vector3(10f, 0.43f, 4f));   // Player 1
-                spawnList.Add(new Vector3(20f, 0.43f, 4f));   // Player 2
+                spawnList.Add(new Vector3(10f, 0.43f, startPosition));   // Player 1
+                spawnList.Add(new Vector3(20f, 0.43f, startPosition));   // Player 2
                 break;
             case 3:
-                spawnList.Add(new Vector3(7f, 0.43f, 4f));    // Player 1
-                spawnList.Add(new Vector3(15f, 0.43f, 4f));   // Player 2
-                spawnList.Add(new Vector3(23f, 0.43f, 4f));   // Player 3
+                spawnList.Add(new Vector3(7f, 0.43f, startPosition));    // Player 1
+                spawnList.Add(new Vector3(15f, 0.43f, startPosition));   // Player 2
+                spawnList.Add(new Vector3(23f, 0.43f, startPosition));   // Player 3
                 break;
             case 4:
-                spawnList.Add(new Vector3(6f, 0.43f, 4f));    // Player 1
-                spawnList.Add(new Vector3(12f, 0.43f, 4f));   // Player 2
-                spawnList.Add(new Vector3(18f, 0.43f, 4f));   // Player 3
-                spawnList.Add(new Vector3(24f, 0.43f, 4f));   // Player 4
+                spawnList.Add(new Vector3(6f, 0.43f, startPosition));    // Player 1
+                spawnList.Add(new Vector3(12f, 0.43f, startPosition));   // Player 2
+                spawnList.Add(new Vector3(18f, 0.43f, startPosition));   // Player 3
+                spawnList.Add(new Vector3(24f, 0.43f, startPosition));   // Player 4
                 break;
             default:
             break;

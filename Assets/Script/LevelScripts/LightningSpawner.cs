@@ -60,7 +60,6 @@ public class LightningSpawner : MonoBehaviour {
     private IEnumerator checkWorld(Vector3Int thunderPos)
     {
         int radius = 2;
-        GameObject go;
 
         for(int z = -radius; z <= radius; z++)
         {
@@ -70,12 +69,11 @@ public class LightningSpawner : MonoBehaviour {
                 {
                     if(levelGenerator.AllGameObjects[thunderPos.x + x, thunderPos.z + z] != null)
                     {
-                        go = levelGenerator.AllGameObjects[thunderPos.x + x, thunderPos.z + z].gameObject;
+                        GameObject go = levelGenerator.AllGameObjects[thunderPos.x + x, thunderPos.z + z].gameObject;
 
                         switch(go.tag)
                         {
                             case "Kiste" :
-                                audioManager.playSound("destroyed_box");
                                 levelGenerator.AllGameObjects[thunderPos.x + x, thunderPos.z + z] = null;
                                 go.SetActive(false);
 
@@ -83,15 +81,15 @@ public class LightningSpawner : MonoBehaviour {
                                 Instantiate(KistenPartsPrefab, new Vector3(thunderPos.x + x, 0.5f, thunderPos.z + z), Quaternion.identity, transform);
 
                                 //Spawnt Item
-                                if(Random.value > 0.5f)
+                                if(Random.value > 0.7f)
                                     itemSpawner.SpawnItem(thunderPos.x + x, thunderPos.z + z);
-                            break;
+                                break;
 
                             case "Item" :
-                                audioManager.playSound("break2");
                                 levelGenerator.AllGameObjects[thunderPos.x + x, thunderPos.z + z] = null;
+                                audioManager.playSound("break2");
                                 go.SetActive(false);
-                            break;
+                                break;
 
                             default :
                                 break;
@@ -119,11 +117,11 @@ public class LightningSpawner : MonoBehaviour {
 
     void thunderStrikeSound()
     {
-        switch((int)Random.Range(0f, 4f))
+        switch((int)Random.Range(0f, 3f))
         {
-            case 1: audioSource.PlayOneShot(thunderStrike1, 0.5f * audioManager.settingsFXVolume); break;
-            case 2: audioSource.PlayOneShot(thunderStrike1, 0.5f * audioManager.settingsFXVolume); break;
-            case 3: audioSource.PlayOneShot(thunderStrike1, 0.5f * audioManager.settingsFXVolume); break;
+            case 0: audioSource.PlayOneShot(thunderStrike1, 0.4f * audioManager.settingsFXVolume); break;
+            case 1: audioSource.PlayOneShot(thunderStrike2, 0.6f * audioManager.settingsFXVolume); break;
+            case 2: audioSource.PlayOneShot(thunderStrike3, 0.5f * audioManager.settingsFXVolume); break;
         }
     }
 }

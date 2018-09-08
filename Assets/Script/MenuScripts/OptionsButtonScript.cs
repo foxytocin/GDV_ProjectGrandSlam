@@ -11,16 +11,19 @@ public class OptionsButtonScript : MonoBehaviour
 
     public GameObject offSide;
     public GameObject onSide;
+    private AudioManager audioManager;
 
     OverlayMethodenScript overlayMethodenScript;
 
     private void Start()
     {
         overlayMethodenScript = FindObjectOfType<OverlayMethodenScript>();
+        audioManager = FindObjectOfType<AudioManager>();
     }
 
     public void onClickOptionsButton()
     {
+        audioManager.playSound("buttonclick");
         overlayMethodenScript.sideSwitch(offSide, onSide);
         overlayMethodenScript.updateSoundOptions(fxSlider, musicSlider);
     }

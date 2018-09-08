@@ -11,8 +11,10 @@ public class MapDestroyer : MonoBehaviour
     private PlayerScript player;
     private int xPos;
     private int zPos;
+    private bool realPlayer;
     private ItemSpawner itemSpawner;
     private AudioManager audioManager;
+    private GameManager gameManager;
 
 
     private void Awake()
@@ -22,6 +24,8 @@ public class MapDestroyer : MonoBehaviour
         audioManager = FindObjectOfType<AudioManager>();
         levelGenerator = FindObjectOfType<LevelGenerator>();
         playerSpawner = FindObjectOfType<PlayerSpawner>();
+        gameManager = FindObjectOfType<GameManager>();
+        realPlayer = true;
 
     }
 
@@ -32,7 +36,15 @@ public class MapDestroyer : MonoBehaviour
         xPos = (int)position.x;
         zPos = (int)position.z;
 
-        if(playerSpawner.playerList[id] != null)
+        if(id != 5)
+        {
+            realPlayer = true;
+        } else {
+
+            realPlayer = false;
+        }
+
+        if(realPlayer && playerSpawner.playerList[id] != null)
         {
             player = playerSpawner.playerList[id].GetComponent<PlayerScript>();
 
@@ -70,7 +82,7 @@ public class MapDestroyer : MonoBehaviour
         {
             case 0:
                 int distanz = 1;
-                while (distanz <= bombPower && ExplodeCell(xPos + distanz, zPos, id))
+                while (gameManager.gameStatePlay && distanz <= bombPower && ExplodeCell(xPos + distanz, zPos, id))
                 {
                     yield return new WaitForSeconds(waitTime);
                     distanz++;
@@ -79,7 +91,7 @@ public class MapDestroyer : MonoBehaviour
                 
             case 1:
                 distanz = 1;
-                while (distanz <= bombPower && ExplodeCell(xPos - distanz, zPos, id))
+                while (gameManager.gameStatePlay && distanz <= bombPower && ExplodeCell(xPos - distanz, zPos, id))
                 {
                     yield return new WaitForSeconds(waitTime);
                     distanz++;
@@ -88,7 +100,7 @@ public class MapDestroyer : MonoBehaviour
 
             case 2:
                 distanz = 1;
-                while (distanz <= bombPower && ExplodeCell(xPos, zPos + distanz, id))
+                while (gameManager.gameStatePlay && distanz <= bombPower && ExplodeCell(xPos, zPos + distanz, id))
                 {
                     yield return new WaitForSeconds(waitTime);
                     distanz++;
@@ -97,7 +109,7 @@ public class MapDestroyer : MonoBehaviour
 
             case 3:
                 distanz = 1;
-                while (distanz <= bombPower && ExplodeCell(xPos, zPos - distanz, id))
+                while (gameManager.gameStatePlay && distanz <= bombPower && ExplodeCell(xPos, zPos - distanz, id))
                 {
                     yield return new WaitForSeconds(waitTime);
                     distanz++;

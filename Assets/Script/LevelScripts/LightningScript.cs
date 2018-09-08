@@ -60,16 +60,23 @@ public class LightningScript : MonoBehaviour
         //Vector3[] fnA = faceNormals.ToArray();
         //showNormals(fnA);
 
+        emission = 1f;
+        Color finalColor = Color.white * Mathf.LinearToGammaSpace(emission * 3f);
+        mat.SetColor("_EmissionColor", finalColor);
+        mat.EnableKeyword("_EMISSION");
+
         Destroy(gameObject, 0.5f);
         Destroy(turtle, 0.5f);
     }
 
     private void Update()
     {
+        /*
         emission = Mathf.PingPong(Time.time, 1f);
         Color finalColor = Color.white * Mathf.LinearToGammaSpace(emission * 3f);
         mat.SetColor("_EmissionColor", finalColor);
         mat.EnableKeyword("_EMISSION");
+        */
         /*
         //Vector3[] fnA = faceNormals.ToArray();
         for (int i = 0; i < meinMesh.vertices.Length; i++)

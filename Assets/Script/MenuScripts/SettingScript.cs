@@ -2,16 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Accessibility;
 
 public class SettingScript : MonoBehaviour
 {
 
     public Dropdown resolutionDropdown;
+    GameManager gameManager;
 
     Resolution[] resolutions;
     
     private void Start()
     {
+        gameManager = FindObjectOfType<GameManager>();
         resolutions = Screen.resolutions;
 
         resolutionDropdown.ClearOptions();
@@ -60,5 +63,16 @@ public class SettingScript : MonoBehaviour
         Screen.fullScreen = isFullscreen;
     }
 
+    public void setController(int index)
+    {
+        Debug.Log("SetControllerIndex: " + index);
+        gameManager.controller = index;
+
+        switch(index)
+        {
+            case 0:
+                break;
+        }
+    }
 
 }

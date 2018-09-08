@@ -52,7 +52,7 @@ public class GlowScript : MonoBehaviour {
 				material.SetColor("_EmissionColor", finalColor);
 				material.EnableKeyword("_EMISSION");
 
-				yield return new WaitForSeconds(0.2f);
+				yield return new WaitForSeconds(0.1f);
 			}
 
 			material.DisableKeyword("_EMISSION");

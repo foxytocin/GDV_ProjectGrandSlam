@@ -19,14 +19,14 @@ public class InGameGUI : MonoBehaviour {
     public TextMeshProUGUI player3Win;
     public TextMeshProUGUI player4Win;
 
-    PlayerSpawner playerSpawner;
+    //PlayerSpawner playerSpawner;
 
     GameObject playerOne;
     
 
 	void Start ()
     {
-        playerSpawner = FindObjectOfType<PlayerSpawner>();
+        //playerSpawner = FindObjectOfType<PlayerSpawner>();
         rulesScript = FindObjectOfType<RulesScript>();
 	}
 	

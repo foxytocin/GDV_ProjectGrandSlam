@@ -8,27 +8,27 @@ public class LevelRestart : MonoBehaviour {
 	private DestroyScroller destroyScroller;
 	private CameraScroller cameraScroller;
 	private CameraDirection cameraDirection;
+	private CameraMovement cameraMovement;
 	private PlayerSpawner playerSpawner;
 	private DayNightSwitch dayNightSwitch;
     private RulesScript rulesScript;
-	private GameManager GameManager;
 	private SpawnDemoItems spawnDemoItems;
 	private AudioManager audioManager;
-	private CameraMovement cam;
-
+	private CounterScript CounterScript;
+	
 	void Awake()
 	{
 		levelGenerator = FindObjectOfType<LevelGenerator>();
 		destroyScroller = FindObjectOfType<DestroyScroller>();
 		cameraScroller = FindObjectOfType<CameraScroller>();
 		cameraDirection = FindObjectOfType<CameraDirection>();
+		cameraMovement = FindObjectOfType<CameraMovement>();
 		playerSpawner = FindObjectOfType<PlayerSpawner>();
 		dayNightSwitch = FindObjectOfType<DayNightSwitch>();
         rulesScript = FindObjectOfType<RulesScript>();
-		GameManager = FindObjectOfType<GameManager>();
 		spawnDemoItems = FindObjectOfType<SpawnDemoItems>();
 		audioManager = FindObjectOfType<AudioManager>();
-		cam = FindObjectOfType<CameraMovement>();
+		CounterScript = FindObjectOfType<CounterScript>();
 	}
 
 
@@ -39,12 +39,28 @@ public class LevelRestart : MonoBehaviour {
 	}
 	private IEnumerator levelRestartMainMenuCore()
 	{
+        cameraMovement.RestartCameraMovement(true);
         StartCoroutine(eraseCurrentWorld(true));
 		rulesScript.restartResults();
 
-		yield return new WaitForSecondsRealtime(4f);
+		yield return new WaitForSecondsRealtime(3.5f);
 		spawnDemoItems.spawnDemoItems();
 	}
+
+
+	// Methode um alles für das StartMenu vorzubereiten (vom DemoMode aus)
+  	public void levelRestartMainMenuFromDemo()
+	{
+		StartCoroutine(levelRestartMainMenuFromDemoCore());
+	}
+	private IEnumerator levelRestartMainMenuFromDemoCore()
+	{
+		audioManager.playSound("fallingstones");
+        cameraMovement.RestartCameraMovement(false);
+        StartCoroutine(eraseCurrentWorld(false));
+		yield return null;
+	}
+
 
 	// Mehode um alles fuer die naechste Runde vorzubreiten
 	public void levelRestartNextRound()
@@ -53,40 +69,37 @@ public class LevelRestart : MonoBehaviour {
 	}
 	public IEnumerator levelRestartNextRoundCore()
 	{
+		audioManager.playSound("fallingstones");
+        cameraMovement.RestartCameraMovement(false);
         StartCoroutine(eraseCurrentWorld(false));
-
-		yield return new WaitForSecondsRealtime(1f);
         rulesScript.nextRoundRules();
 
-		yield return new WaitForSecondsRealtime(2.1f);
-		audioManager.playSound("lets_go");
-		GameManager.unlockControlls();
+		yield return new WaitForSecondsRealtime(1.4f);
+        CounterScript.startCounter();
 	}
+
+
+	
+
 
 	private IEnumerator eraseCurrentWorld(bool animiert)
 	{
-		foreach(GameObject go in levelGenerator.AllGameObjects)
+        
+        foreach (GameObject go in levelGenerator.AllGameObjects)
 		{
 			if(go != null)
 			{
 				switch (go.tag)
 				{
 					case "Player":
-						PlayerScript player = go.GetComponent<PlayerScript>();
 						
 						if(animiert)
 						{
-							if(player != go)
-							{
-								StartCoroutine(player.playerFallRestart());
-							}
+							StartCoroutine(playerFall(go));
 							
 						} else {
 
 							levelGenerator.AllGameObjects[(int)go.transform.position.x, (int)go.transform.position.z] = null;
-							Debug.Log("Player_" + player.playerID.ToString() + " wurde entfernt");
-							cam.PlayerPosition(new Vector3(0f, -2f, 0f), player.playerID);
-							go.SetActive(false);
 							Destroy(go);
 						}
 						break;
@@ -112,19 +125,22 @@ public class LevelRestart : MonoBehaviour {
 			}
 		}
 
-		cleanObjectArray(levelGenerator.SecondaryGameObjects1, animiert);
+        cleanObjectArray(levelGenerator.SecondaryGameObjects1, animiert);
 		cleanObjectArray(levelGenerator.SecondaryGameObjects2, animiert);
 		cleanObjectArray(levelGenerator.SecondaryGameObjects3, animiert);
 		cleanObjectArray(levelGenerator.DistanceLines, animiert);
 	
-		// Wir das Level animiert zerstoert, wird 3.5 Sekunden gewartet bis die Animation zuende ist
+		// Wir das Level animiert zerstoert, wird 3.6 Sekunden gewartet bis die Animation zuende ist
 		if(animiert)
 		{
-			yield return new WaitForSecondsRealtime(3.5f);
+			yield return new WaitForSecondsRealtime(3.7f);
 
 		} else {
-
-			yield return new WaitForSecondsRealtime(0.7f);
+			
+			yield return new WaitForSecondsRealtime(0.4f);
+			audioManager.playSound("levelrestart");
+			yield return new WaitForSecondsRealtime(0.5f);
+	
 		}
 
 		recreateWorld(animiert);
@@ -164,6 +180,7 @@ public class LevelRestart : MonoBehaviour {
 		dayNightSwitch.restartDayNightModus();
 		cameraScroller.restartCameraScroller();
 		cameraDirection.restartCameraDirection();
+        
 		destroyScroller.restartDestroyScroller();
 		levelGenerator.restartLevel(animiert);
 
@@ -182,4 +199,24 @@ public class LevelRestart : MonoBehaviour {
 
 		playerSpawner.createPlayers();
 	}
+
+
+    public IEnumerator playerFall(GameObject player)
+    {
+        levelGenerator.AllGameObjects[(int)player.transform.position.x, (int)player.transform.position.z] = null;
+		Vector3 target = player.transform.position;
+		target.y = -50f;
+
+        while(player != null && player.transform.position.y > target.y)
+        {
+            player.transform.position = Vector3.MoveTowards(player.transform.position, target, 0.3f);
+            yield return null;
+        }
+
+		if(player != null)
+		{
+			Destroy(player);
+		}
+    }
+
 }

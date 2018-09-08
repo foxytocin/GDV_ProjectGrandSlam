@@ -4,43 +4,50 @@ public class CameraScroller : MonoBehaviour
 {
     public int rowPosition;
     private int altePosition;
-    public bool gameStatePlay;
-    
-    public LevelGenerator LevelGenerator;
+    public float scrollSpeed;
+    public bool demoMode;
+    private LevelGenerator LevelGenerator;
+    private GameManager GameManager;
+    private MenuDemoMode menuDemoMode;
+
 
     // Use this for initialization
     void Awake()
     {
-        gameStatePlay = false;
+        LevelGenerator = FindObjectOfType<LevelGenerator>();
+        GameManager = FindObjectOfType<GameManager>();
+        menuDemoMode = FindObjectOfType<MenuDemoMode>();
+        scrollSpeed = 0.5f;
         altePosition = -1;
+        demoMode = false;
     }
 
     public void restartCameraScroller()
     {
-        gameStatePlay = false;
         altePosition = -1;
         rowPosition = -26;
+        scrollSpeed = 0f;
         transform.localPosition = new Vector3(0f, 0f, -26f);
+        demoMode = false;
     }
-
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
-        
-        if(gameStatePlay)
+        if(GameManager.gameStatePlay || menuDemoMode.demoRunning)
         {
-            transform.Translate(0, 0, LevelGenerator.LevelSpeed * Time.deltaTime);
+            transform.Translate(0f, 0f, scrollSpeed * Time.deltaTime);
             rowPosition = (int)transform.position.z;
-        }
 
-        //Prüft ob die Camera genau EINE Zeile weitergescrollt ist um die createWorld() für genau diese 1 Zeile aufzurufen.
-        if (rowPosition > altePosition && gameStatePlay)
-        {
-            altePosition = rowPosition;
+            //Prüft ob die Camera genau EINE Zeile weitergescrollt ist um die createWorld() für genau diese 1 Zeile aufzurufen.
+            if (rowPosition > altePosition)
+            {
+                altePosition = rowPosition;
 
-            //LevelGenerator.tiefeLevelStartBasis ist ein definierter Startwert, der x Zeilen des Levels direkt zum Start erstellt. 
-            LevelGenerator.createWorld(rowPosition + LevelGenerator.tiefeLevelStartBasis);
+                //LevelGenerator.tiefeLevelStartBasis ist ein definierter Startwert, der x Zeilen des Levels direkt zum Start erstellt. 
+                LevelGenerator.createWorld(rowPosition + LevelGenerator.tiefeLevelStartBasis);
+            }
         }
     }
+
 }

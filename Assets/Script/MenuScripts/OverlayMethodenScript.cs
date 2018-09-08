@@ -6,9 +6,10 @@ using UnityEngine.UI;
 
 public class OverlayMethodenScript : MonoBehaviour
 {
-    public static bool GameIsPaused = false;
+    public bool GameIsPaused;
     public GameObject pausenMenuUI;
     public GameManager gameManager;
+    private AudioManager audioManager;
 
     InGameGUI inGameGUI;
 
@@ -18,6 +19,8 @@ public class OverlayMethodenScript : MonoBehaviour
     {
         gameManager = FindObjectOfType<GameManager>();
         inGameGUI = FindObjectOfType<InGameGUI>();
+        audioManager = FindObjectOfType<AudioManager>();
+        GameIsPaused = false;
         isInGame = false;
     }
 
@@ -29,9 +32,9 @@ public class OverlayMethodenScript : MonoBehaviour
             {
                 resume();
                 Cursor.visible = false;
-            }
-            else
-            {
+
+            } else if (gameManager.gameStatePlay) {
+                
                 pause();
                 Cursor.visible = true;
             }
@@ -40,10 +43,12 @@ public class OverlayMethodenScript : MonoBehaviour
 
     public void resume()
     {
+        Time.timeScale = 1f;
+        StartCoroutine(audioManager.pitchUp());
+        audioManager.playSound("buttonclick");
         gameManager.unlockControlls();
         Cursor.visible = false;
         inGameGUI.aktivInGameUI();
-        Time.timeScale = 1f;
         GameIsPaused = false;
         isInGame = true;
         pausenMenuUI.SetActive(false);
@@ -51,6 +56,9 @@ public class OverlayMethodenScript : MonoBehaviour
 
     public void pause()
     {
+        audioManager.playSound("buttonclick");
+        StartCoroutine(audioManager.pitchDown());
+        audioManager.stopInGameMusic();
         gameManager.lockControlls();
         pausenMenuUI.SetActive(true);
         inGameGUI.inAktivInGameUI();
@@ -61,6 +69,7 @@ public class OverlayMethodenScript : MonoBehaviour
 
     public void QuitGame()
     {
+        audioManager.playSound("buttonclick");
         Application.Quit();
     }
 

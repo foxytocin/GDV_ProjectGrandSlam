@@ -3,19 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraZoom : MonoBehaviour {
-    
-    private Vector3[] players;
-    private CameraMovement cm;    
+
+    //private Vector3[] players;
+    private PlayerSpawner playerSpawner;
+    private CameraMovement cm;
+    private RulesScript rules;
 
     private void Start()
     {
-        cm = GameObject.Find("HorizontalAxis").GetComponent<CameraMovement>();
+        cm = FindObjectOfType<CameraMovement>();
+        playerSpawner = FindObjectOfType<PlayerSpawner>();
+        rules = FindObjectOfType<RulesScript>();
     }
 
     void Update()
     {
-        players = cm.positions;
-        CameraMoving();
+        //players = cm.positions;
+        if (!rules.resultScreen.activeSelf)
+        {
+            CameraMoving();
+        }
     }
 
     void CameraMoving()
@@ -39,20 +46,23 @@ public class CameraZoom : MonoBehaviour {
             return maxDist;
         } else
         {
-            for (int i = 0; i < numPlayers; i++)
+            foreach (GameObject go in playerSpawner.playerList)
             {
-                for (int j = i + 1; j < numPlayers; j++)
+                if (go != null)
                 {
-                    if (players[i].y == 0.45f && players[j].y == 0.45f)
+                    foreach (GameObject gobj in playerSpawner.playerList)
                     {
-                        float dist = Vector3.Distance(players[i], players[j]);
-                        if (dist > maxDist)
+                        if (gobj != null)
                         {
-                            maxDist = dist;
+                            float dist = Vector3.Distance(go.transform.position, gobj.transform.position);
+                            if (dist > maxDist)
+                            {
+                                maxDist = dist;
+                            }
                         }
                     }
                 }
-            }
+            }                            
             return maxDist;
         }   
     }

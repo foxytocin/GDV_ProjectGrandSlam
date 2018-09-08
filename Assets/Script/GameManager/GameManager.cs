@@ -7,29 +7,28 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour {
 
     private PlayerSpawner playerSpawner;
+    private AudioManager audioManager;
     private InGameGUI inGameGUI;
     private Camera miniMapCam;
     private Canvas miniMapCanvas;
-    private CameraScroller cameraScroller;
-    private DestroyScroller destroyScroller;
+    public bool gameStatePlay;
     private bool showMiniMap;
     public int player;
     private int playertmp;
     public bool isInGame;
+    public int controller; // 0 = Keinen, 1 = Xbox360, 2 = PS4
 
     void Awake()
     {
         player = 1;
         playertmp = player;
         playerSpawner = FindObjectOfType<PlayerSpawner>();
-
+        audioManager = FindObjectOfType<AudioManager>();
         inGameGUI = FindObjectOfType<InGameGUI>();
-
-        cameraScroller = FindObjectOfType<CameraScroller>();
-        destroyScroller = FindObjectOfType<DestroyScroller>();
-
         miniMapCam = GameObject.Find("MiniMapCam").GetComponent<Camera>();
         miniMapCanvas = GameObject.Find("MiniMapCanvas").GetComponent<Canvas>();
+        controller = 0;
+        gameStatePlay = false;
         
     }
 
@@ -66,10 +65,10 @@ public class GameManager : MonoBehaviour {
 
             switch (player)
             {
-                case 1: FindObjectOfType<AudioManager>().playSound("one"); break;
-                case 2: FindObjectOfType<AudioManager>().playSound("two"); break;
-                case 3: FindObjectOfType<AudioManager>().playSound("three"); break;
-                case 4: FindObjectOfType<AudioManager>().playSound("four"); break;
+                case 1: audioManager.playSound("one"); break;
+                case 2: audioManager.playSound("two"); break;
+                case 3: audioManager.playSound("three"); break;
+                case 4: audioManager.playSound("four"); break;
                 default: break;
             }
         }
@@ -84,29 +83,14 @@ public class GameManager : MonoBehaviour {
 
     public void unlockControlls()
     {
-        List <GameObject> playerList = playerSpawner.playerList;
-        foreach (GameObject go in playerList)
-        {
-            Debug.Log("UNLOCK: " +go.gameObject);
-            if (go != null)
-                go.GetComponent<PlayerScript>().gameStatePlay = true;
-        }
-
-        cameraScroller.gameStatePlay = true;
-        destroyScroller.gameStatePlay = true;
+        gameStatePlay = true;
+        //Debug.Log("UNLOCKED");
     }
 
     public void lockControlls()
     {
-        cameraScroller.gameStatePlay = false;
-        destroyScroller.gameStatePlay = false;
-
-        List<GameObject> playerList = playerSpawner.playerList;
-        foreach (GameObject go in playerList)
-        {
-            if (go != null)
-                go.GetComponent<PlayerScript>().gameStatePlay = false;
-        }
+        gameStatePlay = false;
+        //Debug.Log("LOCKED");
     }
 
 }

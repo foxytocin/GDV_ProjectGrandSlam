@@ -259,7 +259,7 @@ public class MazeGenerator : MonoBehaviour {
         }
 
 		mazeCalculated = true;
-		Debug.Log("MAZE READY");
+		//Debug.Log("MAZE READY");
 	}
 
 
