@@ -47,7 +47,7 @@ public class LightningScript : MonoBehaviour
         GetComponent<MeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
         
         //Blitz erzeugen
-        GenerateLightning(new Vector3(0f, 15f, 0f));
+        GenerateLightning(new Vector3(0f, 20f, 0f));
 
 
         // Mesh Vertices hinzufuegen
@@ -144,22 +144,22 @@ public class LightningScript : MonoBehaviour
         turn(-90f);
         move(Random.Range(0.0f, maxYStep), 1, 1f);
 
-        for(int i = 20; i > 0; i--)
+        for(int i = 25; i > 0; i--)
         {
             // 50/50 Chance, ob Turtle sich nach links oder rechts bewegt  (<0.5=rechts)
             if (Random.value < 0.5f)
             {
                 turn(90f);
-                move(Random.Range(0.0f, maxXStep), 0, i/20f);
+                move(Random.Range(0.0f, maxXStep), 0, i/25f);
                 turn(-90f);
-                move(Random.Range(0.0f, maxYStep), 1, i/20f);
+                move(Random.Range(0.0f, maxYStep), 1, i/25f);
             }
             else
             {
                 turn(-90f);
-                move(Random.Range(0.0f, maxXStep), 0, i/20f);
+                move(Random.Range(0.0f, maxXStep), 0, i/25f);
                 turn(90f);
-                move(Random.Range(0.0f, maxYStep), 1, i/20f);
+                move(Random.Range(0.0f, maxYStep), 1, i/25f);
 
                 
                 //ChildLightning
