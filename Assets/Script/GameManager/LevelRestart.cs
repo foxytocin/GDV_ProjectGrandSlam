@@ -78,58 +78,19 @@ public class LevelRestart : MonoBehaviour {
         CounterScript.startCounter();
 	}
 
-
-
+	// Steuert die Levelzersoerung und Neugenerierung
 	private IEnumerator eraseCurrentWorld(bool animiert)
 	{
-        
-        foreach (GameObject go in levelGenerator.AllGameObjects)
-		{
-			if(go != null)
-			{
-				switch (go.tag)
-				{
-					case "Player":
-						
-						//Debug.Log("LevelRestart: Player gefunden");
+		searchAndDestroy("Boden", animiert);
+		searchAndDestroy("Wand", animiert);
+		searchAndDestroy("Kiste", animiert);
+		searchAndDestroy("Bombe", animiert);
+		searchAndDestroy("GlowBall", animiert);
+		searchAndDestroy("GlowMaterial", animiert);
+		searchAndDestroy("Item", animiert);
+		searchAndDestroy("Player", animiert);
+		searchAndDestroy("MeterSchild", animiert);
 
-						if(animiert)
-						{
-							StartCoroutine(playerFall(go));
-							
-						} else {
-							
-							//Debug.Log("LevelRestart: Player gelöscht und Destroyed");
-							levelGenerator.AllGameObjects[(int)go.transform.position.x, (int)go.transform.position.z] = null;
-							Destroy(go);
-						}
-						break;
-
-					case "Bombe":
-						go.SetActive(false);
-						break;
-
-					default:
-						if(animiert)
-						{
-							FallScript fc = go.GetComponent<FallScript>();
-							if (fc != false)
-								StartCoroutine(fc.fallingLevelCleanup());
-
-						} else {
-
-							StartCoroutine(deaktivationDelay(go));
-						}
-					break;
-				}
-        
-			}
-		}
-
-        cleanObjectArray(levelGenerator.SecondaryGameObjects1, animiert);
-		cleanObjectArray(levelGenerator.SecondaryGameObjects2, animiert);
-		cleanObjectArray(levelGenerator.DistanceLines, animiert);
-	
 		// Wir das Level animiert zerstoert, wird 3.6 Sekunden gewartet bis die Animation zuende ist
 		if(animiert)
 		{
@@ -140,41 +101,59 @@ public class LevelRestart : MonoBehaviour {
 			yield return new WaitForSecondsRealtime(0.4f);
 			audioManager.playSound("levelrestart");
 			yield return new WaitForSecondsRealtime(0.5f);
-	
 		}
 
 		recreateWorld(animiert);
 	}
 
 
-	// Ubernimmt die Bereinigung der Arrays indem alle gefunden Objekte in die ObjectPool zurueckgelegt werden
-	private void cleanObjectArray(GameObject[,] array, bool animiert)
+	// Sucht alle GameObjecte die zerstoert werden sollen anhand ihres Tags und zerstoert sie mit oder ohne Animation
+	private void searchAndDestroy(string objectTag, bool animiert)
 	{
-		foreach(GameObject go in array)
+		GameObject[] objectArray = GameObject.FindGameObjectsWithTag(objectTag);
+
+		foreach (GameObject go in objectArray)
 		{
-			if(go != null)
-			{
-				if(animiert)
+			if(go != null) {
+
+				FallScript fc = go.GetComponent<FallScript>();
+
+				if(fc != null)
 				{
-					FallScript fc = go.GetComponent<FallScript>();
-					if (fc != false)
-
+					if(animiert)
+					{
 						StartCoroutine(fc.fallingLevelCleanup());
+					} else {
+						StartCoroutine(deaktivationDelay(go));
+					}
 
-				} else {
+				} else if(go.CompareTag("Player")) {
 
-					StartCoroutine(deaktivationDelay(go));
+					if(animiert)
+					{
+						StartCoroutine(playerFall(go));
+					} else {
+						Destroy(go);
+					}
+
+				} else if(go.CompareTag("Bombe")) {
+
+					go.SetActive(false);
 				}
 			}
 		}
 	}
 
+
+	// Sorgt fuer eine Verzoegerung beim Aufloesen des Levels
 	private IEnumerator deaktivationDelay(GameObject go)
 	{
 		yield return new WaitForSeconds(Random.value * 0.6f);
 		go.SetActive(false);
 	}
 
+
+	// Wird nachdem Loeschen des Levels aufgerufen und setzt alle noetigen Parameter zurueck
 	private void recreateWorld(bool animiert)
 	{
 		dayNightSwitch.restartDayNightModus();
@@ -187,6 +166,8 @@ public class LevelRestart : MonoBehaviour {
 	}
 
 
+	// Steuert die FallAnimation der Player bei animierter Levelzerstoerung
+	// Auf Grund der Objecteigenschaften muss der Player gesondert behandelt werden
     private IEnumerator playerFall(GameObject player)
     {
 		Debug.Log("Letzter Player fällt");
@@ -205,5 +186,4 @@ public class LevelRestart : MonoBehaviour {
 			Destroy(player);
 		}
     }
-
 }
