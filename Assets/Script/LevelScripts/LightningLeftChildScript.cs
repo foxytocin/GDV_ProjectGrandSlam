@@ -53,7 +53,7 @@ public class LightningLeftChildScript : MonoBehaviour
         meinMesh.normals = setVertexNormals(faceNormalsLC);
 
         emission = 1f;
-        Color finalColor = Color.white * Mathf.LinearToGammaSpace(emission * 3f);
+        Color finalColor = Color.white * Mathf.LinearToGammaSpace(emission * 1.5f);
         mat.SetColor("_EmissionColor", finalColor);
         mat.EnableKeyword("_EMISSION");
 
