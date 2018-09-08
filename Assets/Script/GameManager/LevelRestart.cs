@@ -39,6 +39,7 @@ public class LevelRestart : MonoBehaviour {
 	}
 	private IEnumerator levelRestartMainMenuCore()
 	{
+		audioManager.playSound("fallingstones");
         cameraMovement.RestartCameraMovement(true);
         StartCoroutine(eraseCurrentWorld(true));
 		rulesScript.restartResults();
@@ -80,7 +81,8 @@ public class LevelRestart : MonoBehaviour {
 
 	// Steuert die Levelzersoerung und Neugenerierung
 	private IEnumerator eraseCurrentWorld(bool animiert)
-	{
+	{	
+		searchAndDestroy("Player", animiert);
 		searchAndDestroy("Boden", animiert);
 		searchAndDestroy("Wand", animiert);
 		searchAndDestroy("Kiste", animiert);
@@ -88,8 +90,9 @@ public class LevelRestart : MonoBehaviour {
 		searchAndDestroy("GlowBall", animiert);
 		searchAndDestroy("GlowMaterial", animiert);
 		searchAndDestroy("Item", animiert);
-		searchAndDestroy("Player", animiert);
+		
 		searchAndDestroy("MeterSchild", animiert);
+		searchAndDestroy("FreeFall", animiert);
 
 		// Wir das Level animiert zerstoert, wird 3.6 Sekunden gewartet bis die Animation zuende ist
 		if(animiert)
@@ -136,7 +139,7 @@ public class LevelRestart : MonoBehaviour {
 						Destroy(go);
 					}
 
-				} else if(go.CompareTag("Bombe")) {
+				} else if(go.CompareTag("Bombe") || go.CompareTag("FreeFall")) {
 
 					go.SetActive(false);
 				}
