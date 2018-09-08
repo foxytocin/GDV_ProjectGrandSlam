@@ -34,7 +34,7 @@ public class DayNightSwitch : MonoBehaviour {
 
 	void Start()
 	{
-		duration = Random.value * 50f;
+		duration = Random.value * 75f;
 		pastTime = 0f;
 		worldOffest = levelGenerator.tiefeLevelStartBasis;
 		worldLightOriginal = worldLight.intensity;
@@ -101,7 +101,7 @@ public class DayNightSwitch : MonoBehaviour {
 				} else {
 					nightModus = false;
 					pastTime = 0f;
-					duration = Random.value * 50f;
+					duration = Random.value * 75f;
 				}
 			}
 
@@ -193,7 +193,7 @@ public class DayNightSwitch : MonoBehaviour {
 		playerLight.intensity = 0f;
 		playerLight.enabled = true;
 
-		while(emission < 2.3f && player != null)
+		while(player != null && emission < 2.3f)
 		{
 			emission += Time.deltaTime * 0.4f;
 			Color finalColor = baseColor * Mathf.LinearToGammaSpace (emission);
@@ -277,7 +277,7 @@ public class DayNightSwitch : MonoBehaviour {
 	private void switchToNight()
 	{
 		StopAllCoroutines();
-		StartCoroutine(dawnWorldAmbient(0.4f));
+		StartCoroutine(dawnWorldAmbient(0.3f));
 		StartCoroutine(dawnWorldLight(0f));
 	}
 
@@ -292,9 +292,8 @@ public class DayNightSwitch : MonoBehaviour {
 	{
 		while(worldLight.intensity > value)
 		{
-			//worldLight.transform.Rotate(-Time.deltaTime * 4f, 0f, 0f);
 			worldLight.intensity -= Time.deltaTime * 0.4f;
-			yield return new WaitForSeconds(0.1f);
+			yield return new WaitForSeconds(0.05f);
 		}
 
 	}
@@ -302,8 +301,8 @@ public class DayNightSwitch : MonoBehaviour {
 	{
 		while(RenderSettings.ambientIntensity > value)
 		{
-			RenderSettings.ambientIntensity -= Time.deltaTime * 0.5f;
-			yield return new WaitForSeconds(0.1f);
+			RenderSettings.ambientIntensity -= Time.deltaTime * 0.3f;
+			yield return new WaitForSeconds(0.05f);
 		}
 	}
 
@@ -311,9 +310,8 @@ public class DayNightSwitch : MonoBehaviour {
 	{
 		while(worldLight.intensity < value)
 		{
-			//worldLight.transform.Rotate(Time.deltaTime * 4f, 0f, 0f);
-			worldLight.intensity += Time.deltaTime * 0.3f;
-			yield return new WaitForSeconds(0.1f);
+			worldLight.intensity += Time.deltaTime * 0.4f;
+			yield return new WaitForSeconds(0.05f);
 		}
 
 		worldLight.intensity = value;
@@ -326,7 +324,7 @@ public class DayNightSwitch : MonoBehaviour {
 		while(RenderSettings.ambientIntensity < value)
 		{
 			RenderSettings.ambientIntensity += Time.deltaTime * 0.3f;
-			yield return new WaitForSeconds(0.1f);
+			yield return new WaitForSeconds(0.05f);
 		}
 
 		RenderSettings.ambientIntensity = worldAmbientOriginal;

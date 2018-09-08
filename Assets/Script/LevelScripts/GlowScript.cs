@@ -32,12 +32,12 @@ public class GlowScript : MonoBehaviour {
 
 			while(emission < emissionBrigthness)
 			{
-				emission += Time.deltaTime * 0.3f;
+				emission += Time.deltaTime * 0.5f;
 				Color finalColor = baseColor * Mathf.LinearToGammaSpace(emission);
 				material.SetColor("_EmissionColor", finalColor);
 				material.EnableKeyword("_EMISSION");
 
-				yield return new WaitForSeconds(0.2f);
+				yield return new WaitForSeconds(0.05f);
 			}
 		}
 
@@ -47,12 +47,12 @@ public class GlowScript : MonoBehaviour {
 
 			while(emission > 0f)
 			{
-				emission -= Time.deltaTime * 0.5f;
+				emission -= Time.deltaTime * 0.6f;
 				Color finalColor = baseColor * Mathf.LinearToGammaSpace(emission);
 				material.SetColor("_EmissionColor", finalColor);
 				material.EnableKeyword("_EMISSION");
 
-				yield return new WaitForSeconds(0.1f);
+				yield return new WaitForSeconds(0.05f);
 			}
 
 			material.DisableKeyword("_EMISSION");

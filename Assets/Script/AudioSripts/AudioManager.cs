@@ -214,7 +214,7 @@ public class AudioManager : MonoBehaviour
     public IEnumerator pitchUp()
     {
         StopCoroutine(pitchDown());
-        music[randomInGameMusic].source.pitch = 0.2f;
+        music[randomInGameMusic].source.pitch = 0.3f;
         music[randomInGameMusic].source.volume = music[randomInGameMusic].groundVolume * settingsMusicVolume;
         music[randomInGameMusic].source.Play();
 

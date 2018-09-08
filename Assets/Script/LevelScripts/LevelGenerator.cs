@@ -489,6 +489,7 @@ public class LevelGenerator : MonoBehaviour
         int zPos = (int)pos.z;
         bool createBogen = true;
         
+        // zPos > 5 damit im Startbereich keine Tuerme auf der Randmauer entstehen
         if(Random.value <= (TurmMenge / 100f) && zPos > 5) {
             
             //Erzeugt einen Turm und deaktiviert das ein Bogen erzeugt werden kann
@@ -501,16 +502,22 @@ public class LevelGenerator : MonoBehaviour
 
             AllGameObjects[xPos, zPos] = objectPooler.SpawnFromPool("Wand", pos, Quaternion.identity);
             
-            // Ezeugt glowBalls wenn generateGlowBalls urch den DayNightSwitch.cs auf true gesetzt wurde
+            // Ezeugt glowBalls wenn generateGlowBalls durch den DayNightSwitch.cs auf true gesetzt wurde und deaktivert das ein Bogen erzeugt werden kann
             // Weitere Bedinungen: Nicht im DemoMode & Nicht auf Hoehe einer DistanzeLine
             if(generateGlowBalls && !MenuDemoMode.demoAllowed && (CameraPosition - (startLinie - 1)) % 25 != 0)
-                createGlowBall(pos);
+            {
+                if(Random.value > 0.95f)
+                {
+                    SecondaryGameObjects1[(int)pos.x, (int)pos.z] = objectPooler.SpawnFromPool("GlowBall", pos + new Vector3(0f, 1f, 0f), Quaternion.identity);
+                    createBogen = false;
+                }
+            }
         }
 
-        // Erzeug einen Bogen. Wenn RandomValue 10 oder 20 ist.
-        // Überprüft das in alle möglich Richtungen eine Wandstück ist zu welchem der Bogen erstellt werden kann.
-        // Stellt sicher dass das Array das die levelSectionData nicht überschritten werden kann.
-        if (Random.value <= (BogenMenge / 100f) && createBogen)
+        // Erzeug einen Bogen.
+        // Ueberprüft das in alle moeglich Richtungen eine Wandstueck ist zu welchem der Bogen erstellt werden kann.
+        // Zwischen den Wandstuecken müssen sich Bodenplatten befinden (damit werden nur über Gaenge Boegen gespannt)
+        if (createBogen && Random.value <= (BogenMenge / 100f))
         {
             if( Random.value > 0.45f && xPos > 2 &&
                 SecondaryGameObjects1[xPos - 1, zPos] != null &&
@@ -639,13 +646,6 @@ public class LevelGenerator : MonoBehaviour
         rotation = Random.value > 0.5f ? 0 : 90;
         SecondaryGameObjects1[(int)pos.x, (int)pos.z] = objectPooler.SpawnFromPool("Boden", pos - new Vector3(0, 0.1f, 0), Quaternion.identity);
         AllGameObjects[(int)pos.x, (int)pos.z] = objectPooler.SpawnFromPool("Kiste", pos + new Vector3(0f, 0.5f, 0f), Quaternion.Euler(0, rotation, 0));
-    }
-
-    // Ezeugt glowBalls wenn generateGlowBalls urch den DayNightSwitch.cs auf true gesetzt wurde
-    private void createGlowBall(Vector3 pos)
-    {
-        if(Random.value > 0.97f)
-            SecondaryGameObjects1[(int)pos.x, (int)pos.z] = objectPooler.SpawnFromPool("GlowBall", pos + new Vector3(0f, 1f, 0f), Quaternion.identity);
     }
 
 
