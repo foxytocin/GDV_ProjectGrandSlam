@@ -91,7 +91,7 @@ public class LevelRestart : MonoBehaviour {
 				{
 					case "Player":
 						
-						Debug.Log("LevelRestart: Player gefunden");
+						//Debug.Log("LevelRestart: Player gefunden");
 
 						if(animiert)
 						{
@@ -99,7 +99,7 @@ public class LevelRestart : MonoBehaviour {
 							
 						} else {
 							
-							Debug.Log("LevelRestart: Player gelöscht und Destroyed");
+							//Debug.Log("LevelRestart: Player gelöscht und Destroyed");
 							levelGenerator.AllGameObjects[(int)go.transform.position.x, (int)go.transform.position.z] = null;
 							Destroy(go);
 						}
@@ -180,23 +180,9 @@ public class LevelRestart : MonoBehaviour {
 		dayNightSwitch.restartDayNightModus();
 		cameraScroller.restartCameraScroller();
 		cameraDirection.restartCameraDirection();
-        
 		destroyScroller.restartDestroyScroller();
+
 		levelGenerator.restartLevel(animiert);
-
-		// Fuer den unwahrscheinlichen Fall das nicht alle Objecte deaktiviert wurden
-		// War eine Bugreife stelle, bisher haber problemfrei behoben
-		// Code bleibt zur Beobachtung drin
-		foreach(GameObject go in levelGenerator.AllGameObjects)
-		{
-			if(go != null)
-				if(go.CompareTag("FreeFall"))
-				{
-					go.SetActive(false);
-					Debug.Log("Alte FreeFall entfernt");
-				}
-		}
-
 		playerSpawner.createPlayers();
 	}
 

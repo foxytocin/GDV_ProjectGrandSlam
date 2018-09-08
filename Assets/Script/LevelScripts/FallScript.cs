@@ -31,7 +31,7 @@ public class FallScript : MonoBehaviour {
         int xPos = (int)transform.position.x;
         int zPos = (int)transform.position.z;
 
-        if(LevelGenerator.AllGameObjects[xPos, zPos] != null) {
+        if(LevelGenerator.AllGameObjects[xPos, zPos] != null && GameManager.gameStatePlay) {
 
             GameObject currentGameObject = LevelGenerator.AllGameObjects[xPos, zPos].gameObject;
 
@@ -77,7 +77,7 @@ public class FallScript : MonoBehaviour {
             yield return null;
         }
 
-        if(LevelGenerator.AllGameObjects[xPos, zPos] != null) {
+        if(LevelGenerator.AllGameObjects[xPos, zPos] != null && GameManager.gameStatePlay) {
 
             GameObject currentGameObject = LevelGenerator.AllGameObjects[xPos, zPos].gameObject;
 

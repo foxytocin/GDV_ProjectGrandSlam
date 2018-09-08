@@ -458,6 +458,8 @@ public class PlayerScript : MonoBehaviour
                 lastDirection = tmp;
                 return nullVector;
             }
+            
+            lastDirection = tmp;
             return tmp;
         }
 
