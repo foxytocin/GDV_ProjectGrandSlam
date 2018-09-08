@@ -58,6 +58,7 @@ public class PlayerScript : MonoBehaviour
         playerColor = playerMaterial.color;
         avaibleBomb = 3;
         lastTmpVector = new Vector3(1, 0, 0);
+        lastDirection = new Vector3(1, 0, 0);
         speed = 5.5f;
         bombTimer = 2f;
         Time.timeScale = 1.0f;
@@ -327,12 +328,12 @@ public class PlayerScript : MonoBehaviour
     //Die zuletzt gedrückte Taste bestimmt dann die aktuelle Richtung
     Vector3 checkSingleDirection(Vector3 tmp)
     {
-        if(tmp != nullVector)
+        if(this.tmp != nullVector)
         {   
             //Ist das Produkt != 0 werden 2 Tasten gedruckt
             //Um zu bestimmen welche Taste zusätzlich gedrueckt wurde wird die aktuelle Richtung mit dem Produkt beider Tasten verglichen
             //Daraus kann errechnet werden welcher der neue Richtungvector ist
-            int calcDir = (int)tmp.x * (int)tmp.z;
+            int calcDir = (int)this.tmp.x * (int)this.tmp.z;
 
             if(calcDir != 0)
             {
@@ -449,21 +450,17 @@ public class PlayerScript : MonoBehaviour
                 }
             } else {
                 
-                if(freeWay(tmp))
+                if(freeWay(this.tmp))
                 {
-                    lastDirection = tmp;
-                    return tmp;
+                    lastDirection = this.tmp;
+                    return this.tmp;
                 }
 
-                lastDirection = tmp;
+                lastDirection = this.tmp;
                 return nullVector;
             }
-            
-            lastDirection = tmp;
-            return tmp;
+            return this.tmp;
         }
-
-        lastDirection = tmp;
         return nullVector;
     }
 
