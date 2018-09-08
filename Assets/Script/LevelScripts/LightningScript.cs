@@ -21,7 +21,6 @@ public class LightningScript : MonoBehaviour
     private List<Vector3> faceNormals;
     private List<Vector3> vertexNormals;
     private List<int> faces;
-    //private int offset = 1;
 
     private float maxXStep = 1.0f;
     private float maxYStep = 2.0f;
@@ -48,7 +47,6 @@ public class LightningScript : MonoBehaviour
         GetComponent<MeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
         
         //Blitz erzeugen
-        //GenerateLightning(new Vector3(0f, 15f, -20f));
         GenerateLightning(new Vector3(0f, 15f, 0f));
 
 
@@ -61,14 +59,6 @@ public class LightningScript : MonoBehaviour
         // Vertices Normals aus Facenormals berechnen 
         meinMesh.normals = setVertexNormals(faceNormals);
 
-        // Debug
-        //showVerts();
-        //showFaces();
-        //showNormals(normalsMesh);
-        //showNormals(meinMesh.normals
-        //Vector3[] fnA = faceNormals.ToArray();
-        //showNormals(fnA);
-
         emission = 1f;
         Color finalColor = Color.white * Mathf.LinearToGammaSpace(emission * 3f);
         mat.SetColor("_EmissionColor", finalColor);
@@ -76,25 +66,6 @@ public class LightningScript : MonoBehaviour
 
         Destroy(gameObject, 0.5f);
         Destroy(turtle, 0.5f);
-    }
-
-    private void Update()
-    {
-        /*
-        emission = Mathf.PingPong(Time.time, 1f);
-        Color finalColor = Color.white * Mathf.LinearToGammaSpace(emission * 3f);
-        mat.SetColor("_EmissionColor", finalColor);
-        mat.EnableKeyword("_EMISSION");
-        */
-        /*
-        //Vector3[] fnA = faceNormals.ToArray();
-        for (int i = 0; i < meinMesh.vertices.Length; i++)
-        {
-            Vector3 norm = transform.TransformDirection(meinMesh.normals[i]);
-            Vector3 vert = transform.TransformPoint(meinMesh.vertices[i]);
-            //Debug.DrawRay(vert, norm * 0.3f, Color.red);
-        }
-        */
     }
     
     int[] makeFaces(Vector3[] vertArr)
@@ -142,7 +113,7 @@ public class LightningScript : MonoBehaviour
     }
 
 
-    // Kochkurve
+    // Turtle bewegen
     void move(float length, int secondStep, float offset)
     {
         turtle.transform.Translate(length, 0, 0);
@@ -216,49 +187,9 @@ public class LightningScript : MonoBehaviour
                         rcs.GenerateRightChildLightning(new Vector3(0, 0, 0), i);
                     }
                 }
-                /*
-                //ChildLightning
-                int randomChildLightningProb = Mathf.RoundToInt(Random.value * 12);
-                Debug.Log(randomChildLightningProb);
-                if (randomChildLightningProb % 6 == 0)
-                {
-                    rz -= 90f;
-                    Quaternion rot = Quaternion.Euler(0f, 0f, rz);
-                    Vector3 posChild = lightningSpawner.thunderPos - new Vector3(15, 0 ,0);
-                    Instantiate(lightning_prefab, posChild, rot);
-                    Debug.Log("NEW!");
-                }
-                */
             }
         }
     }
-
-
-    // Debug Methods
-    // void showVerts()
-    // {
-    //     Vector3[] vertArray = verts.ToArray();
-    //     for (int i = 0; i < vertArray.Length; i++)
-    //     {
-    //         Debug.Log(vertArray[i]);
-    //     }
-    // }
-
-    // void showFaces()
-    // {
-    //     int[] faceArray = faces.ToArray();
-    //     for (int i = 0; i < faceArray.Length; i++)
-    //     {
-    //         Debug.Log(faceArray[i]);
-    //     }
-    // }
-    // void showNormals(Vector3[] normA)
-    // {
-    //     for (int i = 0; i < normA.Length; i++)
-    //     {
-    //         Debug.Log(normA[i]);
-    //     }
-    // }
 }
 
 

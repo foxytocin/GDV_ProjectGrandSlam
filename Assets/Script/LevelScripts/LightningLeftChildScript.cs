@@ -25,12 +25,7 @@ public class LightningLeftChildScript : MonoBehaviour
 
     Material mat;
     float emission;
-
-
-    void Start()
-    {
-        
-    }
+    
 
     public void init()
     {
@@ -43,10 +38,6 @@ public class LightningLeftChildScript : MonoBehaviour
 
     public void makeMesh()
     {
-        // Listen initialisieren
-        
-
-
         GetComponent<MeshFilter>().mesh = meinMesh = new Mesh();        //Gleiche Instanz Zuweisung
         mat = GetComponent<MeshRenderer>().material;
 
@@ -61,14 +52,6 @@ public class LightningLeftChildScript : MonoBehaviour
         // Vertices Normals aus Facenormals berechnen 
         meinMesh.normals = setVertexNormals(faceNormalsLC);
 
-        // Debug
-        //showVerts();
-        //showFaces();
-        //showNormals(normalsMesh);
-        //showNormals(meinMesh.normals
-        //Vector3[] fnA = faceNormals.ToArray();
-        //showNormals(fnA);
-
         emission = 1f;
         Color finalColor = Color.white * Mathf.LinearToGammaSpace(emission * 3f);
         mat.SetColor("_EmissionColor", finalColor);
@@ -76,25 +59,6 @@ public class LightningLeftChildScript : MonoBehaviour
 
         Destroy(gameObject, 0.5f);
         Destroy(turtleLC, 0.5f);
-    }
-
-    private void Update()
-    {
-        /*
-        emission = Mathf.PingPong(Time.time, 1f);
-        Color finalColor = Color.white * Mathf.LinearToGammaSpace(emission * 3f);
-        mat.SetColor("_EmissionColor", finalColor);
-        mat.EnableKeyword("_EMISSION");
-        */
-        /*
-        //Vector3[] fnA = faceNormals.ToArray();
-        for (int i = 0; i < meinMesh.vertices.Length; i++)
-        {
-            Vector3 norm = transform.TransformDirection(meinMesh.normals[i]);
-            Vector3 vert = transform.TransformPoint(meinMesh.vertices[i]);
-            //Debug.DrawRay(vert, norm * 0.3f, Color.red);
-        }
-        */
     }
 
     int[] makeFaces(Vector3[] vertArr)
@@ -142,7 +106,7 @@ public class LightningLeftChildScript : MonoBehaviour
     }
 
 
-    // Kochkurve
+    // move Turtle
     void move(float length, int secondStep, float offset)
     {
         turtleLC.transform.Translate(length, 0, 0);
@@ -195,33 +159,6 @@ public class LightningLeftChildScript : MonoBehaviour
         }
         makeMesh();
     }
-
-
-    // Debug Methods
-    // void showVerts()
-    // {
-    //     Vector3[] vertArray = verts.ToArray();
-    //     for (int i = 0; i < vertArray.Length; i++)
-    //     {
-    //         Debug.Log(vertArray[i]);
-    //     }
-    // }
-
-    // void showFaces()
-    // {
-    //     int[] faceArray = faces.ToArray();
-    //     for (int i = 0; i < faceArray.Length; i++)
-    //     {
-    //         Debug.Log(faceArray[i]);
-    //     }
-    // }
-    // void showNormals(Vector3[] normA)
-    // {
-    //     for (int i = 0; i < normA.Length; i++)
-    //     {
-    //         Debug.Log(normA[i]);
-    //     }
-    // }
 }
 
 

@@ -30,7 +30,6 @@ public class CameraDirection : MonoBehaviour {
     void Update()
     {
         //resultscreenmode
-        //if(rules.resultScreen.activeSelf && transform.localPosition.y > -6.69f)
         if (rules.resultScreen.activeSelf)
         {
             if(cm.roundPlayers == 1)
@@ -83,8 +82,6 @@ public class CameraDirection : MonoBehaviour {
         //Normal Game mode
         else
         {
-            //target = cm.centerPoint;
-            //Vector3 targetPosition = Vector3.Lerp(transform.position, new Vector3(this.transform.position.x, 0, target.z), 4f * Time.deltaTime);
             if (cm.MaxZDistancePlayers() < 15)
             {
                 target = cm.centerPoint;
@@ -108,8 +105,6 @@ public class CameraDirection : MonoBehaviour {
             {
                 Camera.main.transform.localEulerAngles = new Vector3(Mathf.Clamp(Camera.main.transform.localEulerAngles.x, 30f, 80f), Mathf.Clamp(Camera.main.transform.localEulerAngles.y, 350f, 361f), 0);
             }
-            //Camera.main.transform.localEulerAngles = new Vector3(Mathf.Clamp(Camera.main.transform.localEulerAngles.x, 40f, 80f), Mathf.Clamp(Camera.main.transform.localEulerAngles.y, maxRotation.x, maxRotation.y), 0);
-            //Camera.main.transform.rotation.q
         }
     }
 

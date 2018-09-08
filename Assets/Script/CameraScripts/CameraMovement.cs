@@ -67,7 +67,6 @@ public class CameraMovement : MonoBehaviour {
         roundPlayers = playerSpawner.playerList.Count;
         if(gameManager.gameStatePlay && numPlayers == 0)
         {
-            //Debug.Log("NOOOOW");
             return new Vector3(200, 0, 0);
         }
         else if (numPlayers == 1)
@@ -107,95 +106,6 @@ public class CameraMovement : MonoBehaviour {
         return center;
     }
 
-    public Vector3 CalcCenterPointOld()
-    {
-        //numPlayers = GameObject.FindGameObjectsWithTag("Player").Length;
-        numPlayers = rulesScript.playerIsLive;
-        Debug.Log(numPlayers);
-        Vector3 center = Vector3.zero;
-
-        switch (numPlayers)
-        {
-            case 1:
-                return positions[0];
-            case 2:
-                //Min und Max Values
-                xPos = new List<float>();
-                zPos = new List<float>();
-                Debug.Log(playerSpawner.playerList[1]);
-                for (int i = 0; i < numPlayers; i++)
-                {
-                    if (positions[i].y == 0.45f)
-                    {
-                        xPos.Add(positions[i].x);
-                        zPos.Add(positions[i].z);
-                    }
-                }
-                maxX = Mathf.Max(xPos.ToArray());
-                maxZ = Mathf.Max(zPos.ToArray());
-                minX = Mathf.Min(xPos.ToArray());
-                minZ = Mathf.Min(zPos.ToArray());
-
-                minPos = new Vector3(minX, 0, minZ);
-                maxPos = new Vector3(maxX, 0, maxZ);
-
-                center = (minPos + maxPos) * 0.5f;
-                return center;
-
-            case 3:
-                //Min und Max Values
-                xPos = new List<float>();
-                zPos = new List<float>();
-                Debug.Log(playerSpawner.playerList[1]);
-                Debug.Log(playerSpawner.playerList[2]);
-                for (int i = 0; i < numPlayers; i++)
-                {
-                    if (positions[i].y == 0.45f)
-                    {
-                        xPos.Add(positions[i].x);
-                        zPos.Add(positions[i].z);
-                    }
-                }
-                maxX = Mathf.Max(xPos.ToArray());
-                maxZ = Mathf.Max(zPos.ToArray());
-                minX = Mathf.Min(xPos.ToArray());
-                minZ = Mathf.Min(zPos.ToArray());
-
-                minPos = new Vector3(minX, 0, minZ);
-                maxPos = new Vector3(maxX, 0, maxZ);
-
-                center = (minPos + maxPos) * 0.5f;
-                return center;
-            case 4:
-                //Min und Max Values
-                xPos = new List<float>();
-                zPos = new List<float>();
-                Debug.Log(playerSpawner.playerList[1]);
-                Debug.Log(playerSpawner.playerList[2]);
-                Debug.Log(playerSpawner.playerList[3]);
-                foreach (Vector3 player in positions)
-                {
-                    if (player.y == 0.45f)
-                    {
-                        xPos.Add(player.x);
-                        zPos.Add(player.z);
-                    }
-                }
-
-                maxX = Mathf.Max(xPos.ToArray());
-                maxZ = Mathf.Max(zPos.ToArray());
-                minX = Mathf.Min(xPos.ToArray());
-                minZ = Mathf.Min(zPos.ToArray());
-
-                minPos = new Vector3(minX, 0, minZ);
-                maxPos = new Vector3(maxX, 0, maxZ);
-
-                center = (minPos + maxPos) * 0.5f;
-                return center;
-            default: return Vector3.zero;
-        }
-    }
-
     public float MaxZDistancePlayers()
     {
         return maxZ - minZ;
@@ -204,12 +114,7 @@ public class CameraMovement : MonoBehaviour {
     {
         return Mathf.Clamp(MaxZDistancePlayers() * MaxZDistancePlayers() / 15f, 0f, 8f);
     }
-    /*
-    public void PlayerPosition(Vector3 pos, int iD)
-    {
-        positions[iD] = pos;
-    }    
-    */
+
 
     public void RestartCameraMovement(bool mainmenu)
     {
@@ -228,17 +133,6 @@ public class CameraMovement : MonoBehaviour {
 
     private IEnumerator HoldCamera(Vector3 target, float seconds)
     {
-        //Vector3 targetPos = transform.position + new Vector3(0f, 10f, -10f);
-        //transform.position = Vector3.Lerp(transform.position, targetPos, 4f * Time.deltaTime);
-        //transform.position = new Vector3(0f, transform.position.y, transform.position.z) + new Vector3(15f, 15f, -15f);
-
-        //Vector3 pos = transform.position;
-
-        //Vector3 t = new Vector3(0f, transform.position.y, transform.position.z) + new Vector3(15f, 15f, -15f);
-
-        
-       //transform.position = Vector3.MoveTowards(transform.position, target, 0.1f);
-
         float elapsedTime = 0;
         Vector3 startingPos = transform.position;
         while (elapsedTime < seconds)
