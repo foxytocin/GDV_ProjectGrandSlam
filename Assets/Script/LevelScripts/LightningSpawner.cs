@@ -92,6 +92,11 @@ public class LightningSpawner : MonoBehaviour {
                                 go.SetActive(false);
                                 break;
 
+                            case "Bombe":
+                                go.GetComponent<BombScript>().remoteBomb = false;
+                                go.GetComponent<BombScript>().countDown = 0f;
+                                break;
+
                             default :
                                 break;
                         }
