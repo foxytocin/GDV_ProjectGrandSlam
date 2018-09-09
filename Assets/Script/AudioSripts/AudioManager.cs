@@ -14,6 +14,7 @@ public class AudioManager : MonoBehaviour
     public float settingsMusicVolume;
     public bool musicAtStart;
     public int randomInGameMusic;
+    bool inGameMusicOn;
 
 
     // Use this for initialization
@@ -39,6 +40,8 @@ public class AudioManager : MonoBehaviour
             m.source.loop = m.loop;
         }
 
+        randomInGameMusic = Random.Range(0, music.Length);
+
         settingsMusicVolume = 0.5f;
         settingsFXVolume = 1f;
     }
@@ -51,13 +54,22 @@ public class AudioManager : MonoBehaviour
         playSound("menumusic");
     }
 
-    public void playNextSong(){
-        music[randomInGameMusic].source.Stop();
-        randomInGameMusic = Random.Range(0, music.Length);
-        music[randomInGameMusic].source.Play();
-        //AudioClip song = music[randomInGameMusic].clip;
-        //Invoke("PlayNextSong", music[randomInGameMusic].source.Length;
+    public void playNextSong()
+    {
+        StartCoroutine(playNextSongCore());
+        Invoke("playNextSong", music[randomInGameMusic].clip.length);
     }    
+
+    public IEnumerator playNextSongCore()
+    {
+        stopInGameMusic();
+        while (inGameMusicOn)
+        {
+            yield return new WaitForSecondsRealtime(1f);
+        }
+        randomInGameMusic = Random.Range(0, music.Length);
+        startInGameMusic();
+    }
 
     public void stopSound(string name)
     {
@@ -161,6 +173,7 @@ public class AudioManager : MonoBehaviour
         while(music[randomInGameMusic].source.volume < music[randomInGameMusic].groundVolume * settingsMusicVolume)
         {
             music[randomInGameMusic].source.volume += 0.1f * (Time.deltaTime + 0.1f);
+            inGameMusicOn = true;
             yield return null;
         }
     }
@@ -174,8 +187,7 @@ public class AudioManager : MonoBehaviour
 
     public IEnumerator stopInGameMusicCore()
     {
-        bool terminus = true;
-        while (terminus)
+        while (inGameMusicOn)
         {
             if (music[randomInGameMusic].source.volume > 0)
             {
@@ -185,7 +197,7 @@ public class AudioManager : MonoBehaviour
             {
                 music[randomInGameMusic].source.Stop();
                 music[randomInGameMusic].source.volume = music[randomInGameMusic].groundVolume * settingsMusicVolume;
-                terminus = false;
+                inGameMusicOn = false;
             }
 
             yield return null;
@@ -202,7 +214,7 @@ public class AudioManager : MonoBehaviour
         StopCoroutine(pitchUp());
         while(music[randomInGameMusic].source.pitch > 0.3f)
         {
-            music[randomInGameMusic].source.pitch -= 0.3f * (Time.deltaTime + 0.1f);
+            music[randomInGameMusic].source.pitch -= 0.3f * (Time.deltaTime + 0.2f);
             //Debug.Log(music[randomInGameMusic].source.pitch);
             yield return null;
         }

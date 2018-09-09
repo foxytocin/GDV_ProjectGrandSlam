@@ -36,6 +36,7 @@ public class PlayerScript : MonoBehaviour
     private RulesScript rulesScript;
     private GameManager gameManager;
     private AudioSource playerAudio;
+    private OverlayMethodenScript overlayMethodenScript;
 
     void Awake()
     {
@@ -50,6 +51,7 @@ public class PlayerScript : MonoBehaviour
         rulesScript = FindObjectOfType<RulesScript>();
         gameManager = FindObjectOfType<GameManager>();
         playerAudio = GetComponent<AudioSource>();
+        overlayMethodenScript = FindObjectOfType<OverlayMethodenScript>();
     }
 
     void Start()
@@ -292,35 +294,40 @@ public class PlayerScript : MonoBehaviour
     public float rollingSoundDelay = 0.2f;
     private void movingSound(bool moving)
     {
-        if(moving && soundNotPlaying)
-        {
-            playerAudio.volume = 0.2f;
-            soundNotPlaying = false;
-            playerAudio.Play();
-
-        } else if(!moving && !soundNotPlaying) {
-
-            if(rollingSoundDelay > 0f)
+            if (moving && soundNotPlaying)
             {
-                rollingSoundDelay -= Time.deltaTime;
+                playerAudio.volume = 0.2f;
+                soundNotPlaying = false;
+                playerAudio.Play();
 
-            } else {
-
-                if(playerAudio.volume > 0f)
+            }
+            else if (!moving && !soundNotPlaying)
+            {
+                if (rollingSoundDelay > 0f)
                 {
-                    playerAudio.volume -= Time.deltaTime;
+                    rollingSoundDelay -= Time.deltaTime;
 
-                } else {
+                }
+                else
+                {
 
-                    soundNotPlaying = true;
-                    playerAudio.Pause();
-                    rollingSoundDelay = 0.2f;
-                    playerAudio.volume = 0.2f;
+                    if (playerAudio.volume > 0f)
+                    {
+                        playerAudio.volume -= Time.deltaTime;
+
+                    }
+                    else
+                    {
+
+                        soundNotPlaying = true;
+                        playerAudio.Pause();
+                        rollingSoundDelay = 0.2f;
+                        playerAudio.volume = 0.2f;
+                    }
+
                 }
 
             }
-
-        }
     }
 
 

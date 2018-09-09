@@ -10,6 +10,7 @@ public class OverlayMethodenScript : MonoBehaviour
     public GameObject pausenMenuUI;
     public GameManager gameManager;
     private AudioManager audioManager;
+    private AudioListener audioListener;
 
     InGameGUI inGameGUI;
 
@@ -20,6 +21,7 @@ public class OverlayMethodenScript : MonoBehaviour
         gameManager = FindObjectOfType<GameManager>();
         inGameGUI = FindObjectOfType<InGameGUI>();
         audioManager = FindObjectOfType<AudioManager>();
+        audioListener = FindObjectOfType<AudioListener>();
         GameIsPaused = false;
         isInGame = false;
     }
@@ -58,12 +60,11 @@ public class OverlayMethodenScript : MonoBehaviour
     {
         audioManager.playSound("buttonclick");
         StartCoroutine(audioManager.pitchDown());
-        audioManager.stopInGameMusic();
         gameManager.lockControlls();
+        GameIsPaused = true;
         pausenMenuUI.SetActive(true);
         inGameGUI.inAktivInGameUI();
         Time.timeScale = 0f;
-        GameIsPaused = true;
         Cursor.visible = true;
     }
 

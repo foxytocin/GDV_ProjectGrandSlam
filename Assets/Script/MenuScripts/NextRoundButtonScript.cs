@@ -37,8 +37,6 @@ public class NextRoundButtonScript : MonoBehaviour {
             inGameGUI.updateInGameGUIMultiplayer();
         }
         
-        audioManager.playNextSong();
-        
         resultMenu.SetActive(false);
 
     }
