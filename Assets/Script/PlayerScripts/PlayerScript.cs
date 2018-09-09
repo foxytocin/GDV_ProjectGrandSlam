@@ -324,15 +324,15 @@ public class PlayerScript : MonoBehaviour
     }
 
 
-    //Funktion erlaubt das Druecken von 2 Richtungstasten zur gleichen Zeit
-    //Die zuletzt gedrückte Taste bestimmt dann die aktuelle Richtung
+    // Funktion erlaubt das Druecken von 2 Richtungstasten zur gleichen Zeit
+    // Die zuletzt gedrückte Taste bestimmt dann die aktuelle Richtung
     Vector3 checkSingleDirection(Vector3 tmp)
     {
         if(tmp != nullVector)
         {   
-            //Ist das Produkt != 0 werden 2 Tasten gedruckt
-            //Um zu bestimmen welche Taste zusätzlich gedrueckt wurde wird die aktuelle Richtung mit dem Produkt beider Tasten verglichen
-            //Daraus kann errechnet werden welcher der neue Richtungvector ist
+            // Ist das Produkt != 0 werden 2 Tasten gedruckt
+            // Um zu bestimmen welche Taste zusätzlich gedrueckt wurde wird die aktuelle Richtung mit dem Produkt beider Tasten verglichen
+            // Daraus kann errechnet werden welcher der neue Richtungvector ist
             int calcDir = (int)tmp.x * (int)tmp.z;
 
             if(calcDir != 0)
@@ -340,28 +340,20 @@ public class PlayerScript : MonoBehaviour
                 switch((int)lastDirection.x)
                 {
                     case 1:
+                    // Bewegung nach Rechts...
                     switch(calcDir)
-                    {
-                        case 1:
-                        //Bewegung nach Rechts und Hoch wird gedrueckt
-                        return maskDirection(new Vector3(0, 0, 1));
-
-                        case -1:
-                        //Bewegung nach Rechts und Runter wird gedrueckt
-                        return maskDirection(new Vector3(0, 0, -1));
+                    {   
+                        case  1: return maskDirection(new Vector3(0, 0, 1));  // und Hoch wird gedrueckt
+                        case -1: return maskDirection(new Vector3(0, 0, -1)); // und Runter wird gedrueckt
                     }
                     break;
 
                     case -1:
+                    // Bewegung nach Links...
                     switch(calcDir)
-                    {
-                        case 1:
-                        //Bewegung nach Links und Runter wird gedrueckt
-                        return maskDirection(new Vector3(0, 0, -1));
-
-                        case -1:
-                        //Bewegung nach Linkt und Hoch wird gedrueckt
-                        return maskDirection(new Vector3(0, 0, 1));
+                    {   
+                        case  1: return maskDirection(new Vector3(0, 0, -1)); // und Runter wird gedrueckt
+                        case -1: return maskDirection(new Vector3(0, 0, 1)); // und Hoch wird gedrueckt
                     }
                     break;
                 }
@@ -369,28 +361,20 @@ public class PlayerScript : MonoBehaviour
                 switch((int)lastDirection.z)
                 {
                     case 1:
+                    // Bewegung nach Oben...
                     switch(calcDir)
-                    {
-                        case 1:
-                        //Bewegung nach Oben und Rechts wird gedrueckt
-                        return maskDirection(new Vector3(1, 0, 0));
-
-                        case -1:
-                        //Bewegung nach Oben und Links wird gedrueckt
-                        return maskDirection(new Vector3(-1, 0, 0));
+                    {   
+                        case  1: return maskDirection(new Vector3(1, 0, 0)); // und Rechts wird gedrueckt
+                        case -1: return maskDirection(new Vector3(-1, 0, 0)); // und Links wird gedrueckt
                     }
                     break;
 
                     case -1:
+                    // Bewegung nach Unten...
                     switch(calcDir)
-                    {
-                        case 1:
-                        //Bewegung nach Unten und Links wird gedrueckt
-                        return maskDirection(new Vector3(-1, 0, 0));
-
-                        case -1:
-                        //Bewegung nach Unten und Rechts wird gedrueckt
-                        return maskDirection(new Vector3(1, 0, 0));
+                    {   
+                        case  1: return maskDirection(new Vector3(-1, 0, 0)); // und Links wird gedrueckt
+                        case -1: return maskDirection(new Vector3(1, 0, 0)); // und Rechts wird gedrueckt
                     }
                     break;
                 }
@@ -444,7 +428,7 @@ public class PlayerScript : MonoBehaviour
     private bool freeWay(Vector3 tmp)
     {
         //entweder hat sich der Richungsvector nicht geändert oder das Objekt die selbe Position wie TargetVector
-        if ((lastTmpVector == tmp || target == transform.position) && myTime > 0.18f)
+        if ((lastTmpVector == tmp || target == transform.position) && myTime > 0.185f)
         {
             int xPos = (int)(target.x + tmp.x);
             int zPos = (int)(target.z + tmp.z);
@@ -488,16 +472,6 @@ public class PlayerScript : MonoBehaviour
                         audioManager.playSound("pickupItem");
                         myTime = 0f;
                         return true;
-
-                    // case "Kiste":
-                    //     Debug.Log("Gegen eine Kiste gelaufen");
-                    //     myTime = 0f;
-                    //     return false;
-
-                    // case "Wand":
-                    //     Debug.Log("Gegen eine Wand gelaufen");
-                    //     myTime = 0f;
-                    //     return false;
 
                     default:
                         break;
