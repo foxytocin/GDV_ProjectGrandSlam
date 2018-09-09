@@ -31,12 +31,15 @@ public class RulesScript : MonoBehaviour
     private GameManager gameManager;
     private LevelGenerator LevelGenerator;
 
-    private void Awake()
+    void Awake()
     {
         gameManager = FindObjectOfType<GameManager>();
         inGameGUI = FindObjectOfType<InGameGUI>();
         LevelGenerator = FindObjectOfType<LevelGenerator>();
+    }
 
+    void Start()
+    {
         playerIsLive = 1;
         battle = 1;
         record = 0;
@@ -51,7 +54,6 @@ public class RulesScript : MonoBehaviour
             distanzRecords[i] = 0;
 
         playerLifeBool = new bool[4];
-
     }
 
     public void setPlayerZahl(int players)
@@ -59,7 +61,6 @@ public class RulesScript : MonoBehaviour
         battle = players;
         playerIsLive = battle;
         setPlayerLiveBool(battle);
-
     }
 
     public void playerDeath(int player, Vector3 distance)

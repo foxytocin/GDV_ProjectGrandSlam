@@ -15,6 +15,7 @@ TagManager:
   - GlowMaterial
   - MeterSchild
   - GlowBall
+  - Ghost
   layers:
   - Default
   - TransparentFX

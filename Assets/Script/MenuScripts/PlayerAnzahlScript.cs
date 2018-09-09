@@ -12,7 +12,7 @@ public class PlayerAnzahlScript : MonoBehaviour
     public GameObject buttonThree;
     public GameObject buttonFour;
 
-    void Start ()
+    void Awake ()
     {
         gameManager = FindObjectOfType<GameManager>();
         rulesScript = FindObjectOfType<RulesScript>();

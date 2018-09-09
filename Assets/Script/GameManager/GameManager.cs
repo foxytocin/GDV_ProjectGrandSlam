@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour {
     public bool gameStatePlay;
     private bool showMiniMap;
     public int player;
-    private int playertmp;
+    public int playertmp;
     public bool isInGame;
     public int controller; // 0 = Keinen, 1 = Xbox360, 2 = PS4
 

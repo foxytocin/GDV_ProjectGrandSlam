@@ -15,7 +15,7 @@ public class LevelRestart : MonoBehaviour {
 	private SpawnDemoItems spawnDemoItems;
 	private AudioManager audioManager;
 	private CounterScript CounterScript;
-	
+		
 	void Awake()
 	{
 		levelGenerator = FindObjectOfType<LevelGenerator>();
@@ -93,11 +93,13 @@ public class LevelRestart : MonoBehaviour {
 		
 		searchAndDestroy("MeterSchild", animiert);
 		searchAndDestroy("FreeFall", animiert);
+		searchAndDestroy("Ghost", animiert);
 
 		// Wir das Level animiert zerstoert, wird 3.6 Sekunden gewartet bis die Animation zuende ist
 		if(animiert)
 		{
 			yield return new WaitForSecondsRealtime(3.7f);
+			playerSpawner.restartPlayers();
 
 		} else {
 			
@@ -139,7 +141,7 @@ public class LevelRestart : MonoBehaviour {
 						Destroy(go);
 					}
 
-				} else if(go.CompareTag("Bombe") || go.CompareTag("FreeFall")) {
+				} else if(go.CompareTag("Bombe") || go.CompareTag("FreeFall") || go.CompareTag("Ghost")) {
 
 					go.SetActive(false);
 				}
@@ -152,7 +154,12 @@ public class LevelRestart : MonoBehaviour {
 	private IEnumerator deaktivationDelay(GameObject go)
 	{
 		yield return new WaitForSeconds(Random.value * 0.6f);
-		go.SetActive(false);
+
+		if(go != null)
+		{
+			go.SetActive(false);
+		}
+		
 	}
 
 
@@ -173,8 +180,7 @@ public class LevelRestart : MonoBehaviour {
 	// Auf Grund der Objecteigenschaften muss der Player gesondert behandelt werden
     private IEnumerator playerFall(GameObject player)
     {
-		Debug.Log("Letzter Player fällt");
-        levelGenerator.AllGameObjects[(int)player.transform.position.x, (int)player.transform.position.z] = null;
+		levelGenerator.AllGameObjects[(int)player.transform.position.x, (int)player.transform.position.z] = null;
 		Vector3 target = player.transform.position;
 		target.y = -50f;
 

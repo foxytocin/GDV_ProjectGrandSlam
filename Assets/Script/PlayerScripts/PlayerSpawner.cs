@@ -10,14 +10,12 @@ public class PlayerSpawner : MonoBehaviour
     //PlayerListe mit GameObjekts
     public List<GameObject> playerList;
     private LevelGenerator LevelGenerator;
+    private GameManager gameManager;
 
     List<Vector3> spawnList;
     List<Color> playerColorList;
     RulesScript rulesScript;
     InGameGUI inGameGUI;
-
-    public CameraMovement cam;
-
     public Material playerOne;
 
     void Awake()
@@ -25,15 +23,29 @@ public class PlayerSpawner : MonoBehaviour
         rulesScript = FindObjectOfType<RulesScript>();
         inGameGUI = FindObjectOfType<InGameGUI>();
         LevelGenerator = FindObjectOfType<LevelGenerator>();
+        gameManager = FindObjectOfType<GameManager>();
+    }
+
+    void Start()
+    { 
         spawnList = new List<Vector3>();
         playerColorList = new List<Color>();
-
+        
         // PlayerList wird Initalisiert
         playerList = new List<GameObject>();
 
         //Standardmäßig wird beim Laden der Scene ein Spieler erstellt
         players = 1;
         createPlayers();
+    }
+
+    public void restartPlayers()
+    {
+        gameManager.player = 1;
+        gameManager.playertmp = 1;
+        players = 1;
+        createPlayers();
+        rulesScript.setPlayerZahl(1);
     }
 
     public void createPlayers()

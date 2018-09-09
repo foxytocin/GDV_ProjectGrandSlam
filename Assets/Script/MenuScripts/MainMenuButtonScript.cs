@@ -11,7 +11,7 @@ public class MainMenuButtonScript : MonoBehaviour {
     InGameGUI inGameGUI;
     private MenuDemoMode MenuDemoMode;
     private OverlayMethodenScript overlayMethodenScript;
-
+    
 	void Start ()
     {
         inGameGUI = FindObjectOfType<InGameGUI>();

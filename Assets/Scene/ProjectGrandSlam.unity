@@ -11073,10 +11073,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4c7f7a2b2de19b40be528590b5d7411, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonOne: {fileID: 0}
-  buttonTwo: {fileID: 0}
-  buttonThree: {fileID: 0}
-  buttonFour: {fileID: 0}
+  buttonOne: {fileID: 1104292680}
+  buttonTwo: {fileID: 494927284}
+  buttonThree: {fileID: 640823618}
+  buttonFour: {fileID: 770184837}
 --- !u!1 &1198757769
 GameObject:
   m_ObjectHideFlags: 0
@@ -14560,6 +14560,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameStatePlay: 0
   player: 0
+  playertmp: 0
   isInGame: 0
   controller: 0
 --- !u!114 &1620339723
@@ -16423,7 +16424,6 @@ MonoBehaviour:
     type: 2}
   players: 0
   playerList: []
-  cam: {fileID: 2023082695}
   playerOne: {fileID: 2100000, guid: f3887e91451b14946a111b6a14f4957b, type: 2}
 --- !u!4 &1847533653
 Transform:
