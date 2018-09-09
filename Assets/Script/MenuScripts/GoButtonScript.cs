@@ -33,7 +33,6 @@ public class GoButtonScript : MonoBehaviour
         audioManager.stopMenuMusic();
         audioManager.playNextSong();
         overlayMethodenScript.isInGame = true;
-        overlayMethodenScript.GameIsPaused = false;
         inGameGUI.startGUI(gameManager.player);
         inGameGUI.updateInGameGUIMultiplayer();
 

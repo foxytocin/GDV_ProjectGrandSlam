@@ -6,17 +6,18 @@ using UnityEngine.UI;
 
 public class OverlayMethodenScript : MonoBehaviour
 {
-    public bool GameIsPaused;
-    public GameObject pausenMenuUI;
-    public GameManager gameManager;
+    private bool GameIsPaused;
+    public bool isInGame;
+
+    private GameManager gameManager;
     private AudioManager audioManager;
     private AudioListener audioListener;
     private CameraScroller cameraScroller;
+    private InGameGUI inGameGUI;
 
-
-    InGameGUI inGameGUI;
-
-    public bool isInGame;
+    public GameObject pausenMenuUI;
+    public GameObject optionMenu;
+    public GameObject pausenMenu;
 
     private void Awake()
     {
@@ -56,6 +57,7 @@ public class OverlayMethodenScript : MonoBehaviour
         inGameGUI.aktivInGameUI();
         GameIsPaused = false;
         isInGame = true;
+        //resetPausenMenu();
         pausenMenuUI.SetActive(false);
         AudioListener.volume = 1f;
     }
@@ -91,5 +93,11 @@ public class OverlayMethodenScript : MonoBehaviour
     {
         onSetSide.SetActive(true);
         offSetSide.SetActive(false);
+    }
+
+    private void resetPausenMenu()
+    {
+        optionMenu.SetActive(false);
+        pausenMenu.SetActive(true);
     }
 }

@@ -16,6 +16,7 @@ public class AudioManager : MonoBehaviour
     public int randomInGameMusic;
     bool inGameMusicOn;
 
+    private GameManager gameManager;
 
     // Use this for initialization
     void Awake ()
@@ -42,6 +43,8 @@ public class AudioManager : MonoBehaviour
 
         randomInGameMusic = Random.Range(0, music.Length);
 
+        gameManager = FindObjectOfType<GameManager>();
+
         settingsMusicVolume = 0.5f;
         settingsFXVolume = 1f;
     }
@@ -67,7 +70,14 @@ public class AudioManager : MonoBehaviour
         {
             yield return new WaitForSecondsRealtime(1f);
         }
+
         randomInGameMusic = Random.Range(0, music.Length);
+
+        if(!gameManager.gameStatePlay)
+        {
+            music[randomInGameMusic].source.Pause();
+        } 
+
         startInGameMusic();
     }
 
