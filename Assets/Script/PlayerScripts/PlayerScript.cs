@@ -480,6 +480,10 @@ public class PlayerScript : MonoBehaviour
                         myTime = 0f;
                         return true;
 
+                    case "Enemy":
+                        dead();
+                        return true;
+
                     default:
                         break;
                 }

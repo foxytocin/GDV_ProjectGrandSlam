@@ -21,12 +21,11 @@ GameObject:
   - component: {fileID: 4152940379450372}
   - component: {fileID: 33760319548447516}
   - component: {fileID: 23836589001839008}
-  - component: {fileID: 135437027932624288}
   - component: {fileID: 114620762884819116}
   - component: {fileID: 82178793065856054}
   m_Layer: 0
   m_Name: Enemy_Prefab
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -38,8 +37,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1605742371693898}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 17.479889, y: 6.0184946, z: 30.086105}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -200,15 +199,3 @@ MonoBehaviour:
   resultScreenActive: 0
   speed: 0
   rollingSoundDelay: 0.2
---- !u!135 &135437027932624288
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1605742371693898}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}

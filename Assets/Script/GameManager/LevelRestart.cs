@@ -94,6 +94,7 @@ public class LevelRestart : MonoBehaviour {
 		searchAndDestroy("MeterSchild", animiert);
 		searchAndDestroy("FreeFall", animiert);
 		searchAndDestroy("Ghost", animiert);
+		searchAndDestroy("Enemy", animiert);
 
 		// Wir das Level animiert zerstoert, wird 3.6 Sekunden gewartet bis die Animation zuende ist
 		if(animiert)
@@ -132,7 +133,7 @@ public class LevelRestart : MonoBehaviour {
 						StartCoroutine(deaktivationDelay(go));
 					}
 
-				} else if(go.CompareTag("Player")) {
+				} else if(go.CompareTag("Player") || go.CompareTag("Enemy")) {
 
 					if(animiert)
 					{

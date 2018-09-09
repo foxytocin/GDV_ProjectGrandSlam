@@ -19,8 +19,6 @@ public class EnemySpawner : MonoBehaviour {
 
             // Der Player bekommt seinen Namen
             tmpEnemy.name = "Enemy";
-            // Der Player bekommt sein Tag
-            tmpEnemy.tag = "Player";
         }
 	}
 }
