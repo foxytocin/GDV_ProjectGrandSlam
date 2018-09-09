@@ -41,7 +41,7 @@ void Awake()
     }
 
 
-// Update is called once per frame
+    // Update is called once per frame
     void Update()
     {
         if (transform.position.y > 0.38)
@@ -55,61 +55,6 @@ void Awake()
             int x = (int)transform.position.x;
             int z = (int)transform.position.z;
 
-            
-
-
-                if (levelGenerator.AllGameObjects[x, z] != null)
-                        {
-                            GameObject go;
-                            go = levelGenerator.AllGameObjects[x, z].gameObject;
-
-                            switch (go.tag)
-                            {
-                                case "Bombe":
-                                    transform.position = temp;
-                                    levelGenerator.AllGameObjects[x, z] = null;
-                                    Destroy(gameObject);
-                                    break;
-                                    
-                                case "Kiste":
-                                    go.SetActive(false);
-                                    transform.position = temp;
-                                    levelGenerator.AllGameObjects[x, z] = gameObject;
-                                    Instantiate(KistenPartsPrefab, new Vector3(x, 0.5f, z), Quaternion.identity, transform);
-                                    break;
-
-                                case "Item":
-                                    audioManager.playSound("break2");
-                                    go.SetActive(false);
-                                    transform.position = temp;
-                                    levelGenerator.AllGameObjects[x, z] = gameObject;
-                                    break;
-
-                                case "Player":
-                                    objectPooler.SpawnFromPool("Explosion", new Vector3(x, 0.5f, z), Quaternion.identity);
-                                    go.GetComponent<PlayerScript>().dead();
-                                    StartCoroutine(mapDestroyer.KillField(x, z));
-                                    transform.position = temp;
-                                    levelGenerator.AllGameObjects[x, z] = gameObject;
-                                    break;
-
-
-                                default:
-                                    break;
-                            }
-                }
-                    
-
-            
-
-
-
-        }
-        if (transform.position.y == 0.38)
-        {
-            int x = (int)transform.position.x;
-            int z = (int)transform.position.z;
-
 
 
 
@@ -117,6 +62,43 @@ void Awake()
             {
                 GameObject go;
                 go = levelGenerator.AllGameObjects[x, z].gameObject;
+
+                switch (go.tag)
+                {
+                    case "Bombe":
+                        transform.position = temp;
+                        levelGenerator.AllGameObjects[x, z] = null;
+                        Destroy(gameObject);
+                        break;
+
+                    case "Kiste":
+                        go.SetActive(false);
+                        transform.position = temp;
+                        levelGenerator.AllGameObjects[x, z] = gameObject;
+                        Instantiate(KistenPartsPrefab, new Vector3(x, 0.5f, z), Quaternion.identity, transform);
+                        break;
+
+                    case "Item":
+                        audioManager.playSound("break2");
+                        go.SetActive(false);
+                        transform.position = temp;
+                        levelGenerator.AllGameObjects[x, z] = gameObject;
+                        break;
+
+                    case "Player":
+                        objectPooler.SpawnFromPool("Explosion", new Vector3(x, 0.5f, z), Quaternion.identity);
+                        go.GetComponent<PlayerScript>().dead();
+                        StartCoroutine(mapDestroyer.KillField(x, z));
+                        transform.position = temp;
+                        levelGenerator.AllGameObjects[x, z] = gameObject;
+                        break;
+
+
+                    default:
+                        break;
+                }
             }
+
+        }
     }
 }
