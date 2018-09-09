@@ -23,6 +23,7 @@ public class MainMenuButtonScript : MonoBehaviour {
 	
     public void onClickMainButton()
     {
+        AudioListener.volume = 1f;
         audioManager.playSound("buttonclick");
         overlayMethodenScript.isInGame = false;
         levelRestart.levelRestartMainMenu();
