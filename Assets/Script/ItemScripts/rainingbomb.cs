@@ -13,8 +13,7 @@ public class RainingBomb : MonoBehaviour {
     public AudioClip bombRainSound3;
     private LevelGenerator levelGenerator;
     private MapDestroyer mapDestroyer;
-    public float fallSpeed = 8.0f;
-    public float spinSpeed = 250.0f;
+    public float fallSpeed = 5.0f;
     float randomSpeed;
 
     float rotationY;
@@ -51,55 +50,73 @@ void Awake()
             transform.Translate(0, -((gravity * gravity) + randomSpeed), 0);
         }
 
-        if (transform.position.y < 0.38)
+        if (transform.position.y < 0.37)
         {
             int x = (int)transform.position.x;
             int z = (int)transform.position.z;
 
-            GameObject go;
+            
 
-            if (levelGenerator.SecondaryGameObjects1[x, z] != null)
-            {
 
                 if (levelGenerator.AllGameObjects[x, z] != null)
                         {
+                            GameObject go;
                             go = levelGenerator.AllGameObjects[x, z].gameObject;
 
                             switch (go.tag)
                             {
+                                case "Bombe":
+                                    transform.position = temp;
+                                    levelGenerator.AllGameObjects[x, z] = null;
+                                    Destroy(gameObject);
+                                    break;
+                                    
                                 case "Kiste":
                                     go.SetActive(false);
+                                    transform.position = temp;
                                     levelGenerator.AllGameObjects[x, z] = gameObject;
-
                                     Instantiate(KistenPartsPrefab, new Vector3(x, 0.5f, z), Quaternion.identity, transform);
-
                                     break;
 
                                 case "Item":
                                     audioManager.playSound("break2");
                                     go.SetActive(false);
+                                    transform.position = temp;
                                     levelGenerator.AllGameObjects[x, z] = gameObject;
-
                                     break;
 
                                 case "Player":
                                     objectPooler.SpawnFromPool("Explosion", new Vector3(x, 0.5f, z), Quaternion.identity);
                                     go.GetComponent<PlayerScript>().dead();
                                     StartCoroutine(mapDestroyer.KillField(x, z));
-                                    levelGenerator.AllGameObjects[x, z ] = gameObject;
+                                    transform.position = temp;
+                                    levelGenerator.AllGameObjects[x, z] = gameObject;
                                     break;
 
 
                                 default:
                                     break;
                             }
-                        }
-                    }
+                }
+                    
 
-            transform.position = temp;
+            
 
 
 
         }
+        if (transform.position.y == 0.38)
+        {
+            int x = (int)transform.position.x;
+            int z = (int)transform.position.z;
+
+
+
+
+            if (levelGenerator.AllGameObjects[x, z] != null)
+            {
+                GameObject go;
+                go = levelGenerator.AllGameObjects[x, z].gameObject;
+            }
     }
 }
