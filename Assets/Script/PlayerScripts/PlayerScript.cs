@@ -328,141 +328,101 @@ public class PlayerScript : MonoBehaviour
     //Die zuletzt gedrückte Taste bestimmt dann die aktuelle Richtung
     Vector3 checkSingleDirection(Vector3 tmp)
     {
-        if(this.tmp != nullVector)
+        if(tmp != nullVector)
         {   
             //Ist das Produkt != 0 werden 2 Tasten gedruckt
             //Um zu bestimmen welche Taste zusätzlich gedrueckt wurde wird die aktuelle Richtung mit dem Produkt beider Tasten verglichen
             //Daraus kann errechnet werden welcher der neue Richtungvector ist
-            int calcDir = (int)this.tmp.x * (int)this.tmp.z;
+            int calcDir = (int)tmp.x * (int)tmp.z;
 
             if(calcDir != 0)
             {
-                //Bewegung nach Rechts und Hoch wird gedrueckt
-                if(lastDirection.x == 1 && calcDir == 1) {
-                    this.tmp = new Vector3(0, 0, 1);
-                    if (freeWay(this.tmp))
+                switch((int)lastDirection.x)
+                {
+                    case 1:
+                    switch(calcDir)
                     {
-                        return this.tmp;
+                        case 1:
+                        //Bewegung nach Rechts und Hoch wird gedrueckt
+                        return maskDirection(new Vector3(0, 0, 1));
+
+                        case -1:
+                        //Bewegung nach Rechts und Runter wird gedrueckt
+                        return maskDirection(new Vector3(0, 0, -1));
                     }
-                    else if(freeWay(lastDirection))
+                    break;
+
+                    case -1:
+                    switch(calcDir)
                     {
-                        return lastDirection;
+                        case 1:
+                        //Bewegung nach Links und Runter wird gedrueckt
+                        return maskDirection(new Vector3(0, 0, -1));
+
+                        case -1:
+                        //Bewegung nach Linkt und Hoch wird gedrueckt
+                        return maskDirection(new Vector3(0, 0, 1));
                     }
-                    return nullVector;
-                }
-                
-                //Bewegung nach Rechts und Runter wird gedrueckt
-                if(lastDirection.x == 1 && calcDir == -1) {
-                    this.tmp = new Vector3(0, 0, -1);
-                    if (freeWay(this.tmp))
-                    {
-                        return this.tmp;
-                    }
-                    else if (freeWay(lastDirection))
-                    {
-                        return lastDirection;
-                    }
-                    return nullVector;
+                    break;
                 }
 
-                //Bewegung nach Linkt und Hoch wird gedrueckt
-                if(lastDirection.x == -1 && calcDir == -1) {
-                    this.tmp = new Vector3(0, 0, 1);
-                    if (freeWay(this.tmp))
+                switch((int)lastDirection.z)
+                {
+                    case 1:
+                    switch(calcDir)
                     {
-                        return this.tmp;
+                        case 1:
+                        //Bewegung nach Oben und Rechts wird gedrueckt
+                        return maskDirection(new Vector3(1, 0, 0));
+
+                        case -1:
+                        //Bewegung nach Oben und Links wird gedrueckt
+                        return maskDirection(new Vector3(-1, 0, 0));
                     }
-                    else if (freeWay(lastDirection))
+                    break;
+
+                    case -1:
+                    switch(calcDir)
                     {
-                        return lastDirection;
+                        case 1:
+                        //Bewegung nach Unten und Links wird gedrueckt
+                        return maskDirection(new Vector3(-1, 0, 0));
+
+                        case -1:
+                        //Bewegung nach Unten und Rechts wird gedrueckt
+                        return maskDirection(new Vector3(1, 0, 0));
                     }
-                    return nullVector;
+                    break;
                 }
 
-                //Bewegung nach Links und Runter wird gedrueckt
-                if(lastDirection.x == -1 && calcDir == 1) {
-                    this.tmp = new Vector3(0, 0, -1);
-                    if (freeWay(this.tmp))
-                    {
-                        return this.tmp;
-                    }
-                    else if (freeWay(lastDirection))
-                    {
-                        return lastDirection;
-                    }
-                    return nullVector;
-                }
-
-                //Bewegung nach Oben und Rechts wird gedrueckt
-                if(lastDirection.z == 1 && calcDir == 1) {
-                    this.tmp = new Vector3(1, 0, 0);
-                    if (freeWay(this.tmp))
-                    {
-                        return this.tmp;
-                    }
-                    else if (freeWay(lastDirection))
-                    {
-                        return lastDirection;
-                    }
-                    return nullVector;
-                }
-
-                //Bewegung nach Oben und Links wird gedrueckt
-                if(lastDirection.z == 1 && calcDir == -1) {
-                    this.tmp = new Vector3(-1, 0, 0);
-                    if (freeWay(this.tmp))
-                    {
-                        return this.tmp;
-                    }
-                    else if (freeWay(lastDirection))
-                    {
-                        return lastDirection;
-                    }
-                    return nullVector;
-                }
-
-                //Bewegung nach Unten und Rechts wird gedrueckt
-                if(lastDirection.z == -1 && calcDir == -1) {
-                    this.tmp = new Vector3(1, 0, 0);
-                    if (freeWay(this.tmp))
-                    {
-                        return this.tmp;
-                    }
-                    else if (freeWay(lastDirection))
-                    {
-                        return lastDirection;
-                    }
-                    return nullVector;
-                }
-
-                //Bewegung nach Unten und Links wird gedrueckt
-                if(lastDirection.z == -1 && calcDir == 1) {
-                    this.tmp = new Vector3(-1, 0, 0);
-                    if (freeWay(this.tmp))
-                    {
-                        return this.tmp;
-                    }
-                    else if (freeWay(lastDirection))
-                    {
-                        return lastDirection;
-                    }
-                    return nullVector;
-                }
             } else {
                 
-                if(freeWay(this.tmp))
+                if(freeWay(tmp))
                 {
-                    lastDirection = this.tmp;
-                    return this.tmp;
+                    lastDirection = tmp;
+                    return tmp;
                 }
-
-                lastDirection = this.tmp;
+                lastDirection = tmp;
                 return nullVector;
             }
-            return this.tmp;
+            return tmp;
         }
         return nullVector;
     }
+
+    private Vector3 maskDirection(Vector3 direction)
+    {
+        if (freeWay(direction))
+        {
+            return direction;
+        }
+        else if (freeWay(lastDirection))
+        {
+            return lastDirection;
+        }
+        return nullVector;
+    }
+
 
     // Setzt Bombe mit überprüfung von avaibleBomb und aLife
     private void SetBomb()
