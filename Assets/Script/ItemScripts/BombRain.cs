@@ -46,7 +46,7 @@ public class BombRain : MonoBehaviour
         {
             if (levelGenerator.SecondaryGameObjects1[x, z].gameObject.CompareTag("Boden") && levelGenerator.AllGameObjects[x, z] == null)
             {
-                
+                bombego = bombSpawner.SpawnBomb(bombPos.x, bombYPos, bombPos.z, 5, 1, 3, false, true, bombraincolor);
             }
 
             if (levelGenerator.AllGameObjects[x, z] != null)
