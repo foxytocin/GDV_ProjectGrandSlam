@@ -222,31 +222,32 @@ public class AudioManager : MonoBehaviour
     public IEnumerator pitchDown()
     {
         StopCoroutine(pitchUp());
-        while(music[randomInGameMusic].source.pitch > 0.3f)
+        while(music[randomInGameMusic].source.pitch > 0f)
         {
-            music[randomInGameMusic].source.pitch -= 0.3f * (Time.deltaTime + 0.2f);
-            //Debug.Log(music[randomInGameMusic].source.pitch);
+            music[randomInGameMusic].source.pitch -= 0.2f * (Time.deltaTime + 0.2f);
+            AudioListener.volume -= 0.2f * (Time.deltaTime + 0.2f);
             yield return null;
         }
 
-        music[randomInGameMusic].source.Pause();
+        music[randomInGameMusic].source.pitch = 0f;
+        AudioListener.volume = 0f;
     }
 
     // Pitched die Musik wieder auf Normalgeschwindigkeit wenn das Spiel resumed wird
     public IEnumerator pitchUp()
     {
         StopCoroutine(pitchDown());
-        music[randomInGameMusic].source.pitch = 0.3f;
+        music[randomInGameMusic].source.pitch = 0f;
         music[randomInGameMusic].source.volume = music[randomInGameMusic].groundVolume * settingsMusicVolume;
-        music[randomInGameMusic].source.Play();
 
         while(music[randomInGameMusic].source.pitch < 1.0f)
         {
             music[randomInGameMusic].source.pitch += Time.deltaTime;
-            //Debug.Log(music[randomInGameMusic].source.pitch);
+            AudioListener.volume += Time.deltaTime;
             yield return null;
         }
 
         music[randomInGameMusic].source.pitch = 1.0f;
+        AudioListener.volume = 1f;
     }
 }

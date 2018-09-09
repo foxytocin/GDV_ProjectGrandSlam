@@ -57,10 +57,15 @@ public class OverlayMethodenScript : MonoBehaviour
         inGameGUI.aktivInGameUI();
         GameIsPaused = false;
         isInGame = true;
+<<<<<<< HEAD
         resetPausenMenu();
         pausenMenuUI.SetActive(false);
         AudioListener.volume = 1f;
     }
+=======
+        //resetPausenMenu();
+        pausenMenuUI.SetActive(false);    }
+>>>>>>> master
 
     public void pause()
     {
@@ -74,7 +79,6 @@ public class OverlayMethodenScript : MonoBehaviour
         Cursor.visible = true;
         cameraScroller.fadeInSpeed = 0.01f;
         cameraScroller.fadeInAcceleration = 0.02f;
-        AudioListener.volume = 0f;
     }
 
     public void QuitGame()
