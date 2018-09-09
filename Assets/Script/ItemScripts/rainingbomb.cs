@@ -15,40 +15,53 @@ public class RainingBomb : MonoBehaviour {
     private MapDestroyer mapDestroyer;
     public float fallSpeed = 8.0f;
     public float spinSpeed = 250.0f;
+    float randomSpeed;
 
-    // Use this for initialization
+    float rotationY;
+    float gravity;
+    Vector3 temp;
 
-    void Awake()
+
+    
+
+
+// Use this for initialization
+
+void Awake()
     {
         levelGenerator = FindObjectOfType<LevelGenerator>();
         audioSource = FindObjectOfType<AudioSource>();
         audioManager = FindObjectOfType<AudioManager>();
         objectPooler = ObjectPooler.Instance;
         mapDestroyer = FindObjectOfType<MapDestroyer>();
+            randomSpeed = 0.3f;
+            temp = new Vector3(transform.position.x, 0.38f, transform.position.z);
+
+            gravity = 0;
+        
     }
 
-    // Update is called once per frame
-    public IEnumerator BombFall(int x, int z) { 
 
-            while (transform.position.y > 0.38)
+// Update is called once per frame
+    void Update()
+    {
+        if (transform.position.y > 0.38)
+        {
+            gravity += Time.deltaTime * 0.5f;
+            transform.Translate(0, -((gravity * gravity) + randomSpeed), 0);
+        }
+
+        if (transform.position.y < 0.38)
+        {
+            int x = (int)transform.position.x;
+            int z = (int)transform.position.z;
+
+            GameObject go;
+
+            if (levelGenerator.SecondaryGameObjects1[x, z] != null)
             {
-                transform.Translate(Vector3.down * fallSpeed * Time.deltaTime, Space.World);
-                transform.Rotate(Vector3.forward, spinSpeed * Time.deltaTime);
-            }
 
-            if (transform.position.y == 0.38)
-            {
-
-                    GameObject go;
-
-                    if (levelGenerator.SecondaryGameObjects1[x, z] != null)
-                    {
-                        if (levelGenerator.SecondaryGameObjects1[x, z].gameObject.CompareTag("Boden") && levelGenerator.AllGameObjects[x, z] == null)
-                        {
-
-                        }
-
-                        if (levelGenerator.AllGameObjects[x, z] != null)
+                if (levelGenerator.AllGameObjects[x, z] != null)
                         {
                             go = levelGenerator.AllGameObjects[x, z].gameObject;
 
@@ -56,7 +69,7 @@ public class RainingBomb : MonoBehaviour {
                             {
                                 case "Kiste":
                                     go.SetActive(false);
-                                    levelGenerator.AllGameObjects[(int)transform.position.x, (int)transform.position.z] = gameObject;
+                                    levelGenerator.AllGameObjects[x, z] = gameObject;
 
                                     Instantiate(KistenPartsPrefab, new Vector3(x, 0.5f, z), Quaternion.identity, transform);
 
@@ -65,7 +78,7 @@ public class RainingBomb : MonoBehaviour {
                                 case "Item":
                                     audioManager.playSound("break2");
                                     go.SetActive(false);
-                                    levelGenerator.AllGameObjects[(int)transform.position.x, (int)transform.position.z] = gameObject;
+                                    levelGenerator.AllGameObjects[x, z] = gameObject;
 
                                     break;
 
@@ -73,24 +86,20 @@ public class RainingBomb : MonoBehaviour {
                                     objectPooler.SpawnFromPool("Explosion", new Vector3(x, 0.5f, z), Quaternion.identity);
                                     go.GetComponent<PlayerScript>().dead();
                                     StartCoroutine(mapDestroyer.KillField(x, z));
-                                    levelGenerator.AllGameObjects[(int)transform.position.x, (int)transform.position.z] = gameObject;
+                                    levelGenerator.AllGameObjects[x, z ] = gameObject;
                                     break;
 
-                                case "Bombe":
-                                Destroy(gameObject);
-
-                                    break;
 
                                 default:
                                     break;
                             }
                         }
                     }
-                    yield return null;
-        
+
+            transform.position = temp;
 
 
-    
-            }
+
+        }
     }
 }
