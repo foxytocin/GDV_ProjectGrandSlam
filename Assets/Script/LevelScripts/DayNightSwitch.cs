@@ -45,6 +45,10 @@ public class DayNightSwitch : MonoBehaviour {
 	// Resetet den Tag-Nacht-Wechsel beim LevelRestart basierend auf dem aktuellen Zustand
 	public void restartDayNightModus()
 	{
+		// Stop umgehend das GlowLines und GlowBalls generiert werden duerfen
+		levelGenerator.generateGlowBalls = false;
+		generateDistanceLine.generateGlowStangen = false;
+
 		// Wird aktuell eine Nacht-Switch (Sonnenuntergang) durchgefuehrt, wird dieser Abgebrochen
 		if((nightModus && isDay))
 		{
@@ -61,8 +65,6 @@ public class DayNightSwitch : MonoBehaviour {
 			update = true;
 			switchToDay();
 			playerLightOff();
-			levelGenerator.generateGlowBalls = false;
-			generateDistanceLine.generateGlowStangen = false;
 			checkGlowDistanceLines();
 		}
 
@@ -73,8 +75,6 @@ public class DayNightSwitch : MonoBehaviour {
 			update = true;
 			switchToDay();
 			playerLightOff();
-
-			generateDistanceLine.generateGlowStangen = false;
 			checkGlowDistanceLines();
 		}
 	}
