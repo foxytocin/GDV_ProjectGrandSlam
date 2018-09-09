@@ -10,7 +10,11 @@ public class OverlayMethodenScript : MonoBehaviour
     public GameObject pausenMenuUI;
     public GameManager gameManager;
     private AudioManager audioManager;
+<<<<<<< HEAD
     private AudioListener audioListener;
+=======
+    private CameraScroller cameraScroller;
+>>>>>>> master
 
     InGameGUI inGameGUI;
 
@@ -21,7 +25,11 @@ public class OverlayMethodenScript : MonoBehaviour
         gameManager = FindObjectOfType<GameManager>();
         inGameGUI = FindObjectOfType<InGameGUI>();
         audioManager = FindObjectOfType<AudioManager>();
+<<<<<<< HEAD
         audioListener = FindObjectOfType<AudioListener>();
+=======
+        cameraScroller = FindObjectOfType<CameraScroller>();
+>>>>>>> master
         GameIsPaused = false;
         isInGame = false;
     }
@@ -54,6 +62,7 @@ public class OverlayMethodenScript : MonoBehaviour
         GameIsPaused = false;
         isInGame = true;
         pausenMenuUI.SetActive(false);
+        AudioListener.volume = 1f;
     }
 
     public void pause()
@@ -66,6 +75,9 @@ public class OverlayMethodenScript : MonoBehaviour
         inGameGUI.inAktivInGameUI();
         Time.timeScale = 0f;
         Cursor.visible = true;
+        cameraScroller.fadeInSpeed = 0.01f;
+        cameraScroller.fadeInAcceleration = 0.02f;
+        AudioListener.volume = 0f;
     }
 
     public void QuitGame()

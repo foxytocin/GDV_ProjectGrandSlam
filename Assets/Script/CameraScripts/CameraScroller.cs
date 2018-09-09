@@ -9,6 +9,8 @@ public class CameraScroller : MonoBehaviour
     private LevelGenerator LevelGenerator;
     private GameManager GameManager;
     private MenuDemoMode menuDemoMode;
+    public float fadeInSpeed;
+    public float fadeInAcceleration;
 
 
     // Use this for initialization
@@ -19,6 +21,8 @@ public class CameraScroller : MonoBehaviour
         menuDemoMode = FindObjectOfType<MenuDemoMode>();
         scrollSpeed = 0.5f;
         altePosition = -1;
+        fadeInSpeed = 0.001f;
+        fadeInAcceleration = 0.009f;
         demoMode = false;
     }
 
@@ -29,6 +33,8 @@ public class CameraScroller : MonoBehaviour
         scrollSpeed = 0f;
         transform.localPosition = new Vector3(0f, 0f, -26f);
         demoMode = false;
+        fadeInSpeed = 0.001f;
+        fadeInAcceleration = 0.009f;
     }
 
     // Update is called once per frame
@@ -36,7 +42,8 @@ public class CameraScroller : MonoBehaviour
     {
         if(GameManager.gameStatePlay || menuDemoMode.demoRunning)
         {
-            transform.Translate(0f, 0f, scrollSpeed * Time.deltaTime);
+            fadeInSpeed = Mathf.Clamp(fadeInSpeed+ fadeInAcceleration, 0.001f, 1f);
+            transform.Translate(0f, 0f, scrollSpeed * Time.deltaTime * fadeInSpeed);
             rowPosition = (int)transform.position.z;
 
             //Prüft ob die Camera genau EINE Zeile weitergescrollt ist um die createWorld() für genau diese 1 Zeile aufzurufen.
