@@ -57,15 +57,11 @@ public class OverlayMethodenScript : MonoBehaviour
         inGameGUI.aktivInGameUI();
         GameIsPaused = false;
         isInGame = true;
-<<<<<<< HEAD
         resetPausenMenu();
         pausenMenuUI.SetActive(false);
-        AudioListener.volume = 1f;
     }
-=======
-        //resetPausenMenu();
-        pausenMenuUI.SetActive(false);    }
->>>>>>> master
+
+
 
     public void pause()
     {
