@@ -10,6 +10,7 @@ public class OverlayMethodenScript : MonoBehaviour
     public GameObject pausenMenuUI;
     public GameManager gameManager;
     private AudioManager audioManager;
+    private CameraScroller cameraScroller;
 
     InGameGUI inGameGUI;
 
@@ -20,6 +21,7 @@ public class OverlayMethodenScript : MonoBehaviour
         gameManager = FindObjectOfType<GameManager>();
         inGameGUI = FindObjectOfType<InGameGUI>();
         audioManager = FindObjectOfType<AudioManager>();
+        cameraScroller = FindObjectOfType<CameraScroller>();
         GameIsPaused = false;
         isInGame = false;
     }
@@ -65,6 +67,8 @@ public class OverlayMethodenScript : MonoBehaviour
         Time.timeScale = 0f;
         GameIsPaused = true;
         Cursor.visible = true;
+        cameraScroller.fadeInSpeed = 0.01f;
+        cameraScroller.fadeInAcceleration = 0.02f;
     }
 
     public void QuitGame()
