@@ -44,9 +44,9 @@ public class EnemyScript : MonoBehaviour
     {
         playerMaterial = GetComponent<Renderer>().material;
         playerColor = playerMaterial.color;
-        lastTmpVector = new Vector3(1, 0, 0);
-        lastDirection = new Vector3(1, 0, 0);
-        speed = 5.5f;
+        lastTmpVector = new Vector3(1f, 0f, 0f);
+        lastDirection = new Vector3(1f, 0f, 0f);
+        speed = 2.5f;
         Time.timeScale = 1.0f;
         target = transform.position;
         levelGenerator.AllGameObjects[(int)transform.position.x, (int)transform.position.z] = gameObject;
@@ -67,23 +67,36 @@ public class EnemyScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //TARGET GEHT ZU WEIT?
+
+        
+
+
         if (gameManager.gameStatePlay)
         {
             myTime += Time.deltaTime;
 
-            Debug.Log(tmp);
+            //Debug.Log("tmp:" + tmp);
             //tmp = checkSingleDirection(tmp);
-            tmp = MoveEnemy(tmp);
+            if (transform.position == target)
+            {
+                tmp = MoveEnemy(tmp);
+                
+            } else
+            {
+                tmp = Vector3.zero;
+            }
 
             if (tmp != Vector3.zero)
             {
+                //lastMovingTmp = tmp;
                 //Im Array aktuelle position loeschen wenn das objekt auch wirklich ein Player ist 
                 if (levelGenerator.AllGameObjects[(int)target.x, (int)target.z] != null && levelGenerator.AllGameObjects[(int)target.x, (int)target.z].gameObject.CompareTag("Player"))
                     levelGenerator.AllGameObjects[(int)target.x, (int)target.z] = null;
 
                 //neue position berechenen
                 target += tmp;
-                Debug.Log("target: " + target);
+                //Debug.Log("target: " + target);
                 //Player wird im Array auf der neuer Position 
                 levelGenerator.AllGameObjects[(int)target.x, (int)target.z] = this.gameObject;
 
@@ -119,14 +132,19 @@ public class EnemyScript : MonoBehaviour
             {
                 movingSound(false);
             }
-        }
+        }    
     }
 
     private Vector3 MoveEnemy(Vector3 tmp)
     {
-        if (checkForward(tmp))
+        if (freeWay(tmp))
         {
-            return tmp;
+            //BUUUG KOMMT NICHT HIER REIN FIX DIESE WOCHE
+            //Random auch mal seitwärts
+            //return tmp;
+            Debug.Log("Vorne frei");
+
+            return CheckSingleDirection(tmp);
         }
         else
         {            
@@ -137,13 +155,13 @@ public class EnemyScript : MonoBehaviour
     private Vector3 getNewDirection(List<Vector3> list)
     {
         int newDirIndex = Mathf.RoundToInt(Random.value * 3);
-        Vector3 newPos = CheckSingleDirection(dirs[newDirIndex]);
+        Vector3 newPos = CheckSingleDirection(list[newDirIndex]);
         return newPos;
     }
 
     private bool checkForward(Vector3 currentDirection)
     {
-        return freeWay(currentDirection);
+        return freeWay(CheckSingleDirection(currentDirection));
     }
 
     private List<Vector3> checkNeighbors(Vector3 currentDirection)
@@ -207,11 +225,16 @@ public class EnemyScript : MonoBehaviour
 
                 switch (go.tag)
                 {
+                    //ANDERE PLAYER KILLEN
+
+
                     case "FreeFall":
                         playerFall();
                         myTime = 0f;
                         return true;
 
+
+                    
                     case "Item":
                         //go.GetComponent<PowerUp>().GrabItem(playerID);
                         levelGenerator.AllGameObjects[(int)go.transform.position.x, (int)go.transform.position.z] = null;
