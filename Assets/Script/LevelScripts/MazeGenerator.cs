@@ -67,7 +67,7 @@ public class MazeGenerator : MonoBehaviour {
 				current = next;
 				current.visited = true;
 
-			} else if(backtrack.Count > 0){
+			} else if(backtrack.Count > 0) {
 				
 				current = backtrack.Pop();
 			} else {
@@ -85,20 +85,20 @@ public class MazeGenerator : MonoBehaviour {
 	{
 		int x = current.x - next.x;
 		if(x == 2) {
-			current.wall[3] = false; //left
-			next.wall[1] = false; //right
+			current.wall[3] = false;	//left
+			next.wall[1] = false;		//right
 		} else if(x == -2) {
-			current.wall[1] = false; //right
-			next.wall[3] = false; //left
+			current.wall[1] = false;	//right
+			next.wall[3] = false;		//left
 		}
 
 		int y = current.y - next.y;
 		if(y == 2) {
-			current.wall[2] = false; //bottom
-			next.wall[0] = false; //top
+			current.wall[2] = false;	//bottom
+			next.wall[0] = false;		//top
 		} else if(y == -2) {
-			current.wall[0] = false; //top
-			next.wall[2] = false; //bottom
+			current.wall[0] = false;	//top
+			next.wall[2] = false;		//bottom
 		}
 
 		//Entfernt die Waende in der ersten und letzten Y-Reihe, damit in das Maze hinein und rausgelaufen werden kann
@@ -131,19 +131,17 @@ public class MazeGenerator : MonoBehaviour {
 		if(current.x - 2 > 0)
 			left = Maze[current.x - 2, current.y];
 
-
-		if(top != null && !top.visited) {
+		if(top != null && !top.visited)
 			neighbors.Add(top);
-		}
-		if(right != null && !right.visited) {
+
+		if(right != null && !right.visited)
 			neighbors.Add(right);
-		}
-		if(bottom != null && !bottom.visited) {
+
+		if(bottom != null && !bottom.visited)
 			neighbors.Add(bottom);
-		}
-		if(left != null && !left.visited) {
+
+		if(left != null && !left.visited)
 			neighbors.Add(left);
-		}
 
 
 		if(neighbors.Count > 0)
@@ -163,7 +161,7 @@ public class MazeGenerator : MonoBehaviour {
 
         for (int j = 0; j < hoehe; j++)
         {
-			 for (int i = 0; i < breite; i++)
+			for (int i = 0; i < breite; i++)
         	{
 				current = Maze[i, j];
 
@@ -182,85 +180,48 @@ public class MazeGenerator : MonoBehaviour {
 							// Generiere eine Wand wenn wall = true ergibt
 							switch(w)
 							{
-								case 0: //top
-									mazeDataMap[i, j + 1] = 2;
-									break;
-								case 1: //right
-									mazeDataMap[i + 1, j] = 2;
-									break;
-								case 2: //bottom
-									mazeDataMap[i, j - 1] = 2;
-									break;
-								case 3: //left
-									mazeDataMap[i - 1, j] = 2;
-									break;
+								case 0: mazeDataMap[i, j + 1] = 2; break; // top
+								case 1: mazeDataMap[i + 1, j] = 2; break; // right
+								case 2: mazeDataMap[i, j - 1] = 2; break; // bottom
+								case 3: mazeDataMap[i - 1, j] = 2; break; // left
 							}
 						} else {
 
 							// Generiere einen Gang wenn wall = false ergibt
 							switch(w)
 							{
-								case 0: //top
-									mazeDataMap[i, j + 1] = 1;
-									break;
-								case 1: //right
-									mazeDataMap[i + 1, j] = 1;
-									break;
-								case 2: //bottom
-									mazeDataMap[i, j - 1] = 1;
-									break;
-								case 3: //left
-									mazeDataMap[i - 1, j] = 1;
-									break;
+								case 0: mazeDataMap[i, j + 1] = 1; break; // top
+								case 1: mazeDataMap[i + 1, j] = 1; break; // right
+								case 2: mazeDataMap[i, j - 1] = 1; break; // bottom
+								case 3: mazeDataMap[i - 1, j] = 1; break; // left
 							}
 						}
 					}
 				}
        		}
 		}
-
-		// DEBUG:
-		// for (int j = 0; j < hoehe; j++)
-		// 	for (int i = 0; i < breite; i++)
-		// 		Debug.Log("mazeDataMap: Wert: " +mazeDataMap[i,j]+ " Pos : " +i+ " / " +j);
 	}
 
 
 	private void generateMazeLevelData()
 	{
-		int current;
         mazeLevelData = new string[hoehe][];
-
         for (int j = 0; j < hoehe; j++)
         {
 			string[] mazeLine = new string[breite + 2];
-
 			for (int i = 0; i < breite; i++)
         	{
-				current = mazeDataMap[i,j];
-
-				if(current == 0)
+				switch(mazeDataMap[i,j])
 				{
-					mazeLine[i + 1] = "x";
-				}
-
-				if(current == 1)
-				{
-					mazeLine[i + 1] = "o";
-				}
-
-				if(current == 2)
-				{
-					mazeLine[i + 1] = "x";
+					case 0: mazeLine[i + 1] = "x"; break;
+					case 1: mazeLine[i + 1] = "o"; break;
+					case 2: mazeLine[i + 1] = "x"; break;
+					default: break;
 				}
        		}
-			
 			mazeLevelData[j] = mazeLine;
         }
-
 		mazeCalculated = true;
-		//Debug.Log("MAZE READY");
 	}
-
 
 }
