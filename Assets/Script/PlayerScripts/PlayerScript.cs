@@ -428,7 +428,7 @@ public class PlayerScript : MonoBehaviour
     private bool freeWay(Vector3 tmp)
     {
         //entweder hat sich der Richungsvector nicht geändert oder das Objekt die selbe Position wie TargetVector
-        if ((lastTmpVector == tmp || target == transform.position) && myTime > 0.185f)
+        if ((lastTmpVector == tmp || target == transform.position) && myTime > 0.18f)
         {
             int xPos = (int)(target.x + tmp.x);
             int zPos = (int)(target.z + tmp.z);
