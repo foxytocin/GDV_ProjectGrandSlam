@@ -25,8 +25,6 @@ public class LightningScript : MonoBehaviour
     private float maxXStep = 1.0f;
     private float maxYStep = 2.0f;
 
-    float rz = 0;
-
     Material mat;
     float emission;
 
@@ -160,16 +158,13 @@ public class LightningScript : MonoBehaviour
                 move(Random.Range(0.0f, maxXStep), 0, i/25f);
                 turn(90f);
                 move(Random.Range(0.0f, maxYStep), 1, i/25f);
-
                 
                 //ChildLightning
                 int randomChildLightningProb = Mathf.RoundToInt((Random.value * 12) + ((i * i * i) / 1300f));
-                //Debug.Log(randomChildLightningProb);
                 if (randomChildLightningProb > 10)
                 {
                     if (Random.value < 0.5f)
                     {
-                        rz = -90f;
                         Quaternion rot = Quaternion.Euler(180f, 0f, 0f);
                         GameObject lc = Instantiate(lightningLChild_Prefab, lightningSpawner.thunderPos + new Vector3(verts[verts.Count - 2].x + 0.4f, turtle.transform.position.y, 0), rot);
                         lc.transform.parent = gameObject.transform;
