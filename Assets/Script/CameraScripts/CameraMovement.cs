@@ -122,11 +122,11 @@ public class CameraMovement : MonoBehaviour {
         Vector3 target = new Vector3(0f, transform.position.y, transform.position.z) + new Vector3(15f, 10f, -15f);
         if(mainmenu)
         {
-            StartCoroutine(HoldCamera(target, 3.5f));
+            StartCoroutine(HoldCamera(target, 3.8f));
         }
         else
         {
-            StartCoroutine(HoldCamera(target, 0.7f));
+            StartCoroutine(HoldCamera(target, 0.9f));
         }
         
     }
