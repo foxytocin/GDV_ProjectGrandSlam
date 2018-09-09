@@ -10,11 +10,9 @@ public class OverlayMethodenScript : MonoBehaviour
     public GameObject pausenMenuUI;
     public GameManager gameManager;
     private AudioManager audioManager;
-<<<<<<< HEAD
     private AudioListener audioListener;
-=======
     private CameraScroller cameraScroller;
->>>>>>> master
+
 
     InGameGUI inGameGUI;
 
@@ -25,11 +23,8 @@ public class OverlayMethodenScript : MonoBehaviour
         gameManager = FindObjectOfType<GameManager>();
         inGameGUI = FindObjectOfType<InGameGUI>();
         audioManager = FindObjectOfType<AudioManager>();
-<<<<<<< HEAD
         audioListener = FindObjectOfType<AudioListener>();
-=======
         cameraScroller = FindObjectOfType<CameraScroller>();
->>>>>>> master
         GameIsPaused = false;
         isInGame = false;
     }
