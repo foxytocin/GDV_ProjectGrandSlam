@@ -68,7 +68,7 @@ public class BombScript : MonoBehaviour
 
         //audioSource.PlayOneShot(audioZischen, (0.9f * audioManager.settingsFXVolume));
 
-        bombPosition = transform.position;
+        
         transform.eulerAngles += new Vector3(0, bombAngle, 0);
 
         if(remoteBomb || bombrain) {
@@ -113,6 +113,7 @@ public class BombScript : MonoBehaviour
 
     // Steuert die Auswirkung der Explosion
     void explode() {
+        bombPosition = transform.position;
 
         // Erschütterung der Kamera
         cameraShake.StartCoroutine(cameraShake.Shake(0.3f, 0.135f));
@@ -150,6 +151,10 @@ public class BombScript : MonoBehaviour
             bombLight.intensity = Mathf.Lerp(bombLight.intensity, Random.Range(baseIntensity - MaxReduction, baseIntensity + MaxIncrease), Strength * Time.deltaTime);
             yield return new WaitForSeconds(RateDamping);
         }
-	}
+    }
+    
+
+
+               
 
 }
