@@ -26,6 +26,7 @@ public class EnemyScript : MonoBehaviour
     private GameManager gameManager;
     private EnemySpawner enemySpawner;
     private AudioSource playerAudio;
+    private bool enemyWalking;
 
     float myTime;
     public float speed;
@@ -56,6 +57,7 @@ public class EnemyScript : MonoBehaviour
         gravity = 0f;
         transform.Rotate(0, 90, 0, Space.World);
         resultScreenActive = false;
+        enemyWalking = true;
 
         dirs = new Vector3[4];
         dirs[0] = new Vector3(1f, 0f, 0f);
@@ -69,17 +71,17 @@ public class EnemyScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (gameManager.gameStatePlay)
+        if (gameManager.gameStatePlay && enemyWalking)
         {
 
             if(transform.position != target)
             {
-                levelGenerator.AllGameObjects[(int)transform.position.x, (int)transform.position.z] = null;
+                levelGenerator.AllGameObjects[(int)target.x, (int)target.z] = null;
                 transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
 
             } else {
                 
-                levelGenerator.AllGameObjects[(int)transform.position.x, (int)transform.position.z] = null;
+                levelGenerator.AllGameObjects[(int)target.x, (int)target.z] = null;
                 actualDirection = MoveEnemy(actualDirection);
                 target += actualDirection;
                 levelGenerator.AllGameObjects[(int)target.x, (int)target.z] = gameObject;
@@ -135,7 +137,10 @@ public class EnemyScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        other.gameObject.GetComponent<PlayerScript>().dead();
+        if(other != null)
+        {
+            other.gameObject.GetComponent<PlayerScript>().dead();
+        }
     }
 
     private Vector3 MoveEnemy(Vector3 tmp)
@@ -153,8 +158,7 @@ public class EnemyScript : MonoBehaviour
     private Vector3 getNewDirection(List<Vector3> list)
     {
         int newDirIndex = (int)Random.Range(0f, list.Count);
-        return list[newDirIndex];
-        //Debug.Log("Ich werde in folgende Richtung gehen: " +newPos);
+        return list[newDirIndex];        
     }
 
     private List<Vector3> checkNeighbors(Vector3 currentDirection)
@@ -215,10 +219,9 @@ public class EnemyScript : MonoBehaviour
                     go.SetActive(false);
                     return true;
 
+                case "Player":
+                    return true;
                     
-                case "Player": return true;
-                    
-
                 default:
                     break;
             }
@@ -229,6 +232,8 @@ public class EnemyScript : MonoBehaviour
 
     public void playerFall()
     {
+        enemyWalking = false;
+
         if (gameManager.gameStatePlay)
         {
             StartCoroutine(playerFallCore());
@@ -261,9 +266,8 @@ public class EnemyScript : MonoBehaviour
     // Tot trifft ein
     public void dead()
     {
-        //rulesScript.playerDeath(playerID, transform.position);
+        enemyWalking = false;
         levelGenerator.AllGameObjects[(int)target.x, (int)target.z] = null;
-        //ghostSpawner.createGhost(transform.position, playerID, playerColor);
         Destroy(gameObject);
     }
 
