@@ -113,125 +113,53 @@ public class PlayerScript : MonoBehaviour
             {
                 //Player 1
                 case 0:
-                    switch (gameManager.controller)
-                    {
-                        case 0:
-                            tmp = InputManager.KeyOneMainJoystick();
-                            break;
-                        case 1:
-                            tmp = InputManager.XBOXOneMainJoystick();
-                            break;
-                        case 2:
-                            tmp = InputManager.PS4OneMainJoystick();
-                            break;
-                        default:
-                            break;
-                    }
 
+                    tmp = checkSingleDirection(InputManager.OneMainJoystick());
 
                     if (InputManager.OneXButton() && !creatingBomb)
                         SetBomb();
 
-                    // RemoteBombe zünden Player_One
                     if (InputManager.OneAButton())
                         remoteBomb.remoteBomb(0);
-
-                    //Pause aufrufen
-                    if (InputManager.OneStartButton())
-                        return;
 
                     break;
 
                 //Player 2
                 case 1:
 
-                    switch (gameManager.controller)
-                    {
-                        case 0:
-                            tmp = InputManager.KeyTwoMainJoystick();
-                            break;
-                        case 1:
-                            tmp = InputManager.XBOXTwoMainJoystick();
-                            break;
-                        case 2:
-                            tmp = InputManager.PS4TwoMainJoystick();
-                            break;
-                        default:
-                            break;
-                    }
+                    tmp = checkSingleDirection(InputManager.TwoMainJoystick());
 
                     if (InputManager.TwoXButton() && !creatingBomb)
                         SetBomb();
 
-                    // RemoteBombe zünden Player_Two
                     if (InputManager.TwoAButton())
-                        remoteBomb.remoteBomb(1);
-
-                    //Pause aufrufen
-                    if (InputManager.TwoStartButton())
-                        return;
+                        remoteBomb.remoteBomb(0);
 
                     break;
 
                 //Player 3
                 case 2:
 
-                    switch (gameManager.controller)
-                    {
-                        case 0:
-                            tmp = InputManager.KeyThreeMainJoystick();
-                            break;
-                        case 1:
-                            tmp = InputManager.XBOXThreeMainJoystick();
-                            break;
-                        case 2:
-                            tmp = InputManager.PS4ThreeMainJoystick();
-                            break;
-                        default:
-                            break;
-                    }
+                    tmp = checkSingleDirection(InputManager.ThreeMainJoystick());
 
                     if (InputManager.ThreeXButton() && !creatingBomb)
                         SetBomb();
 
-                    // RemoteBombe zünden Player_Three
                     if (InputManager.ThreeAButton())
-                        remoteBomb.remoteBomb(2);
-
-                    //Pause aufrufen
-                    if (InputManager.ThreeStartButton())
-                        return;
+                        remoteBomb.remoteBomb(0);
 
                     break;
 
                 //Player 4
                 case 3:
 
-                    switch (gameManager.controller)
-                    {
-                        case 0:
-                            tmp = InputManager.KeyFourMainJoystick();
-                            break;
-                        case 1:
-                            tmp = InputManager.XBOXFourMainJoystick();
-                            break;
-                        case 2:
-                            tmp = InputManager.PS4FourMainJoystick();
-                            break;
-                        default:
-                            break;
-                    }
+                    tmp = checkSingleDirection(InputManager.FourMainJoystick());
 
                     if (InputManager.FourXButton() && !creatingBomb)
                         SetBomb();
 
-                    // RemoteBombe zünden Player_Four
                     if (InputManager.FourAButton())
-                        remoteBomb.remoteBomb(3);
-
-                    //Pause aufrufen
-                    if (InputManager.FourStartButton())
-                        return;
+                        remoteBomb.remoteBomb(0);
 
                     break;
 
@@ -240,8 +168,6 @@ public class PlayerScript : MonoBehaviour
                     Debug.Log("Playerfehler");
                     break;
             }
-
-            tmp = checkSingleDirection(tmp);
 
             if (tmp != nullVector)
             { 

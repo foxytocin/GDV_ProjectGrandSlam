@@ -32,7 +32,7 @@ public class OverlayMethodenScript : MonoBehaviour
 
     void Update()
     {
-        if (InputManager.OneStartButton() || InputManager.ThreeStartButton() || InputManager.FourStartButton() || InputManager.TwoStartButton() || Input.GetKeyDown(KeyCode.Escape) && isInGame)
+        if (InputManager.XBOXOneStartButton() || InputManager.XBOXThreeStartButton() || InputManager.XBOXFourStartButton() || InputManager.XBOXTwoStartButton() || Input.GetButtonDown("K_Start_Button") && isInGame)
         {
             if (GameIsPaused)
             {
