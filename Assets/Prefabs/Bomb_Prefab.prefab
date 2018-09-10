@@ -54,6 +54,7 @@ GameObject:
   - component: {fileID: 4843709097436026}
   - component: {fileID: 33620600095166954}
   - component: {fileID: 23373619603981256}
+  - component: {fileID: 114261695138143702}
   - component: {fileID: 114067077753589454}
   - component: {fileID: 82657789108281746}
   m_Layer: 0
@@ -293,10 +294,29 @@ MonoBehaviour:
   bombPower: 0
   bombTimer: 0
   remoteBomb: 0
+  bombrain: 0
   playerColor: {r: 0, g: 0, b: 0, a: 0}
   countDown: 0
   audioSource: {fileID: 82657789108281746}
   audioZischen: {fileID: 8300000, guid: f079e9e70cf3d4db8a5033d147a22166, type: 3}
+--- !u!114 &114261695138143702
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1739174225997816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 837e7a6c83ebf08448cf456ae9b52a50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  KistenPartsPrefab: {fileID: 1724026369652452, guid: 64f748d2e2239264dba8c28eb7627d11,
+    type: 2}
+  audioSource: {fileID: 0}
+  bombRainSound1: {fileID: 0}
+  bombRainSound2: {fileID: 0}
+  bombRainSound3: {fileID: 0}
+  fallSpeed: 5
 --- !u!198 &198671818459413956
 ParticleSystem:
   m_ObjectHideFlags: 1
