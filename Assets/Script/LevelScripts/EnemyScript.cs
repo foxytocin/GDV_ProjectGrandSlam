@@ -215,11 +215,9 @@ public class EnemyScript : MonoBehaviour
                     go.SetActive(false);
                     return true;
 
-                    /*
-                case "Player":
-                    go.GetComponent<PlayerScript>().dead();
-                    return true;
-                    */
+                    
+                case "Player": return true;
+                    
 
                 default:
                     break;
