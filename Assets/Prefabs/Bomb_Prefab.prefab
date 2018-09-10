@@ -312,7 +312,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   KistenPartsPrefab: {fileID: 1724026369652452, guid: 64f748d2e2239264dba8c28eb7627d11,
     type: 2}
-  audioSource: {fileID: 0}
+  audioSource: {fileID: 82657789108281746}
   bombRainSound1: {fileID: 0}
   bombRainSound2: {fileID: 0}
   bombRainSound3: {fileID: 0}
