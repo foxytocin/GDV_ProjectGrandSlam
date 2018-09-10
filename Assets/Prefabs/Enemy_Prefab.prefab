@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 23836589001839008}
   - component: {fileID: 114620762884819116}
   - component: {fileID: 82178793065856054}
+  - component: {fileID: 135813800841528916}
   m_Layer: 0
   m_Name: Enemy_Prefab
   m_TagString: Enemy
@@ -199,3 +200,15 @@ MonoBehaviour:
   resultScreenActive: 0
   speed: 0
   rollingSoundDelay: 0.2
+--- !u!135 &135813800841528916
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1605742371693898}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.3
+  m_Center: {x: 0, y: 0, z: 0}

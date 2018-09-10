@@ -133,6 +133,11 @@ public class EnemyScript : MonoBehaviour
         }    
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        other.gameObject.GetComponent<PlayerScript>().dead();
+    }
+
     private Vector3 MoveEnemy(Vector3 tmp)
     {
         if (freeWay(tmp))
@@ -210,9 +215,11 @@ public class EnemyScript : MonoBehaviour
                     go.SetActive(false);
                     return true;
 
+                    /*
                 case "Player":
                     go.GetComponent<PlayerScript>().dead();
                     return true;
+                    */
 
                 default:
                     break;
