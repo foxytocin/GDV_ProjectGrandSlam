@@ -38,7 +38,7 @@ public class BombRain : MonoBehaviour
 
         if (Random.value > 0.95f && bombenregen == true)
         {
-            Vector3Int bombPos = new Vector3Int((int)Random.Range(2f, 32f), 0, cameraScroller.rowPosition + (int)Random.Range(0f, 15f));
+            Vector3Int bombPos = new Vector3Int((int)Random.Range(2f, 29f), 0, cameraScroller.rowPosition + (int)Random.Range(10f, 40f));
             StartCoroutine(checkWorld(bombPos));
 
         }

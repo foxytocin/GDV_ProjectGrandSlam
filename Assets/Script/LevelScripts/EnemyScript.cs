@@ -9,7 +9,7 @@ public class EnemyScript : MonoBehaviour
     public Vector3 target;
     private Vector3 lastTmpVector;
     private Vector3 tmpVectorPos;
-    private Vector3 tmp;
+    private Vector3 actualDirection;
 
     private Vector3[] dirs;
 
@@ -24,6 +24,7 @@ public class EnemyScript : MonoBehaviour
     public bool resultScreenActive;
     private RulesScript rulesScript;
     private GameManager gameManager;
+    private EnemySpawner enemySpawner;
     private AudioSource playerAudio;
 
     float myTime;
@@ -42,11 +43,12 @@ public class EnemyScript : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        enemySpawner = GetComponent<EnemySpawner>();
         playerMaterial = GetComponent<Renderer>().material;
         playerColor = playerMaterial.color;
         lastTmpVector = new Vector3(1f, 0f, 0f);
         lastDirection = new Vector3(1f, 0f, 0f);
-        speed = 2f;
+        speed = Random.Range(1f, 5f);
         Time.timeScale = 1.0f;
         target = transform.position;
         levelGenerator.AllGameObjects[(int)transform.position.x, (int)transform.position.z] = gameObject;
@@ -55,80 +57,79 @@ public class EnemyScript : MonoBehaviour
         transform.Rotate(0, 90, 0, Space.World);
         resultScreenActive = false;
 
-        tmp = new Vector3(1f, 0f, 0f);
-
         dirs = new Vector3[4];
         dirs[0] = new Vector3(1f, 0f, 0f);
         dirs[1] = new Vector3(-1f, 0f, 0f);
         dirs[2] = new Vector3(0f, 0f, 1f);
         dirs[3] = new Vector3(0f, 0f, -1f);
+
+        actualDirection = dirs[(int)Random.Range(0f, 4f)];
     }
 
     // Update is called once per frame
     void Update()
     {
-        //TARGET GEHT ZU WEIT?
-
         if (gameManager.gameStatePlay)
         {
-            //myTime += Time.deltaTime;
 
-            if (transform.position == target)
+            if(transform.position != target)
             {
-                tmp = MoveEnemy(tmp);
-                target += tmp;
-                
+                levelGenerator.AllGameObjects[(int)transform.position.x, (int)transform.position.z] = null;
+                transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
+
             } else {
-
-                tmp = Vector3.zero;
+                
+                levelGenerator.AllGameObjects[(int)transform.position.x, (int)transform.position.z] = null;
+                actualDirection = MoveEnemy(actualDirection);
+                target += actualDirection;
+                levelGenerator.AllGameObjects[(int)target.x, (int)target.z] = gameObject;
             }
+        //     //Debug.Log("tmp:" + tmp);
+        //     //tmp = checkSingleDirection(tmp);
+        //    if (tmp != Vector3.zero)
+        //     { 
+        //         //Im Array aktuelle position loeschen wenn das objekt auch wirklich ein Player ist 
+        //         if (levelGenerator.AllGameObjects[(int)target.x, (int)target.z] != null && levelGenerator.AllGameObjects[(int)target.x, (int)target.z].gameObject.CompareTag("Enemy"))
+        //             levelGenerator.AllGameObjects[(int)target.x, (int)target.z] = null;
 
-            //Debug.Log("tmp:" + tmp);
-            //tmp = checkSingleDirection(tmp);
-           if (tmp != Vector3.zero)
-            { 
-                //Im Array aktuelle position loeschen wenn das objekt auch wirklich ein Player ist 
-                if (levelGenerator.AllGameObjects[(int)target.x, (int)target.z] != null && levelGenerator.AllGameObjects[(int)target.x, (int)target.z].gameObject.CompareTag("Enemy"))
-                    levelGenerator.AllGameObjects[(int)target.x, (int)target.z] = null;
+        //         //neue position berechenen
+        //         target += tmp;
 
-                //neue position berechenen
-                target += tmp;
+        //         //Player wird im Array auf der neuer Position 
+        //         levelGenerator.AllGameObjects[(int)target.x, (int)target.z] = this.gameObject;
 
-                //Player wird im Array auf der neuer Position 
-                levelGenerator.AllGameObjects[(int)target.x, (int)target.z] = this.gameObject;
+        //         //speichern des benutzten Bewegungsvectors
+        //         lastTmpVector = tmp;
+        //     }
 
-                //speichern des benutzten Bewegungsvectors
-                lastTmpVector = tmp;
-            }
+        //     //Objekt zum target Bewegung
+        //     tmpVectorPos = transform.position;
 
-            //Objekt zum target Bewegung
-            tmpVectorPos = transform.position;
+        //     if (transform.position != (transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime)))
+        //     {
+        //         //movingSound(true);
 
-            if (transform.position != (transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime)))
-            {
-                //movingSound(true);
+        //         // Player Rollanimation
+        //         if (tmpVectorPos.x != transform.position.x && RichtungsAenderung)
+        //         {
+        //             transform.Rotate(0, 90f, 0, Space.World);
+        //             RichtungsAenderung = false;
+        //         }
+        //         else if (tmpVectorPos.z != transform.position.z && !RichtungsAenderung)
+        //         {
+        //             transform.Rotate(0, -90f, 0, Space.World);
+        //             RichtungsAenderung = true;
+        //         }
 
-                // Player Rollanimation
-                if (tmpVectorPos.x != transform.position.x && RichtungsAenderung)
-                {
-                    transform.Rotate(0, 90f, 0, Space.World);
-                    RichtungsAenderung = false;
-                }
-                else if (tmpVectorPos.z != transform.position.z && !RichtungsAenderung)
-                {
-                    transform.Rotate(0, -90f, 0, Space.World);
-                    RichtungsAenderung = true;
-                }
-
-                if (tmpVectorPos.z < transform.position.z || tmpVectorPos.x < transform.position.x)
-                    transform.Rotate(8.5f, 0, 0);
-                else
-                    transform.Rotate(-8.5f, 0, 0);
-            }
-            // else
-            // {
-            //     movingSound(false);
-            // }
+        //         if (tmpVectorPos.z < transform.position.z || tmpVectorPos.x < transform.position.x)
+        //             transform.Rotate(8.5f, 0, 0);
+        //         else
+        //             transform.Rotate(-8.5f, 0, 0);
+        //     }
+        //     // else
+        //     // {
+        //     //     movingSound(false);
+        //     // }
         }    
     }
 
@@ -136,12 +137,10 @@ public class EnemyScript : MonoBehaviour
     {
         if (freeWay(tmp))
         {
-            Debug.Log("Weg ist frei ... ich gehe weiter");
             return tmp;
         }
         else {
-            
-            Debug.Log("Blockade, ich prüfe meine Möglichkeiten: Target: " +target+ " / Tmp: "+tmp+ " / Pos: "+transform.position);
+
             return getNewDirection(checkNeighbors(tmp));
         }
     }
@@ -149,19 +148,15 @@ public class EnemyScript : MonoBehaviour
     private Vector3 getNewDirection(List<Vector3> list)
     {
         int newDirIndex = (int)Random.Range(0f, list.Count);
-        Vector3 newPos = list[newDirIndex];
-        Debug.Log("Ich werde in folgende Richtung gehen: " +newPos);
-        return newPos;
+        return list[newDirIndex];
+        //Debug.Log("Ich werde in folgende Richtung gehen: " +newPos);
     }
-
-    // private bool checkForward(Vector3 currentDirection)
-    // {
-    //     return freeWay(CheckSingleDirection(currentDirection));
-    // }
 
     private List<Vector3> checkNeighbors(Vector3 currentDirection)
     {
         List<Vector3> availablePaths = new List<Vector3>();
+
+        availablePaths.Clear();
 
         for(int i = 0; i < 4; i++)
         {
@@ -169,7 +164,7 @@ public class EnemyScript : MonoBehaviour
             {
                 if(freeWay(dirs[i]))
                 {
-                    Debug.Log("Ich kann in folgende Richtung gehen: " +dirs[i]);
+                    //Debug.Log("Ich kann in folgende Richtung gehen: " +dirs[i]);
                     availablePaths.Add(dirs[i]);
                 }
             }
@@ -177,28 +172,12 @@ public class EnemyScript : MonoBehaviour
         return availablePaths;
     }
 
-    // private Vector3 CheckSingleDirection(Vector3 tmp)
-    // {
-    //     if (tmp != Vector3.zero)
-    //     {
-    //         if (freeWay(tmp))
-    //         {
-    //             lastDirection = tmp;
-    //             return tmp;
-    //         }
-    //         lastDirection = tmp;
-    //         return Vector3.zero;
-    //     }
-    //     //return tmp;
-    //     return Vector3.zero;
-    // }
-
     private bool freeWay(Vector3 tmp)
     {
         int xPos = (int)(target.x + tmp.x);
         int zPos = (int)(target.z + tmp.z);
 
-        Debug.Log("freeWay prüfte Position: xPos: " +xPos+ " / zPos: " +zPos);
+        //Debug.Log("freeWay prüfte Position: xPos: " +xPos+ " / zPos: " +zPos);
 
         //Prueft im Array an der naechsten stelle ob dort ein objekt liegt wenn nicht dann return.true
         if (levelGenerator.AllGameObjects[xPos, zPos] == null)
@@ -221,29 +200,25 @@ public class EnemyScript : MonoBehaviour
 
             switch (go.tag)
             {
-                //ANDERE PLAYER KILLEN
                 case "FreeFall":
                     playerFall();
-                    myTime = 0f;
-                    return true;
+                    return false;
 
                 case "Item":
                     levelGenerator.AllGameObjects[(int)go.transform.position.x, (int)go.transform.position.z] = null;
                     audioManager.playSound("break2");
                     go.SetActive(false);
-                    myTime = 0f;
                     return true;
 
                 case "Player":
                     go.GetComponent<PlayerScript>().dead();
-                    myTime = 0f;
                     return true;
 
                 default:
                     break;
             }
         }
-        Debug.LogWarning("Fehler im freeWay");
+        //Debug.LogWarning("Wand erreicht");
         return false;
     }
 
@@ -259,9 +234,10 @@ public class EnemyScript : MonoBehaviour
     {
         //rulesScript.playerDeath(playerID, transform.position);
         target.y = -200f;
+        gravity = 0f;
         //audioManager.playSound("scream1");
 
-        while (transform.position.y > -50 && gameManager.gameStatePlay)
+        while (gameObject != null && transform.position.y > -50 && gameManager.gameStatePlay)
         {
             gravity += Time.deltaTime * 0.8f;
             transform.position = Vector3.MoveTowards(transform.position, target, gravity * gravity);
@@ -315,7 +291,6 @@ public class EnemyScript : MonoBehaviour
                 }
                 else
                 {
-
                     soundNotPlaying = true;
                     playerAudio.Pause();
                     rollingSoundDelay = 0.2f;
