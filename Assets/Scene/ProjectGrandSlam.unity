@@ -5207,17 +5207,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c057fb22446f79647b0bef6b0df9c8e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  KistenPartsPrefab: {fileID: 1724026369652452, guid: 64f748d2e2239264dba8c28eb7627d11,
-    type: 2}
-  audioSource: {fileID: 0}
-  bombRainSound1: {fileID: 0}
-  bombRainSound2: {fileID: 0}
-  bombRainSound3: {fileID: 0}
   bombenregen: 0
   bombraincolor:
     serializedVersion: 2
     rgba: 0
   PlayerID: 0
+  bombYPos: 10
 --- !u!1 &534672764
 GameObject:
   m_ObjectHideFlags: 0
