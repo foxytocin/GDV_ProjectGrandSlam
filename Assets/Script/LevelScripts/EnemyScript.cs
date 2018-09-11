@@ -46,12 +46,13 @@ public class EnemyScript : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        GetComponent<Renderer>().material.color = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
         enemySpawner = GetComponent<EnemySpawner>();
         playerMaterial = GetComponent<Renderer>().material;
         playerColor = playerMaterial.color;
         lastTmpVector = new Vector3(1f, 0f, 0f);
         lastDirection = new Vector3(1f, 0f, 0f);
-        speed = Random.Range(1f, 5f);
+        speed = Random.Range(1f, 4f);
         Time.timeScale = 1.0f;
         target = transform.position;
         levelGenerator.AllGameObjects[(int)transform.position.x, (int)transform.position.z] = gameObject;
@@ -164,9 +165,6 @@ public class EnemyScript : MonoBehaviour
             int newDirIndex = (int)Random.Range(0f, list.Count);
             return list[newDirIndex];       
         } else {
-            Debug.LogWarning("Enemy: Keinen Ausweg gefunden. Zertöre mich selber!");
-            GetComponent<Renderer>().material.color = Color.red;
-            //Destroy(gameObject);
             return Vector3.zero;
         }
          
@@ -184,15 +182,8 @@ public class EnemyScript : MonoBehaviour
             {
                 if(freeWay(dirs[i]))
                 {
-                    //Debug.Log("Ich kann in folgende Richtung gehen: " +dirs[i]);
                     availablePaths.Add(dirs[i]);
                 }
-                // else if(currentDirection == dirs[i] * -1) {
-
-                //     if(freeWay(dirs[i] * 2))
-                //         Debug.Log("Enemy dreht um : " +dirs[i] * 2);
-                //         availablePaths.Add(dirs[i] * 2);
-                // }
             }
         }        
         return availablePaths;
@@ -203,14 +194,15 @@ public class EnemyScript : MonoBehaviour
         int xPos = (int)(target.x + tmp.x);
         int zPos = (int)(target.z + tmp.z);
 
-        //Debug.Log("freeWay prüfte Position: xPos: " +xPos+ " / zPos: " +zPos);
-
         //Prueft im Array an der naechsten stelle ob dort ein objekt liegt wenn nicht dann return.true
         if (levelGenerator.AllGameObjects[xPos, zPos] == null && zPos < cameraScroller.rowPosition + levelGenerator.tiefeLevelStartBasis)
         {
-            //myTime = 0f;
+            // Zu 5% wechselt der Enemy seine Richtung zufällig
+            if(Random.value >= 0.95f)
+            {
+                return false;
+            }
 
-            //Debug.Log("Player at: " +levelGenerator.SecondaryGameObjects1[(int)(target.x + tmp.x), (int)(target.z + tmp.z)].gameObject.tag);
             if (levelGenerator.SecondaryGameObjects1[xPos, zPos] != null)
             {
                 if (levelGenerator.SecondaryGameObjects1[xPos, zPos].gameObject.CompareTag("KillField"))
@@ -238,7 +230,7 @@ public class EnemyScript : MonoBehaviour
                         return true;
 
                     case "Enemy":
-                        Debug.Log("Enemy hat sich selber gefunden, geht zurück!");
+                        //Debug.Log("Enemy hat sich selber gefunden, geht zurück!");
                         return true;
 
                     case "Player":
@@ -264,10 +256,8 @@ public class EnemyScript : MonoBehaviour
 
     private IEnumerator playerFallCore()
     {
-        //rulesScript.playerDeath(playerID, transform.position);
         target.y = -200f;
         gravity = 0f;
-        //audioManager.playSound("scream1");
 
         while (gameObject != null && transform.position.y > -50 && gameManager.gameStatePlay)
         {

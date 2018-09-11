@@ -7,6 +7,7 @@ public class LevelGenerator : MonoBehaviour
 {
     ObjectPooler objectPooler;
     public float KistenMenge;
+    public float EnemyMenge;
     public TextAsset LevelTextdatei0;
     public TextAsset LevelTextdatei1;
     public TextAsset LevelTextdatei2;
@@ -39,12 +40,15 @@ public class LevelGenerator : MonoBehaviour
     private bool specialSection;
     private bool generateKisten;
     public bool generateGlowBalls;
+    public bool generateEnemys;
     public int tiefeLevelStartBasis;
     private GenerateDistanceLine GenerateDistanceLine;
     private SpawnDemoItems SpawnDemoItems;
     private MazeGenerator MazeGenerator;
+    private EnemySpawner EnemySpawner;
     private MenuDemoMode MenuDemoMode;
     private RulesScript RulesScript;
+    private DayNightSwitch DayNightSwitch;
     public bool generateMaze;
     private int dataBufferSize;
     public int levelBreite;
@@ -65,8 +69,9 @@ public class LevelGenerator : MonoBehaviour
         generateMaze = false;
         tiefeLevelStartBasis = 60;
         generateGlowBalls = false;
-        generateKisten = true;
-        KistenMenge = 10f;
+        generateKisten = false;
+        generateEnemys = false;
+
         SectionDataOffset = 0;
         rotation = 0;
         specialSection = false;
@@ -80,13 +85,17 @@ public class LevelGenerator : MonoBehaviour
         GenerateDistanceLine = FindObjectOfType<GenerateDistanceLine>();
         MenuDemoMode = FindObjectOfType<MenuDemoMode>();
         RulesScript = FindObjectOfType<RulesScript>();
+        EnemySpawner = FindObjectOfType<EnemySpawner>();
+        DayNightSwitch = FindObjectOfType<DayNightSwitch>();
+
+        KistenMenge = 10f;   // Menge in %
+        TurmMenge = 10;     // Menge in %
+        BogenMenge = 7;     // Menge in %
+        EnemyMenge = 5f;    // Menge in %
     }
 
     void Start()
     {
-        TurmMenge = 10; // Menge in %
-        BogenMenge = 7; //Menge in %
-
         objectPooler = ObjectPooler.Instance;
         createLevelData();
         StartCoroutine(createStartBasis(tiefeLevelStartBasis, true));
@@ -97,7 +106,8 @@ public class LevelGenerator : MonoBehaviour
     {
         generateMaze = false;
         generateGlowBalls = false;
-        generateKisten = true;
+        generateKisten = false;
+        generateEnemys = false;
         specialSection = false;
         KistenMenge = 10f;
         SectionDataOffset = 0;
@@ -121,8 +131,6 @@ public class LevelGenerator : MonoBehaviour
     // int tiefe definiert wie wieviele Levelzeilen dauerhaft generiert sind
     public IEnumerator createStartBasis(int tiefe, bool animiert)
     {
-        generateKisten = false;
-
         if(!animiert)
         {
             for (int i = 0; i < tiefe; i++) {
@@ -169,6 +177,10 @@ public class LevelGenerator : MonoBehaviour
             // Wenn eine specialSection erlaubt wird, wird diese zuaellig ausgewählt und in den dataBuffer geschrieben
             if(specialSection) {
 
+                specialSection = true;
+                generateKisten = true;
+                generateEnemys = true;
+
                 // dataBufferSize: Zeilen bis ein neuer Abschnitt geladen werden muss
                 // specialSection: Definiert ob danacb ein specialSection folgen darf
                 // generateKisten: Definiert ob in diesem Levelabschnitt Kisten liegen dürfen
@@ -179,26 +191,18 @@ public class LevelGenerator : MonoBehaviour
                     case 0:
                         levelSectionData = levelPool[1];
                         dataBufferSize = levelSectionData.Length;
-                        specialSection = true;
-                        generateKisten = true;
                         break;
                     case 1:
                         levelSectionData = levelPool[1];
                         dataBufferSize = levelSectionData.Length;
-                        specialSection = true;
-                        generateKisten = true;
                         break;
                     case 2:
                         levelSectionData = levelPool[1];
                         dataBufferSize = levelSectionData.Length;
-                        specialSection = true;
-                        generateKisten = true;
                         break;
                     case 3:
                         levelSectionData = levelPool[1];
                         dataBufferSize = levelSectionData.Length;
-                        specialSection = true;
-                        generateKisten = true;
                         break;
 
                     // 4 - 16 sind Special-Levelabschnitte
@@ -206,79 +210,72 @@ public class LevelGenerator : MonoBehaviour
                         levelSectionData = levelPool[2];
                         dataBufferSize = levelSectionData.Length;
                         specialSection = false;
-                        generateKisten = true;
                         break;
                     case 5:
                         levelSectionData = levelPool[3];
                         dataBufferSize = levelSectionData.Length;
                         specialSection = false;
-                        generateKisten = true;
                         break;
                     case 6:
                         levelSectionData = levelPool[4];
                         dataBufferSize = levelSectionData.Length;
                         specialSection = false;
-                        generateKisten = true;
                         break;
                     case 7:
                         levelSectionData = levelPool[5];
                         dataBufferSize = levelSectionData.Length;
                         specialSection = false;
-                        generateKisten = true;
                         break;
                     case 8:
                         levelSectionData = levelPool[6];
                         dataBufferSize = levelSectionData.Length;
                         specialSection = false;
-                        generateKisten = true;
                         break;
                     case 9:
                         levelSectionData = levelPool[7];
                         dataBufferSize = levelSectionData.Length;
                         specialSection = false;
-                        generateKisten = true;
                         break;
                     case 10:
                         levelSectionData = levelPool[8];
                         dataBufferSize = levelSectionData.Length;
                         specialSection = false;
-                        generateKisten = true;
                         break;
                     case 11:
                         levelSectionData = levelPool[9];
                         dataBufferSize = levelSectionData.Length;
                         specialSection = false;
-                        generateKisten = true;
                         break;
                     case 12:
                         levelSectionData = levelPool[10];
                         dataBufferSize = levelSectionData.Length;
                         specialSection = false;
                         generateKisten = false;
+                        generateEnemys = false;
                         break;
                     case 13:
                         levelSectionData = levelPool[11];
                         dataBufferSize = levelSectionData.Length;
                         specialSection = false;
                         generateKisten = false;
+                        generateEnemys = false;
                         break;
                     case 14:
                         levelSectionData = levelPool[12];
                         dataBufferSize = levelSectionData.Length;
                         specialSection = false;
-                        generateKisten = true;
                         break;
                     case 15:
                         levelSectionData = levelPool[13];
                         dataBufferSize = levelSectionData.Length;
                         specialSection = false;
-                        generateKisten = true;
                         break;
                     case 16:
                         levelSectionData = levelPool[14];
                         dataBufferSize = levelSectionData.Length;
                         specialSection = false;
                         generateKisten = false;
+                        generateEnemys = false;
                         break;
                     case 17:
                         generateMaze = true;
@@ -298,6 +295,7 @@ public class LevelGenerator : MonoBehaviour
                     dataBufferSize = levelSectionData.Length;
                     specialSection = false;
                     generateKisten = false;
+                    generateEnemys = false;
 
                     // Der MazeGenerator wird aufgerufen um das naechste Maze zu berechnen
                     generateMaze = false;
@@ -310,6 +308,7 @@ public class LevelGenerator : MonoBehaviour
                 dataBufferSize = levelSectionData.Length;
                 specialSection = true;
                 generateKisten = true;
+                generateEnemys = true;
                 }
 
             // Ein normaler Levelabschnitt wird in den dataBuffer geschrieben
@@ -319,6 +318,7 @@ public class LevelGenerator : MonoBehaviour
                 dataBufferSize = levelSectionData.Length;
                 specialSection = true;
                 generateKisten = true;
+                generateEnemys = true;
             }
 
             // Die erste Levelzeile aus dem neu angelegten dataBuffer wird geschrieben
@@ -469,10 +469,20 @@ public class LevelGenerator : MonoBehaviour
         
         SecondaryGameObjects1[(int)pos.x, (int)pos.z] = objectPooler.SpawnFromPool("Boden", pos - new Vector3(0, 0.1f, 0), Quaternion.identity);
 
-        //Wird die 5 Zeile Boden generiert, wird dieser rot eingefaerbt, da dort der Countdown der Startline lauft
+        // Wird die 5 Zeile Boden generiert, wird dieser rot eingefaerbt, da dort der Countdown der Startline lauft
         if(CameraPosition == startLinie)
         {
             SecondaryGameObjects1[(int)pos.x, (int)pos.z].GetComponent<Renderer>().material.color = new Color32(149, 55, 55, 1);
+        }
+
+        // Spawn ab der 15 Zeile jede ungerade Zeile im Level Enemys
+        // Wenn im DayNightScript der NightModus aktivert ist, werden keine Enemys erzeugt
+        if(CameraPosition > 15 && CameraPosition % 2 != 0)
+        {
+            if((Random.value <= (EnemyMenge / 100f)) && generateEnemys && !DayNightSwitch.nightModus) {
+                //Debug.Log("Enemy wird angefordert");
+                EnemySpawner.spawnEnemy((int)pos.x, (int)pos.z - 2);
+            }
         }
         
         if((Random.value <= (KistenMenge / 100f)) && generateKisten) {
