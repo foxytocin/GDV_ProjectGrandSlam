@@ -21,7 +21,7 @@ public class MenuDemoMode : MonoBehaviour {
 	void Awake()
 	{
 		demoRunning = false;
-		timeToDemo = 10f;
+		timeToDemo = 8.8f;
 		PlayerSpawner = FindObjectOfType<PlayerSpawner>();
 		LevelRestart = FindObjectOfType<LevelRestart>();
 		spawnDemoItems = FindObjectOfType<SpawnDemoItems>();

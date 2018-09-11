@@ -34,7 +34,7 @@ void Awake()
         objectPooler = ObjectPooler.Instance;
         mapDestroyer = FindObjectOfType<MapDestroyer>();
         randomSpeed = 0.3f;
-        temp = new Vector3(transform.position.x, 0.43f, transform.position.z);
+        temp = new Vector3(transform.position.x, 0.38f, transform.position.z);
 
          gravity = 0;
     }
@@ -43,13 +43,13 @@ void Awake()
     // Update is called once per frame
     void Update()
     {
-        if (transform.position.y > 0.43)
+        if (transform.position.y > 0.38f)
         {
             gravity += Time.deltaTime * 0.5f;
             transform.Translate(0, -((gravity * gravity) + randomSpeed), 0);
         }
 
-        if (transform.position.y < 0.43)
+        if (transform.position.y < 0.38f)
         {
             int x = (int)transform.position.x;
             int z = (int)transform.position.z;
@@ -102,6 +102,8 @@ void Awake()
                         break;
                 }
             }
+
+            transform.position = new Vector3(x, 0.38f, z);
 
         }
     }

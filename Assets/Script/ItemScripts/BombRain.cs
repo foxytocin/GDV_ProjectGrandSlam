@@ -7,6 +7,7 @@ public class BombRain : MonoBehaviour
 
     private CameraScroller cameraScroller;
     private LevelGenerator levelGenerator;
+    private GameManager gameManager;
     public bool bombenregen = false;
     private BombSpawner bombSpawner;
     public Color32 bombraincolor;
@@ -20,14 +21,15 @@ public class BombRain : MonoBehaviour
         bombraincolor = new Color32(0, 0, 0, 0);
         cameraScroller = FindObjectOfType<CameraScroller>();
         levelGenerator = FindObjectOfType<LevelGenerator>();
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     void FixedUpdate()
     {
 
-        if (Random.value > 0.95f && bombenregen == true)
+        if (Random.value > 0.95f && bombenregen == true && gameManager.gameStatePlay)
         {
-            Vector3Int bombPos = new Vector3Int((int)Random.Range(2f, 29f), 0, cameraScroller.rowPosition + (int)Random.Range(10f, 40f));
+            Vector3Int bombPos = new Vector3Int((int)Random.Range(2f, 29f), 0, cameraScroller.rowPosition + (int)Random.Range(0f, 50f));
             StartCoroutine(checkWorld(bombPos));
 
         }

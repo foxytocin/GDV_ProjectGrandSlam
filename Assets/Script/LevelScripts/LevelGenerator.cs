@@ -49,6 +49,7 @@ public class LevelGenerator : MonoBehaviour
     private MenuDemoMode MenuDemoMode;
     private RulesScript RulesScript;
     private DayNightSwitch DayNightSwitch;
+    private BombRain BombRain;
     public bool generateMaze;
     private int dataBufferSize;
     public int levelBreite;
@@ -87,6 +88,7 @@ public class LevelGenerator : MonoBehaviour
         RulesScript = FindObjectOfType<RulesScript>();
         EnemySpawner = FindObjectOfType<EnemySpawner>();
         DayNightSwitch = FindObjectOfType<DayNightSwitch>();
+        BombRain = FindObjectOfType<BombRain>();
 
         KistenMenge = 10f;   // Menge in %
         TurmMenge = 10;     // Menge in %
@@ -114,6 +116,7 @@ public class LevelGenerator : MonoBehaviour
         rotation = 0;
         tiefeLevelStartBasis = 60;
         GenerateDistanceLine.generateGlowStangen = false;
+        BombRain.bombenregen = false;
 
         AllGameObjects = new GameObject[levelBreite, levelTiefe];
         SecondaryGameObjects1 = new GameObject[levelBreite, levelTiefe];
