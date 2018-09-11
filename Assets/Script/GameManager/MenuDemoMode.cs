@@ -21,7 +21,7 @@ public class MenuDemoMode : MonoBehaviour {
 	void Awake()
 	{
 		demoRunning = false;
-		timeToDemo = 10;
+		timeToDemo = 8.8f;
 		PlayerSpawner = FindObjectOfType<PlayerSpawner>();
 		LevelRestart = FindObjectOfType<LevelRestart>();
 		spawnDemoItems = FindObjectOfType<SpawnDemoItems>();
@@ -103,7 +103,7 @@ public class MenuDemoMode : MonoBehaviour {
 	private IEnumerator movePlayer(GameObject player)
 	{
 
-		while(player != null && demoAllowed && player.transform.position.z < (levelTiefe - levelGenerator.tiefeLevelStartBasis - 100))
+		while(player != null && demoAllowed && player.transform.position.z < (levelTiefe - levelGenerator.tiefeLevelStartBasis - 10))
 		{
 			Vector3 target = new Vector3(player.transform.position.x, 0, levelTiefe);
 			player.transform.position = Vector3.MoveTowards(player.transform.position, target, 0.075f);

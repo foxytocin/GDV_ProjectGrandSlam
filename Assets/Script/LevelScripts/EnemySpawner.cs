@@ -28,13 +28,13 @@ public class EnemySpawner : MonoBehaviour {
 	{
 		if(Input.GetKey("t") && gameManager.gameStatePlay)
         {
-			Vector3Int spawnPos = new Vector3Int((int)Random.Range(2f, 29f), 0, cameraScroller.rowPosition + (int)Random.Range(10f, 50f));
+			Vector3Int spawnPos = new Vector3Int((int)Random.Range(3f, 28f), 0, cameraScroller.rowPosition + (int)Random.Range(10f, 60f));
 			checkWorld(spawnPos);
         }
 
 		if(EnemyCount < 15 && gameManager.gameStatePlay)
 		{
-			Vector3Int spawnPos = new Vector3Int((int)Random.Range(2f, 29f), 0, cameraScroller.rowPosition + (int)Random.Range(10f, 50f));
+			Vector3Int spawnPos = new Vector3Int((int)Random.Range(3f, 28f), 0, cameraScroller.rowPosition + (int)Random.Range(10f, 60f));
 			checkWorld(spawnPos);
 
 		}
@@ -48,13 +48,36 @@ public class EnemySpawner : MonoBehaviour {
         int xPos = spawnPos.x;
         int zPos = spawnPos.z;
 
+		// Checkt ob die Stelle wo der Enemy gespawnt werden soll ein Stueck Boden ist
         if (levelGenerator.SecondaryGameObjects1[xPos, zPos] != null)
         {
             if (levelGenerator.SecondaryGameObjects1[xPos, zPos].gameObject.CompareTag("Boden") && levelGenerator.AllGameObjects[xPos, zPos] == null)
             {
-                GameObject tmpEnemy = Instantiate(enemyPrefab, new Vector3(xPos, 0.73f, zPos), Quaternion.identity);
-				EnemyCount++;
+				if(	checkSurr(xPos + 1, zPos) ||
+					checkSurr(xPos - 1, zPos) ||
+					checkSurr(xPos, zPos + 1) ||
+					checkSurr(xPos, zPos - 1))
+				{
+					GameObject tmpEnemy = Instantiate(enemyPrefab, new Vector3(xPos, 0.73f, zPos), Quaternion.identity);
+					EnemyCount++;
+				} else {
+					Debug.LogWarning("EnemySpawner : Spawne nicht, Enemy wäre eingesperrt!");
+				}
             }
     	}
 	}
+
+	// Preuft die Umfelder des Spawnpunktes. Gibt es keine Ausweg, wird kein Enemy gespawnt (z.B. Zwischen Kisten eingesperrt)
+	private bool checkSurr(int xPos, int zPos)
+	{
+		if (levelGenerator.SecondaryGameObjects1[xPos, zPos] != null)
+        {
+            if (levelGenerator.SecondaryGameObjects1[xPos, zPos].gameObject.CompareTag("Boden") && levelGenerator.AllGameObjects[xPos, zPos] == null)
+            {
+				return true;
+            }
+    	}
+		return false;
+	}
+
 }

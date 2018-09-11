@@ -26,6 +26,7 @@ public class EnemyScript : MonoBehaviour
     private GameManager gameManager;
     private EnemySpawner enemySpawner;
     private AudioSource playerAudio;
+    private CameraScroller cameraScroller;
     private bool enemyWalking;
 
     float myTime;
@@ -39,6 +40,7 @@ public class EnemyScript : MonoBehaviour
         rulesScript = FindObjectOfType<RulesScript>();
         gameManager = FindObjectOfType<GameManager>();
         playerAudio = GetComponent<AudioSource>();
+        cameraScroller = FindObjectOfType<CameraScroller>();
     }
 
     // Use this for initialization
@@ -139,7 +141,7 @@ public class EnemyScript : MonoBehaviour
     {
         if(other != null)
         {
-            other.gameObject.GetComponent<PlayerScript>().dead();
+            other.GetComponent<PlayerScript>().dead();
         }
     }
 
@@ -157,8 +159,17 @@ public class EnemyScript : MonoBehaviour
 
     private Vector3 getNewDirection(List<Vector3> list)
     {
-        int newDirIndex = (int)Random.Range(0f, list.Count);
-        return list[newDirIndex];        
+        if(list.Count !=  0)
+        {
+            int newDirIndex = (int)Random.Range(0f, list.Count);
+            return list[newDirIndex];       
+        } else {
+            Debug.LogWarning("Enemy: Keinen Ausweg gefunden. Zertöre mich selber!");
+            GetComponent<Renderer>().material.color = Color.red;
+            //Destroy(gameObject);
+            return Vector3.zero;
+        }
+         
     }
 
     private List<Vector3> checkNeighbors(Vector3 currentDirection)
@@ -176,6 +187,12 @@ public class EnemyScript : MonoBehaviour
                     //Debug.Log("Ich kann in folgende Richtung gehen: " +dirs[i]);
                     availablePaths.Add(dirs[i]);
                 }
+                // else if(currentDirection == dirs[i] * -1) {
+
+                //     if(freeWay(dirs[i] * 2))
+                //         Debug.Log("Enemy dreht um : " +dirs[i] * 2);
+                //         availablePaths.Add(dirs[i] * 2);
+                // }
             }
         }        
         return availablePaths;
@@ -189,7 +206,7 @@ public class EnemyScript : MonoBehaviour
         //Debug.Log("freeWay prüfte Position: xPos: " +xPos+ " / zPos: " +zPos);
 
         //Prueft im Array an der naechsten stelle ob dort ein objekt liegt wenn nicht dann return.true
-        if (levelGenerator.AllGameObjects[xPos, zPos] == null)
+        if (levelGenerator.AllGameObjects[xPos, zPos] == null && zPos < cameraScroller.rowPosition + levelGenerator.tiefeLevelStartBasis)
         {
             //myTime = 0f;
 
@@ -205,29 +222,34 @@ public class EnemyScript : MonoBehaviour
         }
         else {
 
-            GameObject go = levelGenerator.AllGameObjects[xPos, zPos].gameObject;
-
-            switch (go.tag)
+            if(levelGenerator.AllGameObjects[xPos, zPos] != null)
             {
-                case "FreeFall":
-                    playerFall();
-                    return false;
+                GameObject go = levelGenerator.AllGameObjects[xPos, zPos].gameObject;
+                switch (go.tag)
+                {
+                    case "FreeFall":
+                        playerFall();
+                        return false;
 
-                case "Item":
-                    levelGenerator.AllGameObjects[(int)go.transform.position.x, (int)go.transform.position.z] = null;
-                    audioManager.playSound("break2");
-                    go.SetActive(false);
-                    return true;
+                    case "Item":
+                        levelGenerator.AllGameObjects[(int)go.transform.position.x, (int)go.transform.position.z] = null;
+                        audioManager.playSound("break2");
+                        go.SetActive(false);
+                        return true;
 
-                case "Player":
-                    return true;
-                    
-                default:
-                    break;
+                    case "Enemy":
+                        Debug.Log("Enemy hat sich selber gefunden, geht zurück!");
+                        return true;
+
+                    case "Player":
+                        return true;
+                        
+                    default:
+                        break;
+                }
             }
+            return false;
         }
-        //Debug.LogWarning("Wand erreicht");
-        return false;
     }
 
     public void playerFall()
