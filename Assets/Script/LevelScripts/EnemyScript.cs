@@ -79,12 +79,17 @@ public class EnemyScript : MonoBehaviour
 
             if(transform.position != target)
             {
-                //levelGenerator.AllGameObjects[(int)transform.position.x, (int)transform.position.z] = null;
-                transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
+                //Im Array aktuelle position loeschen wenn das objekt auch wirklich ein Player ist 
+                if (levelGenerator.AllGameObjects[(int)target.x, (int)target.z] != null &&
+                    levelGenerator.AllGameObjects[(int)target.x, (int)target.z].gameObject.CompareTag("Enemy"))
+                        levelGenerator.AllGameObjects[(int)target.x, (int)target.z] = null;
+
+                    levelGenerator.AllGameObjects[(int)target.x, (int)target.z] = gameObject;
+                    transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
 
             } else {
                 
-                levelGenerator.AllGameObjects[(int)transform.position.x, (int)transform.position.z] = null;
+                levelGenerator.AllGameObjects[(int)target.x, (int)target.z] = null;
                 actualDirection = MoveEnemy(actualDirection);
                 target += actualDirection;
                 levelGenerator.AllGameObjects[(int)target.x, (int)target.z] = gameObject;

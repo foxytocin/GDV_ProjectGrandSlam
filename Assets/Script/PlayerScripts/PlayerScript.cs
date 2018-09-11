@@ -175,7 +175,7 @@ public class PlayerScript : MonoBehaviour
                 if (levelGenerator.AllGameObjects[(int)target.x, (int)target.z] != null &&
                     (levelGenerator.AllGameObjects[(int)target.x, (int)target.z].gameObject.CompareTag("Player") ||
                     levelGenerator.AllGameObjects[(int)target.x, (int)target.z].gameObject.CompareTag("Enemy")))
-                    levelGenerator.AllGameObjects[(int)target.x, (int)target.z] = null;
+                        levelGenerator.AllGameObjects[(int)target.x, (int)target.z] = null;
 
                 //neue position berechenen
                 target += tmp;
