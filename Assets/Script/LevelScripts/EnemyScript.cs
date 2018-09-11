@@ -48,7 +48,7 @@ public class EnemyScript : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        GetComponent<Renderer>().material.color = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
+        GetComponent<Renderer>().material.color = Random.ColorHSV(0f, 1f, 0.75f, 0.75f, 0.5f, 1f);
         enemySpawner = GetComponent<EnemySpawner>();
         playerMaterial = GetComponent<Renderer>().material;
         playerColor = playerMaterial.color;

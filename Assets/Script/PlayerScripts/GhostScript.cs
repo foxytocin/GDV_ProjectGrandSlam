@@ -15,8 +15,10 @@ public class GhostScript : MonoBehaviour
         transform.eulerAngles = new Vector3(-90, 0, Random.value * 180f);
         transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
         GetComponent<Renderer>().material.color = ghostColor;
-        GetComponent<Light>().enabled = true;
         GetComponent<Light>().color = ghostColor;
+        GetComponent<Light>().enabled = true;
+		GetComponent<Renderer>().material.SetColor("_EmissionColor", (Color)ghostColor * Mathf.LinearToGammaSpace (0.7f));
+        GetComponent<Renderer>().material.EnableKeyword("_EMISSION");
 
         bool terminus = true;
 
