@@ -12,7 +12,7 @@ public class LevelRestart : MonoBehaviour {
 	private PlayerSpawner playerSpawner;
 	private DayNightSwitch dayNightSwitch;
     private RulesScript rulesScript;
-	private SpawnDemoItems spawnDemoItems;
+	//private SpawnDemoItems spawnDemoItems;
 	private AudioManager audioManager;
 	private CounterScript CounterScript;
 		
@@ -26,7 +26,7 @@ public class LevelRestart : MonoBehaviour {
 		playerSpawner = FindObjectOfType<PlayerSpawner>();
 		dayNightSwitch = FindObjectOfType<DayNightSwitch>();
         rulesScript = FindObjectOfType<RulesScript>();
-		spawnDemoItems = FindObjectOfType<SpawnDemoItems>();
+		//spawnDemoItems = FindObjectOfType<SpawnDemoItems>();
 		audioManager = FindObjectOfType<AudioManager>();
 		CounterScript = FindObjectOfType<CounterScript>();
 	}
@@ -44,8 +44,9 @@ public class LevelRestart : MonoBehaviour {
         StartCoroutine(eraseCurrentWorld(true));
 		rulesScript.restartResults();
 
-		yield return new WaitForSecondsRealtime(3.5f);
-		spawnDemoItems.spawnDemoItems();
+		//yield return new WaitForSecondsRealtime(3.5f);
+		//spawnDemoItems.spawnDemoItems();
+		yield return null;
 	}
 
 

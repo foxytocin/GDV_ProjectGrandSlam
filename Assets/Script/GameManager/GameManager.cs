@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour {
     private InGameGUI inGameGUI;
     private Camera miniMapCam;
     private Canvas miniMapCanvas;
+    private LevelGenerator levelGenerator;
     public bool gameStatePlay;
     private bool showMiniMap;
     public int player;
@@ -25,6 +26,8 @@ public class GameManager : MonoBehaviour {
         playerSpawner = FindObjectOfType<PlayerSpawner>();
         audioManager = FindObjectOfType<AudioManager>();
         inGameGUI = FindObjectOfType<InGameGUI>();
+        levelGenerator = FindObjectOfType<LevelGenerator>();
+
         miniMapCam = GameObject.Find("MiniMapCam").GetComponent<Camera>();
         miniMapCanvas = GameObject.Find("MiniMapCanvas").GetComponent<Canvas>();
         controller = 0;
@@ -70,6 +73,47 @@ public class GameManager : MonoBehaviour {
                 case 3: audioManager.playSound("three"); break;
                 case 4: audioManager.playSound("four"); break;
                 default: break;
+            }
+        }
+
+        // Wird das mehr als einem Player gestartet, werden die Enemys aus dem Startscreen aus dem Level entfernt
+        if(player > 1 && levelGenerator.allowEnemies && gameStatePlay)
+        {
+            levelGenerator.allowEnemies = false;
+            levelGenerator.generateEnemies = false;
+            
+            GameObject[] list = GameObject.FindGameObjectsWithTag("Enemy");
+
+		    foreach (GameObject go in list)
+            {
+                if(go != null)
+                {
+                    Destroy(go);
+                }
+            }
+        }
+        
+        // Blendet die Enemys im Startscreen aus wenn mehr als ein Player ausgewählt ist
+        // Blendet die Enemys wieder ein, wenn Singleplayer ausgewält wird
+        if(player > 1 && levelGenerator.allowEnemies && !gameStatePlay) {
+
+            GameObject[] list = GameObject.FindGameObjectsWithTag("Enemy");
+		    foreach (GameObject go in list)
+            {
+                if(go != null)
+                {
+                    go.GetComponent<MeshRenderer>().enabled = false;
+                }
+            }
+        } else if(player == 1 && levelGenerator.allowEnemies && !gameStatePlay)
+        {
+            GameObject[] list = GameObject.FindGameObjectsWithTag("Enemy");
+		    foreach (GameObject go in list)
+            {
+                if(go != null)
+                {
+                    go.GetComponent<MeshRenderer>().enabled = true;
+                }
             }
         }
     }

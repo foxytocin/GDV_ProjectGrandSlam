@@ -27,6 +27,7 @@ public class EnemyScript : MonoBehaviour
     private EnemySpawner enemySpawner;
     private AudioSource playerAudio;
     private CameraScroller cameraScroller;
+    private MenuDemoMode MenuDemoMode;
     private bool enemyWalking;
 
     float myTime;
@@ -41,6 +42,7 @@ public class EnemyScript : MonoBehaviour
         gameManager = FindObjectOfType<GameManager>();
         playerAudio = GetComponent<AudioSource>();
         cameraScroller = FindObjectOfType<CameraScroller>();
+        MenuDemoMode = FindObjectOfType<MenuDemoMode>();
     }
 
     // Use this for initialization
@@ -74,7 +76,7 @@ public class EnemyScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (gameManager.gameStatePlay)
+        if (gameManager.gameStatePlay || MenuDemoMode.demoRunning)
         {
 
             if(transform.position != target)

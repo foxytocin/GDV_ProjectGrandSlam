@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GoButtonScript : MonoBehaviour
 {
-    SpawnDemoItems spawnDemoItems;
+    //SpawnDemoItems spawnDemoItems;
     OverlayMethodenScript overlayMethodenScript;
     AudioManager audioManager;
     GameManager gameManager;
@@ -19,7 +19,7 @@ public class GoButtonScript : MonoBehaviour
         counterScript = FindObjectOfType<CounterScript>();
         inGameGUI = FindObjectOfType<InGameGUI>();
         audioManager = FindObjectOfType<AudioManager>();
-        spawnDemoItems = FindObjectOfType<SpawnDemoItems>();
+        //spawnDemoItems = FindObjectOfType<SpawnDemoItems>();
         overlayMethodenScript = FindObjectOfType<OverlayMethodenScript>();
         gameManager = FindObjectOfType<GameManager>();
     }
@@ -29,7 +29,7 @@ public class GoButtonScript : MonoBehaviour
         audioManager.playSound("buttonclick");
         mainMenuUI.GetComponent<GroupFadeScript>().fadeOut();
         Cursor.visible = false;
-        spawnDemoItems.cleanDemoItems();
+        //spawnDemoItems.cleanDemoItems();
         audioManager.stopMenuMusic();
         audioManager.playNextSong();
         overlayMethodenScript.isInGame = true;

@@ -40,10 +40,11 @@ public class LevelGenerator : MonoBehaviour
     private bool specialSection;
     private bool generateKisten;
     public bool generateGlowBalls;
-    public bool generateEnemys;
+    public bool generateEnemies;
+    public bool allowEnemies;
     public int tiefeLevelStartBasis;
     private GenerateDistanceLine GenerateDistanceLine;
-    private SpawnDemoItems SpawnDemoItems;
+    //private SpawnDemoItems SpawnDemoItems;
     private MazeGenerator MazeGenerator;
     private EnemySpawner EnemySpawner;
     private MenuDemoMode MenuDemoMode;
@@ -71,7 +72,8 @@ public class LevelGenerator : MonoBehaviour
         tiefeLevelStartBasis = 60;
         generateGlowBalls = false;
         generateKisten = false;
-        generateEnemys = false;
+        generateEnemies = false;
+        allowEnemies = true;
 
         SectionDataOffset = 0;
         rotation = 0;
@@ -82,7 +84,7 @@ public class LevelGenerator : MonoBehaviour
         DistanceLines = new GameObject[6, levelTiefe];
         levelPool = new List<string[][]>();
         MazeGenerator = FindObjectOfType<MazeGenerator>();
-        SpawnDemoItems = FindObjectOfType<SpawnDemoItems>();
+        //SpawnDemoItems = FindObjectOfType<SpawnDemoItems>();
         GenerateDistanceLine = FindObjectOfType<GenerateDistanceLine>();
         MenuDemoMode = FindObjectOfType<MenuDemoMode>();
         RulesScript = FindObjectOfType<RulesScript>();
@@ -93,7 +95,7 @@ public class LevelGenerator : MonoBehaviour
         KistenMenge = 10f;   // Menge in %
         TurmMenge = 10;     // Menge in %
         BogenMenge = 7;     // Menge in %
-        EnemyMenge = 5f;    // Menge in %
+        EnemyMenge = 4f;    // Menge in %
     }
 
     void Start()
@@ -101,7 +103,7 @@ public class LevelGenerator : MonoBehaviour
         objectPooler = ObjectPooler.Instance;
         createLevelData();
         StartCoroutine(createStartBasis(tiefeLevelStartBasis, true));
-        SpawnDemoItems.spawnDemoItems();
+        //SpawnDemoItems.spawnDemoItems();
     }
 
     public void restartLevel(bool animiert)
@@ -109,7 +111,8 @@ public class LevelGenerator : MonoBehaviour
         generateMaze = false;
         generateGlowBalls = false;
         generateKisten = false;
-        generateEnemys = false;
+        generateEnemies = false;
+        allowEnemies = true;
         specialSection = false;
         KistenMenge = 10f;
         SectionDataOffset = 0;
@@ -182,7 +185,7 @@ public class LevelGenerator : MonoBehaviour
 
                 specialSection = true;
                 generateKisten = true;
-                generateEnemys = true;
+                generateEnemies = true;
 
                 // dataBufferSize: Zeilen bis ein neuer Abschnitt geladen werden muss
                 // specialSection: Definiert ob danacb ein specialSection folgen darf
@@ -254,14 +257,14 @@ public class LevelGenerator : MonoBehaviour
                         dataBufferSize = levelSectionData.Length;
                         specialSection = false;
                         generateKisten = false;
-                        generateEnemys = false;
+                        generateEnemies = false;
                         break;
                     case 13:
                         levelSectionData = levelPool[11];
                         dataBufferSize = levelSectionData.Length;
                         specialSection = false;
                         generateKisten = false;
-                        generateEnemys = false;
+                        generateEnemies = false;
                         break;
                     case 14:
                         levelSectionData = levelPool[12];
@@ -278,7 +281,7 @@ public class LevelGenerator : MonoBehaviour
                         dataBufferSize = levelSectionData.Length;
                         specialSection = false;
                         generateKisten = false;
-                        generateEnemys = false;
+                        generateEnemies = false;
                         break;
                     case 17:
                         generateMaze = true;
@@ -298,7 +301,7 @@ public class LevelGenerator : MonoBehaviour
                     dataBufferSize = levelSectionData.Length;
                     specialSection = false;
                     generateKisten = false;
-                    generateEnemys = false;
+                    generateEnemies = false;
 
                     // Der MazeGenerator wird aufgerufen um das naechste Maze zu berechnen
                     generateMaze = false;
@@ -311,7 +314,7 @@ public class LevelGenerator : MonoBehaviour
                 dataBufferSize = levelSectionData.Length;
                 specialSection = true;
                 generateKisten = true;
-                generateEnemys = true;
+                generateEnemies = true;
                 }
 
             // Ein normaler Levelabschnitt wird in den dataBuffer geschrieben
@@ -321,7 +324,7 @@ public class LevelGenerator : MonoBehaviour
                 dataBufferSize = levelSectionData.Length;
                 specialSection = true;
                 generateKisten = true;
-                generateEnemys = true;
+                generateEnemies = true;
             }
 
             // Die erste Levelzeile aus dem neu angelegten dataBuffer wird geschrieben
@@ -480,9 +483,10 @@ public class LevelGenerator : MonoBehaviour
 
         // Spawn ab der 15 Zeile jede ungerade Zeile im Level Enemys
         // Wenn im DayNightScript der NightModus aktivert ist, werden keine Enemys erzeugt
-        if(CameraPosition > 15 && CameraPosition % 2 != 0)
+        // allowEnemies nur true wenn mehr als ein Player
+        if(allowEnemies && CameraPosition > 15 && CameraPosition % 2 != 0)
         {
-            if((Random.value <= (EnemyMenge / 100f)) && generateEnemys && !DayNightSwitch.nightModus) {
+            if((Random.value <= (EnemyMenge / 100f)) && generateEnemies && !DayNightSwitch.nightModus) {
                 //Debug.Log("Enemy wird angefordert");
                 EnemySpawner.spawnEnemy((int)pos.x, (int)pos.z - 2);
             }

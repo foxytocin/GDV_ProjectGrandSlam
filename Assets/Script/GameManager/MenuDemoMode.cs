@@ -14,7 +14,7 @@ public class MenuDemoMode : MonoBehaviour {
 	private int levelTiefe;
 	private PlayerSpawner PlayerSpawner;
 	private LevelRestart LevelRestart;
-	private SpawnDemoItems spawnDemoItems;
+	//private SpawnDemoItems spawnDemoItems;
 	private LevelGenerator levelGenerator;
 	private GameManager gameManager;
 
@@ -24,7 +24,7 @@ public class MenuDemoMode : MonoBehaviour {
 		timeToDemo = 8.8f;
 		PlayerSpawner = FindObjectOfType<PlayerSpawner>();
 		LevelRestart = FindObjectOfType<LevelRestart>();
-		spawnDemoItems = FindObjectOfType<SpawnDemoItems>();
+		//spawnDemoItems = FindObjectOfType<SpawnDemoItems>();
 		levelGenerator = FindObjectOfType<LevelGenerator>();
 		gameManager = FindObjectOfType<GameManager>();
 
@@ -66,7 +66,7 @@ public class MenuDemoMode : MonoBehaviour {
 			} else if (!demoRunning) {
 
 				demoRunning = true;
-				spawnDemoItems.cleanDemoItems();
+				//spawnDemoItems.cleanDemoItems();
 				changeColorStartLine();
 				remoteControllPlayer();
 			}
@@ -95,6 +95,7 @@ public class MenuDemoMode : MonoBehaviour {
 			{
 				levelGenerator.AllGameObjects[(int)player.transform.position.x, (int)player.transform.position.z] = null;
 				player.GetComponent<MeshRenderer>().enabled = false;
+				player.GetComponent<Collider>().enabled = false;
 				StartCoroutine(movePlayer(player));
 			}
 		}
