@@ -186,6 +186,13 @@ public class MapDestroyer : MonoBehaviour
                     StartCoroutine(KillField(x, z));
                     return true;
 
+                case "Enemy":
+                    objectPooler.SpawnFromPool("Explosion", new Vector3(x, 0.5f, z), Quaternion.identity);
+                    thisGameObject.GetComponent<EnemyScript>().dead();
+                    levelGenerator.AllGameObjects[x, z] = null;
+                    StartCoroutine(KillField(x, z));
+                    return true;
+
                 default:
                     break;
             }

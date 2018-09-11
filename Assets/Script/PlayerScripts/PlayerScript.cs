@@ -172,7 +172,9 @@ public class PlayerScript : MonoBehaviour
             if (tmp != nullVector)
             { 
                 //Im Array aktuelle position loeschen wenn das objekt auch wirklich ein Player ist 
-                if (levelGenerator.AllGameObjects[(int)target.x, (int)target.z] != null && levelGenerator.AllGameObjects[(int)target.x, (int)target.z].gameObject.CompareTag("Player"))
+                if (levelGenerator.AllGameObjects[(int)target.x, (int)target.z] != null &&
+                    (levelGenerator.AllGameObjects[(int)target.x, (int)target.z].gameObject.CompareTag("Player") ||
+                    levelGenerator.AllGameObjects[(int)target.x, (int)target.z].gameObject.CompareTag("Enemy")))
                     levelGenerator.AllGameObjects[(int)target.x, (int)target.z] = null;
 
                 //neue position berechenen

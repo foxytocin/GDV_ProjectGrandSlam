@@ -79,7 +79,7 @@ public class EnemyScript : MonoBehaviour
 
             if(transform.position != target)
             {
-                levelGenerator.AllGameObjects[(int)transform.position.x, (int)transform.position.z] = null;
+                //levelGenerator.AllGameObjects[(int)transform.position.x, (int)transform.position.z] = null;
                 transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
 
             } else {
@@ -221,7 +221,7 @@ public class EnemyScript : MonoBehaviour
                 {
                     case "FreeFall":
                         playerFall();
-                        return false;
+                        return true;
 
                     case "Item":
                         levelGenerator.AllGameObjects[(int)go.transform.position.x, (int)go.transform.position.z] = null;

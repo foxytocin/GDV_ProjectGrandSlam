@@ -33,28 +33,26 @@ void Awake()
         audioManager = FindObjectOfType<AudioManager>();
         objectPooler = ObjectPooler.Instance;
         mapDestroyer = FindObjectOfType<MapDestroyer>();
-            randomSpeed = 0.3f;
-            temp = new Vector3(transform.position.x, 0.38f, transform.position.z);
+        randomSpeed = 0.3f;
+        temp = new Vector3(transform.position.x, 0.43f, transform.position.z);
 
-            gravity = 0;
-        
+         gravity = 0;
     }
 
 
     // Update is called once per frame
     void Update()
     {
-        if (transform.position.y > 0.38)
+        if (transform.position.y > 0.43)
         {
             gravity += Time.deltaTime * 0.5f;
             transform.Translate(0, -((gravity * gravity) + randomSpeed), 0);
         }
 
-        if (transform.position.y < 0.37)
+        if (transform.position.y < 0.43)
         {
             int x = (int)transform.position.x;
             int z = (int)transform.position.z;
-
 
 
 
@@ -93,7 +91,13 @@ void Awake()
                         levelGenerator.AllGameObjects[x, z] = gameObject;
                         break;
 
-
+                    case "Enemy":
+                        objectPooler.SpawnFromPool("Explosion", new Vector3(x, 0.5f, z), Quaternion.identity);
+                        go.GetComponent<EnemyScript>().dead();
+                        levelGenerator.AllGameObjects[x, z] = null;
+                        StartCoroutine(mapDestroyer.KillField(x, z));
+                        break;
+      
                     default:
                         break;
                 }
