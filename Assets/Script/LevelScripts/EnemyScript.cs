@@ -71,17 +71,17 @@ public class EnemyScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (gameManager.gameStatePlay && enemyWalking)
+        if (gameManager.gameStatePlay)
         {
 
             if(transform.position != target)
             {
-                levelGenerator.AllGameObjects[(int)target.x, (int)target.z] = null;
+                levelGenerator.AllGameObjects[(int)transform.position.x, (int)transform.position.z] = null;
                 transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
 
             } else {
                 
-                levelGenerator.AllGameObjects[(int)target.x, (int)target.z] = null;
+                levelGenerator.AllGameObjects[(int)transform.position.x, (int)transform.position.z] = null;
                 actualDirection = MoveEnemy(actualDirection);
                 target += actualDirection;
                 levelGenerator.AllGameObjects[(int)target.x, (int)target.z] = gameObject;
