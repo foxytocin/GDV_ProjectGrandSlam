@@ -12,7 +12,6 @@ public class LevelRestart : MonoBehaviour {
 	private PlayerSpawner playerSpawner;
 	private DayNightSwitch dayNightSwitch;
     private RulesScript rulesScript;
-	//private SpawnDemoItems spawnDemoItems;
 	private AudioManager audioManager;
 	private CounterScript CounterScript;
 		
@@ -26,43 +25,26 @@ public class LevelRestart : MonoBehaviour {
 		playerSpawner = FindObjectOfType<PlayerSpawner>();
 		dayNightSwitch = FindObjectOfType<DayNightSwitch>();
         rulesScript = FindObjectOfType<RulesScript>();
-		//spawnDemoItems = FindObjectOfType<SpawnDemoItems>();
 		audioManager = FindObjectOfType<AudioManager>();
 		CounterScript = FindObjectOfType<CounterScript>();
 	}
 
-
 	// Methode um alles für das StartMenu vorzubereiten
   	public void levelRestartMainMenu()
-	{
-		StartCoroutine(levelRestartMainMenuCore());
-	}
-	private IEnumerator levelRestartMainMenuCore()
 	{
 		audioManager.playSound("fallingstones");
         cameraMovement.RestartCameraMovement(true);
         StartCoroutine(eraseCurrentWorld(true));
 		rulesScript.restartResults();
-
-		//yield return new WaitForSecondsRealtime(3.5f);
-		//spawnDemoItems.spawnDemoItems();
-		yield return null;
 	}
-
 
 	// Methode um alles für das StartMenu vorzubereiten (vom DemoMode aus)
   	public void levelRestartMainMenuFromDemo()
 	{
-		StartCoroutine(levelRestartMainMenuFromDemoCore());
-	}
-	private IEnumerator levelRestartMainMenuFromDemoCore()
-	{
 		audioManager.playSound("fallingstones");
         cameraMovement.RestartCameraMovement(false);
         StartCoroutine(eraseCurrentWorld(false));
-		yield return null;
 	}
-
 
 	// Mehode um alles fuer die naechste Runde vorzubreiten
 	public void levelRestartNextRound()

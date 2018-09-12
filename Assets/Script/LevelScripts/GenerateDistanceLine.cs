@@ -127,30 +127,18 @@ private Color Percent100 = new Color32(170, 39, 39, 1);
 
 		switch(Difficulty)
 		{
-			case 0:
-				return Percent0;
-			case 10:
-				return Percent10;
-			case 15:
-				return Percent20;
-			case 20:
-				return Percent30;
-			case 25:
-				return Percent40;
-			case 30:
-				return Percent50;
-			case 35:
-				return Percent60;
-			case 40:
-				return Percent70;
-			case 45:
-				return Percent80;
-			case 50:
-				return Percent90;
-			case 60:
-				return Percent100;
-			default:
-				break;
+			case 0:  return Percent0;
+			case 10: return Percent10;
+			case 15: return Percent20;
+			case 20: return Percent30;
+			case 25: return Percent40;
+			case 30: return Percent50;
+			case 35: return Percent60;
+			case 40: return Percent70;
+			case 45: return Percent80;
+			case 50: return Percent90;
+			case 60: return Percent100;
+			default: break;
 		}
 	return Percent0;
 	}

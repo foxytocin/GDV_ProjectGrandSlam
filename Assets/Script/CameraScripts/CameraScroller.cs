@@ -6,11 +6,11 @@ public class CameraScroller : MonoBehaviour
     private int altePosition;
     public float scrollSpeed;
     public bool demoMode;
+    public float fadeInSpeed;
+    public float fadeInAcceleration;
     private LevelGenerator LevelGenerator;
     private GameManager GameManager;
     private MenuDemoMode menuDemoMode;
-    public float fadeInSpeed;
-    public float fadeInAcceleration;
 
 
     // Use this for initialization

@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour {
     public int player;
     public int playertmp;
     public bool isInGame;
-    public int controller; // 0 = Keinen, 1 = Xbox360, 2 = PS4
+    public int controller;
 
     void Awake()
     {
@@ -32,7 +32,6 @@ public class GameManager : MonoBehaviour {
         miniMapCanvas = GameObject.Find("MiniMapCanvas").GetComponent<Canvas>();
         controller = 0;
         gameStatePlay = false;
-        
     }
 
     void Start()
@@ -46,7 +45,6 @@ public class GameManager : MonoBehaviour {
     // Update is called once per frame
     void Update ()
     {
-
         if(Input.GetKeyDown("c"))
         {
             if(showMiniMap)

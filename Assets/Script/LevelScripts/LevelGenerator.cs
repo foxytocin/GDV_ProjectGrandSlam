@@ -44,7 +44,6 @@ public class LevelGenerator : MonoBehaviour
     public bool allowEnemies;
     public int tiefeLevelStartBasis;
     private GenerateDistanceLine GenerateDistanceLine;
-    //private SpawnDemoItems SpawnDemoItems;
     private MazeGenerator MazeGenerator;
     private EnemySpawner EnemySpawner;
     private MenuDemoMode MenuDemoMode;
@@ -84,7 +83,6 @@ public class LevelGenerator : MonoBehaviour
         DistanceLines = new GameObject[6, levelTiefe];
         levelPool = new List<string[][]>();
         MazeGenerator = FindObjectOfType<MazeGenerator>();
-        //SpawnDemoItems = FindObjectOfType<SpawnDemoItems>();
         GenerateDistanceLine = FindObjectOfType<GenerateDistanceLine>();
         MenuDemoMode = FindObjectOfType<MenuDemoMode>();
         RulesScript = FindObjectOfType<RulesScript>();
@@ -103,7 +101,6 @@ public class LevelGenerator : MonoBehaviour
         objectPooler = ObjectPooler.Instance;
         createLevelData();
         StartCoroutine(createStartBasis(tiefeLevelStartBasis, true));
-        //SpawnDemoItems.spawnDemoItems();
     }
 
     public void restartLevel(bool animiert)
@@ -341,48 +338,17 @@ public class LevelGenerator : MonoBehaviour
     {
         switch(row)
         {
-            case 50:
-                KistenMenge = 10f; //10% Kisten
-                //Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
-                break;
-            case 150:
-                KistenMenge = 15f; //20% Kisten
-                //Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
-                break;
-            case 200:
-                KistenMenge = 20f; //25% Kisten
-                //Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
-                break;
-            case 300:
-                KistenMenge = 25f; //30% Kisten
-                //Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
-                break;
-            case 500:
-                KistenMenge = 30f; //35% Kisten
-                //Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
-                break;
-            case 700:
-                KistenMenge = 35f; //40% Kisten
-                //Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
-                break;
-            case 800:
-                KistenMenge = 40f; //45% Kisten
-                //Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
-                break;
-            case 900:
-                KistenMenge = 45f; //50% Kisten
-                //Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
-                break;
-            case 1000:
-                KistenMenge = 50f; //60% Kisten
-                //Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
-                break;
-            case 1100:
-                KistenMenge = 60f; //60% Kisten
-                //Debug.Log("KistenMenge auf " +KistenMenge+ "% erhöht");
-                break;
-            default:
-                break;
+            case 50:   KistenMenge = 10f; break;
+            case 150:  KistenMenge = 15f; break;
+            case 200:  KistenMenge = 20f; break;
+            case 300:  KistenMenge = 25f; break;
+            case 500:  KistenMenge = 30f; break;
+            case 700:  KistenMenge = 35f; break;
+            case 800:  KistenMenge = 40f; break;
+            case 900:  KistenMenge = 45f; break;
+            case 1000: KistenMenge = 50f; break;
+            case 1100: KistenMenge = 60f; break;
+            default: break;
         }
     }
 

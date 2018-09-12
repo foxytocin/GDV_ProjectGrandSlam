@@ -40,7 +40,8 @@ public class DestroyScroller : MonoBehaviour
             target = camMove.centerPoint;
             dummyPos = (int)transform.position.z;
 
-            moveDummy(target);
+            Vector3 pos = Vector3.Lerp(transform.position, new Vector3(0f, 0f, target.z + 3f), 0.1f * Time.deltaTime);
+            transform.position = pos;
 
             //Prüft ob die Camera genau EINE Zeile weitergescrollt ist um die cleanLine() für genau diese 1 Zeile aufzurufen.
             if (dummyPos > oldDummy)
@@ -48,14 +49,7 @@ public class DestroyScroller : MonoBehaviour
                 oldDummy = dummyPos;
                 levelGenerator.cleanLine(dummyPos);
             }
-
         }
     }
 
-    private void moveDummy(Vector3 target)
-    {
-        Vector3 pos = Vector3.Lerp(transform.position, new Vector3(0f, 0f, target.z + 3f), 0.1f * Time.deltaTime);
-        transform.position = pos;
-    }
-    
 }

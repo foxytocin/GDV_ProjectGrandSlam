@@ -26,7 +26,6 @@ public class MapDestroyer : MonoBehaviour
         playerSpawner = FindObjectOfType<PlayerSpawner>();
         gameManager = FindObjectOfType<GameManager>();
         realPlayer = true;
-
     }
 
     //Wird beim explodieren der Bombe durch das BombeScript aufgerufen.
@@ -158,7 +157,6 @@ public class MapDestroyer : MonoBehaviour
                     StartCoroutine(KillField(x, z));
 
                     //Ersetzt die Kiste durch Kiste_destroyed Prefab
-                    //objectPooler.SpawnFromPool("Kiste_Destroyed", new Vector3(x, 0.5f, z), Quaternion.identity);
                     Instantiate(KistenPartsPrefab, new Vector3(x, 0.5f, z), Quaternion.identity, transform);
 
                     //Spawnt Item

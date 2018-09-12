@@ -103,7 +103,7 @@ public class FallScript : MonoBehaviour {
             LevelGenerator.AllGameObjects[xPos, zPos] = ObjectPooler.Instance.SpawnFromPool("FreeFall", transform.position, Quaternion.identity);
         }
 
-        while(transform.position.y > -50f)
+        while(gameObject.activeSelf && transform.position.y > -50f)
         {
             gravity += Time.deltaTime * 0.9f;
             transform.Translate(0, -((gravity * gravity) + randomSpeed), 0);
@@ -124,7 +124,7 @@ public class FallScript : MonoBehaviour {
 
         yield return new WaitForSeconds(fallDelay);
         
-        while(transform.position.y > -50f)
+        while(gameObject.activeSelf && transform.position.y > -50f)
         {
             gravity += Time.deltaTime * 0.9f;
             transform.Translate(0, -((gravity * gravity) + randomSpeed), 0);

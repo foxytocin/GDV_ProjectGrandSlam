@@ -14,17 +14,15 @@ public class MenuDemoMode : MonoBehaviour {
 	private int levelTiefe;
 	private PlayerSpawner PlayerSpawner;
 	private LevelRestart LevelRestart;
-	//private SpawnDemoItems spawnDemoItems;
 	private LevelGenerator levelGenerator;
 	private GameManager gameManager;
 
 	void Awake()
 	{
 		demoRunning = false;
-		timeToDemo = 8.8f;
+		timeToDemo = 9.2f;
 		PlayerSpawner = FindObjectOfType<PlayerSpawner>();
 		LevelRestart = FindObjectOfType<LevelRestart>();
-		//spawnDemoItems = FindObjectOfType<SpawnDemoItems>();
 		levelGenerator = FindObjectOfType<LevelGenerator>();
 		gameManager = FindObjectOfType<GameManager>();
 
@@ -61,12 +59,10 @@ public class MenuDemoMode : MonoBehaviour {
 			if(!demoRunning && countDown > 0f)
 			{
 				countDown -= Time.deltaTime;
-				//Debug.Log("Demo Modus in: " +(int)countDown+ " Sekunden");
 
 			} else if (!demoRunning) {
 
 				demoRunning = true;
-				//spawnDemoItems.cleanDemoItems();
 				changeColorStartLine();
 				remoteControllPlayer();
 			}
@@ -103,7 +99,6 @@ public class MenuDemoMode : MonoBehaviour {
 
 	private IEnumerator movePlayer(GameObject player)
 	{
-
 		while(player != null && demoAllowed && player.transform.position.z < (levelTiefe - levelGenerator.tiefeLevelStartBasis - 10))
 		{
 			Vector3 target = new Vector3(player.transform.position.x, 0, levelTiefe);
@@ -111,18 +106,15 @@ public class MenuDemoMode : MonoBehaviour {
 			yield return null;
 		}
 
+		gameManager.lockControlls();
+		countDown = timeToDemo;
+		demoRunning = false;
+
 		if(player != null)
 		{
 			Destroy(player);
 		}
-		
-		gameManager.lockControlls();
-		countDown = timeToDemo;
-		demoRunning = false;
+
 		LevelRestart.levelRestartMainMenuFromDemo();
 	}
-
-	
-
-
 }

@@ -19,7 +19,6 @@ public class CameraShake : MonoBehaviour {
 		{
 			float x = Random.Range(-1f, 1f) * intensity;
 			float y = Random.Range(-1f, 1f) * intensity;
-			//float z = Random.Range(-1f, 1f) * intensity;
 
 			transform.localPosition = new Vector3(x, y, 0f);
 			timeMoved += Time.deltaTime;
@@ -27,9 +26,6 @@ public class CameraShake : MonoBehaviour {
 			//Intensity nimmt exponentiell ab
 			intensity = intensity * Mathf.Pow(0.4f, timeMoved);
 			postProcessingEditing.chromaticAberrationStrength = intensity * 3.5f;
-
-			//Debug.Log("ShakeTimeMoved: " +timeMoved);
-			//Debug.Log("ShakeIntensivity: " +intensity);
 
 			yield return null;
 		}

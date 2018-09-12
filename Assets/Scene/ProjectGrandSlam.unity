@@ -7362,49 +7362,6 @@ Transform:
   m_Father: {fileID: 1223797412}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &858263882
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 858263883}
-  - component: {fileID: 858263884}
-  m_Layer: 0
-  m_Name: SpawnDemoItems
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &858263883
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 858263882}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1223797412}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &858263884
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 858263882}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ea18083650084f478f29025cf1fa484, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Item_Prefab: {fileID: 1084199969612006, guid: af4eab0e7bec44963ae895cb3b66eb2f,
-    type: 2}
-  demoItemList: []
 --- !u!1 &879084594
 GameObject:
   m_ObjectHideFlags: 0
@@ -8171,6 +8128,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   KistenMenge: 0
+  EnemyMenge: 0
   LevelTextdatei0: {fileID: 4900000, guid: e1d3aaea6ffb7475fa3597124ee1c6d2, type: 3}
   LevelTextdatei1: {fileID: 4900000, guid: aa9ab9f64860a4684814e727a5edf8ed, type: 3}
   LevelTextdatei2: {fileID: 4900000, guid: a5c3d5f00a8ff47539fbc7f156ecf9fa, type: 3}
@@ -8187,6 +8145,8 @@ MonoBehaviour:
   LevelTextdatei13: {fileID: 4900000, guid: 44acc3f5774664b629fe15d5870be9a4, type: 3}
   LevelTextdatei14: {fileID: 4900000, guid: b028ad56a1d6b43008b204cb8be5e708, type: 3}
   generateGlowBalls: 0
+  generateEnemies: 0
+  allowEnemies: 0
   tiefeLevelStartBasis: 60
   generateMaze: 0
   levelBreite: 0
@@ -8816,7 +8776,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1223797412}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1015678752
 MonoBehaviour:
@@ -10714,7 +10674,6 @@ Transform:
   - {fileID: 1847533653}
   - {fileID: 1232083008}
   - {fileID: 136782929}
-  - {fileID: 858263883}
   - {fileID: 1015678751}
   m_Father: {fileID: 1620339721}
   m_RootOrder: 1
