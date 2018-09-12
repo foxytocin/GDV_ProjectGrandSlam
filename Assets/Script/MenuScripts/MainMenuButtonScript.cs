@@ -26,6 +26,7 @@ public class MainMenuButtonScript : MonoBehaviour {
         AudioListener.volume = 1f;
         audioManager.playSound("buttonclick");
         overlayMethodenScript.isInGame = false;
+        overlayMethodenScript.GameIsPaused = false;
         levelRestart.levelRestartMainMenu();
         Time.timeScale = 1f;
         inGameGUI.inAktivInGameUI();

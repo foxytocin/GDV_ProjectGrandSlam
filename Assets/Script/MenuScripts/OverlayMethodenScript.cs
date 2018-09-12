@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class OverlayMethodenScript : MonoBehaviour
 {
-    private bool GameIsPaused;
+    public bool GameIsPaused;
     public bool isInGame;
 
     private GameManager gameManager;
