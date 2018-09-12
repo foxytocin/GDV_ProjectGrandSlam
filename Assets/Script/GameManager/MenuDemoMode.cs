@@ -25,7 +25,6 @@ public class MenuDemoMode : MonoBehaviour {
 		LevelRestart = FindObjectOfType<LevelRestart>();
 		levelGenerator = FindObjectOfType<LevelGenerator>();
 		gameManager = FindObjectOfType<GameManager>();
-
 	}
 
 	void Start()
@@ -63,6 +62,7 @@ public class MenuDemoMode : MonoBehaviour {
 			} else if (!demoRunning) {
 
 				demoRunning = true;
+				PlayerSpawner.restartPlayers();
 				changeColorStartLine();
 				remoteControllPlayer();
 			}

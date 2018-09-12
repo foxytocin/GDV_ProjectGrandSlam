@@ -44,6 +44,7 @@ public class LevelRestart : MonoBehaviour {
 		audioManager.playSound("fallingstones");
         cameraMovement.RestartCameraMovement(false);
         StartCoroutine(eraseCurrentWorld(false));
+		rulesScript.restartResults();
 	}
 
 	// Mehode um alles fuer die naechste Runde vorzubreiten
