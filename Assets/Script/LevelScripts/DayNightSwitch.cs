@@ -46,6 +46,7 @@ public class DayNightSwitch : MonoBehaviour {
 	public void restartDayNightModus()
 	{
 		// Stop umgehend das GlowLines und GlowBalls generiert werden duerfen
+		nightModus = false;
 		levelGenerator.generateGlowBalls = false;
 		generateDistanceLine.generateGlowStangen = false;
 

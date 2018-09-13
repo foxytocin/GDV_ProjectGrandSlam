@@ -2468,6 +2468,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33769c27c2dd4f5498382d8842dc6ced, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GameIsPaused: 0
   isInGame: 0
   pausenMenuUI: {fileID: 2080367965}
   optionMenu: {fileID: 198402032}
@@ -8789,7 +8790,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 879aba684e874a144abccc0bc3487b4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 1605742371693898, guid: 5530e4d879a248a4593c179698ff1f3b,
+  enemyPrefab: {fileID: 1750349523788452, guid: 4fc2eddb7a03944c9b80010732aa77ee,
     type: 2}
 --- !u!1 &1065834996
 GameObject:
