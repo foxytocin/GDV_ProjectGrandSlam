@@ -11,7 +11,6 @@ public class OverlayMethodenScript : MonoBehaviour
 
     private GameManager gameManager;
     private AudioManager audioManager;
-    private AudioListener audioListener;
     private CameraScroller cameraScroller;
     private InGameGUI inGameGUI;
 
@@ -24,7 +23,6 @@ public class OverlayMethodenScript : MonoBehaviour
         gameManager = FindObjectOfType<GameManager>();
         inGameGUI = FindObjectOfType<InGameGUI>();
         audioManager = FindObjectOfType<AudioManager>();
-        audioListener = FindObjectOfType<AudioListener>();
         cameraScroller = FindObjectOfType<CameraScroller>();
         GameIsPaused = false;
         isInGame = false;

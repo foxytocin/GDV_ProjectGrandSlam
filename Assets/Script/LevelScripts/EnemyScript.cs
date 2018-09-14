@@ -22,15 +22,10 @@ public class EnemyScript : MonoBehaviour
     private Vector3 lastDirection;
     private AudioManager audioManager;
     public bool resultScreenActive;
-    private RulesScript rulesScript;
     private GameManager gameManager;
-    private EnemySpawner enemySpawner;
     private AudioSource playerAudio;
     private CameraScroller cameraScroller;
     private MenuDemoMode MenuDemoMode;
-    private bool enemyWalking;
-
-    float myTime;
     public float speed;
 
     void Awake()
@@ -38,7 +33,6 @@ public class EnemyScript : MonoBehaviour
         levelGenerator = FindObjectOfType<LevelGenerator>();
         ghostSpawner = FindObjectOfType<GhostSpawnerScript>();
         audioManager = FindObjectOfType<AudioManager>();
-        rulesScript = FindObjectOfType<RulesScript>();
         gameManager = FindObjectOfType<GameManager>();
         playerAudio = GetComponent<AudioSource>();
         cameraScroller = FindObjectOfType<CameraScroller>();
@@ -49,7 +43,6 @@ public class EnemyScript : MonoBehaviour
     void Start()
     {
         GetComponent<Renderer>().material.color = Random.ColorHSV(0f, 1f, 0.75f, 0.75f, 0.5f, 1f);
-        enemySpawner = GetComponent<EnemySpawner>();
         playerMaterial = GetComponent<Renderer>().material;
         playerColor = playerMaterial.color;
         lastTmpVector = new Vector3(1f, 0f, 0f);
@@ -58,11 +51,9 @@ public class EnemyScript : MonoBehaviour
         Time.timeScale = 1.0f;
         target = transform.position;
         levelGenerator.AllGameObjects[(int)transform.position.x, (int)transform.position.z] = gameObject;
-        myTime = 0f;
         gravity = 0f;
         transform.Rotate(0, 90, 0, Space.World);
         resultScreenActive = false;
-        enemyWalking = true;
 
         dirs = new Vector3[4];
         dirs[0] = new Vector3(1f, 0f, 0f);
@@ -253,8 +244,6 @@ public class EnemyScript : MonoBehaviour
 
     public void playerFall()
     {
-        enemyWalking = false;
-
         if (gameManager.gameStatePlay)
         {
             StartCoroutine(playerFallCore());
@@ -285,7 +274,6 @@ public class EnemyScript : MonoBehaviour
     // Tot trifft ein
     public void dead()
     {
-        enemyWalking = false;
         levelGenerator.AllGameObjects[(int)target.x, (int)target.z] = null;
         Destroy(gameObject);
     }

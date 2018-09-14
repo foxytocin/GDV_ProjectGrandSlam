@@ -5,12 +5,10 @@ using UnityEngine;
 public class Houdini : MonoBehaviour {
 
 	private LevelGenerator LevelGenerator;
-	private AudioManager audioManager;
 	public GameObject KistenteilePrefab;
 
 	void Awake()
 	{
-		audioManager = FindObjectOfType<AudioManager>();
 		LevelGenerator = FindObjectOfType<LevelGenerator>();
 	}
 

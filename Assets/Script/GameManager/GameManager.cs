@@ -8,7 +8,6 @@ public class GameManager : MonoBehaviour {
 
     private PlayerSpawner playerSpawner;
     private AudioManager audioManager;
-    private InGameGUI inGameGUI;
     private Camera miniMapCam;
     private Canvas miniMapCanvas;
     private LevelGenerator levelGenerator;
@@ -25,7 +24,6 @@ public class GameManager : MonoBehaviour {
         playertmp = player;
         playerSpawner = FindObjectOfType<PlayerSpawner>();
         audioManager = FindObjectOfType<AudioManager>();
-        inGameGUI = FindObjectOfType<InGameGUI>();
         levelGenerator = FindObjectOfType<LevelGenerator>();
 
         miniMapCam = GameObject.Find("MiniMapCam").GetComponent<Camera>();

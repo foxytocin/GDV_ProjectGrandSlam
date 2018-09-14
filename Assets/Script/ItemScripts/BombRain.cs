@@ -11,6 +11,8 @@ public class BombRain : MonoBehaviour
     public bool bombenregen = false;
     private BombSpawner bombSpawner;
     public Color32 bombraincolor;
+    private GameObject go;
+    private GameObject bombego;
     public int PlayerID;
     public float bombYPos = 10f;
 
@@ -40,9 +42,6 @@ public class BombRain : MonoBehaviour
     {
         int x = bombPos.x;
         int z = bombPos.z;
-
-        GameObject go;
-        GameObject bombego;
 
         if (levelGenerator.SecondaryGameObjects1[x, z] != null)
         {

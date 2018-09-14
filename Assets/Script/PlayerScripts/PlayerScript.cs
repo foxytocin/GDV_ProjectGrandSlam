@@ -36,7 +36,6 @@ public class PlayerScript : MonoBehaviour
     private RulesScript rulesScript;
     private GameManager gameManager;
     private AudioSource playerAudio;
-    private OverlayMethodenScript overlayMethodenScript;
 
     void Awake()
     {
@@ -51,7 +50,6 @@ public class PlayerScript : MonoBehaviour
         rulesScript = FindObjectOfType<RulesScript>();
         gameManager = FindObjectOfType<GameManager>();
         playerAudio = GetComponent<AudioSource>();
-        overlayMethodenScript = FindObjectOfType<OverlayMethodenScript>();
     }
 
     void Start()
