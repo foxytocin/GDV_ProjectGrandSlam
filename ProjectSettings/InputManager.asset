@@ -196,7 +196,7 @@ InputManager:
     invert: 0
     type: 2
     axis: 5
-    joyNum: 6
+    joyNum: 2
   - serializedVersion: 3
     m_Name: XBOX_J_Two_MainVertikal
     descriptiveName: 
@@ -212,7 +212,7 @@ InputManager:
     invert: 0
     type: 2
     axis: 6
-    joyNum: 6
+    joyNum: 2
   - serializedVersion: 3
     m_Name: K_Two_MainHorizontal
     descriptiveName: 
@@ -260,7 +260,7 @@ InputManager:
     invert: 0
     type: 2
     axis: 5
-    joyNum: 7
+    joyNum: 3
   - serializedVersion: 3
     m_Name: XBOX_J_Three_MainVertikal
     descriptiveName: 
@@ -276,7 +276,7 @@ InputManager:
     invert: 0
     type: 2
     axis: 6
-    joyNum: 7
+    joyNum: 3
   - serializedVersion: 3
     m_Name: K_Three_MainHorizontal
     descriptiveName: 
@@ -324,7 +324,7 @@ InputManager:
     invert: 0
     type: 2
     axis: 5
-    joyNum: 8
+    joyNum: 4
   - serializedVersion: 3
     m_Name: XBOX_J_Four_MainVertikal
     descriptiveName: 
@@ -340,7 +340,7 @@ InputManager:
     invert: 0
     type: 2
     axis: 6
-    joyNum: 8
+    joyNum: 4
   - serializedVersion: 3
     m_Name: K_Four_MainHorizontal
     descriptiveName: 
