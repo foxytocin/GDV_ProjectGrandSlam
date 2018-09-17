@@ -349,7 +349,7 @@ public class PlayerScript : MonoBehaviour
         int bombZPos = Mathf.RoundToInt(transform.position.z);
         float bombYPos = 0.38f;
 
-        if (avaibleBomb > 0 && houdiniItem == false && (levelGenerator.AllGameObjects[bombXPos, bombZPos] == null ||  houdiniItem == false && levelGenerator.AllGameObjects[bombXPos, bombZPos].gameObject.CompareTag("Player")))
+        if (avaibleBomb > 0 && !houdiniItem && (levelGenerator.AllGameObjects[bombXPos, bombZPos] == null || levelGenerator.AllGameObjects[bombXPos, bombZPos].gameObject.CompareTag("Player") || levelGenerator.AllGameObjects[bombXPos, bombZPos].gameObject.CompareTag("Enemy")))
         {
             avaibleBomb -= 1;
             levelGenerator.AllGameObjects[bombXPos, bombZPos] = bombSpawner.SpawnBomb(bombXPos, bombYPos, bombZPos, playerID, bombPower, bombTimer, remoteBombItem, false, playerColor);

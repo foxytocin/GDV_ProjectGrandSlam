@@ -229,7 +229,7 @@ public class EnemyScript : MonoBehaviour
 
                     case "Enemy":
                         //Debug.Log("Enemy hat sich selber gefunden, geht zurück!");
-                        return true;
+                        return false;
 
                     case "Player":
                         return true;

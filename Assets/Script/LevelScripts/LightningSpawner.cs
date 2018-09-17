@@ -60,7 +60,7 @@ public class LightningSpawner : MonoBehaviour {
 
     private IEnumerator checkWorld(Vector3Int thunderPos)
     {
-        int radius = 2;
+        int radius = 1;
 
         for(int z = -radius; z <= radius; z++)
         {

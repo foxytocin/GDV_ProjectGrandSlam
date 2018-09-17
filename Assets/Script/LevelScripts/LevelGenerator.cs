@@ -487,7 +487,7 @@ public class LevelGenerator : MonoBehaviour
             
             // Ezeugt glowBalls wenn generateGlowBalls durch den DayNightSwitch.cs auf true gesetzt wurde und deaktivert das ein Bogen erzeugt werden kann
             // Weitere Bedinungen: Nicht im DemoMode & Nicht auf Hoehe einer DistanzeLine
-            if(generateGlowBalls && !MenuDemoMode.demoAllowed && (CameraPosition - (startLinie - 1)) % 25 != 0)
+            if(generateGlowBalls && (CameraPosition - (startLinie - 1)) % 25 != 0)
             {
                 if(Random.value > 0.95f)
                 {

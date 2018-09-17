@@ -82,7 +82,7 @@ public class DayNightSwitch : MonoBehaviour {
 
 	void Update()
 	{
-		if(!menuDemoMode.demoAllowed)
+		if(!menuDemoMode.demoAllowed || true)
 		{
 			if(!nightModus && isDay)
 			{
@@ -120,7 +120,9 @@ public class DayNightSwitch : MonoBehaviour {
 					isDay = false;
 					update = true;
 					switchToNight();
-					playerLightOn();
+
+					if(!menuDemoMode.demoAllowed)
+						playerLightOn();
 
 					generateDistanceLine.generateGlowStangen = true;
 					checkGlowDistanceLines();
@@ -143,7 +145,9 @@ public class DayNightSwitch : MonoBehaviour {
 					isDay = true;
 					update = true;
 					switchToDay();
-					playerLightOff();
+
+					if(!menuDemoMode.demoAllowed)
+						playerLightOff();
 
 					generateDistanceLine.generateGlowStangen = false;
 					checkGlowDistanceLines();
@@ -216,13 +220,13 @@ public class DayNightSwitch : MonoBehaviour {
 
 		while(player != null && emission > 0f)
 		{
-			emission -= Time.deltaTime * 0.5f;
+			emission -= Time.deltaTime * 0.8f;
 			Color finalColor = baseColor * Mathf.LinearToGammaSpace (emission);
 			playerMaterial.SetColor("_EmissionColor", finalColor);
             playerMaterial.EnableKeyword("_EMISSION");
 			playerLight.intensity = emission;
 
-			yield return new WaitForSeconds(0.05f);
+			yield return new WaitForSeconds(0.1f);
 		}
 
 		if(player != null)
@@ -293,8 +297,8 @@ public class DayNightSwitch : MonoBehaviour {
 	{
 		while(worldLight.intensity > value)
 		{
-			worldLight.intensity -= Time.deltaTime * 0.4f;
-			yield return new WaitForSeconds(0.05f);
+			worldLight.intensity -= Time.deltaTime * 0.8f;
+			yield return new WaitForSeconds(0.12f);
 		}
 
 	}
@@ -302,8 +306,8 @@ public class DayNightSwitch : MonoBehaviour {
 	{
 		while(RenderSettings.ambientIntensity > value)
 		{
-			RenderSettings.ambientIntensity -= Time.deltaTime * 0.3f;
-			yield return new WaitForSeconds(0.05f);
+			RenderSettings.ambientIntensity -= Time.deltaTime * 0.6f;
+			yield return new WaitForSeconds(0.12f);
 		}
 	}
 
@@ -311,8 +315,8 @@ public class DayNightSwitch : MonoBehaviour {
 	{
 		while(worldLight.intensity < value)
 		{
-			worldLight.intensity += Time.deltaTime * 0.5f;
-			yield return new WaitForSeconds(0.1f);
+			worldLight.intensity += Time.deltaTime * 0.6f;
+			yield return new WaitForSeconds(0.15f);
 		}
 
 		worldLight.intensity = value;
@@ -324,8 +328,8 @@ public class DayNightSwitch : MonoBehaviour {
 	{
 		while(RenderSettings.ambientIntensity < value)
 		{
-			RenderSettings.ambientIntensity += Time.deltaTime * 0.4f;
-			yield return new WaitForSeconds(0.1f);
+			RenderSettings.ambientIntensity += Time.deltaTime * 0.6f;
+			yield return new WaitForSeconds(0.15f);
 		}
 
 		RenderSettings.ambientIntensity = worldAmbientOriginal;
