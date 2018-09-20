@@ -9,6 +9,7 @@ public class PlayerScript : MonoBehaviour
     public int avaibleBomb;
     public float speed;
     public float bombTimer;
+    public float BombRainTimer;
     public int bombPower;
     public bool remoteBombItem;
     public bool houdiniItem;
@@ -21,6 +22,8 @@ public class PlayerScript : MonoBehaviour
     float myTime;
     private LevelGenerator levelGenerator;
     private BombSpawner bombSpawner;
+    private BombRain bombrain;
+    private PowerUp powerup;
     private Houdini houdini;
     private RemoteBomb remoteBomb;
     public GhostSpawnerScript ghostSpawner;
@@ -40,11 +43,14 @@ public class PlayerScript : MonoBehaviour
     void Awake()
     {
         bombSpawner = FindObjectOfType<BombSpawner>();
+        powerup = FindObjectOfType<PowerUp>();
         remoteBombTimer = 0f;
+        BombRainTimer = 0f;
         houdiniTimer = 0f;
         levelGenerator = FindObjectOfType<LevelGenerator>();
         remoteBomb = FindObjectOfType<RemoteBomb>();
         houdini = FindObjectOfType<Houdini>();
+        bombrain = FindObjectOfType<BombRain>();
         ghostSpawner = FindObjectOfType<GhostSpawnerScript>();
         audioManager = FindObjectOfType<AudioManager>();
         rulesScript = FindObjectOfType<RulesScript>();
@@ -77,6 +83,23 @@ public class PlayerScript : MonoBehaviour
     void Update()
     {
         //I T E M  T I M E R
+        //BombRainTimer
+        if (BombRainTimer > 0f)
+        {
+            bombrain.bombenregen = true;
+            powerup.bombrainfree = false;
+            BombRainTimer -= Time.deltaTime;
+        }
+        else if (BombRainTimer <= 0f)
+        {
+            bombrain.bombenregen = false;
+            powerup.bombrainfree = true;
+            BombRainTimer = 0f;
+        }
+
+
+
+
         //HoudiniTimer
         if (houdiniTimer > 0f)
         {
