@@ -9,7 +9,6 @@ public class PowerUp : MonoBehaviour
     private PlayerScript player;
     private BombRain bombrain;
     private Houdini houdini;
-    public bool bombrainfree = true;
 
     void Awake()
     {
@@ -162,7 +161,7 @@ public class PowerUp : MonoBehaviour
 
     public void BombRain(int id)
     {
-        if (bombrainfree == true)
+        if (bombrain.bombenregen == false)
         {
             player.houdiniTimer = 0f;
             player.houdiniItem = false;
