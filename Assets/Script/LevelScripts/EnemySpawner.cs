@@ -8,16 +8,14 @@ public class EnemySpawner : MonoBehaviour {
 	private LevelGenerator levelGenerator;
 	private CameraScroller cameraScroller;
 	private GameManager gameManager;
-
-	// Use this for initialization
+    
 	void Awake ()
 	{
 		levelGenerator = FindObjectOfType<LevelGenerator>();
 		cameraScroller = FindObjectOfType<CameraScroller>();
 		gameManager = FindObjectOfType<GameManager>();
 	}
-
-	// Update is called once per frame
+    
 	void Update ()
 	{
 		if(Input.GetKey("t") && gameManager.gameStatePlay)
@@ -47,7 +45,6 @@ public class EnemySpawner : MonoBehaviour {
 					checkSurr(xPos, zPos - 1))
 				{
 					Instantiate(enemyPrefab, new Vector3(xPos, 0.43f, zPos), Quaternion.identity);
-					//Debug.LogWarning("EnemySpawner : Ein neuer Feind wurde erzeugt!");
 				}
             }
     	}

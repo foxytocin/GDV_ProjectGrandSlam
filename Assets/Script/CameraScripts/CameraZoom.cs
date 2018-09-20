@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraZoom : MonoBehaviour {
-
-    //private Vector3[] players;
+    
     private PlayerSpawner playerSpawner;
     private CameraMovement cm;
     private RulesScript rules;
@@ -18,7 +17,6 @@ public class CameraZoom : MonoBehaviour {
 
     void Update()
     {
-        //players = cm.positions;
         if (!rules.resultScreen.activeSelf)
         {
             CameraMoving();

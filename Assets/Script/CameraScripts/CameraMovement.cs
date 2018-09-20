@@ -127,8 +127,7 @@ public class CameraMovement : MonoBehaviour {
         else
         {
             StartCoroutine(HoldCamera(target, 1.0f));
-        }
-        
+        }        
     }
 
     private IEnumerator HoldCamera(Vector3 target, float seconds)
@@ -140,9 +139,7 @@ public class CameraMovement : MonoBehaviour {
             transform.position = Vector3.Lerp(startingPos, target, (elapsedTime / seconds));
             elapsedTime += Time.deltaTime;
             yield return null;
-        }
-
-        //yield return new WaitForSecondsRealtime(0.7f);
+        }       
         nextRoundAnimation = false;
     }
 }

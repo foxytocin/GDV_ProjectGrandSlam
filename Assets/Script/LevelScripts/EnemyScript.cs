@@ -7,7 +7,6 @@ public class EnemyScript : MonoBehaviour
 
 
     public Vector3 target;
-    private Vector3 lastTmpVector;
     private Vector3 tmpVectorPos;
     private Vector3 actualDirection;
 
@@ -19,7 +18,6 @@ public class EnemyScript : MonoBehaviour
     private float gravity;
     private Material playerMaterial;
     public Color32 playerColor;
-    private Vector3 lastDirection;
     private AudioManager audioManager;
     public bool resultScreenActive;
     private GameManager gameManager;
@@ -45,8 +43,8 @@ public class EnemyScript : MonoBehaviour
         GetComponent<Renderer>().material.color = Random.ColorHSV(0f, 1f, 0.75f, 0.75f, 0.5f, 1f);
         playerMaterial = GetComponent<Renderer>().material;
         playerColor = playerMaterial.color;
-        lastTmpVector = new Vector3(1f, 0f, 0f);
-        lastDirection = new Vector3(1f, 0f, 0f);
+        //lastTmpVector = new Vector3(1f, 0f, 0f);
+        //lastDirection = new Vector3(1f, 0f, 0f);
         speed = Random.Range(1f, 4f);
         Time.timeScale = 1.0f;
         target = transform.position;
@@ -64,7 +62,6 @@ public class EnemyScript : MonoBehaviour
         actualDirection = dirs[(int)Random.Range(0f, 4f)];
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (gameManager.gameStatePlay || MenuDemoMode.demoRunning)
@@ -87,52 +84,6 @@ public class EnemyScript : MonoBehaviour
                 target += actualDirection;
                 levelGenerator.AllGameObjects[(int)target.x, (int)target.z] = gameObject;
             }
-        //     //Debug.Log("tmp:" + tmp);
-        //     //tmp = checkSingleDirection(tmp);
-        //    if (tmp != Vector3.zero)
-        //     { 
-        //         //Im Array aktuelle position loeschen wenn das objekt auch wirklich ein Player ist 
-        //         if (levelGenerator.AllGameObjects[(int)target.x, (int)target.z] != null && levelGenerator.AllGameObjects[(int)target.x, (int)target.z].gameObject.CompareTag("Enemy"))
-        //             levelGenerator.AllGameObjects[(int)target.x, (int)target.z] = null;
-
-        //         //neue position berechenen
-        //         target += tmp;
-
-        //         //Player wird im Array auf der neuer Position 
-        //         levelGenerator.AllGameObjects[(int)target.x, (int)target.z] = this.gameObject;
-
-        //         //speichern des benutzten Bewegungsvectors
-        //         lastTmpVector = tmp;
-        //     }
-
-        //     //Objekt zum target Bewegung
-        //     tmpVectorPos = transform.position;
-
-        //     if (transform.position != (transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime)))
-        //     {
-        //         //movingSound(true);
-
-        //         // Player Rollanimation
-        //         if (tmpVectorPos.x != transform.position.x && RichtungsAenderung)
-        //         {
-        //             transform.Rotate(0, 90f, 0, Space.World);
-        //             RichtungsAenderung = false;
-        //         }
-        //         else if (tmpVectorPos.z != transform.position.z && !RichtungsAenderung)
-        //         {
-        //             transform.Rotate(0, -90f, 0, Space.World);
-        //             RichtungsAenderung = true;
-        //         }
-
-        //         if (tmpVectorPos.z < transform.position.z || tmpVectorPos.x < transform.position.x)
-        //             transform.Rotate(8.5f, 0, 0);
-        //         else
-        //             transform.Rotate(-8.5f, 0, 0);
-        //     }
-        //     // else
-        //     // {
-        //     //     movingSound(false);
-        //     // }
         }    
     }
 

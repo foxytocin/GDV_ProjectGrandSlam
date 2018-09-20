@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class LightningScript : MonoBehaviour
 {
-    GameObject turtle;
+    GameObject lightningTurtle;
     public GameObject lightningLChild_Prefab;
     public GameObject lightningRChild_Prefab;
     public GameObject lightning_prefab;
@@ -16,11 +16,11 @@ public class LightningScript : MonoBehaviour
 
     public int depth = 1;
 
-    private Mesh meinMesh;
-    private List<Vector3> verts;
+    private Mesh lightningMesh;
+    private List<Vector3> lightningVertices;
     private List<Vector3> faceNormals;
     private List<Vector3> vertexNormals;
-    private List<int> faces;
+    private List<int> lightningFaces;
 
     private float maxXStep = 1.0f;
     private float maxYStep = 2.0f;
@@ -32,16 +32,18 @@ public class LightningScript : MonoBehaviour
     void Start()
     {
         // Listen initialisieren
-        faces = new List<int>();
-        verts = new List<Vector3>();
+        lightningFaces = new List<int>();
+        lightningVertices = new List<Vector3>();
         faceNormals = new List<Vector3>();
         vertexNormals = new List<Vector3>();
 
         lightningSpawner = FindObjectOfType<LightningSpawner>();
 
-        GetComponent<MeshFilter>().mesh = meinMesh = new Mesh();        //Gleiche Instanz Zuweisung
+        GetComponent<MeshFilter>().mesh = lightningMesh = new Mesh();        //Gleiche Instanz Zuweisung
         mat = GetComponent<MeshRenderer>().material;
 
+
+        //Ausschalten der Blitzschatten
         GetComponent<MeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
         
         //Blitz erzeugen
@@ -49,38 +51,40 @@ public class LightningScript : MonoBehaviour
 
 
         // Mesh Vertices hinzufuegen
-        meinMesh.vertices = verts.ToArray();
+        lightningMesh.vertices = lightningVertices.ToArray();
 
         // Mesh Faces hinzufuegen     
-        meinMesh.triangles = makeFaces(meinMesh.vertices); ;
+        lightningMesh.triangles = makeFaces(lightningMesh.vertices); ;
 
         // Vertices Normals aus Facenormals berechnen 
-        meinMesh.normals = setVertexNormals(faceNormals);
+        lightningMesh.normals = setVertexNormals(faceNormals);
 
+        //helles leuchtendes Weiß als Material
         emission = 1f;
         Color finalColor = Color.white * Mathf.LinearToGammaSpace(emission * 3f);
         mat.SetColor("_EmissionColor", finalColor);
         mat.EnableKeyword("_EMISSION");
 
+        //Selbstzerstörung des Blitzes nach 0.5 Sekunden
         Destroy(gameObject, 0.5f);
-        Destroy(turtle, 0.5f);
+        Destroy(lightningTurtle, 0.5f);
     }
     
     int[] makeFaces(Vector3[] vertArr)
     {
         for (var i = 0; i < vertArr.Length - 3; i += 2)
         {
-            faces.Add(i);
-            faces.Add(i + 1);
-            faces.Add(i + 2);
+            lightningFaces.Add(i);
+            lightningFaces.Add(i + 1);
+            lightningFaces.Add(i + 2);
             Vector3 norm = calcNormal(vertArr[i], vertArr[i + 1], vertArr[i + 2]);
             faceNormals.Add(norm);
 
-            faces.Add(i + 1);
-            faces.Add(i + 3);
-            faces.Add(i + 2);
+            lightningFaces.Add(i + 1);
+            lightningFaces.Add(i + 3);
+            lightningFaces.Add(i + 2);
         }
-        return faces.ToArray();
+        return lightningFaces.ToArray();
     }
 
     Vector3[] setVertexNormals(List<Vector3> fNorms)
@@ -111,32 +115,31 @@ public class LightningScript : MonoBehaviour
     }
 
 
-    // Turtle bewegen
+    // LightningTurtle bewegen
     void move(float length, int secondStep, float offset)
     {
-        turtle.transform.Translate(length, 0, 0);
-        Vector3 P = turtle.transform.position;
+        lightningTurtle.transform.Translate(length, 0, 0);
+        Vector3 P = lightningTurtle.transform.position;
         if(secondStep == 1)
         {
-            verts.Add(P);
-            verts.Add(P + new Vector3(offset, 0, 0));
+            lightningVertices.Add(P);
+            lightningVertices.Add(P + new Vector3(offset, 0, 0));
         }
     }
 
     void turn(float deg)
     {
-        turtle.transform.Rotate(0, 0, deg);
+        lightningTurtle.transform.Rotate(0, 0, deg);
     }
-
-    //Rekursiv?
+    
     public void GenerateLightning(Vector3 pos)
     {
         // GameObject initialisieren
-        turtle = new GameObject("Turtle");
-        turtle.transform.Translate(pos);
-        Vector3 P = turtle.transform.position;
-        verts.Add(P);
-        verts.Add(P + new Vector3(1, 0, 0));
+        lightningTurtle = new GameObject("LightningTurtle");
+        lightningTurtle.transform.Translate(pos);
+        Vector3 P = lightningTurtle.transform.position;
+        lightningVertices.Add(P);
+        lightningVertices.Add(P + new Vector3(1, 0, 0));
 
         move(Random.Range(0.0f, maxXStep), 0, 1f);
         turn(-90f);
@@ -166,7 +169,7 @@ public class LightningScript : MonoBehaviour
                     if (Random.value < 0.5f)
                     {
                         Quaternion rot = Quaternion.Euler(180f, 0f, 0f);
-                        GameObject lc = Instantiate(lightningLChild_Prefab, lightningSpawner.thunderPos + new Vector3(verts[verts.Count - 2].x + 0.4f, turtle.transform.position.y, 0), rot);
+                        GameObject lc = Instantiate(lightningLChild_Prefab, lightningSpawner.thunderPos + new Vector3(lightningVertices[lightningVertices.Count - 2].x + 0.4f, lightningTurtle.transform.position.y, 0), rot);
                         lc.transform.parent = gameObject.transform;
                         LightningLeftChildScript lcs = lc.GetComponent<LightningLeftChildScript>();
                         lcs.init();
@@ -175,7 +178,7 @@ public class LightningScript : MonoBehaviour
                     else
                     {
                         Quaternion rot = Quaternion.Euler(0f, 0f, 0f);
-                        GameObject rc = Instantiate(lightningRChild_Prefab, lightningSpawner.thunderPos + new Vector3(verts[verts.Count - 2].x + 0.4f, turtle.transform.position.y, 0), rot);
+                        GameObject rc = Instantiate(lightningRChild_Prefab, lightningSpawner.thunderPos + new Vector3(lightningVertices[lightningVertices.Count - 2].x + 0.4f, lightningTurtle.transform.position.y, 0), rot);
                         rc.transform.parent = gameObject.transform;
                         LightningRightChildScript rcs = rc.GetComponent<LightningRightChildScript>();
                         rcs.init();

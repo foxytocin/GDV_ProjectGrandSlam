@@ -19,7 +19,7 @@ public class LightningSpawner : MonoBehaviour {
     private float startVolume;
     public Vector3Int thunderPos;
 
-	// Use this for initialization
+	
 	void Awake()
     {
         cameraScroller = FindObjectOfType<CameraScroller>();

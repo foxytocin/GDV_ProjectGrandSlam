@@ -12,8 +12,7 @@ public class CameraScroller : MonoBehaviour
     private GameManager GameManager;
     private MenuDemoMode menuDemoMode;
 
-
-    // Use this for initialization
+    
     void Awake()
     {
         LevelGenerator = FindObjectOfType<LevelGenerator>();
