@@ -23,7 +23,6 @@ public class PlayerScript : MonoBehaviour
     private LevelGenerator levelGenerator;
     private BombSpawner bombSpawner;
     private BombRain bombrain;
-    private PowerUp powerup;
     private Houdini houdini;
     private RemoteBomb remoteBomb;
     public GhostSpawnerScript ghostSpawner;
@@ -43,7 +42,6 @@ public class PlayerScript : MonoBehaviour
     void Awake()
     {
         bombSpawner = FindObjectOfType<BombSpawner>();
-        powerup = FindObjectOfType<PowerUp>();
         remoteBombTimer = 0f;
         BombRainTimer = 0f;
         houdiniTimer = 0f;
@@ -87,13 +85,11 @@ public class PlayerScript : MonoBehaviour
         if (BombRainTimer > 0f)
         {
             bombrain.bombenregen = true;
-            powerup.bombrainfree = false;
             BombRainTimer -= Time.deltaTime;
         }
         else if (BombRainTimer <= 0f)
         {
             bombrain.bombenregen = false;
-            powerup.bombrainfree = true;
             BombRainTimer = 0f;
         }
 
