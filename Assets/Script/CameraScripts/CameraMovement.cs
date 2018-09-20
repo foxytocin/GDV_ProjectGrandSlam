@@ -126,7 +126,7 @@ public class CameraMovement : MonoBehaviour {
         }
         else
         {
-            StartCoroutine(HoldCamera(target, 0.9f));
+            StartCoroutine(HoldCamera(target, 1.0f));
         }
         
     }
