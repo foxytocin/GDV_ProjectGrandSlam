@@ -14,7 +14,7 @@ public class BombScript : MonoBehaviour
     private Vector3 bombPosition;       // Position an der die Bombe erzeugt wurde
     private float bombAngle;            // Zufaellige Y-Rotation beim Instanzieren der Bombe
     private int bombRotation;           // Steuert ob die Bombe sich recht- oder linkherum dreht
-    
+
     public AudioSource audioSource;
     public AudioClip audioZischen;
     private CameraShake cameraShake;
@@ -28,10 +28,10 @@ public class BombScript : MonoBehaviour
 
     // FlickerLight Parameter
     float MaxReduction = 1.0f;
-	float MaxIncrease = 1.0f;
-	float RateDamping = 0.1f;
-	float Strength = 300;
-	float baseIntensity;
+    float MaxIncrease = 1.0f;
+    float RateDamping = 0.1f;
+    float Strength = 300;
+    float baseIntensity;
 
     void Awake()
     {
@@ -53,7 +53,6 @@ public class BombScript : MonoBehaviour
         bombRotation = Random.value >= 0.5f ? 1 : -1;
     }
 
-
     // bombAnimation() wird vom BombSpawner nachdem Instanzieren der Bombe aufgerufen um sie "zu starten"
     // Durch den ObjectPool werden die Bomben erneut vewendet und benoetigen bei der Wiederverwendung diesen "Reset"
     public IEnumerator bombAnimation()
@@ -66,14 +65,14 @@ public class BombScript : MonoBehaviour
         baseIntensity = 3f;
         StartCoroutine(flicker());
 
-        //audioSource.PlayOneShot(audioZischen, (0.9f * audioManager.settingsFXVolume));
-
-        
         transform.eulerAngles += new Vector3(0, bombAngle, 0);
 
-        if(remoteBomb || bombrain) {
+        if (remoteBomb || bombrain)
+        {
             GetComponent<Renderer>().material.color = playerColor;
-        } else {
+        }
+        else
+        {
             GetComponent<Renderer>().material.color = bombColor;
         }
 
@@ -86,7 +85,7 @@ public class BombScript : MonoBehaviour
         // Bombe explodiert nach Ablauf des Timers (countDown) oder durch remoteBombe (Fernzuendung durch Player)
         while (gameObject != null && (countDown >= 0 || remoteBomb))
         {
-            if(levelGenerator.SecondaryGameObjects1[(int)transform.position.x, (int)transform.position.z] != null)
+            if (levelGenerator.SecondaryGameObjects1[(int)transform.position.x, (int)transform.position.z] != null)
             {
                 anglesBode = levelGenerator.SecondaryGameObjects1[(int)transform.position.x, (int)transform.position.z].gameObject.transform.localEulerAngles * 3f;
                 anglesRotation += new Vector3(0, 80f * (Time.deltaTime * bombRotation), 0);
@@ -96,13 +95,15 @@ public class BombScript : MonoBehaviour
             countDown -= Time.deltaTime;
             yield return null;
         }
-        
-        if(gameManager.gameStatePlay)
+
+        if (gameManager.gameStatePlay)
         {
             audioManager.stopSound("Bomb_zuendschnur");
             explode();
 
-        } else {
+        }
+        else
+        {
 
             audioManager.stopSound("Bomb_zuendschnur");
             pSystem.Stop();
@@ -112,7 +113,8 @@ public class BombScript : MonoBehaviour
     }
 
     // Steuert die Auswirkung der Explosion
-    void explode() {
+    void explode()
+    {
         bombPosition = transform.position;
 
         // Erschütterung der Kamera
@@ -128,33 +130,33 @@ public class BombScript : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    void BombRainExplode()
+    // void BombRainExplode()
+    // {
+
+    //     // Erschütterung der Kamera
+    //     cameraShake.StartCoroutine(cameraShake.Shake(0.3f, 0.135f));
+
+    //     // MapDestroyer wird aufgerufen um von der bombPosition und mit deren bombPower zu pruefen welche weiteren Felder um die Bombe herum explodieren muessen.
+    //     mapDestroyer.explode(bombPosition, bombPower, bombOwnerPlayerID);
+
+    //     // Bombe wird aus dem AllGameObject-Array "entfernt" damit Player wieder hindurchlaufen koennen
+    //     levelGenerator.AllGameObjects[(int)bombPosition.x, (int)bombPosition.z] = null;
+
+    //     // Bombe wird bis zur Wiederverwendung deaktiviert und zurueck in den ObjectPool gelegt
+    //     gameObject.SetActive(false);
+    // }
+
+    private IEnumerator flicker()
     {
-
-        // Erschütterung der Kamera
-        cameraShake.StartCoroutine(cameraShake.Shake(0.3f, 0.135f));
-
-        // MapDestroyer wird aufgerufen um von der bombPosition und mit deren bombPower zu pruefen welche weiteren Felder um die Bombe herum explodieren muessen.
-        mapDestroyer.explode(bombPosition, bombPower, bombOwnerPlayerID);
-
-        // Bombe wird aus dem AllGameObject-Array "entfernt" damit Player wieder hindurchlaufen koennen
-        levelGenerator.AllGameObjects[(int)bombPosition.x, (int)bombPosition.z] = null;
-
-        // Bombe wird bis zur Wiederverwendung deaktiviert und zurueck in den ObjectPool gelegt
-        gameObject.SetActive(false);
-    }
-	
-	private IEnumerator flicker()
-	{
-		while (true)
+        while (true)
         {
             bombLight.intensity = Mathf.Lerp(bombLight.intensity, Random.Range(baseIntensity - MaxReduction, baseIntensity + MaxIncrease), Strength * Time.deltaTime);
             yield return new WaitForSeconds(RateDamping);
         }
     }
-    
 
 
-               
+
+
 
 }

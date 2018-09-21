@@ -34,7 +34,7 @@ public class LevelGenerator : MonoBehaviour
     public GameObject[,] SecondaryGameObjects1;
     public GameObject[,] SecondaryGameObjects2;
     public GameObject[,] DistanceLines;
-    
+
     private int SectionDataOffset;
     private int rotation;
     private bool specialSection;
@@ -46,7 +46,6 @@ public class LevelGenerator : MonoBehaviour
     private GenerateDistanceLine GenerateDistanceLine;
     private MazeGenerator MazeGenerator;
     private EnemySpawner EnemySpawner;
-    private MenuDemoMode MenuDemoMode;
     private RulesScript RulesScript;
     private DayNightSwitch DayNightSwitch;
     private BombRain BombRain;
@@ -60,7 +59,7 @@ public class LevelGenerator : MonoBehaviour
     private const bool normalline = true;
     private const bool recordline = false;
 
-   
+
     // Use this for initialization
     void Awake()
     {
@@ -84,7 +83,6 @@ public class LevelGenerator : MonoBehaviour
         levelPool = new List<string[][]>();
         MazeGenerator = FindObjectOfType<MazeGenerator>();
         GenerateDistanceLine = FindObjectOfType<GenerateDistanceLine>();
-        MenuDemoMode = FindObjectOfType<MenuDemoMode>();
         RulesScript = FindObjectOfType<RulesScript>();
         EnemySpawner = FindObjectOfType<EnemySpawner>();
         DayNightSwitch = FindObjectOfType<DayNightSwitch>();
@@ -134,21 +132,25 @@ public class LevelGenerator : MonoBehaviour
     // int tiefe definiert wie wieviele Levelzeilen dauerhaft generiert sind
     public IEnumerator createStartBasis(int tiefe, bool animiert)
     {
-        if(!animiert)
+        if (!animiert)
         {
-            for (int i = 0; i < tiefe; i++) {
+            for (int i = 0; i < tiefe; i++)
+            {
                 createWorld(i);
                 yield return new WaitForSeconds(0.025f);
             }
 
-        } else {
+        }
+        else
+        {
 
-            for (int i = 0; i < tiefe; i++) {
+            for (int i = 0; i < tiefe; i++)
+            {
                 createWorld(i);
             }
         }
 
-        
+
     }
 
     // Steuert die Weltgenerierung
@@ -165,20 +167,23 @@ public class LevelGenerator : MonoBehaviour
     {
         // Es sind Levelabschnittsdaten im Buffer vorhaden. Diese werden zeilenweise geschrieben
         // dataBufferSize wird bei jeder geschriebenen Zeile um 1 vermindert
-        if(dataBufferSize > 0)
+        if (dataBufferSize > 0)
         {
             dataBufferSize--;
             StartCoroutine(drawLevelLine(CameraPosition));
 
-        // Ist die dataBufferSize == 0 wird ein neuer Levelabschnitt in den Buffer geladen
-        } else {
-            
+            // Ist die dataBufferSize == 0 wird ein neuer Levelabschnitt in den Buffer geladen
+        }
+        else
+        {
+
             SectionDataOffset = CameraPosition;
 
             int RandomValue = (int)(Random.Range(0f, 19f));
 
             // Wenn eine specialSection erlaubt wird, wird diese zuaellig ausgewählt und in den dataBuffer geschrieben
-            if(specialSection) {
+            if (specialSection)
+            {
 
                 specialSection = true;
                 generateKisten = true;
@@ -293,7 +298,8 @@ public class LevelGenerator : MonoBehaviour
 
                 // Erstellt einen Abschnitt als Maze
                 // mazeCalculated: Prueft ob das Maze komplett fertig berechnet ist
-                if(generateMaze && MazeGenerator.mazeCalculated) {
+                if (generateMaze && MazeGenerator.mazeCalculated)
+                {
                     levelSectionData = MazeGenerator.mazeLevelData;
                     dataBufferSize = levelSectionData.Length;
                     specialSection = false;
@@ -304,18 +310,22 @@ public class LevelGenerator : MonoBehaviour
                     generateMaze = false;
                     MazeGenerator.generateNewMaze();
 
-                } else if(generateMaze && !MazeGenerator.mazeCalculated) {
+                }
+                else if (generateMaze && !MazeGenerator.mazeCalculated)
+                {
 
-                // Wenn ein Maze erstellt werden sollte aber mazeCalculated != true war, dient das normale Level als fallback
-                levelSectionData = levelPool[1];
-                dataBufferSize = levelSectionData.Length;
-                specialSection = true;
-                generateKisten = true;
-                generateEnemies = true;
+                    // Wenn ein Maze erstellt werden sollte aber mazeCalculated != true war, dient das normale Level als fallback
+                    levelSectionData = levelPool[1];
+                    dataBufferSize = levelSectionData.Length;
+                    specialSection = true;
+                    generateKisten = true;
+                    generateEnemies = true;
                 }
 
-            // Ein normaler Levelabschnitt wird in den dataBuffer geschrieben
-            } else {
+                // Ein normaler Levelabschnitt wird in den dataBuffer geschrieben
+            }
+            else
+            {
 
                 levelSectionData = levelPool[1];
                 dataBufferSize = levelSectionData.Length;
@@ -336,16 +346,16 @@ public class LevelGenerator : MonoBehaviour
     // Kisten Menge wird auf einer RandomValue 0 - 20 % KistenMenge errechnet.
     private void setDifficulty(int row)
     {
-        switch(row)
+        switch (row)
         {
-            case 50:   KistenMenge = 10f; break;
-            case 150:  KistenMenge = 15f; break;
-            case 200:  KistenMenge = 20f; break;
-            case 300:  KistenMenge = 25f; break;
-            case 500:  KistenMenge = 30f; break;
-            case 700:  KistenMenge = 35f; break;
-            case 800:  KistenMenge = 40f; break;
-            case 900:  KistenMenge = 45f; break;
+            case 50: KistenMenge = 10f; break;
+            case 150: KistenMenge = 15f; break;
+            case 200: KistenMenge = 20f; break;
+            case 300: KistenMenge = 25f; break;
+            case 500: KistenMenge = 30f; break;
+            case 700: KistenMenge = 35f; break;
+            case 800: KistenMenge = 40f; break;
+            case 900: KistenMenge = 45f; break;
             case 1000: KistenMenge = 50f; break;
             case 1100: KistenMenge = 60f; break;
             default: break;
@@ -354,9 +364,11 @@ public class LevelGenerator : MonoBehaviour
 
 
     // Wird durch den DestroyScroller aufgerufen wenn dieser Z exakt um 1 weitergefahren ist
-    public void cleanLine(int CameraPosition) {
-        
-        if(CameraPosition >= 0) {
+    public void cleanLine(int CameraPosition)
+    {
+
+        if (CameraPosition >= 0)
+        {
 
             for (int i = 0; i < levelSectionData[0].Length - 1; i++)
             {
@@ -384,7 +396,7 @@ public class LevelGenerator : MonoBehaviour
                 cleanSecondGameArry(SecondaryGameObjects2, i, CameraPosition);
 
                 //Loescht die DistanceLine aus der Spielwelt wenn diese 10 Felder hinter der Camnera ist
-                if(i < 6)
+                if (i < 6)
                 {
                     cleanSecondGameArry(DistanceLines, i, CameraPosition);
                 }
@@ -394,7 +406,8 @@ public class LevelGenerator : MonoBehaviour
 
     private void cleanSecondGameArry(GameObject[,] arry, int xPos, int CameraPosition)
     {
-        if (arry[xPos, CameraPosition] != null) {
+        if (arry[xPos, CameraPosition] != null)
+        {
             FallScript fc = arry[xPos, CameraPosition].gameObject.GetComponent<FallScript>();
             if (fc != false)
                 fc.fallDown();
@@ -403,7 +416,8 @@ public class LevelGenerator : MonoBehaviour
 
 
     //Zeichnet die Linien der LevelSectionData zeilenweise. Abhängig vom Symbol der aktuellen Stelle (Gang, Wand, Kiste)
-    private IEnumerator drawLevelLine(int CameraPosition) {
+    private IEnumerator drawLevelLine(int CameraPosition)
+    {
 
         for (int i = 0; i < levelSectionData[0].Length - 1; i++)
         {
@@ -424,11 +438,13 @@ public class LevelGenerator : MonoBehaviour
 
         // Generiert alle X Meter die DistanceLine
         // Ausser die DistanceLine und die RecordLine sind auf der exakt gleichen Hoehe, dann die RecordLine vorrang
-        if(CameraPosition > startLinie && ((CameraPosition - (startLinie - 1)) == RulesScript.record))
+        if (CameraPosition > startLinie && ((CameraPosition - (startLinie - 1)) == RulesScript.record))
         {
             GenerateDistanceLine.createDistanceLine(CameraPosition, recordline);
 
-        } else if(CameraPosition > 10 && ((CameraPosition - (startLinie - 1)) % 25 == 0) ) {
+        }
+        else if (CameraPosition > 10 && ((CameraPosition - (startLinie - 1)) % 25 == 0))
+        {
 
             GenerateDistanceLine.createDistanceLine(CameraPosition, normalline);
         }
@@ -437,12 +453,13 @@ public class LevelGenerator : MonoBehaviour
 
 
     //Erzeugt eine Bodenplatte und zufällig eine Kiste
-    private void createGang(Vector3 pos, int CameraPosition) {
-        
+    private void createGang(Vector3 pos, int CameraPosition)
+    {
+
         SecondaryGameObjects1[(int)pos.x, (int)pos.z] = objectPooler.SpawnFromPool("Boden", pos - new Vector3(0, 0.1f, 0), Quaternion.identity);
 
         // Wird die 5 Zeile Boden generiert, wird dieser rot eingefaerbt, da dort der Countdown der Startline lauft
-        if(CameraPosition == startLinie)
+        if (CameraPosition == startLinie)
         {
             SecondaryGameObjects1[(int)pos.x, (int)pos.z].GetComponent<Renderer>().material.color = new Color32(149, 55, 55, 1);
         }
@@ -450,15 +467,17 @@ public class LevelGenerator : MonoBehaviour
         // Spawn ab der 15 Zeile jede ungerade Zeile im Level Enemys
         // Wenn im DayNightScript der NightModus aktivert ist, werden keine Enemys erzeugt
         // allowEnemies nur true wenn mehr als ein Player
-        if(allowEnemies && CameraPosition > 15 && CameraPosition % 2 != 0)
+        if (allowEnemies && CameraPosition > 15 && CameraPosition % 2 != 0)
         {
-            if((Random.value <= (EnemyMenge / 100f)) && generateEnemies && !DayNightSwitch.nightModus) {
+            if ((Random.value <= (EnemyMenge / 100f)) && generateEnemies && !DayNightSwitch.nightModus)
+            {
                 //Debug.Log("Enemy wird angefordert");
                 EnemySpawner.spawnEnemy((int)pos.x, (int)pos.z - 2);
             }
         }
-        
-        if((Random.value <= (KistenMenge / 100f)) && generateKisten) {
+
+        if ((Random.value <= (KistenMenge / 100f)) && generateKisten)
+        {
             rotation = Random.value > 0.5f ? 0 : 90;
             AllGameObjects[(int)pos.x, (int)pos.z] = objectPooler.SpawnFromPool("Kiste", pos + new Vector3(0f, 0.5f, 0f), Quaternion.Euler(0, rotation, 0));
         }
@@ -466,30 +485,34 @@ public class LevelGenerator : MonoBehaviour
 
 
     //Erzeug ein Stück Wand, einen Turm, oder einen Bogen
-    private void createWand(Vector3 pos, int CameraPosition) {
-        
+    private void createWand(Vector3 pos, int CameraPosition)
+    {
+
         int xPos = (int)pos.x;
         int zPos = (int)pos.z;
         bool createBogen = true;
-        
+
         // zPos > 5 damit im Startbereich keine Tuerme auf der Randmauer entstehen
-        if(Random.value <= (TurmMenge / 100f) && zPos > 5) {
-            
+        if (Random.value <= (TurmMenge / 100f) && zPos > 5)
+        {
+
             //Erzeugt einen Turm und deaktiviert das ein Bogen erzeugt werden kann
             AllGameObjects[xPos, zPos] = objectPooler.SpawnFromPool("Wand", pos, Quaternion.identity);
             SecondaryGameObjects1[xPos, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(0, 1, 0), Quaternion.identity);
             createBogen = false;
 
-        //Erzeugt ein normales Stück Wand
-        } else {
+            //Erzeugt ein normales Stück Wand
+        }
+        else
+        {
 
             AllGameObjects[xPos, zPos] = objectPooler.SpawnFromPool("Wand", pos, Quaternion.identity);
-            
+
             // Ezeugt glowBalls wenn generateGlowBalls durch den DayNightSwitch.cs auf true gesetzt wurde und deaktivert das ein Bogen erzeugt werden kann
             // Weitere Bedinungen: Nicht im DemoMode & Nicht auf Hoehe einer DistanzeLine
-            if(generateGlowBalls && (CameraPosition - (startLinie - 1)) % 25 != 0)
+            if (generateGlowBalls && (CameraPosition - (startLinie - 1)) % 25 != 0)
             {
-                if(Random.value > 0.95f)
+                if (Random.value > 0.95f)
                 {
                     SecondaryGameObjects1[(int)pos.x, (int)pos.z] = objectPooler.SpawnFromPool("GlowBall", pos + new Vector3(0f, 1f, 0f), Quaternion.identity);
                     createBogen = false;
@@ -502,125 +525,131 @@ public class LevelGenerator : MonoBehaviour
         // Zwischen den Wandstuecken müssen sich Bodenplatten befinden (damit werden nur über Gaenge Boegen gespannt)
         if (createBogen && Random.value <= (BogenMenge / 100f))
         {
-            if( Random.value > 0.45f && xPos > 2 &&
+            if (Random.value > 0.45f && xPos > 2 &&
                 SecondaryGameObjects1[xPos - 1, zPos] != null &&
-                AllGameObjects[xPos - 2, zPos] != null) {
+                AllGameObjects[xPos - 2, zPos] != null)
+            {
 
                 // Bogen in xRichtung
-                if( SecondaryGameObjects1[xPos - 1, zPos].CompareTag("Boden") &&
+                if (SecondaryGameObjects1[xPos - 1, zPos].CompareTag("Boden") &&
                     AllGameObjects[xPos - 2, zPos].CompareTag("Wand") &&
                     SecondaryGameObjects1[xPos - 2, zPos] == null)
                 {
                     // Ereugt die erste Saule des Bogens
                     SecondaryGameObjects1[xPos, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(0, 1, 0), Quaternion.identity);
                     SecondaryGameObjects2[xPos, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(0, 2, 0), Quaternion.identity);
-        
+
                     SecondaryGameObjects2[xPos - 1, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(-1, 2, 0), Quaternion.identity);
                     SecondaryGameObjects2[xPos - 2, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(-2, 2, 0), Quaternion.identity);
                     SecondaryGameObjects1[xPos - 2, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(-2, 1, 0), Quaternion.identity);
 
                     // Zweiter Bogenabschnitt (ergibt zusammen mit dem Ersten einen Doppelbogen)
-                    if( Random.value <= (BogenMenge / 100f) && xPos > 4 &&
+                    if (Random.value <= (BogenMenge / 100f) && xPos > 4 &&
                         SecondaryGameObjects1[xPos - 3, zPos] != null &&
                         AllGameObjects[xPos - 4, zPos] != null &&
                         SecondaryGameObjects1[xPos - 3, zPos].CompareTag("Boden") &&
                         AllGameObjects[xPos - 4, zPos].CompareTag("Wand") &&
                         SecondaryGameObjects1[xPos - 4, zPos] == null)
-                        {
-                            // Baut an den ersten Bogen nur die fehlenden Teile an     
-                            SecondaryGameObjects2[xPos - 3, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(-3, 2, 0), Quaternion.identity);
-                            SecondaryGameObjects2[xPos - 4, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(-4, 2, 0), Quaternion.identity);
-                            SecondaryGameObjects1[xPos - 4, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(-4, 1, 0), Quaternion.identity);
+                    {
+                        // Baut an den ersten Bogen nur die fehlenden Teile an     
+                        SecondaryGameObjects2[xPos - 3, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(-3, 2, 0), Quaternion.identity);
+                        SecondaryGameObjects2[xPos - 4, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(-4, 2, 0), Quaternion.identity);
+                        SecondaryGameObjects1[xPos - 4, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(-4, 1, 0), Quaternion.identity);
 
-                        }
+                    }
                 }
 
-            // Bogen in zRichtung
-            } else if(  zPos > 1  &&
-                        SecondaryGameObjects1[xPos, zPos - 1] != null &&
-                        AllGameObjects[xPos, zPos - 2] != null)
-                        {
+                // Bogen in zRichtung
+            }
+            else if (zPos > 1 &&
+                      SecondaryGameObjects1[xPos, zPos - 1] != null &&
+                      AllGameObjects[xPos, zPos - 2] != null)
+            {
 
-                        if( SecondaryGameObjects1[xPos, zPos - 1].CompareTag("Boden") &&
-                            AllGameObjects[xPos, zPos - 2].CompareTag("Wand") &&
-                            SecondaryGameObjects1[xPos, zPos - 2] == null)
-                        {
-                            //Ereugt die erste Saule des Bogens
-                            SecondaryGameObjects1[xPos, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(0, 1, 0), Quaternion.identity);
-                            SecondaryGameObjects2[xPos, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(0, 2, 0), Quaternion.identity);
-                
-                            SecondaryGameObjects2[xPos, zPos - 1] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(0, 2, -1), Quaternion.identity);
-                            SecondaryGameObjects2[xPos, zPos - 2] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(0, 2, -2), Quaternion.identity);
-                            SecondaryGameObjects1[xPos, zPos - 2] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(0, 1, -2), Quaternion.identity);
+                if (SecondaryGameObjects1[xPos, zPos - 1].CompareTag("Boden") &&
+                    AllGameObjects[xPos, zPos - 2].CompareTag("Wand") &&
+                    SecondaryGameObjects1[xPos, zPos - 2] == null)
+                {
+                    //Ereugt die erste Saule des Bogens
+                    SecondaryGameObjects1[xPos, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(0, 1, 0), Quaternion.identity);
+                    SecondaryGameObjects2[xPos, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(0, 2, 0), Quaternion.identity);
 
-                            // Zweiter Bogenabschnitt gedreht
-                            if( Random.value <= (BogenMenge / 100f) &&
-                                xPos > 2 &&
-                                SecondaryGameObjects1[xPos - 1, zPos] != null &&
-                                SecondaryGameObjects1[xPos - 2, zPos] == null &&
-                                SecondaryGameObjects1[xPos - 1, zPos].CompareTag("Boden") &&
-                                AllGameObjects[xPos - 2, zPos].CompareTag("Wand"))
-                            {
-                                // Baut an den ersten Bogen nur die fehlenden Teile an
-                                SecondaryGameObjects2[xPos - 1, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(-1, 2, 0), Quaternion.identity);
-                                SecondaryGameObjects2[xPos - 2, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(-2, 2, 0), Quaternion.identity);
-                                SecondaryGameObjects1[xPos - 2, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(-2, 1, 0), Quaternion.identity);
-                            }
-                        }
+                    SecondaryGameObjects2[xPos, zPos - 1] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(0, 2, -1), Quaternion.identity);
+                    SecondaryGameObjects2[xPos, zPos - 2] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(0, 2, -2), Quaternion.identity);
+                    SecondaryGameObjects1[xPos, zPos - 2] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(0, 1, -2), Quaternion.identity);
 
-            // Bogen über 3 Bodenplatten breite Gaenge
-            }  else if( xPos > 4 &&
+                    // Zweiter Bogenabschnitt gedreht
+                    if (Random.value <= (BogenMenge / 100f) &&
+                        xPos > 2 &&
                         SecondaryGameObjects1[xPos - 1, zPos] != null &&
-                        SecondaryGameObjects1[xPos - 2, zPos] != null &&
-                        SecondaryGameObjects1[xPos - 3, zPos] != null &&
-                        AllGameObjects[xPos - 4, zPos] != null) {
+                        SecondaryGameObjects1[xPos - 2, zPos] == null &&
+                        SecondaryGameObjects1[xPos - 1, zPos].CompareTag("Boden") &&
+                        AllGameObjects[xPos - 2, zPos].CompareTag("Wand"))
+                    {
+                        // Baut an den ersten Bogen nur die fehlenden Teile an
+                        SecondaryGameObjects2[xPos - 1, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(-1, 2, 0), Quaternion.identity);
+                        SecondaryGameObjects2[xPos - 2, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(-2, 2, 0), Quaternion.identity);
+                        SecondaryGameObjects1[xPos - 2, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(-2, 1, 0), Quaternion.identity);
+                    }
+                }
 
-                if( SecondaryGameObjects1[xPos - 1, zPos].CompareTag("Boden") &&
+                // Bogen über 3 Bodenplatten breite Gaenge
+            }
+            else if (xPos > 4 &&
+                     SecondaryGameObjects1[xPos - 1, zPos] != null &&
+                     SecondaryGameObjects1[xPos - 2, zPos] != null &&
+                     SecondaryGameObjects1[xPos - 3, zPos] != null &&
+                     AllGameObjects[xPos - 4, zPos] != null)
+            {
+
+                if (SecondaryGameObjects1[xPos - 1, zPos].CompareTag("Boden") &&
                     SecondaryGameObjects1[xPos - 2, zPos].CompareTag("Boden") &&
                     SecondaryGameObjects1[xPos - 3, zPos].CompareTag("Boden") &&
                     AllGameObjects[xPos - 4, zPos].CompareTag("Wand") &&
                     SecondaryGameObjects1[xPos - 4, zPos] == null)
-                    {
-                        // Ereugt die erste Saule des Bogens
-                        SecondaryGameObjects1[xPos, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(0, 1, 0), Quaternion.identity);
-                        SecondaryGameObjects2[xPos, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(0, 2, 0), Quaternion.identity);
-            
-                        SecondaryGameObjects2[xPos - 1, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(-1, 2, 0), Quaternion.identity);
-                        SecondaryGameObjects2[xPos - 2, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(-2, 2, 0), Quaternion.identity);
-                        SecondaryGameObjects2[xPos - 3, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(-3, 2, 0), Quaternion.identity);
-                        SecondaryGameObjects2[xPos - 4, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(-4, 2, 0), Quaternion.identity);
-                        SecondaryGameObjects1[xPos - 4, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(-4, 1, 0), Quaternion.identity);
-                    }
+                {
+                    // Ereugt die erste Saule des Bogens
+                    SecondaryGameObjects1[xPos, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(0, 1, 0), Quaternion.identity);
+                    SecondaryGameObjects2[xPos, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(0, 2, 0), Quaternion.identity);
 
-            // Bogen über 4 Bodenplatten breite Gaenge
-            }  else if( xPos > 5 &&
-                        SecondaryGameObjects1[xPos - 1, zPos] != null &&
-                        SecondaryGameObjects1[xPos - 2, zPos] != null &&
-                        SecondaryGameObjects1[xPos - 3, zPos] != null &&
-                        SecondaryGameObjects1[xPos - 4, zPos] != null &&
-                        AllGameObjects[xPos - 5, zPos] != null) {
+                    SecondaryGameObjects2[xPos - 1, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(-1, 2, 0), Quaternion.identity);
+                    SecondaryGameObjects2[xPos - 2, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(-2, 2, 0), Quaternion.identity);
+                    SecondaryGameObjects2[xPos - 3, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(-3, 2, 0), Quaternion.identity);
+                    SecondaryGameObjects2[xPos - 4, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(-4, 2, 0), Quaternion.identity);
+                    SecondaryGameObjects1[xPos - 4, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(-4, 1, 0), Quaternion.identity);
+                }
 
-                if( SecondaryGameObjects1[xPos - 1, zPos].CompareTag("Boden") &&
+                // Bogen über 4 Bodenplatten breite Gaenge
+            }
+            else if (xPos > 5 &&
+                     SecondaryGameObjects1[xPos - 1, zPos] != null &&
+                     SecondaryGameObjects1[xPos - 2, zPos] != null &&
+                     SecondaryGameObjects1[xPos - 3, zPos] != null &&
+                     SecondaryGameObjects1[xPos - 4, zPos] != null &&
+                     AllGameObjects[xPos - 5, zPos] != null)
+            {
+
+                if (SecondaryGameObjects1[xPos - 1, zPos].CompareTag("Boden") &&
                     SecondaryGameObjects1[xPos - 2, zPos].CompareTag("Boden") &&
                     SecondaryGameObjects1[xPos - 3, zPos].CompareTag("Boden") &&
                     SecondaryGameObjects1[xPos - 4, zPos].CompareTag("Boden") &&
                     AllGameObjects[xPos - 5, zPos].CompareTag("Wand") &&
                     SecondaryGameObjects1[xPos - 5, zPos] == null)
-                    {
-                        // Ereugt die erste Saule des Bogens
-                        SecondaryGameObjects1[xPos, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(0, 1, 0), Quaternion.identity);
-                        SecondaryGameObjects2[xPos, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(0, 2, 0), Quaternion.identity);
-            
-                        SecondaryGameObjects2[xPos - 1, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(-1, 2, 0), Quaternion.identity);
-                        SecondaryGameObjects2[xPos - 2, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(-2, 2, 0), Quaternion.identity);
-                        SecondaryGameObjects2[xPos - 3, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(-3, 2, 0), Quaternion.identity);
-                        SecondaryGameObjects2[xPos - 4, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(-4, 2, 0), Quaternion.identity);
-                        SecondaryGameObjects2[xPos - 5, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(-5, 2, 0), Quaternion.identity);
-                        SecondaryGameObjects1[xPos - 5, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(-5, 1, 0), Quaternion.identity);
-                    }
+                {
+                    // Ereugt die erste Saule des Bogens
+                    SecondaryGameObjects1[xPos, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(0, 1, 0), Quaternion.identity);
+                    SecondaryGameObjects2[xPos, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(0, 2, 0), Quaternion.identity);
+
+                    SecondaryGameObjects2[xPos - 1, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(-1, 2, 0), Quaternion.identity);
+                    SecondaryGameObjects2[xPos - 2, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(-2, 2, 0), Quaternion.identity);
+                    SecondaryGameObjects2[xPos - 3, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(-3, 2, 0), Quaternion.identity);
+                    SecondaryGameObjects2[xPos - 4, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(-4, 2, 0), Quaternion.identity);
+                    SecondaryGameObjects2[xPos - 5, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(-5, 2, 0), Quaternion.identity);
+                    SecondaryGameObjects1[xPos - 5, zPos] = objectPooler.SpawnFromPool("Wand", pos + new Vector3(-5, 1, 0), Quaternion.identity);
+                }
             }
         }
-        
+
     }
 
     //Erzeugt eine Kiste und Boden unter ihr

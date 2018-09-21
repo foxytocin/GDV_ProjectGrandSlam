@@ -2,65 +2,51 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemySpawner : MonoBehaviour {
-
+public class EnemySpawner : MonoBehaviour
+{
     public GameObject enemyPrefab;
-	private LevelGenerator levelGenerator;
-	private CameraScroller cameraScroller;
-	private GameManager gameManager;
-    
-	void Awake ()
-	{
-		levelGenerator = FindObjectOfType<LevelGenerator>();
-		cameraScroller = FindObjectOfType<CameraScroller>();
-		gameManager = FindObjectOfType<GameManager>();
-	}
-    
-	void Update ()
-	{
-		if(Input.GetKey("t") && gameManager.gameStatePlay)
-        {
-			Vector3Int spawnPos = new Vector3Int((int)Random.Range(3f, 28f), 0, cameraScroller.rowPosition + (int)Random.Range(10f, 60f));
-			spawnEnemy(spawnPos.x, spawnPos.z);
-        }
+    private LevelGenerator levelGenerator;
 
-	}
-
-	public void spawnEnemy(int xPos, int zPos)
-	{
-		checkWorld(xPos, zPos);
-	}
-
-	private void checkWorld(int xPos, int zPos)
+    void Awake()
     {
-		// Checkt ob die Stelle wo der Enemy gespawnt werden soll ein Stueck Boden ist
+        levelGenerator = FindObjectOfType<LevelGenerator>();
+    }
+
+    public void spawnEnemy(int xPos, int zPos)
+    {
+        checkWorld(xPos, zPos);
+    }
+
+    private void checkWorld(int xPos, int zPos)
+    {
+        // Checkt ob die Stelle wo der Enemy gespawnt werden soll ein Stueck Boden ist
         if (levelGenerator.SecondaryGameObjects1[xPos, zPos] != null)
         {
             if (levelGenerator.SecondaryGameObjects1[xPos, zPos].gameObject.CompareTag("Boden") && levelGenerator.AllGameObjects[xPos, zPos] == null)
             {
-				// Prueft ob der Enemy in mindestens eine Richtung gehen kann
-				if(	checkSurr(xPos + 1, zPos) ||
-					checkSurr(xPos - 1, zPos) ||
-					checkSurr(xPos, zPos + 1) ||
-					checkSurr(xPos, zPos - 1))
-				{
-					Instantiate(enemyPrefab, new Vector3(xPos, 0.43f, zPos), Quaternion.identity);
-				}
+                // Prueft ob der Enemy in mindestens eine Richtung gehen kann
+                if (checkSurr(xPos + 1, zPos) ||
+                    checkSurr(xPos - 1, zPos) ||
+                    checkSurr(xPos, zPos + 1) ||
+                    checkSurr(xPos, zPos - 1))
+                {
+                    Instantiate(enemyPrefab, new Vector3(xPos, 0.43f, zPos), Quaternion.identity);
+                }
             }
-    	}
-	}
+        }
+    }
 
-	// Preuft die Umfelder des Spawnpunktes. Gibt es keine Ausweg, wird kein Enemy gespawnt (z.B. Zwischen Kisten eingesperrt)
-	private bool checkSurr(int xPos, int zPos)
-	{
-		if (levelGenerator.SecondaryGameObjects1[xPos, zPos] != null)
+    // Preuft die Umfelder des Spawnpunktes. Gibt es keine Ausweg, wird kein Enemy gespawnt (z.B. Zwischen Kisten eingesperrt)
+    private bool checkSurr(int xPos, int zPos)
+    {
+        if (levelGenerator.SecondaryGameObjects1[xPos, zPos] != null)
         {
             if (levelGenerator.SecondaryGameObjects1[xPos, zPos].gameObject.CompareTag("Boden") && levelGenerator.AllGameObjects[xPos, zPos] == null)
             {
-				return true;
+                return true;
             }
-    	}
-		return false;
-	}
+        }
+        return false;
+    }
 
 }

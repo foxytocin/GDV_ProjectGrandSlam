@@ -4,24 +4,14 @@ using UnityEngine;
 
 public class EnemyScript : MonoBehaviour
 {
-
-
     public Vector3 target;
-    private Vector3 tmpVectorPos;
     private Vector3 actualDirection;
-
     private Vector3[] dirs;
-
     private LevelGenerator levelGenerator;
     public GhostSpawnerScript ghostSpawner;
-    private bool RichtungsAenderung; //true == z; false == x
     private float gravity;
-    private Material playerMaterial;
-    public Color32 playerColor;
     private AudioManager audioManager;
-    public bool resultScreenActive;
     private GameManager gameManager;
-    private AudioSource playerAudio;
     private CameraScroller cameraScroller;
     private MenuDemoMode MenuDemoMode;
     public float speed;
@@ -32,7 +22,6 @@ public class EnemyScript : MonoBehaviour
         ghostSpawner = FindObjectOfType<GhostSpawnerScript>();
         audioManager = FindObjectOfType<AudioManager>();
         gameManager = FindObjectOfType<GameManager>();
-        playerAudio = GetComponent<AudioSource>();
         cameraScroller = FindObjectOfType<CameraScroller>();
         MenuDemoMode = FindObjectOfType<MenuDemoMode>();
     }
@@ -40,101 +29,108 @@ public class EnemyScript : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        // Stattet die Gegener mit zufaelliger Farbe und Geschwindigkeit aus
         GetComponent<Renderer>().material.color = Random.ColorHSV(0f, 1f, 0.75f, 0.75f, 0.5f, 1f);
-        playerMaterial = GetComponent<Renderer>().material;
-        playerColor = playerMaterial.color;
-        //lastTmpVector = new Vector3(1f, 0f, 0f);
-        //lastDirection = new Vector3(1f, 0f, 0f);
         speed = Random.Range(1f, 4f);
-        Time.timeScale = 1.0f;
         target = transform.position;
         levelGenerator.AllGameObjects[(int)transform.position.x, (int)transform.position.z] = gameObject;
         gravity = 0f;
         transform.Rotate(0, 90, 0, Space.World);
-        resultScreenActive = false;
 
+        // Definiert moegliche Richtungsvektoren in welche der Gegener sich bewegen kann
         dirs = new Vector3[4];
         dirs[0] = new Vector3(1f, 0f, 0f);
         dirs[1] = new Vector3(-1f, 0f, 0f);
         dirs[2] = new Vector3(0f, 0f, 1f);
         dirs[3] = new Vector3(0f, 0f, -1f);
 
+        // Setzt zufaellig die erste Richtung in welches sich der Gegener bwegen soll
         actualDirection = dirs[(int)Random.Range(0f, 4f)];
     }
 
     void Update()
     {
+        // Lauft nur wenn der das Spiel wirklich gespielt wird
         if (gameManager.gameStatePlay || MenuDemoMode.demoRunning)
         {
-
-            if(transform.position != target)
+            if (transform.position != target)
             {
-                //Im Array aktuelle position loeschen wenn das objekt auch wirklich ein Player ist 
+                //Im Array aktuelle position loeschen wenn das objekt auch wirklich ein Enemy ist 
                 if (levelGenerator.AllGameObjects[(int)target.x, (int)target.z] != null &&
                     levelGenerator.AllGameObjects[(int)target.x, (int)target.z].gameObject.CompareTag("Enemy"))
-                        levelGenerator.AllGameObjects[(int)target.x, (int)target.z] = null;
+                    levelGenerator.AllGameObjects[(int)target.x, (int)target.z] = null;
 
-                    levelGenerator.AllGameObjects[(int)target.x, (int)target.z] = gameObject;
-                    transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
+                levelGenerator.AllGameObjects[(int)target.x, (int)target.z] = gameObject;
+                transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
 
-            } else {
-                
+            }
+            else
+            {
+
+                // Prueft ob der Weg weiterhin frei ist / Ermittelt neue Richtung
                 levelGenerator.AllGameObjects[(int)target.x, (int)target.z] = null;
                 actualDirection = MoveEnemy(actualDirection);
                 target += actualDirection;
                 levelGenerator.AllGameObjects[(int)target.x, (int)target.z] = gameObject;
             }
-        }    
+        }
     }
 
+    // Kollidiert der Player mit einem Gegener wird er getoetet
     private void OnTriggerEnter(Collider other)
     {
-        if(other != null)
+        if (other != null)
         {
             other.GetComponent<PlayerScript>().dead();
         }
     }
 
+    // Prueft ob der Weg weiterhin frei ist.
+    // Falls nicht wird eine neue Richtung ermittelt
     private Vector3 MoveEnemy(Vector3 tmp)
     {
         if (freeWay(tmp))
         {
             return tmp;
         }
-        else {
-
+        else
+        {
             return getNewDirection(checkNeighbors(tmp));
         }
     }
 
+    // Aus den moeglichen freien Wegen wird zufaellig einer ausgewaehlt und als neuer Richtugnsvektor returned
     private Vector3 getNewDirection(List<Vector3> list)
     {
-        if(list.Count !=  0)
+        if (list.Count != 0)
         {
             int newDirIndex = (int)Random.Range(0f, list.Count);
-            return list[newDirIndex];       
-        } else {
+            return list[newDirIndex];
+        }
+        else
+        {
             return Vector3.zero;
         }
-         
+
     }
 
+    // Ermittelt moegliche freie Wege wenn der Gegner gegen eine Hindernis gelaufen ist
     private List<Vector3> checkNeighbors(Vector3 currentDirection)
     {
         List<Vector3> availablePaths = new List<Vector3>();
 
         availablePaths.Clear();
 
-        for(int i = 0; i < 4; i++)
+        for (int i = 0; i < 4; i++)
         {
             if (currentDirection != dirs[i])
             {
-                if(freeWay(dirs[i]))
+                if (freeWay(dirs[i]))
                 {
                     availablePaths.Add(dirs[i]);
                 }
             }
-        }        
+        }
         return availablePaths;
     }
 
@@ -147,7 +143,7 @@ public class EnemyScript : MonoBehaviour
         if (levelGenerator.AllGameObjects[xPos, zPos] == null && zPos < cameraScroller.rowPosition + levelGenerator.tiefeLevelStartBasis)
         {
             // Zu 5% wechselt der Enemy seine Richtung zufällig
-            if(Random.value >= 0.95f)
+            if (Random.value >= 0.95f)
             {
                 return false;
             }
@@ -161,9 +157,10 @@ public class EnemyScript : MonoBehaviour
             }
             return true;
         }
-        else {
+        else
+        {
 
-            if(levelGenerator.AllGameObjects[xPos, zPos] != null)
+            if (levelGenerator.AllGameObjects[xPos, zPos] != null)
             {
                 GameObject go = levelGenerator.AllGameObjects[xPos, zPos].gameObject;
                 switch (go.tag)
@@ -179,12 +176,11 @@ public class EnemyScript : MonoBehaviour
                         return true;
 
                     case "Enemy":
-                        //Debug.Log("Enemy hat sich selber gefunden, geht zurück!");
                         return false;
 
                     case "Player":
                         return true;
-                        
+
                     default:
                         break;
                 }
@@ -229,43 +225,4 @@ public class EnemyScript : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private bool soundNotPlaying = true;
-    public float rollingSoundDelay = 0.2f;
-    private void movingSound(bool moving)
-    {
-        if (moving && soundNotPlaying)
-        {
-            playerAudio.volume = 0.2f;
-            soundNotPlaying = false;
-            playerAudio.Play();
-
-        }
-        else if (!moving && !soundNotPlaying)
-        {
-
-            if (rollingSoundDelay > 0f)
-            {
-                rollingSoundDelay -= Time.deltaTime;
-
-            }
-            else
-            {
-
-                if (playerAudio.volume > 0f)
-                {
-                    playerAudio.volume -= Time.deltaTime;
-
-                }
-                else
-                {
-                    soundNotPlaying = true;
-                    playerAudio.Pause();
-                    rollingSoundDelay = 0.2f;
-                    playerAudio.volume = 0.2f;
-                }
-
-            }
-
-        }
-    }
 }

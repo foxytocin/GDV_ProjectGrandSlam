@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour {
+public class GameManager : MonoBehaviour
+{
 
     private PlayerSpawner playerSpawner;
     private AudioManager audioManager;
@@ -41,26 +42,31 @@ public class GameManager : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update ()
+    void Update()
     {
-        if(Input.GetKeyDown("c"))
+        //Blendet eine MiniMap des Levels ein
+        if (Input.GetKeyDown("c"))
         {
-            if(showMiniMap)
+            if (showMiniMap)
             {
                 miniMapCanvas.enabled = false;
                 miniMapCam.enabled = false;
                 showMiniMap = false;
-            } else {
+            }
+            else
+            {
                 miniMapCam.enabled = true;
                 miniMapCanvas.enabled = true;
                 showMiniMap = true;
             }
         }
 
-        if(player != playertmp) {
+        // Veraendert die Anzahl der generierten Player
+        if (player != playertmp)
+        {
             playertmp = player;
             playerSpawner.setPlayers(player);
-            playerSpawner.createPlayers();            
+            playerSpawner.createPlayers();
 
             switch (player)
             {
@@ -73,40 +79,42 @@ public class GameManager : MonoBehaviour {
         }
 
         // Wird das mehr als einem Player gestartet, werden die Enemys aus dem Startscreen aus dem Level entfernt
-        if(player > 1 && levelGenerator.allowEnemies && gameStatePlay)
+        if (player > 1 && levelGenerator.allowEnemies && gameStatePlay)
         {
             levelGenerator.allowEnemies = false;
             levelGenerator.generateEnemies = false;
-            
+
             GameObject[] list = GameObject.FindGameObjectsWithTag("Enemy");
 
-		    foreach (GameObject go in list)
+            foreach (GameObject go in list)
             {
-                if(go != null)
+                if (go != null)
                 {
                     Destroy(go);
                 }
             }
         }
-        
+
         // Blendet die Enemys im Startscreen aus wenn mehr als ein Player ausgewählt ist
         // Blendet die Enemys wieder ein, wenn Singleplayer ausgewält wird
-        if(player > 1 && levelGenerator.allowEnemies && !gameStatePlay) {
+        if (player > 1 && levelGenerator.allowEnemies && !gameStatePlay)
+        {
 
             GameObject[] list = GameObject.FindGameObjectsWithTag("Enemy");
-		    foreach (GameObject go in list)
+            foreach (GameObject go in list)
             {
-                if(go != null)
+                if (go != null)
                 {
                     go.GetComponent<MeshRenderer>().enabled = false;
                 }
             }
-        } else if(player == 1 && levelGenerator.allowEnemies && !gameStatePlay)
+        }
+        else if (player == 1 && levelGenerator.allowEnemies && !gameStatePlay)
         {
             GameObject[] list = GameObject.FindGameObjectsWithTag("Enemy");
-		    foreach (GameObject go in list)
+            foreach (GameObject go in list)
             {
-                if(go != null)
+                if (go != null)
                 {
                     go.GetComponent<MeshRenderer>().enabled = true;
                 }
@@ -114,16 +122,18 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    // Blockiert und gibt die das Spiel frei
+    // CameraScroller, DestroyScroller, DemoModus, PlayerControlls haengen von diesen Werten ab
+    // unlock: Wenn man tatsaechlich im Spiel ist
+    // lock: Wenn man sich im Menue befindet, der DemoMode lauft oder im Spiel auf Pause gedrueckt wird
     public void unlockControlls()
     {
         gameStatePlay = true;
-        //Debug.Log("UNLOCKED");
     }
 
     public void lockControlls()
     {
         gameStatePlay = false;
-        //Debug.Log("LOCKED");
     }
 
 }

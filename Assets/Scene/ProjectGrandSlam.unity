@@ -4780,6 +4780,13 @@ MonoBehaviour:
     pitch: 1
     source: {fileID: 0}
     loop: 0
+  - name: Music8
+    clip: {fileID: 8300000, guid: 9cba9ba81af11cd4b8e561a5a89882de, type: 3}
+    groundVolume: 0.5
+    volume: 0.5
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
   settingsFXVolume: 0
   settingsMusicVolume: 0
   musicAtStart: 1
