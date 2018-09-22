@@ -9,8 +9,8 @@ public class CameraDirection : MonoBehaviour {
     public Vector3 targetCamPos;
     private CameraMovement cm;
     private RulesScript rules;
-    private Vector3 dirFromMeToTarget;
-    private Quaternion lookRot;
+    private Vector3 vectorFromCamToTarget;
+    private Quaternion lookRotation;
     private float orbitSpeed = 0.01f;
     float offsetCamLookAtTarget;
 
@@ -42,9 +42,9 @@ public class CameraDirection : MonoBehaviour {
                 if (transform.position.y <= 2.1f)
                 {
                     target = cm.centerPoint - new Vector3(offsetCamLookAtTarget, 0, 0);
-                    dirFromMeToTarget = target - transform.position;
-                    lookRot = Quaternion.LookRotation(dirFromMeToTarget);
-                    transform.rotation = Quaternion.Lerp(transform.rotation, lookRot, Time.deltaTime * (degreesPerSecond / 360f));
+                    vectorFromCamToTarget = target - transform.position;
+                    lookRotation = Quaternion.LookRotation(vectorFromCamToTarget);
+                    transform.rotation = Quaternion.Lerp(transform.rotation, lookRotation, Time.deltaTime * (degreesPerSecond / 360f));
                     transform.Translate(Vector3.left * Mathf.Clamp(orbitSpeed, 0.001f, 0.9f) * Time.deltaTime);
                     orbitSpeed += 0.003f;
                     offsetCamLookAtTarget -= 0.01f;
@@ -55,13 +55,11 @@ public class CameraDirection : MonoBehaviour {
                 {
                     target = cm.centerPoint - new Vector3(2f, 0, 0);
                     targetCamPos = target + new Vector3(-2.5f, 2f, -4f);
-                    //Vector3 targetPosition = Vector3.Lerp(transform.position, new Vector3(this.transform.position.x, 0, target.z), 4f * Time.deltaTime);
                     transform.position = Vector3.Lerp(transform.position, targetCamPos, 0.75f * Time.deltaTime);
-                    //transform.Translate(Vector3.right * Time.deltaTime);
 
-                    dirFromMeToTarget = target - transform.position;
-                    lookRot = Quaternion.LookRotation(dirFromMeToTarget);
-                    transform.rotation = Quaternion.Lerp(transform.rotation, lookRot, Time.deltaTime * (degreesPerSecond / 360f));
+                    vectorFromCamToTarget = target - transform.position;
+                    lookRotation = Quaternion.LookRotation(vectorFromCamToTarget);
+                    transform.rotation = Quaternion.Lerp(transform.rotation, lookRotation, Time.deltaTime * (degreesPerSecond / 360f));
 
                     if (Camera.main.transform.localEulerAngles.y < 10)
                     {
@@ -90,11 +88,9 @@ public class CameraDirection : MonoBehaviour {
             {
                 target = cm.centerPoint - new Vector3(0, 0, (cm.MaxZDistancePlayers() - 14f) * 0.4f);
             }
-            dirFromMeToTarget = target - transform.position;
-            //dirFromMeToTarget.x = 0f;
-            //dirFromMeToTarget.y = 0f;
-            lookRot = Quaternion.LookRotation(dirFromMeToTarget);
-            transform.rotation = Quaternion.Lerp(transform.rotation, lookRot, Time.deltaTime * (degreesPerSecond / 360f));
+            vectorFromCamToTarget = target - transform.position;
+            lookRotation = Quaternion.LookRotation(vectorFromCamToTarget);
+            transform.rotation = Quaternion.Lerp(transform.rotation, lookRotation, Time.deltaTime * (degreesPerSecond / 360f));
 
             // Limit lookAt Rotation
             if (Camera.main.transform.localEulerAngles.y < 10)
