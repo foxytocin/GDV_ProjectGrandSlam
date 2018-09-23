@@ -83,81 +83,78 @@ public class DayNightSwitch : MonoBehaviour
 
     void Update()
     {
-        if (!menuDemoMode.demoAllowed || true)
+        if (!nightModus && isDay)
         {
-            if (!nightModus && isDay)
+            if (pastTime < duration)
             {
-                if (pastTime < duration)
-                {
-                    pastTime += Time.deltaTime;
-                }
-                else
-                {
-                    nightModus = true;
-                    pastTime = 0f;
-                    duration = Random.value * 50f;
-                }
+                pastTime += Time.deltaTime;
             }
-            else if (!isDay)
+            else
             {
-
-                if (pastTime < duration)
-                {
-                    pastTime += Time.deltaTime;
-                }
-                else
-                {
-                    nightModus = false;
-                    pastTime = 0f;
-                    duration = Random.value * 75f;
-                }
+                nightModus = true;
+                pastTime = 0f;
+                duration = Random.value * 50f;
             }
+        }
+        else if (!isDay)
+        {
 
-            if (nightModus && isDay)
+            if (pastTime < duration)
             {
-                if (update)
-                {
-                    update = false;
-                    startRowPos = cameraScroller.rowPosition;
-                }
+                pastTime += Time.deltaTime;
+            }
+            else
+            {
+                nightModus = false;
+                pastTime = 0f;
+                duration = Random.value * 75f;
+            }
+        }
 
-                levelGenerator.generateGlowBalls = true;
-                if (cameraScroller.rowPosition > startRowPos + worldOffest - 10)
-                {
-                    isDay = false;
-                    update = true;
-                    switchToNight();
-
-                    if (!menuDemoMode.demoAllowed)
-                        playerLightOn();
-
-                    generateDistanceLine.generateGlowStangen = true;
-                    checkGlowDistanceLines();
-                }
+        if (nightModus && isDay)
+        {
+            if (update)
+            {
+                update = false;
+                startRowPos = cameraScroller.rowPosition;
             }
 
-
-            if (!nightModus && !isDay)
+            levelGenerator.generateGlowBalls = true;
+            if (cameraScroller.rowPosition > startRowPos + worldOffest - 10)
             {
-                if (update)
-                {
-                    update = false;
-                    startRowPos = cameraScroller.rowPosition;
-                }
+                isDay = false;
+                update = true;
+                switchToNight();
 
-                levelGenerator.generateGlowBalls = false;
-                if (cameraScroller.rowPosition > startRowPos + worldOffest - 5)
-                {
-                    isDay = true;
-                    update = true;
-                    switchToDay();
+                if (!menuDemoMode.demoAllowed)
+                    playerLightOn();
 
-                    if (!menuDemoMode.demoAllowed)
-                        playerLightOff();
+                generateDistanceLine.generateGlowStangen = true;
+                checkGlowDistanceLines();
+            }
+        }
 
-                    generateDistanceLine.generateGlowStangen = false;
-                    checkGlowDistanceLines();
-                }
+
+        if (!nightModus && !isDay)
+        {
+            if (update)
+            {
+                update = false;
+                startRowPos = cameraScroller.rowPosition;
+            }
+
+            levelGenerator.generateGlowBalls = false;
+            if (cameraScroller.rowPosition > startRowPos + worldOffest - 5)
+            {
+                isDay = true;
+                update = true;
+                switchToDay();
+
+                if (!menuDemoMode.demoAllowed)
+                    playerLightOff();
+
+                generateDistanceLine.generateGlowStangen = false;
+                checkGlowDistanceLines();
             }
         }
     }
