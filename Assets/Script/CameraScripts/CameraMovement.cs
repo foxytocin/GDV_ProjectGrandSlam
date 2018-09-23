@@ -45,6 +45,7 @@ public class CameraMovement : MonoBehaviour {
             miniMapCam.positon(centerPoint);
 
             Vector3 local = transform.InverseTransformPoint(centerPoint);
+            //Begrenzung der Horizontalen-Achse um max. 4 nach vorne & hinten 
             float z = Mathf.Clamp(local.z / 2f, -4f, 4f);
 
             Vector3 targetPos = new Vector3(centerPoint.x - 12f, 0f, z - OffsetAccordingToMaxDistance());
@@ -64,12 +65,9 @@ public class CameraMovement : MonoBehaviour {
         numPlayers = rulesScript.playerIsLive;
         Vector3 center = Vector3.zero;
    
+        //Anzahl Spieler pro Runde
         roundPlayers = playerSpawner.playerList.Count;
-        if(gameManager.gameStatePlay && numPlayers == 0)
-        {
-            return new Vector3(200, 0, 0);
-        }
-        else if (numPlayers == 1)
+        if (numPlayers == 1)
         {
             foreach(GameObject go in playerSpawner.playerList)
             {
@@ -101,8 +99,7 @@ public class CameraMovement : MonoBehaviour {
 
             center = (minPos + maxPos) * 0.5f;
             return center;   
-        }
-        
+        }        
         return center;
     }
 
