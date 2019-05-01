@@ -1,7 +1,7 @@
 # Project: GrandSlam
 
 ### Abschluss-Projekt für das Modul GraphDat / Digitale Medien SS2018 Hochschule Fulda
-![alt text](http://anfuchs.de/grandslamcollage.png "Grand Slam")
+![alt text](https://anfuchs.de/grandslamcollage.png "Grand Slam")
 Philipp Körber, Joshua Hirsch ,Sebastian Krah, Andreas Fuchs
 
 ## Beschreibung
@@ -124,7 +124,7 @@ ________________________________________________________________________________
  _____________________________________________________________________________________________________________________________
 
 ### 31.08.2018 Betaphase
-  ![alt text](http://anfuchs.de/grandslammakingof.png "MakingOf")
+  ![alt text](https://anfuchs.de/grandslammakingof.png "MakingOf")
 #### Prozedurale Levelgenerierung mit steigendem Schwierigkeitsgrad:
   * Endlosse Levelgenerierung
   * Textdateibasierende Levelgrundrisse in zufälliger Kombination
