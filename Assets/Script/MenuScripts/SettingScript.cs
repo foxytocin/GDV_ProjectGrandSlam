@@ -35,6 +35,10 @@ public class SettingScript : MonoBehaviour
         resolutionDropdown.AddOptions(options);
         resolutionDropdown.value = currentResolutionIndex;
         resolutionDropdown.RefreshShownValue();
+
+
+        setQuality(3);
+        Screen.SetResolution(1920, 1080, true);
     }
 
     public void settingFX(float fxVolume)
@@ -47,18 +51,18 @@ public class SettingScript : MonoBehaviour
         Debug.Log(musicVolume);
     }
 
-    public void setResolution (int resolutionIndex)
+    public void setResolution(int resolutionIndex)
     {
         Resolution newResolution = resolutions[resolutionIndex];
         Screen.SetResolution(newResolution.width, newResolution.height, Screen.fullScreen);
     }
 
-    public void setQuality (int quality)
+    public void setQuality(int quality)
     {
         QualitySettings.SetQualityLevel(quality);
     }
 
-    public void setFullscrenn (bool isFullscreen)
+    public void setFullscrenn(bool isFullscreen)
     {
         Screen.fullScreen = isFullscreen;
     }

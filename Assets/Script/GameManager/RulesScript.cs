@@ -210,9 +210,9 @@ public class RulesScript : MonoBehaviour
         reach.SetActive(true);
 
         recordsText.SetText("The Last Three Records:\n"+
-                            "1:\t" + distanzRecords[0] + " Meter\n" +
-                            "2:\t" + distanzRecords[1] + " Meter\n" +
-                            "3:\t" + distanzRecords[2] + " Meter\n" );
+                            "1: " + distanzRecords[0] + " Meter\n" +
+                            "2: " + distanzRecords[1] + " Meter\n" +
+                            "3: " + distanzRecords[2] + " Meter\n" );
                            
 
         recordsTextfield.SetActive(true);

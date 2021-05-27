@@ -30,9 +30,9 @@ MonoBehaviour:
     m_Settings:
       excludeSkybox: 1
   antialiasing:
-    m_Enabled: 0
+    m_Enabled: 1
     m_Settings:
-      method: 0
+      method: 1
       fxaaSettings:
         preset: 1
       taaSettings:
@@ -72,7 +72,7 @@ MonoBehaviour:
   depthOfField:
     m_Enabled: 1
     m_Settings:
-      focusDistance: 30.301018
+      focusDistance: 40.91474
       aperture: 6
       focalLength: 170
       useCameraFov: 0
