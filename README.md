@@ -1,8 +1,9 @@
 # Project: GrandSlam
 
 ### Abschluss-Projekt für das Modul GraphDat / Digitale Medien SS2018 Hochschule Fulda
-![alt text](https://anfuchs.de/grandslamcollage.png "Grand Slam")
-Philipp Körber, Joshua Hirsch ,Sebastian Krah, Andreas Fuchs
+!["Grand Slam"](https://anfuchs.de/img/grandslamcollage.png)
+Philipp Körber, Joshua Hirsch ,Sebastian Krah, Andreas Fuchs<br/>
+Dokumentation auf https://anfuchs.de/project_grand_slam
 
 ## Beschreibung
 „Project Grand Slam“ beinhaltet einen „Battle“ Modus, in dem sich bis zu vier Spieler in einem Labyrinth wiederfinden und packenden Gefechten liefern, bis der Sieger feststeht. Inspiriert durch „Bomberman“, bringt „Project Grand Slam“ das bekannte Spielprinzip des “Bomben Gefechts” in die moderne Videospiel-Ära und präsentiert sich in einer verzwickten, dreidimensionalen Spielumgebung. Steuer deinen Charakter „Slam“ durch das Spielareal, platziere deine Bomben und gehe rechtzeitig aus dem Weg, bevor du dich selbst in die Luft jagst! Nutze deine Bomben geschickt, um deine Kontrahenten auszuschalten, bevor diese es tun! Zerstöre Kisten, die dir den Weg versperren, und kämpfe dich so durch das Labyrinth!
